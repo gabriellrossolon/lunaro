@@ -12,6 +12,8 @@ public class PlayerFSM : MonoBehaviour
     private PlayerStatus _playerStatus;
     public StateMachine FSM => _fsm;
 
+    public GameObject _handsPOV;
+
     [Header("Debug")]
     public string _currentState; // Nova variável para armazenar o estado atual
 
@@ -29,8 +31,7 @@ public class PlayerFSM : MonoBehaviour
         _fsm.AddState("Move", new PlayerMoveState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus));
         _fsm.AddState("Jump", new PlayerJumpState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus));
         _fsm.AddState("Fall", new PlayerFallState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus));
-
-
+        _fsm.AddState("Combat", new PlayerCombatState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV));
 
         _fsm.SetInitialState("Idle"); // Define o estado inicial
     }
@@ -72,6 +73,10 @@ public class PlayerFSM : MonoBehaviour
         else if (_fsm.CurrentState is PlayerFallState)
         {
             _currentState = "Fall";
+        }
+        else if (_fsm.CurrentState is PlayerCombatState)
+        {
+            _currentState = "Combat";
         }
     }
 }
