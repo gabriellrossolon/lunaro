@@ -10,6 +10,8 @@ public class PlayerCombatState : IState
     private readonly PlayerStatus _playerStatus;
     private readonly GameObject _handsPOV;
 
+    private WeaponBehavior _weaponBehavior;
+
     public PlayerCombatState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, Transform playerTransform, Transform cameraTransform, PlayerStatus playerStatus, GameObject handsPOV)
     {
         _fsm = fsm;
@@ -23,7 +25,8 @@ public class PlayerCombatState : IState
 
     public void OnEnter() 
     {
-        _handsPOV.SetActive(true); 
+        _handsPOV.SetActive(true);
+        _weaponBehavior = _handsPOV.GetComponentInChildren<WeaponBehavior>();
     }
     public void OnExit() 
     {
@@ -34,7 +37,7 @@ public class PlayerCombatState : IState
     public void OnTick()
     {
         Attack();
-        //AttackCooldown();
+        Block();
         CombatMovement();
         StateChange();
     }
@@ -44,8 +47,19 @@ public class PlayerCombatState : IState
         if (_inputHandler.attackInput)
         {
             _inputHandler.attackInput = false;
-            _handsPOV.GetComponentInChildren<WeaponBehavior>().attack = true;
+            _weaponBehavior.attack = true;
+        }
+    }
 
+    private void Block()
+    {
+        if (_inputHandler.blockInput)
+        {
+            _weaponBehavior.block = true;
+        }
+        else
+        {
+            _weaponBehavior.block = false;
         }
     }
 
@@ -62,6 +76,6 @@ public class PlayerCombatState : IState
     {
         if (Input.GetKeyDown(KeyCode.R)) _fsm.SetState("Idle");
         if (!_controller.isGrounded) _fsm.SetState("Fall");
-        if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
+        //if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
     }
 }
