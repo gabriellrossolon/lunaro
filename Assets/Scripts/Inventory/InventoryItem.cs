@@ -7,8 +7,15 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     private Vector3 originalPosition;
+    [HideInInspector] public Transform previousParent;
 
     void Awake()
+    {
+        InitializeComponents();
+        previousParent = transform.parent;
+    }
+
+    private void InitializeComponents()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
@@ -16,32 +23,62 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        originalPosition = rectTransform.position; // Armazena a posição original
+        StoreOriginalPosition();
+        SetDraggableState();
+    }
+
+    private void StoreOriginalPosition()
+    {
+        originalPosition = rectTransform.position;
+        previousParent = transform.parent;
+    }
+
+    private void SetDraggableState()
+    {
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.position = eventData.position;
+        UpdateItemPosition(eventData.position);
+    }
+
+    private void UpdateItemPosition(Vector3 newPosition)
+    {
+        rectTransform.position = newPosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
+        ResetDraggableState();
 
-        if (!eventData.pointerEnter || eventData.pointerEnter.GetComponent<InventorySlot>() == null)
+        if (ShouldReturnItem(eventData))
         {
-            // Se o item não for solto em um slot válido, retorna à posição original
-            rectTransform.position = originalPosition;
-        }
-        else
-        {
-            // Se o item for solto em um slot válido, centraliza o item no slot
-            InventorySlot slot = eventData.pointerEnter.GetComponent<InventorySlot>();
-            RectTransform slotRect = slot.GetComponent<RectTransform>();
-            rectTransform.position = slotRect.position;
+            ReturnItemToOriginalPosition();
         }
     }
+
+    private void ResetDraggableState()
+    {
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    private bool ShouldReturnItem(PointerEventData eventData)
+    {
+        // Verifica se o item foi solto no mesmo slot ou em nenhum slot válido
+        return eventData.pointerEnter == null || eventData.pointerEnter.GetComponent<InventorySlot>() == null ||
+               eventData.pointerEnter.transform == previousParent;
+    }
+
+    private void ReturnItemToOriginalPosition()
+    {
+        // Coloca o item de volta ao seu parent original
+        transform.SetParent(previousParent);
+
+        // Centraliza o item dentro do slot
+        transform.localPosition = Vector3.zero;
+    }
 }
+

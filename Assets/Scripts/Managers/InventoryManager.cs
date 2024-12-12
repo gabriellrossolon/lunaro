@@ -1,80 +1,163 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this) Destroy(this);
-        else Instance = this;
-    }
-
+    [Header("Player References")]
     public GameObject handsPOV;
     public GameObject rightHandHolder;
     public WeaponBehavior rightWeaponBehavior;
 
-    private GameObject lastInstantiatedObject;
+    [Header("Inventory References")]
+    public Transform inventoryGrid;
+    public GameObject inventorySlotPrefab;
+    public GameObject inventoryItemPrefab;
 
+    [Header("Inventory")]
     public List<ScriptableObject> inventoryItems = new List<ScriptableObject>();
 
-    [Header("Equipped Weapon")]
+    [Header("Equipped Items")]
     public Weapon equippedWeapon;
 
+    private GameObject lastInstantiatedObject;
+
+    // Inicializa a instância e configura as referências
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
+    // Gera os slots do inventário ao iniciar o jogo
     private void Start()
     {
-        EquipWeapon();
+        GenerateInventorySlots();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R)) EquipWeapon();
-    }
-
-    public void EquipWeapon()
-    {
-        if (equippedWeapon == null || equippedWeapon.weaponPrefab == null) return;
-
-        if (lastInstantiatedObject != null) Destroy(lastInstantiatedObject);
-
-        lastInstantiatedObject = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
-
-        rightWeaponBehavior.sword = equippedWeapon.sword;
-        rightWeaponBehavior.staff = equippedWeapon.staff;
-
-        if (lastInstantiatedObject.GetComponent<SwordBehavior>() != null)
-        {
-            lastInstantiatedObject.GetComponent<SwordBehavior>().damage = equippedWeapon.damage;
-        }
-        else if (lastInstantiatedObject.GetComponent<StaffBehavior>() != null)
-        {
-            rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
-            lastInstantiatedObject.GetComponent<StaffBehavior>().damage = equippedWeapon.damage;
-
-            rightWeaponBehavior.projectileExitPoint = lastInstantiatedObject.GetComponent<StaffBehavior>().projectileExit;
-        }
-    }
-
+    // Adiciona um item ao inventário e atualiza a UI
     public void AddItem(ScriptableObject item)
     {
         if (!inventoryItems.Contains(item))
         {
             inventoryItems.Add(item);
+            GenerateInventorySlots();
         }
     }
 
+    // Remove um item do inventário e atualiza a UI
     public void RemoveItem(ScriptableObject item)
     {
         if (inventoryItems.Contains(item))
         {
             inventoryItems.Remove(item);
+            GenerateInventorySlots();
         }
     }
 
+    // Equipar a arma a partir do inventário
     public void EquipWeaponFromInventory(Weapon weapon)
     {
         equippedWeapon = weapon;
         EquipWeapon();
+    }
+
+    // Equipar a arma atual, instanciando no personagem
+    public void EquipWeapon()
+    {
+        ClearPreviousWeapon();
+
+        if (equippedWeapon == null || equippedWeapon.weaponPrefab == null)
+        {
+            ResetWeaponBehavior();
+            return;
+        }
+
+        InstantiateAndSetupWeapon();
+    }
+
+    // Limpa a arma anterior
+    private void ClearPreviousWeapon()
+    {
+        if (lastInstantiatedObject != null)
+            Destroy(lastInstantiatedObject);
+    }
+
+    // Reseta os comportamentos da arma
+    private void ResetWeaponBehavior()
+    {
+        rightWeaponBehavior.sword = false;
+        rightWeaponBehavior.staff = false;
+    }
+
+    // Instancia e configura a nova arma
+    private void InstantiateAndSetupWeapon()
+    {
+        lastInstantiatedObject = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
+
+        rightWeaponBehavior.sword = equippedWeapon.sword;
+        rightWeaponBehavior.staff = equippedWeapon.staff;
+
+        if (lastInstantiatedObject.TryGetComponent<SwordBehavior>(out var swordBehavior))
+        {
+            swordBehavior.damage = equippedWeapon.damage;
+        }
+        else if (lastInstantiatedObject.TryGetComponent<StaffBehavior>(out var staffBehavior))
+        {
+            rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
+            staffBehavior.damage = equippedWeapon.damage;
+            rightWeaponBehavior.projectileExitPoint = staffBehavior.projectileExit;
+        }
+    }
+
+    // Gera os slots de inventário com base nos itens do inventário
+    public void GenerateInventorySlots()
+    {
+        // Limpa os slots existentes (caso tenha algum)
+        foreach (Transform child in inventoryGrid)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Gera os slots de inventário com base nos itens no inventário
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            // Instancia o prefab de InventorySlot
+            GameObject slotObject = Instantiate(inventorySlotPrefab, inventoryGrid);
+
+            // Verifica se o item não é nulo antes de criar o InventoryItem
+            if (inventoryItems[i] != null)
+            {
+                // Instancia o prefab de InventoryItem dentro do InventorySlot
+                GameObject inventoryItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
+
+                // Associa o item ScriptableObject ao InventoryItem
+                InventoryItem inventoryItem = inventoryItemObject.GetComponent<InventoryItem>();
+                if (inventoryItem != null)
+                {
+                    inventoryItem.item = inventoryItems[i];
+
+                    // Obtem o componente Image do InventoryItem
+                    Image inventoryItemImage = inventoryItem.GetComponent<Image>();
+
+                    // Usando reflexão para procurar o campo "icon" no ScriptableObject
+                    var iconField = inventoryItems[i].GetType().GetField("icon");
+                    if (iconField != null)
+                    {
+                        Sprite icon = iconField.GetValue(inventoryItems[i]) as Sprite;
+                        if (inventoryItemImage != null && icon != null)
+                        {
+                            inventoryItemImage.sprite = icon; // Atribui o sprite
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -59,6 +59,5 @@ public class WeaponBehavior : MonoBehaviour
     {
         SwordBehavior swordBehavior = GetComponentInChildren<SwordBehavior>();
         swordBehavior.colliderEnabled = !swordBehavior.colliderEnabled;
-
     }
 }

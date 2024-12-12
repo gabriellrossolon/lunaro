@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    void Start()
+    public static GameManager Instance { get; private set; }
+    private void Awake()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
+
 }

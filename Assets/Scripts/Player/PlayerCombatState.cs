@@ -27,6 +27,7 @@ public class PlayerCombatState : IState
     {
         _handsPOV.SetActive(true);
         _weaponBehavior = _handsPOV.GetComponentInChildren<WeaponBehavior>();
+        InventoryManager.Instance.EquipWeapon();
     }
     public void OnExit() 
     {
