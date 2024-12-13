@@ -31,8 +31,8 @@ public class PlayerCombatState : IState
     }
     public void OnExit() 
     {
-        _handsPOV.GetComponent<Animator>().SetTrigger("Exit");
-        _handsPOV.SetActive(false); 
+        //_handsPOV.GetComponent<Animator>().SetTrigger("Exit");
+        //_handsPOV.SetActive(false); 
     }
     public void OnFixedTick() { }
     public void OnTick()
@@ -77,6 +77,6 @@ public class PlayerCombatState : IState
     {
         if (Input.GetKeyDown(KeyCode.R)) _fsm.SetState("Idle");
         if (!_controller.isGrounded) _fsm.SetState("Fall");
-        //if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
+        if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
     }
 }

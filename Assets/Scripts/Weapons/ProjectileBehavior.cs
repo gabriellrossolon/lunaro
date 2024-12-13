@@ -5,6 +5,7 @@ public class ProjectileBehavior : MonoBehaviour
     public float speed = 10f;
     private Vector3 direction;
     private Rigidbody rb;
+    public GameObject collisionParticle;
 
     private void Awake()
     {
@@ -30,7 +31,12 @@ public class ProjectileBehavior : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+        }
+
+        if (!other.CompareTag("Player"))
+        {
+            Instantiate(collisionParticle, transform.position, transform.rotation);
             Destroy(this.gameObject);
         }
     }

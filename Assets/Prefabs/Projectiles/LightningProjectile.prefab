@@ -34,7 +34,7 @@ Transform:
   m_LocalScale: {x: 0.32129744, y: 0.32129744, z: 0.32129744}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8536821854475398337}
+  - {fileID: 3049932321256949923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &676548844670082531
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  collisionParticle: {fileID: 1141330259687333427, guid: e2463b5e0706f444c8b8a6d32d86b2b4, type: 3}
 --- !u!54 &8706362586488924142
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -151,7 +152,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &806370889884842635
+--- !u!1001 &6276792453496430313
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -159,10 +160,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4495105386037248411}
     m_Modifications:
-    - target: {fileID: 309908454665629572, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
-      propertyPath: m_Intensity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 496487244642044110, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -173,15 +170,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027514048236820042, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.48735
+      value: 0.3636
       objectReference: {fileID: 0}
     - target: {fileID: 9027514048236820042, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.48735
+      value: 0.3636
       objectReference: {fileID: 0}
     - target: {fileID: 9027514048236820042, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.48735
+      value: 0.3636
       objectReference: {fileID: 0}
     - target: {fileID: 9027514048236820042, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
       propertyPath: m_LocalPosition.x
@@ -236,8 +233,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
---- !u!4 &8536821854475398337 stripped
+--- !u!4 &3049932321256949923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9027514048236820042, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
-  m_PrefabInstance: {fileID: 806370889884842635}
+  m_PrefabInstance: {fileID: 6276792453496430313}
   m_PrefabAsset: {fileID: 0}

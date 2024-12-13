@@ -6,11 +6,13 @@ public class SwordBehavior : MonoBehaviour
     public bool colliderEnabled = false;
 
     [HideInInspector] public MeshCollider meshColl;
+    public GameObject collisionParticle;
 
     private void Awake()
     {
         meshColl = GetComponent<MeshCollider>();
     }
+
     private void Update()
     {
         meshColl.enabled = colliderEnabled;
@@ -19,8 +21,12 @@ public class SwordBehavior : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
+        {      
+            //Destroy(other.gameObject);
+        }
+        if (!other.CompareTag("Player"))
         {
-            Destroy(other.gameObject);
+            Instantiate(collisionParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         }
     }
 }

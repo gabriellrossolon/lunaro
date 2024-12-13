@@ -1,4 +1,6 @@
 using UnityEngine;
+using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class HudManager : MonoBehaviour
 {
@@ -14,45 +16,36 @@ public class HudManager : MonoBehaviour
     }
 
     [Header("References")]
-    public GameObject playerEquips;
-    public GameObject playerInventory;
     public GameObject inventory;
+    public CinemachineVirtualCamera virtualCamera;
+    public PlayerInput playerInput;
 
     [Header("Controllers")]
-    private bool openedPlayerEquips = false;
-    private bool openedPlayerInventory = false;
+    private bool openedInventory = false;
 
     private void Update()
     {
         UpdateCursorState();
-        OpenEquips();
         OpenInventory();
     }
 
     private void UpdateCursorState()
     {
-        // Verifica se algum elemento do HUD está ativo
-        bool hudIsOpen = openedPlayerEquips || openedPlayerInventory;
+        bool hudIsOpen = openedInventory;
 
-        // Configura o cursor conforme o estado do HUD
         if (hudIsOpen)
         {
-            Cursor.lockState = CursorLockMode.None; // Cursor não confinado
-            Cursor.visible = true; // Cursor visível
+            Cursor.lockState = CursorLockMode.None; 
+            Cursor.visible = true;
+            virtualCamera.enabled = false;
+            playerInput.enabled = false;
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked; // Cursor confinado
-            Cursor.visible = false; // Cursor invisível
-        }
-    }
-
-    private void OpenEquips()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            openedPlayerEquips = !openedPlayerEquips;
-            playerEquips.SetActive(openedPlayerEquips);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            virtualCamera.enabled = true;
+            playerInput.enabled = true;
         }
     }
 
@@ -60,10 +53,8 @@ public class HudManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            openedPlayerInventory = !openedPlayerInventory;
-            inventory.SetActive(openedPlayerInventory);
+            openedInventory = !openedInventory;
+            inventory.SetActive(openedInventory);
         }
     }
-
-    
 }

@@ -44,5 +44,6 @@ public class PlayerMoveState : IState
         if (!_controller.isGrounded) _fsm.SetState("Fall");
         if (_inputHandler.moveInput == Vector2.zero) { _fsm.SetState("Idle"); }
         if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
+        if (_inputHandler.attackInput || Input.GetKeyDown(KeyCode.R) || _inputHandler.blockInput) _fsm.SetState("Combat");
     }
 }

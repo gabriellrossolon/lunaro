@@ -6,6 +6,9 @@ public class WeaponBehavior : MonoBehaviour
     [HideInInspector] public bool block;
     private Animator weaponAnim;
 
+    [Header("Only if Melee")]
+    private bool changeAttack;
+
     [Header("Only if Ranged")]
     public GameObject projectilePrefab;
     public GameObject projectileExitPoint;
@@ -43,9 +46,17 @@ public class WeaponBehavior : MonoBehaviour
         weaponAnim.SetTrigger("staffAttack"); 
     }
 
-    private void ExecuteSwordAttack()
+    public void ExecuteSwordAttack()
     {
-        weaponAnim.SetTrigger("swordAttack");
+        if (changeAttack)
+        {
+            weaponAnim.SetTrigger("swordAttackUD");
+        }
+        else
+        {
+            weaponAnim.SetTrigger("swordAttackRL");
+        }
+        changeAttack = !changeAttack;
     }
 
     public void CallProjectile()
