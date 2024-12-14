@@ -4,6 +4,7 @@ public class WeaponBehavior : MonoBehaviour
 {
     [HideInInspector] public bool attack;
     [HideInInspector] public bool block;
+    public bool canAttack = true;
     private Animator weaponAnim;
 
     [Header("Only if Melee")]
@@ -48,15 +49,23 @@ public class WeaponBehavior : MonoBehaviour
 
     public void ExecuteSwordAttack()
     {
-        if (changeAttack)
+        if (canAttack)
         {
-            weaponAnim.SetTrigger("swordAttackUD");
-        }
-        else
-        {
-            weaponAnim.SetTrigger("swordAttackRL");
-        }
-        changeAttack = !changeAttack;
+            if (changeAttack)
+            {
+                weaponAnim.SetTrigger("swordAttackRL");
+            }
+            else
+            {
+                weaponAnim.SetTrigger("swordAttackUD");
+            }
+            changeAttack = !changeAttack;
+        } 
+    }
+
+    public void CanAttack()
+    {
+        canAttack = !canAttack;
     }
 
     public void CallProjectile()

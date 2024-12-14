@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8435949844272043228}
   - component: {fileID: 671818552550442502}
   - component: {fileID: 7180790577981365344}
-  - component: {fileID: 2917176406495129091}
+  - component: {fileID: 2115599951317935754}
+  - component: {fileID: 6516280402430587173}
   m_Layer: 0
   m_Name: Scarecrown
   m_TagString: Enemy
@@ -27,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2906625977068171334}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -24.27365, y: -0.4, z: -11.908609}
   m_LocalScale: {x: 73.55353, y: 73.55353, z: 73.55353}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &671818552550442502
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94,8 +95,35 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2917176406495129091
-MeshCollider:
+--- !u!54 &2115599951317935754
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906625977068171334}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!65 &6516280402430587173
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -112,7 +140,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2128599272216676504, guid: 957350cb2fc81724b91e6ad656641c45, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.03, y: 0.01, z: 0.041824095}
+  m_Center: {x: 0.0001642318, y: 0.0009165648, z: 0.025839342}

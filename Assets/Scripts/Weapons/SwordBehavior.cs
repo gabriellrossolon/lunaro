@@ -5,17 +5,17 @@ public class SwordBehavior : MonoBehaviour
     public float damage;
     public bool colliderEnabled = false;
 
-    [HideInInspector] public MeshCollider meshColl;
+    [HideInInspector] public BoxCollider weaponColl;
     public GameObject collisionParticle;
 
     private void Awake()
     {
-        meshColl = GetComponent<MeshCollider>();
+        weaponColl = GetComponent<BoxCollider>();
     }
 
     private void Update()
     {
-        meshColl.enabled = colliderEnabled;
+        weaponColl.enabled = colliderEnabled;
     }
 
     private void OnTriggerEnter(Collider other)
