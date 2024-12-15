@@ -762,7 +762,7 @@ Transform:
   m_GameObject: {fileID: 5744713}
   serializedVersion: 2
   m_LocalRotation: {x: -0.20528972, y: 0.7080484, z: -0.22861199, w: -0.63581455}
-  m_LocalPosition: {x: 3.565462, y: 14.173056, z: 0.3421924}
+  m_LocalPosition: {x: 3.565462, y: 13.143056, z: 0.3421924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13931,7 +13931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &149834097
 Transform:
   m_ObjectHideFlags: 0
@@ -28268,7 +28268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.80484205, z: 0, w: 0.5934891}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -111150,7 +111150,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
-    Value: 0
+    Value: -107.19
     m_SpeedMode: 1
     m_MaxSpeed: 2
     m_AccelTime: 0.1
@@ -113053,6 +113053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _handsPOV: {fileID: 149834096}
   _currentState: 
+  _previousState: 
 --- !u!4 &1475888317
 Transform:
   m_ObjectHideFlags: 0
@@ -113062,7 +113063,7 @@ Transform:
   m_GameObject: {fileID: 1475888312}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.29, y: 1.97, z: -0.81}
+  m_LocalPosition: {x: -3.29, y: 0.94, z: -0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

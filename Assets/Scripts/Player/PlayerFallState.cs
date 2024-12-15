@@ -51,6 +51,6 @@ public class PlayerFallState : IState
 
     private void StateChange()
     {
-        if (_controller.isGrounded) _fsm.SetState("Idle");
+        if (_controller.isGrounded) { _fsm.SetState("Idle"); }
     }
 }

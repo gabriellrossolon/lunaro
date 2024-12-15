@@ -10,8 +10,9 @@ public class PlayerMoveState : IState
     private readonly Transform _playerTransform;
     private readonly Transform _cameraTransform;
     private readonly PlayerStatus _playerStatus;
+    private readonly GameObject _handsPOV;
 
-    public PlayerMoveState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, Transform playerTransform, Transform cameraTransform, PlayerStatus playerStatus)
+    public PlayerMoveState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, Transform playerTransform, Transform cameraTransform, PlayerStatus playerStatus, GameObject handsPOV)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -19,6 +20,7 @@ public class PlayerMoveState : IState
         _playerTransform = playerTransform;
         _cameraTransform = cameraTransform;
         _playerStatus = playerStatus;
+        _handsPOV = handsPOV;
     }
 
     public void OnEnter() { }
@@ -26,6 +28,10 @@ public class PlayerMoveState : IState
     public void OnFixedTick() { }
     public void OnTick()
     {
+        if (Input.GetKey(KeyCode.R) && _handsPOV.activeSelf)
+        {
+            _handsPOV.GetComponent<Animator>().SetTrigger("Exit");
+        }
         Movement();
         StateChange();
     }
@@ -44,6 +50,10 @@ public class PlayerMoveState : IState
         if (!_controller.isGrounded) _fsm.SetState("Fall");
         if (_inputHandler.moveInput == Vector2.zero) { _fsm.SetState("Idle"); }
         if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
-        if (_inputHandler.attackInput || Input.GetKeyDown(KeyCode.R) || _inputHandler.blockInput) _fsm.SetState("Combat");
+        if (Input.GetKeyDown(KeyCode.R) && !_handsPOV.activeSelf)
+        {
+            _fsm.SetState("Combat");
+        }
+        if (_inputHandler.attackInput) _fsm.SetState("Combat");
     }
 }

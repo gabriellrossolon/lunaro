@@ -14,8 +14,9 @@ public interface IState
 // A StateMachine em si, que vai ser responsável por manter uma lista de estados e fazer as transições
 public class StateMachine
 {
-    public Dictionary<string, IState> States = new();
-    public IState CurrentState;
+    public Dictionary<string, IState> States = new(); // Dicionário de estados
+    public IState CurrentState { get; private set; } // Estado atual
+    public IState PreviousState { get; private set; } // Estado anterior (novo)
 
     public virtual void Tick() => CurrentState?.OnTick();
     public virtual void FixedTick() => CurrentState?.OnFixedTick();
@@ -33,20 +34,36 @@ public class StateMachine
 
     public void SetState(string key)
     {
-        if (States.TryGetValue(key, out IState state))
+        if (States.TryGetValue(key, out IState newState))
         {
+            // Salva o estado atual como o estado anterior antes de fazer a transição
+            PreviousState = CurrentState;
+
+            // Sai do estado atual
             CurrentState?.OnExit();
-            CurrentState = state;
+
+            // Define o novo estado e chama o OnEnter
+            CurrentState = newState;
             CurrentState.OnEnter();
         }
         else
         {
-            throw new ArgumentException("Invalid state key.");
+            throw new ArgumentException($"Invalid state key: {key}");
         }
     }
 
     public void SetInitialState(string key)
     {
-        SetState(key);
+        if (States.TryGetValue(key, out IState initialState))
+        {
+            CurrentState = initialState;
+            PreviousState = null; // Nenhum estado anterior no início
+            CurrentState.OnEnter();
+        }
+        else
+        {
+            throw new ArgumentException($"Invalid initial state key: {key}");
+        }
     }
 }
+
