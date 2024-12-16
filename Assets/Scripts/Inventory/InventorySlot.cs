@@ -1,10 +1,12 @@
-using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    public enum SlotType { Inventory, Weapon }
+    public enum SlotType { Inventory, Weapon, Nothing }
     public SlotType slotType;
+
+    [SerializeField] public int slotIndex;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -12,117 +14,166 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
         if (draggedItem != null)
         {
-            // Verifica se o slot já contém um item
             if (transform.childCount > 0)
             {
                 var existingItem = transform.GetChild(0).GetComponent<InventoryItem>();
-                HandleItemDrop(draggedItem, existingItem);
+                SwapItems(draggedItem, existingItem);
             }
             else
             {
-                // Slot vazio: coloca o item diretamente
                 PlaceItemInSlot(draggedItem);
             }
         }
     }
 
-    private void HandleItemDrop(InventoryItem draggedItem, InventoryItem existingItem)
-    {
-        // Determina a ação com base no tipo do slot
-        switch (slotType)
-        {
-            case SlotType.Inventory:
-                SwapItems(draggedItem, existingItem);
-                break;
-
-            case SlotType.Weapon:
-                // Verifica se o item sendo arrastado é uma arma
-                if (draggedItem.item is Weapon)
-                {
-                    EquipWeapon(draggedItem.item as Weapon);
-                    SwapItems(draggedItem, existingItem);
-                }
-                else
-                {
-                    ReturnItemToPreviousParent(draggedItem);
-                }
-                break;
-
-            default:
-                ReturnItemsToPreviousParents(draggedItem, existingItem);
-                break;
-        }
-    }
-
-    private void EquipWeapon(Weapon weapon)
-    {
-        // Equipar a arma via InventoryManager
-        InventoryManager.Instance.EquipWeaponFromInventory(weapon);
-        InventoryManager.Instance.handsPOV.SetActive(false);
-        InventoryManager.Instance.handsPOV.SetActive(true);
-    }
-
-    private void SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
-    {
-        // Guarda os pais anteriores
-        Transform draggedPreviousParent = draggedItem.previousParent;
-        Transform existingPreviousParent = existingItem.previousParent;
-
-        // Troca os itens de lugar
-        draggedItem.transform.SetParent(transform);
-        draggedItem.transform.localPosition = Vector3.zero;
-
-        existingItem.transform.SetParent(draggedPreviousParent);
-        existingItem.transform.localPosition = Vector3.zero;
-
-        // Atualiza os pais registrados
-        draggedItem.previousParent = transform;
-        existingItem.previousParent = draggedPreviousParent;
-    }
-
+    // Place the item in the current slot, ensuring it's valid for the slot type
     private void PlaceItemInSlot(InventoryItem draggedItem)
     {
-        // Verifica compatibilidade do tipo antes de adicionar
-        if (slotType == SlotType.Weapon && !(draggedItem.item is Weapon))
+        // Check if the item is compatible with the slot type
+        if (!IsItemCompatibleWithSlot(draggedItem))
         {
-            Debug.LogWarning($"Item '{draggedItem.item.name}' não pode ser colocado em um slot do tipo Weapon.");
             ReturnItemToPreviousParent(draggedItem);
             return;
         }
 
-        // Coloca o item no slot
+        // Place the item in the slot and update the inventory list
         draggedItem.transform.SetParent(transform);
         draggedItem.transform.localPosition = Vector3.zero;
         draggedItem.previousParent = transform;
 
-        // Equipar se for uma arma e o slot for de arma
+        UpdateInventoryList(draggedItem);
+
+        // Equip the item if it's a weapon
+        EquipWeaponIfNeeded(draggedItem);
+    }
+
+    // Check if the item is compatible with the slot type
+    private bool IsItemCompatibleWithSlot(InventoryItem draggedItem)
+    {
+        return !(slotType == SlotType.Weapon && !(draggedItem.item is Weapon));
+    }
+
+    // Equip the weapon if the item is a weapon
+    private void EquipWeaponIfNeeded(InventoryItem draggedItem)
+    {
         if (slotType == SlotType.Weapon && draggedItem.item is Weapon weapon)
         {
             EquipWeapon(weapon);
         }
     }
 
+    // Swap the items between the current slot and the dragged item
+    private void SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
+    {
+        if (!IsItemCompatibleWithSlot(draggedItem))
+        {
+            ReturnItemToPreviousParent(draggedItem);
+            return;
+        }
+
+        Transform draggedPreviousParent = draggedItem.previousParent;
+        Transform existingPreviousParent = existingItem.previousParent;
+
+        // Swap the positions of the items
+        draggedItem.transform.SetParent(transform);
+        draggedItem.transform.localPosition = Vector3.zero;
+
+        existingItem.transform.SetParent(draggedPreviousParent);
+        existingItem.transform.localPosition = Vector3.zero;
+
+        // Update the previous parents
+        draggedItem.previousParent = transform;
+        existingItem.previousParent = draggedPreviousParent;
+
+        // Update the inventory list
+        UpdateInventoryList(draggedItem);
+        UpdateInventoryList(existingItem);
+
+        // Equip the new weapon if needed
+        EquipWeaponIfNeeded(draggedItem);
+    }
+
+    // Remove the item from the current slot
+    public void RemoveItemFromSlot()
+    {
+        if (transform.childCount > 0)
+        {
+            var itemToRemove = transform.GetChild(0).GetComponent<InventoryItem>();
+            if (itemToRemove != null)
+            {
+                itemToRemove.transform.SetParent(null);
+                itemToRemove.transform.localPosition = Vector3.zero;
+                UpdateInventoryList(itemToRemove);
+            }
+        }
+    }
+
+    // Equip a weapon from the inventory
+    private void EquipWeapon(Weapon weapon)
+    {
+        InventoryManager.Instance.EquipWeaponFromInventory(weapon);
+        RefreshHandsPOV();
+    }
+
+    // Handle the refresh of the hands POV after equipping a weapon
+    private void RefreshHandsPOV()
+    {
+        InventoryManager.Instance.handsPOV.SetActive(false);
+        InventoryManager.Instance.handsPOV.SetActive(true);
+    }
+
+    // Return the dragged item to its previous parent if it is invalid
     private void ReturnItemToPreviousParent(InventoryItem draggedItem)
     {
-        // Retorna o item ao seu local original
         draggedItem.transform.SetParent(draggedItem.previousParent);
         draggedItem.transform.localPosition = Vector3.zero;
     }
 
-    private void ReturnItemsToPreviousParents(InventoryItem draggedItem, InventoryItem existingItem)
-    {
-        // Retorna ambos os itens para seus locais originais
-        ReturnItemToPreviousParent(draggedItem);
-        existingItem.transform.SetParent(existingItem.previousParent);
-        existingItem.transform.localPosition = Vector3.zero;
-    }
-
     private void Update()
     {
-        // Garante que se o slot de Weapon ficar vazio, a arma equipada seja desativada
+        UpdateItemIndex();
+        HandleEmptyWeaponSlot();
+    }
+
+    // Update the inventory list with the item from the current slot
+    private void UpdateItemIndex()
+    {
+        if (slotType == SlotType.Inventory)
+        {
+            InventoryItem childItem = GetComponentInChildren<InventoryItem>();
+            InventoryManager.Instance.inventoryItems[slotIndex] = childItem?.item;
+        }
+    }
+
+    // Handle the case when the weapon slot is empty
+    private void HandleEmptyWeaponSlot()
+    {
         if (slotType == SlotType.Weapon && transform.childCount == 0)
         {
             InventoryManager.Instance.EquipWeaponFromInventory(null);
         }
     }
+
+    // Update the inventory list when an item is placed in the slot
+    private void UpdateInventoryList(InventoryItem draggedItem)
+    {
+        var inventoryList = InventoryManager.Instance.inventoryItems;
+
+        if (slotIndex >= 0 && slotIndex < inventoryList.Count)
+        {
+            var previousIndex = inventoryList.IndexOf(draggedItem.item);
+            if (previousIndex != -1 && previousIndex != slotIndex)
+            {
+                inventoryList[previousIndex] = null;
+            }
+
+            inventoryList[slotIndex] = draggedItem.item;
+        }
+        else
+        {
+            Debug.LogWarning($"Índice {slotIndex} fora dos limites da lista de inventário.");
+        }
+    }
 }
+
+

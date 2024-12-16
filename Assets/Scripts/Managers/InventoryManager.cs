@@ -46,18 +46,31 @@ public class InventoryManager : MonoBehaviour
     {
         if (!inventoryItems.Contains(item))
         {
+            // Se o item não estiver no inventário, buscamos o primeiro índice vazio e colocamos o item lá
+            for (int i = 0; i < inventoryItems.Count; i++)
+            {
+                if (inventoryItems[i] == null) // Encontrar um índice vazio
+                {
+                    inventoryItems[i] = item;
+                    GenerateInventorySlots(); // Atualiza a UI
+                    return;
+                }
+            }
+
+            // Se não houver índices vazios, adicionamos o item ao final da lista
             inventoryItems.Add(item);
-            GenerateInventorySlots();
+            GenerateInventorySlots(); // Atualiza a UI
         }
     }
 
     // Remove um item do inventário e atualiza a UI
     public void RemoveItem(ScriptableObject item)
     {
-        if (inventoryItems.Contains(item))
+        int index = inventoryItems.IndexOf(item);
+        if (index >= 0)
         {
-            inventoryItems.Remove(item);
-            GenerateInventorySlots();
+            inventoryItems[index] = null; // Limpa o item no índice, sem remover o índice
+            GenerateInventorySlots(); // Atualiza a UI
         }
     }
 
@@ -131,6 +144,13 @@ public class InventoryManager : MonoBehaviour
             // Instancia o prefab de InventorySlot
             GameObject slotObject = Instantiate(inventorySlotPrefab, inventoryGrid);
 
+            // Define o índice do slot
+            InventorySlot slot = slotObject.GetComponent<InventorySlot>();
+            if (slot != null)
+            {
+                slot.slotIndex = i; // Atribui o índice ao slot
+            }
+
             // Verifica se o item não é nulo antes de criar o InventoryItem
             if (inventoryItems[i] != null)
             {
@@ -143,7 +163,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     inventoryItem.item = inventoryItems[i];
 
-                    // Obtem o componente Image do InventoryItem
+                    // Obtém o componente Image do InventoryItem
                     Image inventoryItemImage = inventoryItem.GetComponent<Image>();
 
                     // Usando reflexão para procurar o campo "icon" no ScriptableObject
