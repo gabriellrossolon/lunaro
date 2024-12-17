@@ -19,6 +19,7 @@ public class HudManager : MonoBehaviour
     public GameObject inventory;
     public CinemachineVirtualCamera virtualCamera;
     public PlayerInput playerInput;
+    public GameObject warnBtn;
 
     [Header("Controllers")]
     private bool openedInventory = false;
