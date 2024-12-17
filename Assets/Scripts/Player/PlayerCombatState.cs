@@ -9,10 +9,14 @@ public class PlayerCombatState : IState
     private readonly Transform _cameraTransform;
     private readonly PlayerStatus _playerStatus;
     private readonly GameObject _handsPOV;
+    private readonly CooldownController _cooldownController;
 
     private WeaponBehavior _weaponBehavior;
 
-    public PlayerCombatState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, Transform playerTransform, Transform cameraTransform, PlayerStatus playerStatus, GameObject handsPOV)
+    public PlayerCombatState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, 
+        Transform playerTransform, Transform cameraTransform, 
+        PlayerStatus playerStatus, GameObject handsPOV, 
+        CooldownController cooldownController)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -21,6 +25,7 @@ public class PlayerCombatState : IState
         _cameraTransform = cameraTransform;
         _playerStatus = playerStatus;
         _handsPOV = handsPOV;
+        _cooldownController = cooldownController;
     }
 
     public void OnEnter() 
@@ -78,5 +83,6 @@ public class PlayerCombatState : IState
         if (Input.GetKeyDown(KeyCode.R)) _fsm.SetState("Idle");
         if (!_controller.isGrounded) _fsm.SetState("Fall");
         if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
+        if(_inputHandler.dashInput && _cooldownController.canDash) { _fsm.SetState("Dash"); }
     }
 }

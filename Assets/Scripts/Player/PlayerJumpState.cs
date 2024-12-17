@@ -8,10 +8,14 @@ public class PlayerJumpState : IState
     private readonly Transform _playerTransform;
     private readonly Transform _cameraTransform;
     private readonly PlayerStatus _playerStatus;
+    private readonly CooldownController _cooldownController;
 
     private float verticalVelocity;
 
-    public PlayerJumpState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, Transform playerTransform, Transform cameraTransform, PlayerStatus playerStatus)
+    public PlayerJumpState(StateMachine fsm, InputHandler inputHandler, 
+        CharacterController controller, Transform playerTransform, 
+        Transform cameraTransform, PlayerStatus playerStatus,
+        CooldownController cooldownController)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -19,6 +23,7 @@ public class PlayerJumpState : IState
         _playerTransform = playerTransform;
         _cameraTransform = cameraTransform;
         _playerStatus = playerStatus;
+        _cooldownController = cooldownController;
     }
 
     public void OnEnter() 
@@ -50,6 +55,7 @@ public class PlayerJumpState : IState
 
     private void StateChange()
     {
+        if (_inputHandler.dashInput && _cooldownController.canDash) { _fsm.SetState("Dash"); }
         if (verticalVelocity <= 0) _fsm.SetState("Fall");
         if (_controller.isGrounded) { _fsm.SetState("Idle"); }
     }

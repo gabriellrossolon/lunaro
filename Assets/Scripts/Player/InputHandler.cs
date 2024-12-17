@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour
     [HideInInspector] public bool jumpInput;
     [HideInInspector] public bool attackInput;
     [HideInInspector] public bool blockInput;
+    [HideInInspector] public bool dashInput;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -32,5 +33,10 @@ public class InputHandler : MonoBehaviour
     {
         float value = context.ReadValue<float>();
         blockInput = value > 0.1f;
+    }
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        float value = context.ReadValue<float>();
+        dashInput = value > 0.1f;
     }
 }

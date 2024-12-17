@@ -1,30 +1,37 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public ScriptableObject item;
     private CanvasGroup canvasGroup;
+    private Image iconImage;
     private RectTransform rectTransform;
     private Vector3 originalPosition;
     [HideInInspector] public Transform previousParent;
+    private Canvas originalCanvas; // Armazena o Canvas original do item
 
     void Awake()
     {
         InitializeComponents();
         previousParent = transform.parent;
+        originalCanvas = GetComponentInParent<Canvas>(); // Armazena o Canvas atual
     }
 
     private void InitializeComponents()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+        iconImage = GetComponent<Image>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         StoreOriginalPosition();
         SetDraggableState();
+        BringToTop();
+        MoveItemToTopCanvas();
     }
 
     private void StoreOriginalPosition()
@@ -37,6 +44,19 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
+    }
+
+    private void BringToTop()
+    {
+        // Garante que o item fique acima de todos os outros UI Elements
+        transform.SetAsLastSibling();
+    }
+
+    private void MoveItemToTopCanvas()
+    {
+        // Remove o item da hierarquia atual e coloca no Canvas principal
+        transform.SetParent(originalCanvas.transform, true); // 'true' mantém a posição relativa
+        rectTransform.position = Input.mousePosition; // Coloca o item na posição do mouse
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -57,6 +77,15 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             ReturnItemToOriginalPosition();
         }
+        else
+        {
+            // Caso o item seja solto em uma posição válida, ele não volta para a posição original
+            // Aqui você pode adicionar lógica para manipular a troca ou remoção de item.
+        }
+
+        // Voltar o item para a hierarquia original
+        transform.SetParent(previousParent);
+        rectTransform.localPosition = Vector3.zero;
     }
 
     private void ResetDraggableState()

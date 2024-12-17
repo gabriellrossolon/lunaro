@@ -11,8 +11,12 @@ public class PlayerMoveState : IState
     private readonly Transform _cameraTransform;
     private readonly PlayerStatus _playerStatus;
     private readonly GameObject _handsPOV;
+    private readonly CooldownController _cooldownController;
 
-    public PlayerMoveState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, Transform playerTransform, Transform cameraTransform, PlayerStatus playerStatus, GameObject handsPOV)
+    public PlayerMoveState(StateMachine fsm, InputHandler inputHandler, 
+        CharacterController controller, Transform playerTransform, 
+        Transform cameraTransform, PlayerStatus playerStatus, 
+        GameObject handsPOV, CooldownController cooldownController)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -21,6 +25,7 @@ public class PlayerMoveState : IState
         _cameraTransform = cameraTransform;
         _playerStatus = playerStatus;
         _handsPOV = handsPOV;
+        _cooldownController = cooldownController;
     }
 
     public void OnEnter() { }
@@ -55,5 +60,6 @@ public class PlayerMoveState : IState
             _fsm.SetState("Combat");
         }
         if (_inputHandler.attackInput) _fsm.SetState("Combat");
+        if (_inputHandler.dashInput && _cooldownController.canDash) { _fsm.SetState("Dash"); }
     }
 }

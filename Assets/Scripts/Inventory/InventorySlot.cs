@@ -169,7 +169,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
             inventoryList[slotIndex] = draggedItem.item;
         }
-        else
+        else if(slotType == SlotType.Inventory)
         {
             Debug.LogWarning($"Índice {slotIndex} fora dos limites da lista de inventário.");
         }
