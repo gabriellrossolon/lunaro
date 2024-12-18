@@ -1,6 +1,9 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class HudManager : MonoBehaviour
 {
@@ -20,6 +23,14 @@ public class HudManager : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public PlayerInput playerInput;
     public GameObject warnBtn;
+
+    [Header("ItemShowUI")]
+    public GameObject itemShow;
+    public Image itemIcon;
+    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemType;
+    public TextMeshProUGUI itemDmg;
+    public TextMeshProUGUI itemDesc;
 
     [Header("Controllers")]
     private bool openedInventory = false;
@@ -56,6 +67,43 @@ public class HudManager : MonoBehaviour
         {
             openedInventory = !openedInventory;
             inventory.SetActive(openedInventory);
+
+            itemShow.SetActive(false);
+        }
+    }
+
+    public void RefreshItemShow(ItemBase item)
+    {
+        itemIcon.sprite = item.icon;
+        itemName.text = item.itemName;
+        itemDesc.text = item.description;
+        if (item is Weapon weapon)
+        {
+            itemDmg.text = "Damage  " + weapon.damage.ToString();
+
+            if (weapon.sword)
+            {
+                itemType.text = "Sword";
+            }
+            else if (weapon.staff)
+            {
+                itemType.text = "Staff";
+            }
+            else
+            {
+                itemType.text = "Unknown Weapon";
+            }
+        }
+        else if (item is Potion potion)
+        {
+            itemType.text = "Potion";
+
+            itemDmg.text = null;
+        }
+        else
+        {
+            itemType.text = "Unknown Item";
+            itemDmg.text = "Unknown Item";
         }
     }
 }

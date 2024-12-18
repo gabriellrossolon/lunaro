@@ -2,21 +2,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public ScriptableObject item;
+    public ItemBase item;
     private CanvasGroup canvasGroup;
     private Image iconImage;
     private RectTransform rectTransform;
     private Vector3 originalPosition;
     [HideInInspector] public Transform previousParent;
-    private Canvas originalCanvas; // Armazena o Canvas original do item
+    private Canvas originalCanvas;
 
     void Awake()
     {
         InitializeComponents();
         previousParent = transform.parent;
-        originalCanvas = GetComponentInParent<Canvas>(); // Armazena o Canvas atual
+        originalCanvas = GetComponentInParent<Canvas>();
     }
 
     private void InitializeComponents()
@@ -32,6 +32,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         SetDraggableState();
         BringToTop();
         MoveItemToTopCanvas();
+        HudManager.Instance.itemShow.SetActive(false);
     }
 
     private void StoreOriginalPosition()
@@ -48,15 +49,13 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void BringToTop()
     {
-        // Garante que o item fique acima de todos os outros UI Elements
         transform.SetAsLastSibling();
     }
 
     private void MoveItemToTopCanvas()
     {
-        // Remove o item da hierarquia atual e coloca no Canvas principal
-        transform.SetParent(originalCanvas.transform, true); // 'true' mantém a posição relativa
-        rectTransform.position = Input.mousePosition; // Coloca o item na posição do mouse
+        transform.SetParent(originalCanvas.transform, true);
+        rectTransform.position = Input.mousePosition;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -79,11 +78,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         else
         {
-            // Caso o item seja solto em uma posição válida, ele não volta para a posição original
-            // Aqui você pode adicionar lógica para manipular a troca ou remoção de item.
         }
 
-        // Voltar o item para a hierarquia original
         transform.SetParent(previousParent);
         rectTransform.localPosition = Vector3.zero;
     }
@@ -96,18 +92,26 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private bool ShouldReturnItem(PointerEventData eventData)
     {
-        // Verifica se o item foi solto no mesmo slot ou em nenhum slot válido
         return eventData.pointerEnter == null || eventData.pointerEnter.GetComponent<InventorySlot>() == null ||
                eventData.pointerEnter.transform == previousParent;
     }
 
     private void ReturnItemToOriginalPosition()
     {
-        // Coloca o item de volta ao seu parent original
         transform.SetParent(previousParent);
-
-        // Centraliza o item dentro do slot
         transform.localPosition = Vector3.zero;
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        HudManager.Instance.RefreshItemShow(item);
+        HudManager.Instance.itemShow.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        HudManager.Instance.itemShow.SetActive(false);
+    }
 }
+
 

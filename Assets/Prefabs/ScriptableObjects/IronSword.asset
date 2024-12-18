@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
   m_Name: IronSword
   m_EditorClassIdentifier: 
+  itemName: Iron Sword
+  icon: {fileID: 868925713, guid: d995943bf71428d44bcaa9f17b44c5ff, type: 3}
+  description: A simple iron sword, what did you expect?
   sword: 1
   staff: 0
-  icon: {fileID: 868925713, guid: d995943bf71428d44bcaa9f17b44c5ff, type: 3}
-  weaponName: IronSword
   damage: 2
   weaponPrefab: {fileID: 1628803343814672665, guid: 85b2eb9c72721a94da9c15e5e66a812b, type: 3}
   projectile: {fileID: 0}

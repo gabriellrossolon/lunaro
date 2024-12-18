@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPotion", menuName = "Potions/Potion")]
-public class Potion : ScriptableObject
+public class Potion : ItemBase
 {
-    public string potionName;
-    public Sprite icon;
+    public int value;
 }

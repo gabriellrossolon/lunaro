@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
   m_Name: SteelSword
   m_EditorClassIdentifier: 
+  itemName: Iron Fang
+  icon: {fileID: -1270773133, guid: d995943bf71428d44bcaa9f17b44c5ff, type: 3}
+  description: A sword capable of piercing like fangs
   sword: 1
   staff: 0
-  icon: {fileID: -1270773133, guid: d995943bf71428d44bcaa9f17b44c5ff, type: 3}
-  weaponName: SteelSword
-  damage: 2
+  damage: 3
   weaponPrefab: {fileID: 1522552506750433049, guid: 4af162bb0d5b8864c85402758bac5282, type: 3}
   projectile: {fileID: 0}

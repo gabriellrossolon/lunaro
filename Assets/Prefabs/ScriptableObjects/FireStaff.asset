@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
   m_Name: FireStaff
   m_EditorClassIdentifier: 
+  itemName: Fire Staff
+  icon: {fileID: -1307361126, guid: d995943bf71428d44bcaa9f17b44c5ff, type: 3}
+  description: A staff capable of conjuring fire, true magic.
   sword: 0
   staff: 1
-  icon: {fileID: -1307361126, guid: d995943bf71428d44bcaa9f17b44c5ff, type: 3}
-  weaponName: Fire Staff
-  damage: 0
+  damage: 4
   weaponPrefab: {fileID: 5938915021365397287, guid: e8340949ff7e333448e8f5bf56f29e08, type: 3}
   projectile: {fileID: 1794803540568141391, guid: a47a1da978a415047a7b8ef3cf123963, type: 3}

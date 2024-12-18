@@ -17,7 +17,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryItemPrefab;
 
     [Header("Inventory")]
-    public List<ScriptableObject> inventoryItems = new List<ScriptableObject>();
+    public List<ItemBase> inventoryItems = new List<ItemBase>();
 
     [Header("Equipped Items")]
     public Weapon equippedWeapon;
@@ -42,7 +42,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Adiciona um item ao inventário e atualiza a UI
-    public void AddItem(ScriptableObject item)
+    public void AddItem(ItemBase item)
     {
         if (!inventoryItems.Contains(item))
         {
@@ -64,7 +64,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Remove um item do inventário e atualiza a UI
-    public void RemoveItem(ScriptableObject item)
+    public void RemoveItem(ItemBase item)
     {
         int index = inventoryItems.IndexOf(item);
         if (index >= 0)
