@@ -9,13 +9,14 @@ public class PlayerJumpState : IState
     private readonly Transform _cameraTransform;
     private readonly PlayerStatus _playerStatus;
     private readonly CooldownController _cooldownController;
+    private readonly Animator _animator;
 
     private float verticalVelocity;
 
     public PlayerJumpState(StateMachine fsm, InputHandler inputHandler, 
         CharacterController controller, Transform playerTransform, 
         Transform cameraTransform, PlayerStatus playerStatus,
-        CooldownController cooldownController)
+        CooldownController cooldownController, Animator animator)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -24,11 +25,13 @@ public class PlayerJumpState : IState
         _cameraTransform = cameraTransform;
         _playerStatus = playerStatus;
         _cooldownController = cooldownController;
+        _animator = animator;
     }
 
     public void OnEnter() 
     {
         ExecuteJump();
+        _animator.SetTrigger("jump");
     }
     public void OnExit() { }
     public void OnFixedTick() { }

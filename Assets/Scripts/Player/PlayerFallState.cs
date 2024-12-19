@@ -8,10 +8,14 @@ public class PlayerFallState : IState
     private readonly Transform _playerTransform;
     private readonly Transform _cameraTransform;
     private readonly PlayerStatus _playerStatus;
+    private readonly Animator _animator;
 
     private float verticalVelocity;
 
-    public PlayerFallState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, Transform playerTransform, Transform cameraTransform, PlayerStatus playerStatus)
+    public PlayerFallState(StateMachine fsm, InputHandler inputHandler, 
+        CharacterController controller, Transform playerTransform, 
+        Transform cameraTransform, PlayerStatus playerStatus, 
+        Animator animator)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -19,13 +23,18 @@ public class PlayerFallState : IState
         _playerTransform = playerTransform;
         _cameraTransform = cameraTransform;
         _playerStatus = playerStatus;
+        _animator = animator;
     }
 
     public void OnEnter()
     {
         verticalVelocity = 0;
+        _animator.SetBool("falling", true);
     }
-    public void OnExit() { }
+    public void OnExit()
+    {
+        _animator.SetBool("falling", false);
+    }
     public void OnFixedTick() { }
     public void OnTick()
     {

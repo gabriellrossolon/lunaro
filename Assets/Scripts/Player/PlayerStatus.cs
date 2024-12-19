@@ -13,7 +13,7 @@ public class PlayerStatus : MonoBehaviour
     private void Start()
     {
         {
-            actualSpeed = walkSpeed;
+            
         }
     }
 }
