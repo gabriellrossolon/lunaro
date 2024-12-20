@@ -104,11 +104,6 @@ public class MovableObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Colidiu com Enemy");
-        }
-
-        if (!collision.gameObject.CompareTag("Player"))
-        {
             Instantiate(
                 collisionParticle,
                 collision.GetContact(0).point,
