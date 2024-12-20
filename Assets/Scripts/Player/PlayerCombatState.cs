@@ -83,6 +83,6 @@ public class PlayerCombatState : IState
         if (Input.GetKeyDown(KeyCode.R)) _fsm.SetState("Idle");
         if (!_controller.isGrounded) _fsm.SetState("Fall");
         if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
-        if(_inputHandler.dashInput && _cooldownController.canDash) { _fsm.SetState("Dash"); }
+        if(_inputHandler.dashInput && _cooldownController.canDash && _inputHandler.moveInput != Vector2.zero) { _fsm.SetState("Dash"); }
     }
 }

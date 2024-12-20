@@ -8,6 +8,7 @@ public class PlayerDashState : IState
     private readonly Transform _playerTransform;
     private readonly CooldownController _cooldownController;
     private readonly GameObject _dashParticle;
+    private readonly Animator _animator;
 
     private Vector3 dashDirection;
     private float dashTimer;
@@ -17,7 +18,8 @@ public class PlayerDashState : IState
 
     public PlayerDashState(StateMachine fsm, InputHandler inputHandler,
         CharacterController controller, Transform playerTransform,
-        CooldownController cooldownController, GameObject dashParticle)
+        CooldownController cooldownController, GameObject dashParticle, 
+        Animator animator)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -25,10 +27,12 @@ public class PlayerDashState : IState
         _playerTransform = playerTransform;
         _cooldownController = cooldownController;
         _dashParticle = dashParticle;
+        _animator = animator;
     }
 
     public void OnEnter()
     {
+        _animator.SetTrigger("jumpSprint");
         StartDash();
         _cooldownController.canDash = false;
         _dashParticle.SetActive(true);

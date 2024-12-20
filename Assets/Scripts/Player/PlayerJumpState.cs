@@ -28,11 +28,19 @@ public class PlayerJumpState : IState
         _animator = animator;
     }
 
-    public void OnEnter() 
+    public void OnEnter()
     {
         ExecuteJump();
-        _animator.SetTrigger("jump");
+        if (_inputHandler.moveInput != Vector2.zero)
+        {
+            _animator.SetTrigger("jumpSprint");
+        }
+        else
+        {
+            _animator.SetTrigger("jump");
+        }
     }
+
     public void OnExit() { }
     public void OnFixedTick() { }
     public void OnTick()
