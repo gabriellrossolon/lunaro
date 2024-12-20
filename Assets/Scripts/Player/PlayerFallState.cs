@@ -29,11 +29,11 @@ public class PlayerFallState : IState
     public void OnEnter()
     {
         verticalVelocity = 0;
-        _animator.SetBool("falling", true);
+        _animator.SetBool("isFalling", true);
     }
     public void OnExit()
     {
-        _animator.SetBool("falling", false);
+        _animator.SetBool("isFalling", false);
     }
     public void OnFixedTick() { }
     public void OnTick()

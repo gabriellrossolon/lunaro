@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerFSM : MonoBehaviour
 {
@@ -23,11 +24,6 @@ public class PlayerFSM : MonoBehaviour
     public string _previousState;
     private float _playerActualSpeed;
 
-    private float velocityX;
-    private float velocityZ;
-    private float acceleration = 2f;
-    private float deceletarion = 2f;
-
     private void Awake()
     {
         // Inicializa a statemachine e adiciona os estados
@@ -49,11 +45,9 @@ public class PlayerFSM : MonoBehaviour
 
         _fsm.SetInitialState("Idle"); // Define o estado inicial
     }
-
     private void Update()
     {
         SpeedController();
-        MovementController();
         UpdateCurrentState();
         _fsm.Tick();
 
@@ -86,64 +80,13 @@ public class PlayerFSM : MonoBehaviour
                 targetSpeed = _playerStatus.walkSpeed;
             } 
         }
-
-        _playerActualSpeed = Mathf.Lerp(_playerActualSpeed, targetSpeed, 0.1f);
-
-        if (Mathf.Abs(_playerActualSpeed - targetSpeed) < 0.01f)
-        {
-            _playerActualSpeed = targetSpeed;
-        }
-
-        _playerStatus.actualSpeed = _playerActualSpeed;
-        _animator.SetFloat("speed", _playerActualSpeed);
-
-        _animator.SetFloat("x", _inputHandler.moveInput.x);
-        _animator.SetFloat("y", _inputHandler.moveInput.y);
-    }
-
-    private void MovementController()
-    {
-        if (Keyboard.current.wKey.isPressed && velocityZ < 0.5f && !Keyboard.current.shiftKey.isPressed)
-        {
-            velocityZ += Time.deltaTime * acceleration;
-        }
-        //if (Keyboard.current.sKey.isPressed && velocityZ > -0.5f && !Keyboard.current.shiftKey.isPressed)
+        _playerActualSpeed = targetSpeed;
+        //_playerActualSpeed = Mathf.Lerp(_playerActualSpeed, targetSpeed, 0.1f);
+        //if (Mathf.Abs(_playerActualSpeed - targetSpeed) < 0.01f)
         //{
-        //    velocityZ -= Time.deltaTime * acceleration;
+        //    _playerActualSpeed = targetSpeed;
         //}
-        if (Keyboard.current.aKey.isPressed && velocityX > -0.5f && !Keyboard.current.shiftKey.isPressed)
-        {
-            velocityX -= Time.deltaTime * acceleration;
-        }
-        if (Keyboard.current.dKey.isPressed && velocityX < 0.5f && !Keyboard.current.shiftKey.isPressed)
-        {
-            velocityX += Time.deltaTime * acceleration;
-        }
-
-        if (!Keyboard.current.wKey.isPressed && velocityZ > 0f)
-        {
-            velocityZ -= Time.deltaTime * deceletarion;
-        }
-        if(!Keyboard.current.wKey.isPressed && velocityZ < 0f)
-        {
-            velocityZ = 0f;
-        }
-        if (!Keyboard.current.aKey.isPressed && velocityX < 0f)
-        {
-            velocityX += Time.deltaTime * deceletarion;
-        }
-        if (!Keyboard.current.dKey.isPressed && velocityX > 0f)
-        {
-            velocityX -= Time.deltaTime * deceletarion;
-        }
-
-        if (!Keyboard.current.aKey.isPressed && !Keyboard.current.dKey.isPressed && (velocityX != 0f && velocityX > -0.05f && velocityX < 0.05f))
-        {
-            velocityX = 0f;
-        }
-
-        _animator.SetFloat("velocityZ", velocityZ);
-        _animator.SetFloat("velocityX", velocityX);
+        _playerStatus.actualSpeed = _playerActualSpeed;
     }
 
     private void UpdateCurrentState()
