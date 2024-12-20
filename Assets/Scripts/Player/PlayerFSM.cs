@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerFSM : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class PlayerFSM : MonoBehaviour
     public string _currentState; 
     public string _previousState;
     private float _playerActualSpeed;
+
+    private float velocityX;
+    private float velocityZ;
+    private float acceleration = 2f;
+    private float deceletarion = 2f;
 
     private void Awake()
     {
@@ -47,6 +53,7 @@ public class PlayerFSM : MonoBehaviour
     private void Update()
     {
         SpeedController();
+        MovementController();
         UpdateCurrentState();
         _fsm.Tick();
 
@@ -92,6 +99,51 @@ public class PlayerFSM : MonoBehaviour
 
         _animator.SetFloat("x", _inputHandler.moveInput.x);
         _animator.SetFloat("y", _inputHandler.moveInput.y);
+    }
+
+    private void MovementController()
+    {
+        if (Keyboard.current.wKey.isPressed && velocityZ < 0.5f && !Keyboard.current.shiftKey.isPressed)
+        {
+            velocityZ += Time.deltaTime * acceleration;
+        }
+        //if (Keyboard.current.sKey.isPressed && velocityZ > -0.5f && !Keyboard.current.shiftKey.isPressed)
+        //{
+        //    velocityZ -= Time.deltaTime * acceleration;
+        //}
+        if (Keyboard.current.aKey.isPressed && velocityX > -0.5f && !Keyboard.current.shiftKey.isPressed)
+        {
+            velocityX -= Time.deltaTime * acceleration;
+        }
+        if (Keyboard.current.dKey.isPressed && velocityX < 0.5f && !Keyboard.current.shiftKey.isPressed)
+        {
+            velocityX += Time.deltaTime * acceleration;
+        }
+
+        if (!Keyboard.current.wKey.isPressed && velocityZ > 0f)
+        {
+            velocityZ -= Time.deltaTime * deceletarion;
+        }
+        if(!Keyboard.current.wKey.isPressed && velocityZ < 0f)
+        {
+            velocityZ = 0f;
+        }
+        if (!Keyboard.current.aKey.isPressed && velocityX < 0f)
+        {
+            velocityX += Time.deltaTime * deceletarion;
+        }
+        if (!Keyboard.current.dKey.isPressed && velocityX > 0f)
+        {
+            velocityX -= Time.deltaTime * deceletarion;
+        }
+
+        if (!Keyboard.current.aKey.isPressed && !Keyboard.current.dKey.isPressed && (velocityX != 0f && velocityX > -0.05f && velocityX < 0.05f))
+        {
+            velocityX = 0f;
+        }
+
+        _animator.SetFloat("velocityZ", velocityZ);
+        _animator.SetFloat("velocityX", velocityX);
     }
 
     private void UpdateCurrentState()
