@@ -48,7 +48,7 @@ public class PlayerIdleState : IState
         {
             _fsm.SetState("Combat");
         }
-        if (_inputHandler.attackInput) _fsm.SetState("Combat");
+        if (_inputHandler.attackInput || _inputHandler.blockInput) _fsm.SetState("Combat");
         if (!_controller.isGrounded) _fsm.SetState("Fall");
         if (_inputHandler.moveInput != Vector2.zero) { _fsm.SetState("Move"); }
         if(_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }

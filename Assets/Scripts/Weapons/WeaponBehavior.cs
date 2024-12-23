@@ -3,7 +3,7 @@ using UnityEngine;
 public class WeaponBehavior : MonoBehaviour
 {
     [HideInInspector] public bool attack;
-    [HideInInspector] public bool block;
+    [HideInInspector] public bool block = false;
     public bool canAttack = true;
     private Animator weaponAnim;
 
@@ -39,7 +39,7 @@ public class WeaponBehavior : MonoBehaviour
             attack = false;
         }
 
-        weaponAnim.SetBool("Blocking", block);
+        if (sword) { weaponAnim.SetBool("Blocking", block); }
     }
 
     private void ExecuteRangedAttack()
