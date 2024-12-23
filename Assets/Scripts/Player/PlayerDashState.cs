@@ -14,7 +14,7 @@ public class PlayerDashState : IState
     private float dashTimer;
 
     private const float dashSpeed = 25f;
-    private const float dashDuration = 0.2f;
+    private const float dashDuration = 0.1f;
 
     public PlayerDashState(StateMachine fsm, InputHandler inputHandler,
         CharacterController controller, Transform playerTransform,
