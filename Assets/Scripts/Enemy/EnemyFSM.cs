@@ -8,6 +8,8 @@ public class EnemyFSM : MonoBehaviour
     private Transform _transform;
     private Transform _playerTransform;
     private EnemyStats _enemyStats;
+    private Animator _animator;
+    private EnemyWeaponBehavior _enemyWeaponBehavior;
 
     public StateMachine FSM => _fsm;
 
@@ -21,12 +23,14 @@ public class EnemyFSM : MonoBehaviour
         _transform = this.transform;
         _playerTransform = GameObject.FindWithTag("Player").transform;
         _enemyStats = GetComponent<EnemyStats>();
+        _animator = GetComponent<Animator>();
+        _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();
 
         _fsm = new();
-        _fsm.AddState("Idle", new EnemyIdleState(_fsm));  // Estado de Idle
-        _fsm.AddState("Patrol", new EnemyPatrolState(_fsm, _agent, _transform, _playerTransform, _enemyStats));
-        _fsm.AddState("Chase", new EnemyChaseState(_fsm, _agent, _transform, _playerTransform, _enemyStats));
-        _fsm.AddState("Attack", new EnemyAttackState(_fsm, _agent, _transform, _playerTransform, _enemyStats));
+        _fsm.AddState("Idle", new EnemyIdleState(_fsm, _animator, _transform, _playerTransform, _enemyStats));
+        _fsm.AddState("Patrol", new EnemyPatrolState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
+        _fsm.AddState("Chase", new EnemyChaseState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
+        _fsm.AddState("Attack", new EnemyAttackState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
 
         _fsm.SetInitialState("Idle");
     }
@@ -46,6 +50,11 @@ public class EnemyFSM : MonoBehaviour
     {
         _currentState = _fsm.CurrentState?.GetType().Name ?? "None";
         _previousState = _fsm.PreviousState?.GetType().Name ?? "None";
+    }
+
+    public void ActiveSwordCollider()
+    {
+        _enemyWeaponBehavior.CallCollider();
     }
 }
 

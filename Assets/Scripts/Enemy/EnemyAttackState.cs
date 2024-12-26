@@ -9,27 +9,24 @@ public class EnemyAttackState : IState
     private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly Animator _animator;
-
     private float _attackDuration = 1f; // Tempo de duração do ataque (em segundos)
     private float _attackTimer = 0f;
 
     public EnemyAttackState(StateMachine fsm, NavMeshAgent agent,
         Transform transform, Transform playerTransform,
-        EnemyStats enemyStats)
+        EnemyStats enemyStats, Animator animator)
     {
         _fsm = fsm;
         _agent = agent;
         _transform = transform;
         _playerTransform = playerTransform;
         _enemyStats = enemyStats;
+        _animator = animator;
     }
 
     public void OnEnter()
     {
-        if (_animator != null)
-        {
-            _animator.SetTrigger("Attack");
-        }
+        _animator.SetTrigger("attack");
 
         // Reinicia o contador do ataque
         _attackTimer = _attackDuration;

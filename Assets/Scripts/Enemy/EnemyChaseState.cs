@@ -8,24 +8,30 @@ public class EnemyChaseState : IState
     private readonly Transform _transform;
     private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
+    private readonly Animator _animator;
 
     public EnemyChaseState(StateMachine fsm, NavMeshAgent agent,
         Transform transform, Transform playerTransform, 
-        EnemyStats enemyStats)
+        EnemyStats enemyStats, Animator animator)
     {
         _fsm = fsm;
         _agent = agent;
         _transform = transform;
         _playerTransform = playerTransform;
         _enemyStats = enemyStats;
+        _animator = animator;
     }
 
     public void OnEnter()
     {
         _agent.speed = _enemyStats.chaseSpeed;
+        _animator.SetBool("isChase", true);
     }
 
-    public void OnExit() { }
+    public void OnExit() 
+    {
+        _animator.SetBool("isChase", false);
+    }
 
     public void OnFixedTick() { }
 

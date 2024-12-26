@@ -3,7 +3,9 @@ using Cinemachine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using static System.TimeZoneInfo;
 
 public class HudManager : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class HudManager : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public PlayerInput playerInput;
     public GameObject warnBtn;
+    public GameObject globalVolume;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -35,10 +38,16 @@ public class HudManager : MonoBehaviour
     [Header("Controllers")]
     private bool openedInventory = false;
 
+    private Color _targetVignetteColor = Color.black;
+    private float _targetSmoothness = 0.1f;
+    private float _transitionDuration = 0.5f;
+    private float _transitionTime = 0f;
+
     private void Update()
     {
         UpdateCursorState();
         OpenInventory();
+        SmoothVignetteTransition();
     }
 
     private void UpdateCursorState()
@@ -104,6 +113,38 @@ public class HudManager : MonoBehaviour
         {
             itemType.text = "Unknown Item";
             itemDmg.text = "Unknown Item";
+        }
+    }
+
+    public void ChangeVignetteColorToRed()
+    {
+        _targetVignetteColor = Color.red;
+        _targetSmoothness = 0.6f; // Ajustando o smoothness para 0.6
+        _transitionTime = 0f;
+    }
+
+    private void SmoothVignetteTransition()
+    {
+        Volume volume = globalVolume.GetComponent<Volume>();
+        if (volume != null)
+        {
+            Vignette vignette;
+            if (volume.profile.TryGet<Vignette>(out vignette))
+            {
+                _transitionTime += Time.deltaTime / _transitionDuration;
+                vignette.color.Override(Color.Lerp(vignette.color.value, _targetVignetteColor, _transitionTime));
+                vignette.smoothness.Override(Mathf.Lerp(vignette.smoothness.value, _targetSmoothness, _transitionTime));
+
+                if (_transitionTime >= 1f)
+                {
+                    if (_targetSmoothness == 0.6f)
+                    {
+                        _targetVignetteColor = Color.black;
+                        _targetSmoothness = 0.1f;
+                        _transitionTime = 0f;
+                    }
+                }
+            }
         }
     }
 }
