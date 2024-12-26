@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SwordBehavior : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class SwordBehavior : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {      
             //Destroy(other.gameObject);
+            other.GetComponent<EnemyFSM>().enabled = false;
+            other.GetComponent<NavMeshAgent>().enabled = false;
+            other.GetComponent<CapsuleCollider>().enabled = false;
+            other.GetComponent<Rigidbody>().isKinematic = true;
+            other.GetComponent<Animator>().enabled = false;
         }
         if (!other.CompareTag("Player"))
         {

@@ -168344,6 +168344,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2361222847743196771, guid: 04214335140031e4a9605177a6bb28fc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361222847743196771, guid: 04214335140031e4a9605177a6bb28fc, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361222847743196771, guid: 04214335140031e4a9605177a6bb28fc, type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4896521254937665168, guid: 04214335140031e4a9605177a6bb28fc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.66
@@ -168386,7 +168398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7488550668993801876, guid: 04214335140031e4a9605177a6bb28fc, type: 3}
       propertyPath: m_Name
-      value: Goblin
+      value: Goblin(RD)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647490407123731779, guid: 04214335140031e4a9605177a6bb28fc, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8272950552242166988, guid: 04214335140031e4a9605177a6bb28fc, type: 3}
       propertyPath: m_Enabled
