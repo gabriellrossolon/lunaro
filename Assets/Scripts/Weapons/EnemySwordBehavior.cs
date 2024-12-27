@@ -2,11 +2,19 @@ using UnityEngine;
 
 public class EnemySwordBehavior : MonoBehaviour
 {
+    public float damage;
     private MeshCollider _coll;
+    private EnemyStats _enemStats;
     public bool colliderEnabled = false;
     private void Awake()
     {
         _coll = GetComponent<MeshCollider>();
+        _enemStats = GetComponentInParent<EnemyStats>();
+    }
+
+    private void Start()
+    {
+        damage = _enemStats.attackDamage;
     }
 
     private void Update()
@@ -23,8 +31,8 @@ public class EnemySwordBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Colidiu com player");
-            HudManager.Instance.ChangeVignetteColorToRed();
+            other.GetComponent<PlayerStatus>().DoDamage(damage);
+            Instantiate(_enemStats.impactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         }
     }
 }

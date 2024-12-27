@@ -30,6 +30,7 @@ public class EnemyPatrolState : IState
 
     public void OnEnter()
     {
+        _agent.speed = _enemyStats.patrolSpeed;
         _spawnPosition = _transform.position;
         SetRandomDestination();
         _patrolDuration = Random.Range(10f, 30f);

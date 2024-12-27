@@ -37,6 +37,12 @@ public class EnemyChaseState : IState
 
     public void OnTick()
     {
+        Vector3 directionToPlayer = _playerTransform.position - _transform.position;
+        directionToPlayer.y = 0;
+
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+        _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, Time.deltaTime * 25f);
+
         StateChange();
 
         _agent.SetDestination(_playerTransform.position);
@@ -55,5 +61,4 @@ public class EnemyChaseState : IState
         }
     }
 }
-
 

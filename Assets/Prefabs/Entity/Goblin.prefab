@@ -640,6 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7af5ea5963686489bb83448208aa35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   colliderEnabled: 0
 --- !u!1 &2930540677377227244
 GameObject:
@@ -2050,11 +2051,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
-  patrolRadius: 10
-  attackRange: 2
+  detectionRange: 8
+  patrolRadius: 15
+  attackRange: 1.8
   patrolSpeed: 1
-  chaseSpeed: 2.5
+  chaseSpeed: 3
+  attackDamage: 2
+  maxHp: 10
+  currentHp: 0
 --- !u!54 &7647490407123731779
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2078,7 +2082,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0

@@ -7,6 +7,7 @@ public class MovableObject : MonoBehaviour
 
     [SerializeField] private float throwForce = 600f;
     [SerializeField] private float maxDistance = 3f;
+    [SerializeField] private float damage = 2f;
     private float distance;
 
     TempParent tempParent;
@@ -100,15 +101,13 @@ public class MovableObject : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            Instantiate(
-                collisionParticle,
-                collision.GetContact(0).point,
-                Quaternion.identity
-            );
+            other.gameObject.GetComponent<EnemyStats>().DoDamage(damage);
+
+            Instantiate(collisionParticle, other.ClosestPoint(transform.position), Quaternion.identity);
         }
     }
 }

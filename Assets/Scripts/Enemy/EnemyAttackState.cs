@@ -26,19 +26,25 @@ public class EnemyAttackState : IState
 
     public void OnEnter()
     {
+        _agent.isStopped = true;
+
         _animator.SetTrigger("attack");
 
         // Reinicia o contador do ataque
         _attackTimer = _attackDuration;
     }
 
-    public void OnExit() { }
+    public void OnExit() 
+    {
+        
+    }
 
     public void OnFixedTick() { }
 
     public void OnTick()
     {
         _attackTimer -= Time.deltaTime;
+
         StateChange();
     }
 
@@ -46,7 +52,8 @@ public class EnemyAttackState : IState
     {
         if (_attackTimer <= 0f)
         {
-            _fsm.SetState("Chase");
+            _agent.isStopped = false;
+            _fsm.SetState("Retreat");
         }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour
 {
     public float speed = 10f;
+    [HideInInspector] public float damage;
     private Vector3 direction;
     private Rigidbody rb;
     public GameObject collisionParticle;
@@ -31,12 +32,12 @@ public class ProjectileBehavior : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            //Destroy(other.gameObject);
+            other.GetComponent<EnemyStats>().DoDamage(damage);
+            Instantiate(collisionParticle, transform.position, transform.rotation);
         }
 
         if (!other.CompareTag("Player"))
         {
-            Instantiate(collisionParticle, transform.position, transform.rotation);
             Destroy(this.gameObject);
         }
     }

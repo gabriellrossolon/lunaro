@@ -1,5 +1,6 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyIdleState : IState
 {
@@ -8,6 +9,7 @@ public class EnemyIdleState : IState
     private readonly Transform _transform;
     private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
+    private readonly NavMeshAgent _agent;
     
     
     private float _idleDuration;
@@ -15,13 +17,14 @@ public class EnemyIdleState : IState
 
     public EnemyIdleState(StateMachine fsm, Animator animator, 
         Transform transform, Transform playerTransform,
-        EnemyStats enemyStats)
+        EnemyStats enemyStats, NavMeshAgent agent)
     {
         _fsm = fsm;
         _animator = animator;
         _transform = transform;
         _playerTransform = playerTransform;
         _enemyStats = enemyStats;
+        _agent = agent;
     }
 
     public void OnEnter()
@@ -29,11 +32,13 @@ public class EnemyIdleState : IState
         _idleDuration = Random.Range(3f, 6f);
         _idleStartTime = Time.time;
         _animator.SetBool("isIdle", true);
+        _agent.isStopped = true;
     }
 
     public void OnExit() 
     {
         _animator.SetBool("isIdle", false);
+        _agent.isStopped = false;
     }
 
     public void OnFixedTick() { }
@@ -56,4 +61,5 @@ public class EnemyIdleState : IState
         }
     }
 }
+
 
