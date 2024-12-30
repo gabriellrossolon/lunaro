@@ -15,9 +15,7 @@ public class WeaponBehavior : MonoBehaviour
     public GameObject projectileExitPoint;
 
     [Header("Weapon Type Equipped")]
-    public bool sword = false;
-    public bool staff = false;
-    public bool bow = false;
+    public Weapon.WeaponType weaponType; // Usando o enum WeaponType
 
     private void Awake()
     {
@@ -28,23 +26,23 @@ public class WeaponBehavior : MonoBehaviour
     {
         if (attack)
         {
-            if (staff || bow)
+            if (weaponType == Weapon.WeaponType.Staff || weaponType == Weapon.WeaponType.Bow)
             {
                 ExecuteRangedAttack();
             }
-            else if (sword)
+            else if (weaponType == Weapon.WeaponType.Sword)
             {
                 ExecuteSwordAttack();
             }
             attack = false;
         }
 
-        if (sword) { weaponAnim.SetBool("Blocking", block); }
+        if (weaponType == Weapon.WeaponType.Sword) { weaponAnim.SetBool("Blocking", block); }
     }
 
     private void ExecuteRangedAttack()
     {
-        weaponAnim.SetTrigger("staffAttack"); 
+        weaponAnim.SetTrigger("staffAttack");
     }
 
     public void ExecuteSwordAttack()
@@ -60,7 +58,7 @@ public class WeaponBehavior : MonoBehaviour
                 weaponAnim.SetTrigger("swordAttackUD");
             }
             changeAttack = !changeAttack;
-        } 
+        }
     }
 
     public void CanAttack()
@@ -82,3 +80,4 @@ public class WeaponBehavior : MonoBehaviour
         swordBehavior.colliderEnabled = !swordBehavior.colliderEnabled;
     }
 }
+

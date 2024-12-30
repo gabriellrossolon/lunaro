@@ -90,11 +90,11 @@ public class HudManager : MonoBehaviour
         {
             itemDmg.text = "Damage  " + weapon.damage.ToString();
 
-            if (weapon.sword)
+            if (weapon.weaponType == Weapon.WeaponType.Sword)
             {
                 itemType.text = "Sword";
             }
-            else if (weapon.staff)
+            else if (weapon.weaponType == Weapon.WeaponType.Staff)
             {
                 itemType.text = "Staff";
             }
@@ -135,7 +135,7 @@ public class HudManager : MonoBehaviour
                 vignette.color.Override(Color.Lerp(vignette.color.value, _targetVignetteColor, _transitionTime));
                 vignette.smoothness.Override(Mathf.Lerp(vignette.smoothness.value, _targetSmoothness, _transitionTime));
 
-                if (_transitionTime >= 1f)
+                if (_transitionTime >= 0.6f)
                 {
                     if (_targetSmoothness == 0.6f)
                     {

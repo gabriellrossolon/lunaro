@@ -50,7 +50,7 @@ public class EnemyChaseState : IState
 
     private void StateChange() 
     {
-        if (Vector3.Distance(_transform.position, _playerTransform.position) > _enemyStats.detectionRange)
+        if (Vector3.Distance(_transform.position, _playerTransform.position) > (_enemyStats.detectionRange * 2))
         {
             _fsm.SetState("Patrol");
         }

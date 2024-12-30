@@ -105,8 +105,7 @@ public class InventoryManager : MonoBehaviour
     // Reseta os comportamentos da arma
     private void ResetWeaponBehavior()
     {
-        rightWeaponBehavior.sword = false;
-        rightWeaponBehavior.staff = false;
+        rightWeaponBehavior.weaponType = Weapon.WeaponType.Empty;
     }
 
     // Instancia e configura a nova arma
@@ -114,8 +113,20 @@ public class InventoryManager : MonoBehaviour
     {
         lastInstantiatedObject = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
 
-        rightWeaponBehavior.sword = equippedWeapon.sword;
-        rightWeaponBehavior.staff = equippedWeapon.staff;
+        switch (equippedWeapon.weaponType)
+        {
+            case Weapon.WeaponType.Sword:
+                rightWeaponBehavior.weaponType = Weapon.WeaponType.Sword; // Definindo o tipo de arma
+                break;
+
+            case Weapon.WeaponType.Staff:
+                rightWeaponBehavior.weaponType = Weapon.WeaponType.Staff; // Definindo o tipo de arma
+                break;
+
+            case Weapon.WeaponType.Bow:
+                rightWeaponBehavior.weaponType = Weapon.WeaponType.Bow; // Definindo o tipo de arma
+                break;
+        }
 
         if (lastInstantiatedObject.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {

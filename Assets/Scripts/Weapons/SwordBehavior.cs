@@ -22,9 +22,11 @@ public class SwordBehavior : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
-        {      
+        {
+            GameManager.Instance.TriggerSlowMotion();
             other.GetComponent<EnemyStats>().DoDamage(damage);
             Instantiate(collisionParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
+            //Debug.Log("Colidiu com o componente: " + other.GetType().Name);
         }
     }
 }

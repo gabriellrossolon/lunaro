@@ -31,6 +31,7 @@ public class EnemySwordBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            GameManager.Instance.TriggerSlowMotion();
             other.GetComponent<PlayerStatus>().DoDamage(damage);
             Instantiate(_enemStats.impactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         }

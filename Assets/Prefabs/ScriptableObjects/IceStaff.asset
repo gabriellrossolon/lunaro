@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
+  m_Name: IceStaff
+  m_EditorClassIdentifier: 
+  itemName: Ice Staff
+  icon: {fileID: -859380789, guid: 4dd6c397b46dac84794bbca9ef1d859d, type: 3}
+  description: 
+  weaponType: 2
+  damage: 4
+  weaponPrefab: {fileID: 7106174645816385807, guid: 87a2dc668a427bf429c0a5e438f471c0, type: 3}
+  projectile: {fileID: 1794803540568141391, guid: 2d930db4d3801b542962fbdccf7695a9, type: 3}

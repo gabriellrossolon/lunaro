@@ -1,5 +1,5 @@
-using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine;
 
 public class EnemyRetreatState : IState
 {
@@ -30,6 +30,7 @@ public class EnemyRetreatState : IState
     public void OnEnter()
     {
         _agent.speed = _enemyStats.retreatSpeed;
+        _agent.updateRotation = false;
         _animator.SetBool("isRetreating", true);
 
         Vector3 directionAwayFromPlayer = _transform.position - _playerTransform.position;
@@ -37,13 +38,14 @@ public class EnemyRetreatState : IState
 
         _agent.SetDestination(retreatPosition);
 
-        _randomRetreatTime = Random.Range(0.5f, 1.5f);
+        _randomRetreatTime = Random.Range(0.1f, 1f);
         _retreatTimer = 0f;
     }
 
     public void OnExit()
     {
         _animator.SetBool("isRetreating", false);
+        _agent.updateRotation = true;
     }
 
     public void OnFixedTick() { }
@@ -75,6 +77,7 @@ public class EnemyRetreatState : IState
         }
     }
 }
+
 
 
 

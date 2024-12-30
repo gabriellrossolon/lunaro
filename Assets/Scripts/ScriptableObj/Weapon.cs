@@ -3,13 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Weapons/Weapon")]
 public class Weapon : ItemBase
 {
+    public enum WeaponType { Empty, Sword, Staff, Bow }
     [Header("Weapon Type")]
-    public bool sword;
-    public bool staff;
+    public WeaponType weaponType;
 
-    //public Sprite icon;
-
-    //public string weaponName;
     public int damage;
     public GameObject weaponPrefab;
 
