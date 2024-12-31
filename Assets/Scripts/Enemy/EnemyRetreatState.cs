@@ -11,7 +11,6 @@ public class EnemyRetreatState : IState
     private readonly Animator _animator;
 
     private float _retreatDistance = 7f;
-    private bool _isRetreating = false;
     private float _retreatTimer = 0f;
     private float _randomRetreatTime;
 
@@ -38,7 +37,7 @@ public class EnemyRetreatState : IState
 
         _agent.SetDestination(retreatPosition);
 
-        _randomRetreatTime = Random.Range(0.1f, 1f);
+        _randomRetreatTime = Random.Range(0.5f, 1f);
         _retreatTimer = 0f;
     }
 

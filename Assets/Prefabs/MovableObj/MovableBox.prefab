@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3231485802811927483}
   - component: {fileID: 7589183372402191124}
   - component: {fileID: 1134016480057993413}
-  - component: {fileID: 1148926460299319718}
   m_Layer: 0
   m_Name: deco_statueFaceA001 (5)
   m_TagString: Untagged
@@ -87,28 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1148926460299319718
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2307127310608162274}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5653720928866656188, guid: 3591cc08465848c2afd0387e76336a77, type: 3}
 --- !u!1 &5144894290901272529
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29159333842d0d24a8a99591a75eac89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 400
+  throwForce: 500
   maxDistance: 3
   damage: 2
   collisionParticle: {fileID: 156222515566692233, guid: 24afca03a11b2ac408500f20174671a1, type: 3}

@@ -33,12 +33,38 @@ public class EnemyStats : MonoBehaviour
 
     private void Death()
     {
-        GetComponent<CapsuleCollider>().enabled = false;
-        GetComponent<BoxCollider>().enabled = false;
-        GetComponent<EnemyFSM>().enabled = false;
-        GetComponent<NavMeshAgent>().enabled = false;
-        GetComponent<Animator>().enabled = false;
-        //Destroy(this.gameObject, 5f);
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = false;
+        }
+
+        BoxCollider boxCollider = GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = false;
+        }
+
+        EnemyFSM enemyFSM = GetComponent<EnemyFSM>();
+        if (enemyFSM != null)
+        {
+            enemyFSM.enabled = false;
+        }
+
+        NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.enabled = false;
+        }
+
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.enabled = false;
+        }
+
+        // Destroy this GameObject after 5 seconds (optional)
+        // Destroy(this.gameObject, 5f);
     }
 
 }
