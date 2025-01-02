@@ -14,6 +14,7 @@ public class MovableObject : MonoBehaviour
     Rigidbody rb;
     GameObject player;
     public GameObject collisionParticle;
+    public GameObject destroyParticle;
 
     Vector3 objectPos;
 
@@ -105,9 +106,11 @@ public class MovableObject : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyStats>().DoDamage(damage);
+            other.gameObject.GetComponent<EnemyFSM>().DoDamage(damage);
 
             Instantiate(collisionParticle, other.ClosestPoint(transform.position), Quaternion.identity);
+            Instantiate(destroyParticle, other.ClosestPoint(transform.position), Quaternion.identity);
+            Destroy(this.gameObject);
         }
     }
 }

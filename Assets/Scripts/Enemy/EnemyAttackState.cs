@@ -9,7 +9,7 @@ public class EnemyAttackState : IState
     private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly Animator _animator;
-    private float _attackDuration = 1f; // Tempo de duração do ataque (em segundos)
+    private float _attackDuration = 1.5f; // Tempo de duração do ataque (em segundos)
     private float _attackTimer = 0f;
 
     public EnemyAttackState(StateMachine fsm, NavMeshAgent agent,

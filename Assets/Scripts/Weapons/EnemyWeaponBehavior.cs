@@ -2,17 +2,36 @@ using UnityEngine;
 
 public class EnemyWeaponBehavior : MonoBehaviour
 {
-    private EnemySwordBehavior swordBeh;
+    public float damage;
+    private Collider _coll;
+    private EnemyEffects _enemEffects;
+    private EnemyStats _enemyStats;
+    public bool colliderEnabled = false;
     private void Awake()
     {
-        swordBeh = GetComponentInChildren<EnemySwordBehavior>();
+        _coll = GetComponent<Collider>();
+        _enemEffects = GetComponentInParent<EnemyEffects>();
+        _enemyStats = GetComponentInParent<EnemyStats>();
+    }
+
+    private void Start()
+    {
+        damage = _enemyStats.attackDamage;
     }
 
     public void CallCollider()
     {
-        if(swordBeh != null)
+        colliderEnabled = !colliderEnabled;
+        _coll.enabled = colliderEnabled;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
-            swordBeh.EnableCollider();
+            GameManager.Instance.TriggerSlowMotion();
+            other.GetComponent<PlayerStatus>().DoDamage(damage);
+            Instantiate(_enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         }
     }
 }

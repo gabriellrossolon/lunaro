@@ -33,7 +33,8 @@ public class ProjectileBehavior : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             GameManager.Instance.TriggerSlowMotion();
-            other.GetComponent<EnemyStats>().DoDamage(damage);
+            other.GetComponent<EnemyFSM>().DoDamage(damage);
+            other.GetComponent<Animator>().SetTrigger("hurt");
             Instantiate(collisionParticle, transform.position, transform.rotation);
         }
 

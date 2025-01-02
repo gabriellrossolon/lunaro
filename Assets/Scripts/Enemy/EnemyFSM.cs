@@ -10,6 +10,7 @@ public class EnemyFSM : MonoBehaviour
     private EnemyStats _enemyStats;
     private Animator _animator;
     private EnemyWeaponBehavior _enemyWeaponBehavior;
+    private EnemyEffects _enemyEffects;
 
     public StateMachine FSM => _fsm;
 
@@ -25,6 +26,7 @@ public class EnemyFSM : MonoBehaviour
         _enemyStats = GetComponent<EnemyStats>();
         _animator = GetComponent<Animator>();
         _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();
+        _enemyEffects = GetComponent<EnemyEffects>();
 
         _fsm = new();
         _fsm.AddState("Idle", new EnemyIdleState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent));
@@ -32,6 +34,7 @@ public class EnemyFSM : MonoBehaviour
         _fsm.AddState("Chase", new EnemyChaseState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
         _fsm.AddState("Attack", new EnemyAttackState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
         _fsm.AddState("Retreat", new EnemyRetreatState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
+        _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects));
 
         _fsm.SetInitialState("Idle");
     }
@@ -53,7 +56,15 @@ public class EnemyFSM : MonoBehaviour
         _previousState = _fsm.PreviousState?.GetType().Name ?? "None";
     }
 
-    public void ActiveSwordCollider()
+    //Commons
+    public void DoDamage(float damage)
+    {
+        _enemyStats.currentHp -= damage;
+
+        if (_enemyStats.currentHp <= 0) { _fsm.SetState("Death"); }
+    }
+
+    public void ActiveWeaponCollider()
     {
         _enemyWeaponBehavior.CallCollider();
     }
