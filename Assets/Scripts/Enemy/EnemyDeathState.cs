@@ -11,10 +11,9 @@ public class EnemyDeathState : IState
     private readonly NavMeshAgent _agent;
     private readonly EnemyEffects _enemyEffects;
 
-    private float _dissolveTimer = 3f;
+    private float _dissolveTimer = 5f;
     private float _delayTimer = 1f;
     private Material _material;
-    private Color _originalColor;
     private bool _hasStartedDissolving = false;
 
     public EnemyDeathState(StateMachine fsm, Animator animator,
@@ -60,11 +59,6 @@ public class EnemyDeathState : IState
         if (skinnedMeshRenderer != null)
         {
             _material = skinnedMeshRenderer.material;
-            _originalColor = _material.color;
-        }
-        else
-        {
-            Debug.LogError("SkinnedMeshRenderer not found in children.");
         }
     }
 
@@ -86,14 +80,10 @@ public class EnemyDeathState : IState
 
     private void HandleDelayBeforeDissolve()
     {
-        if (_delayTimer > 0)
-        {
-            _delayTimer -= Time.deltaTime;
-        }
-        else
+        _delayTimer -= Time.deltaTime;
+        if (_delayTimer <= 0)
         {
             _hasStartedDissolving = true;
-            _enemyEffects.deathFX.SetActive(true);
         }
     }
 
@@ -102,16 +92,18 @@ public class EnemyDeathState : IState
         if (_material != null)
         {
             _dissolveTimer -= Time.deltaTime;
-            float alpha = Mathf.Lerp(1, 0, 1 - (_dissolveTimer / 3f));
-            _material.color = new Color(_originalColor.r, _originalColor.g, _originalColor.b, alpha);
+            float dissolveAmount = Mathf.Lerp(0, 1, 1 - (_dissolveTimer / 3f));
+            _material.SetFloat("_DissolveAmount", dissolveAmount);
 
-            if (_dissolveTimer <= 0)
+            if (dissolveAmount >= 1)
             {
                 Object.Destroy(_transform.gameObject);
             }
         }
     }
 }
+
+
 
 
 
