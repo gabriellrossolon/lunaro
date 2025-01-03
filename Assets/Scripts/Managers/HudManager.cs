@@ -17,7 +17,9 @@ public class HudManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     [Header("References")]

@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); 
             return;
         }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject); 
     }
 
     public void TriggerSlowMotion(float duration = 0.1f, float targetTimeScale = 0.4f)

@@ -32,7 +32,9 @@ public class InventoryManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Gera os slots do inventário ao iniciar o jogo
