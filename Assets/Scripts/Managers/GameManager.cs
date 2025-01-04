@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); 
     }
 
-    public void TriggerSlowMotion(float duration = 0.1f, float targetTimeScale = 0.4f)
+    public void TriggerSlowMotion(float duration = 0.05f, float targetTimeScale = 0.4f)
     {
         if (isSlowMotionActive) return;
         StartCoroutine(SlowMotionEffect(duration, targetTimeScale));

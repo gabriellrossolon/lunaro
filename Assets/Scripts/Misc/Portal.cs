@@ -6,7 +6,6 @@ public class Portal : MonoBehaviour
     public enum PortalType
     {
         HUB,
-        Sewers,
         DungeonA,
         Spawn
     }
@@ -29,10 +28,6 @@ public class Portal : MonoBehaviour
         {
             case PortalType.HUB:
                 sceneName = "HUB";
-                break;
-
-            case PortalType.Sewers:
-                sceneName = "SewerDungeon";
                 break;
 
             case PortalType.DungeonA:
