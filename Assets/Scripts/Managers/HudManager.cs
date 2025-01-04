@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using static System.TimeZoneInfo;
 
 public class HudManager : MonoBehaviour
 {
