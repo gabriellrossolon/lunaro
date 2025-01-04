@@ -47,7 +47,7 @@ public class PlayerFallState : IState
     {
         verticalVelocity += _playerStatus.playerGravity * Time.deltaTime;
         Vector3 movement = new Vector3(0, verticalVelocity, 0);
-        _controller.Move(movement * Time.deltaTime);
+        if (_controller.enabled) { _controller.Move(movement * Time.deltaTime); }
     }
 
     private void MoveWhileFalling()
@@ -55,7 +55,7 @@ public class PlayerFallState : IState
         Vector2 input = _inputHandler.moveInput;
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = _playerTransform.TransformDirection(move); // Faz com que a rotação do jogador seja a mesma da rotação da câmera
-        _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed); // Aplica o movimento horizontal enquanto cai
+        if(_controller.enabled) { _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed); }
     }
 
     private void StateChange()

@@ -74,8 +74,11 @@ public class PlayerCombatState : IState
         Vector2 input = _inputHandler.moveInput;
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = _playerTransform.TransformDirection(move); //Faz com que a rotação do jogador seja a mesma da rotação da camera
-        _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed);
-        _controller.Move(new Vector3(0, _playerStatus.playerGravity, 0) * Time.deltaTime);
+        if (_controller.enabled)
+        {
+            _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed);
+            _controller.Move(new Vector3(0, _playerStatus.playerGravity, 0) * Time.deltaTime);
+        }
     }
 
     private void StateChange()

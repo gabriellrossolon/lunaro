@@ -56,7 +56,7 @@ public class PlayerJumpState : IState
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = _playerTransform.TransformDirection(move);
         Vector3 movement = move * _playerStatus.actualSpeed + new Vector3(0, verticalVelocity, 0);
-        _controller.Move(movement * Time.deltaTime);
+        if (_controller.enabled) { _controller.Move(movement * Time.deltaTime); }
     }
 
     private void ExecuteJump()

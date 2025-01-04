@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Portal : MonoBehaviour
 {
+    public GameObject transition;
     public enum PortalType
     {
         HUB,
@@ -16,8 +18,17 @@ public class Portal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LoadSceneBasedOnPortalType();
+            transition.GetComponent<Animator>().SetTrigger("start");
+            StartCoroutine(LoadSceneWithDelay(other));
         }
+    }
+
+    private IEnumerator LoadSceneWithDelay(Collider other)
+    {
+        // Aguardar 1 segundo
+        yield return new WaitForSeconds(0.5f);
+        other.GetComponent<CharacterController>().enabled = false;
+        LoadSceneBasedOnPortalType();
     }
 
     private void LoadSceneBasedOnPortalType()
@@ -46,13 +57,11 @@ public class Portal : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            player.transform.position = Vector3.zero;
-            player.transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
+        GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
+        transition.GetComponent<Animator>().SetTrigger("end");
+        player.transform.position = spawnPoint.transform.position;
+        player.GetComponent<CharacterController>().enabled = true;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
-

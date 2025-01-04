@@ -36,7 +36,7 @@ public class EnemyFSM : MonoBehaviour
         _fsm.AddState("Retreat", new EnemyRetreatState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
         _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects));
 
-        _fsm.SetInitialState("Idle");
+        _fsm.SetInitialState("Patrol");
     }
 
     private void Update()

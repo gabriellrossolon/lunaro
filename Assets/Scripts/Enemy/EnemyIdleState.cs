@@ -29,7 +29,7 @@ public class EnemyIdleState : IState
 
     public void OnEnter()
     {
-        _idleDuration = Random.Range(3f, 6f);
+        _idleDuration = Random.Range(2f, 4f);
         _idleStartTime = Time.time;
         _animator.SetBool("isIdle", true);
         _agent.isStopped = true;
