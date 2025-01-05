@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MovableObject : MonoBehaviour
 {
-    bool isHolding = false;
-
+    public bool isHolding = false;
+    public bool isThrown = false; // Flag para verificar se o objeto foi arremessado
 
     [SerializeField] private float throwForce = 600f;
     [SerializeField] private float maxDistance = 3f;
@@ -49,6 +49,7 @@ public class MovableObject : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && !isHolding)
             {
                 isHolding = true;
+                isThrown = false; // Resetar o estado de arremesso
                 rb.useGravity = false;
                 rb.detectCollisions = true;
 
@@ -85,6 +86,7 @@ public class MovableObject : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            isThrown = true;
             rb.AddForce(tempParent.transform.forward * throwForce);
             Drop();
         }
@@ -104,12 +106,24 @@ public class MovableObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (isThrown)
         {
-            other.gameObject.GetComponent<EnemyFSM>().DoDamage(damage);
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<EnemyFSM>().DoDamage(damage);
 
-            Instantiate(collisionParticle, other.ClosestPoint(transform.position), Quaternion.identity);
-            Instantiate(destroyParticle, other.ClosestPoint(transform.position), Quaternion.identity);
+                Instantiate(collisionParticle, other.ClosestPoint(transform.position), Quaternion.identity);
+                Instantiate(destroyParticle, other.ClosestPoint(transform.position), Quaternion.identity);
+                Destroy(this.gameObject);
+            }        
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (isThrown)
+        {
+            Instantiate(destroyParticle, other.contacts[0].point, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

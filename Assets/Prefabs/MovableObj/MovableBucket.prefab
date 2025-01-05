@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4553290586965854125}
   - component: {fileID: 7345160426469322754}
   - component: {fileID: 7976806016563673883}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MovableBucket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29159333842d0d24a8a99591a75eac89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHolding: 0
+  isThrown: 0
   throwForce: 500
   maxDistance: 3
   damage: 3
@@ -109,7 +111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8213474184991163316}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: transform10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +144,7 @@ GameObject:
   - component: {fileID: 6647895325537786188}
   - component: {fileID: 6259469766644563795}
   - component: {fileID: 9198371535525898796}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: polySurface12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5536330934008010055}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pCylinder5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3653777174776333973}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bucket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8864148983632764227}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: polySurface12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1186410422695706840}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: polySurface13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1330199811551444646}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: transform12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7317084346043896472}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: transform11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
