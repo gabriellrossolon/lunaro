@@ -10,6 +10,8 @@ public class PlayerStatus : MonoBehaviour
 
     public float jumpHeight;
 
+    public float damage;
+
     public float maxHp;
     public float currentHp;
 
@@ -18,10 +20,23 @@ public class PlayerStatus : MonoBehaviour
         currentHp = maxHp;
     }
 
-    public void DoDamage(float damage)
+    public void ControlDamage(float value)
     {
-        currentHp -= damage;
-        HudManager.Instance.ChangeVignetteColorToRed();
-        GetComponent<PlayerFSM>()._handsPOV.GetComponent<Animator>().SetTrigger("damage");
+        damage += value;
+
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+    }
+
+    public void ControlHp(float value)
+    {
+        maxHp += value;
+
+        if (currentHp >= maxHp)
+        {
+            currentHp = maxHp;
+        }
     }
 }

@@ -13,7 +13,7 @@ public class DroppedItem : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = PlayerManager.Instance.gameObject;
         rb = GetComponent<Rigidbody>();
     }
 

@@ -70,7 +70,7 @@ public class WeaponBehavior : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, Quaternion.identity);
         ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
-        projectileScript.damage = GetComponentInChildren<StaffBehavior>().damage;
+        //projectileScript.damage = GetComponentInChildren<StaffBehavior>().damage;
         projectileScript.SetDirection(transform.forward);
     }
 

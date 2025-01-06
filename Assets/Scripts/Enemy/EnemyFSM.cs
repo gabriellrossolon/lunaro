@@ -22,7 +22,7 @@ public class EnemyFSM : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _transform = this.transform;
-        _playerTransform = GameObject.FindWithTag("Player").transform;
+        _playerTransform = PlayerManager.Instance.transform;
         _enemyStats = GetComponent<EnemyStats>();
         _animator = GetComponent<Animator>();
         _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();

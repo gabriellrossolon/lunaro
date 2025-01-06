@@ -10,9 +10,9 @@ public class MovableObject : MonoBehaviour
     [SerializeField] private float damage = 2f;
     private float distance;
 
-    TempParent tempParent;
-    Rigidbody rb;
-    GameObject player;
+    private TempParent tempParent;
+    private Rigidbody rb;
+    private GameObject player;
     public GameObject collisionParticle;
     public GameObject destroyParticle;
 
@@ -22,7 +22,7 @@ public class MovableObject : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         tempParent = TempParent.Instance;
-        player = GameObject.FindWithTag("Player");
+        player = PlayerManager.Instance.gameObject;
     }
 
     private void Update()

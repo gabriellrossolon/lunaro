@@ -30,7 +30,7 @@ public class EnemyWeaponBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             GameManager.Instance.TriggerSlowMotion();
-            other.GetComponent<PlayerStatus>().DoDamage(damage);
+            PlayerManager.Instance.DoDamage(damage);
             Instantiate(_enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         }
     }

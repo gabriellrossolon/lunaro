@@ -16,8 +16,12 @@ public class ChestBehavior : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        player = GameObject.FindWithTag("Player");
         chestCollider = GetComponent<Collider>();
+    }
+
+    private void Start()
+    {
+        player = PlayerManager.Instance.gameObject;
     }
 
     public void OpenChest()

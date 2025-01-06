@@ -52,6 +52,8 @@ public class PlayerFSM : MonoBehaviour
         _fsm.Tick();
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, _cameraTransform.eulerAngles.y, transform.eulerAngles.z);
+
+        if(_inputHandler.moveInput != Vector2.zero) { SFXManager.Instance.UpdateStepSound(transform.position); }
     }
 
     private void FixedUpdate()
