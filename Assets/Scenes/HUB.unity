@@ -882,12 +882,12 @@ MonoBehaviour:
   inventoryItemPrefab: {fileID: 3302311322468248201, guid: f5cfc6cb4fb72d1428603b7daf91a7af, type: 3}
   inventoryItems:
   - {fileID: 11400000, guid: 3a407f94b03a53a4eb69a56aff53657d, type: 2}
-  - {fileID: 11400000, guid: 6cc7fa084629e5c4e84988811eb046d9, type: 2}
-  - {fileID: 11400000, guid: 72ad547eba7c42d42a8c216987ce411b, type: 2}
-  - {fileID: 11400000, guid: a2336ae1ba98cea40ac94d6869eb644e, type: 2}
-  - {fileID: 11400000, guid: 8655bd1415a394e43b2b8fac66021781, type: 2}
-  - {fileID: 11400000, guid: 08debcde9a928f647b762a318a221575, type: 2}
-  - {fileID: 11400000, guid: 58b74819329b2b14b90e61723f743b0a, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -6443,7 +6443,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -10994,13 +10994,13 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -15621,7 +15621,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
