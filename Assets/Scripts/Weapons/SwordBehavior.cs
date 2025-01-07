@@ -40,6 +40,9 @@ public class SwordBehavior : MonoBehaviour
             other.GetComponent<EnemyFSM>().DoDamage(playerStatus.damage);
             other.GetComponent<Animator>().SetTrigger("hurt");
             Instantiate(collisionParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.fleshImpactSound);
             //Debug.Log("Colidiu com o componente: " + other.GetType().Name);
         }
     }

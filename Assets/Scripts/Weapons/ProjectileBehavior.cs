@@ -5,7 +5,8 @@ public class ProjectileBehavior : MonoBehaviour
     private PlayerStatus playerStatus;
 
     public float speed = 10f;
-    //[HideInInspector] public float damage;
+    public AudioClip projectileImpactSound;
+
     private Vector3 direction;
     private Rigidbody rb;
     public GameObject collisionParticle;
@@ -38,11 +39,12 @@ public class ProjectileBehavior : MonoBehaviour
             GameManager.Instance.TriggerSlowMotion();
             other.GetComponent<EnemyFSM>().DoDamage(playerStatus.damage);
             other.GetComponent<Animator>().SetTrigger("hurt");
-            Instantiate(collisionParticle, transform.position, transform.rotation);
+            
         }
-
         if (!other.CompareTag("Player"))
         {
+            GameObject collParticle = Instantiate(collisionParticle, transform.position, transform.rotation);
+            collParticle.GetComponent<AudioSource>().PlayOneShot(projectileImpactSound);
             Destroy(this.gameObject);
         }
     }

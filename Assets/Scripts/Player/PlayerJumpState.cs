@@ -30,6 +30,7 @@ public class PlayerJumpState : IState
 
     public void OnEnter()
     {
+        SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.jumpSound);
         ExecuteJump();
         if (_inputHandler.moveInput != Vector2.zero)
         {

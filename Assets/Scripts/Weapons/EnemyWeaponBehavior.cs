@@ -6,12 +6,14 @@ public class EnemyWeaponBehavior : MonoBehaviour
     private Collider _coll;
     private EnemyEffects _enemEffects;
     private EnemyStats _enemyStats;
+    private AudioSource _enemySoundSource;
     public bool colliderEnabled = false;
     private void Awake()
     {
         _coll = GetComponent<Collider>();
         _enemEffects = GetComponentInParent<EnemyEffects>();
         _enemyStats = GetComponentInParent<EnemyStats>();
+        _enemySoundSource = GetComponentInParent<AudioSource>();
     }
 
     private void Start()
@@ -29,6 +31,7 @@ public class EnemyWeaponBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            _enemySoundSource.PlayOneShot(_enemEffects.attackImpactSound);
             GameManager.Instance.TriggerSlowMotion();
             PlayerManager.Instance.DoDamage(damage);
             Instantiate(_enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
+  m_Name: ReliquaryDemonSword
+  m_EditorClassIdentifier: 
+  itemName: Reliquary Demon Sword
+  icon: {fileID: 404980914, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
+  description: A legendary sword once belonging to a demon
+  weaponType: 1
+  damage: 12
+  weaponPrefab: {fileID: 8788400204022882399, guid: 401ca0c11538eda4eb811002cb06601b, type: 3}
+  projectile: {fileID: 0}

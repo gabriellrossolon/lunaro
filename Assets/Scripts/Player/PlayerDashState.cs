@@ -35,7 +35,7 @@ public class PlayerDashState : IState
 
     public void OnEnter()
     {
-        _animator.SetTrigger("jumpSprint");
+        SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.dashSound);
         _handsPOV.GetComponent<Animator>().SetTrigger("dash");
         StartDash();
         _cooldownController.canDash = false;

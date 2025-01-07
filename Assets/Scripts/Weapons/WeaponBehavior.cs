@@ -26,13 +26,17 @@ public class WeaponBehavior : MonoBehaviour
     {
         if (attack)
         {
-            if (weaponType == Weapon.WeaponType.Staff || weaponType == Weapon.WeaponType.Bow)
+            if (weaponType == Weapon.WeaponType.Staff)
             {
-                ExecuteRangedAttack();
+                ExecuteStaffAttack();
             }
             else if (weaponType == Weapon.WeaponType.Sword)
             {
                 ExecuteSwordAttack();
+            }
+            else if (weaponType == Weapon.WeaponType.Bow)
+            {
+
             }
             attack = false;
         }
@@ -40,8 +44,10 @@ public class WeaponBehavior : MonoBehaviour
         if (weaponType == Weapon.WeaponType.Sword) { weaponAnim.SetBool("Blocking", block); }
     }
 
-    private void ExecuteRangedAttack()
+    private void ExecuteStaffAttack()
     {
+        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
         weaponAnim.SetTrigger("staffAttack");
     }
 
@@ -58,6 +64,9 @@ public class WeaponBehavior : MonoBehaviour
                 weaponAnim.SetTrigger("swordAttackUD");
             }
             changeAttack = !changeAttack;
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSound);
         }
     }
 

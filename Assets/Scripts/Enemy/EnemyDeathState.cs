@@ -68,7 +68,8 @@ public class EnemyDeathState : IState
         {
             _transform.GetComponent<CapsuleCollider>(),
             _transform.GetComponent<BoxCollider>(),
-            _agent
+            _agent,
+            _enemyEffects
         })
         {
             if (component is Behaviour behaviour)

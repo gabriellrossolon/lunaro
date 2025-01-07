@@ -9,12 +9,15 @@ public class EnemyAttackState : IState
     private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly Animator _animator;
+    private readonly EnemyEffects _enemyEffects;
+    private readonly AudioSource _enemySoundSource;
     private float _attackDuration = 1.5f; // Tempo de duração do ataque (em segundos)
     private float _attackTimer = 0f;
 
     public EnemyAttackState(StateMachine fsm, NavMeshAgent agent,
         Transform transform, Transform playerTransform,
-        EnemyStats enemyStats, Animator animator)
+        EnemyStats enemyStats, Animator animator, 
+        EnemyEffects enemyEffects, AudioSource enemySoundSource)
     {
         _fsm = fsm;
         _agent = agent;
@@ -22,6 +25,8 @@ public class EnemyAttackState : IState
         _playerTransform = playerTransform;
         _enemyStats = enemyStats;
         _animator = animator;
+        _enemyEffects = enemyEffects;
+        _enemySoundSource = enemySoundSource;
     }
 
     public void OnEnter()
@@ -41,6 +46,7 @@ public class EnemyAttackState : IState
         {
             _animator.SetTrigger("attack3");
         }
+        _enemySoundSource.PlayOneShot(_enemyEffects.attackSound);
 
         // Reinicia o contador do ataque
         _attackTimer = _attackDuration;

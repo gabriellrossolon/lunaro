@@ -22,9 +22,11 @@ public class PlayerManager : MonoBehaviour
 
     private void CallStep()
     {
-        SFXManager.Instance.playerSource.pitch = Random.Range(0.6f, 0.8f);
-        SFXManager.Instance.playerSource.PlayOneShot(SFXManager.Instance.actualStepSound);
+        SFXManager.Instance.playerFootSource.pitch = Random.Range(0.6f, 0.8f);
+        SFXManager.Instance.playerFootSource.PlayOneShot(SFXManager.Instance.actualStepSound);
     }
+
+
 
     public void DoDamage(float damage)
     {

@@ -15,6 +15,7 @@ public class MovableObject : MonoBehaviour
     private GameObject player;
     public GameObject collisionParticle;
     public GameObject destroyParticle;
+    public AudioClip destroySound;
 
     Vector3 objectPos;
 
@@ -88,6 +89,7 @@ public class MovableObject : MonoBehaviour
         {
             isThrown = true;
             rb.AddForce(tempParent.transform.forward * throwForce);
+            SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.objectThrowSound);
             Drop();
         }
     }
@@ -113,7 +115,8 @@ public class MovableObject : MonoBehaviour
                 other.gameObject.GetComponent<EnemyFSM>().DoDamage(damage);
 
                 Instantiate(collisionParticle, other.ClosestPoint(transform.position), Quaternion.identity);
-                Instantiate(destroyParticle, other.ClosestPoint(transform.position), Quaternion.identity);
+                GameObject destroyPart = Instantiate(destroyParticle, other.ClosestPoint(transform.position), Quaternion.identity);
+                destroyPart.GetComponent<AudioSource>().PlayOneShot(destroySound);
                 Destroy(this.gameObject);
             }        
         }
@@ -123,7 +126,8 @@ public class MovableObject : MonoBehaviour
     {
         if (isThrown)
         {
-            Instantiate(destroyParticle, other.contacts[0].point, Quaternion.identity);
+            GameObject destroyPart = Instantiate(destroyParticle, other.contacts[0].point, Quaternion.identity);
+            destroyPart.GetComponent<AudioSource>().PlayOneShot(destroySound);
             Destroy(this.gameObject);
         }
     }

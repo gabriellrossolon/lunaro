@@ -51,13 +51,29 @@ public class SFXManager : MonoBehaviour
     public AudioClip HUBMusicSound;
     public AudioClip dungeonMusicSound;
 
-    [Header("Player SFX")]
-    public AudioSource playerSource;
+    [Header("Player Foot SFX")]
+    public AudioSource playerFootSource;
     public AudioClip stepGrassSound;
     public AudioClip stepStoneSound;
     public AudioClip stepSandSound;
     public AudioClip stepWoodSound;
     public AudioClip defaultStepSound;
+
+    [Header("Player Movement SFX")]
+    public AudioSource playerMovementsSource;
+    public AudioClip jumpSound;
+    public AudioClip dashSound;
+
+    [Header("Player Attacks SFX")]
+    public AudioSource playerAttacksSource;
+    public AudioClip attackSound;
+    public AudioClip fleshImpactSound;
+    public AudioClip magicCastSound;
+
+    [Header("Misc SFX")]
+    public AudioSource miscSoundSource;
+    public AudioClip objectThrowSound;
+
 
     // Layers for detection
     [Header("Layer Mapping")]
@@ -69,34 +85,32 @@ public class SFXManager : MonoBehaviour
     {
         RaycastHit hit;
 
-        // Lança um Raycast para baixo a partir da posição do jogador
         if (Physics.Raycast(playerPosition, Vector3.down, out hit, 1.5f))
         {
-            // Verifica se a camada detectada corresponde a alguma das superfícies mapeadas
             if ((grassLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
             {
-                actualStepSound = stepGrassSound; // Som para grama
+                actualStepSound = stepGrassSound;
             }
             else if ((stoneLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
             {
-                actualStepSound = stepStoneSound; // Som para pedra
+                actualStepSound = stepStoneSound;
             }
             else if ((sandLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
             {
-                actualStepSound = stepSandSound; // Som para areia
+                actualStepSound = stepSandSound;
             }
             else if ((woodLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
             {
-                actualStepSound = stepWoodSound; // Som para madeira
+                actualStepSound = stepWoodSound;
             }
             else
             {
-                actualStepSound = defaultStepSound; // Som padrão caso não seja nenhum dos anteriores
+                actualStepSound = defaultStepSound;
             }
         }
         else
         {
-            actualStepSound = defaultStepSound; // Som padrão se o Raycast não atingir nada
+            actualStepSound = defaultStepSound;
         }
     }
 }
