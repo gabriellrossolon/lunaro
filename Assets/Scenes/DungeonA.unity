@@ -35589,6 +35589,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7017650187881764774, guid: 51e023b7fb1ca814fb3c8cedb1d6013c, type: 3}
   m_PrefabInstance: {fileID: 2001136528}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2002535739
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.6575942
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9767205
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.21451604
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 24.774
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156220955468545055, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942584452622413658, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
+      propertyPath: m_Name
+      value: Skeleton Sword n Shield
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 81d2f2da17020dd4db3307409399edd3, type: 3}
 --- !u!1001 &2004167730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37856,3 +37913,4 @@ SceneRoots:
   - {fileID: 2124630004}
   - {fileID: 1729227705}
   - {fileID: 1335891229}
+  - {fileID: 2002535739}

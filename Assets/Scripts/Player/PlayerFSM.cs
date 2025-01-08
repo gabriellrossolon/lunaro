@@ -41,7 +41,7 @@ public class PlayerFSM : MonoBehaviour
         _fsm.AddState("Jump", new PlayerJumpState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _cooldownController, _animator));
         _fsm.AddState("Fall", new PlayerFallState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _animator));
         _fsm.AddState("Combat", new PlayerCombatState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController));
-        _fsm.AddState("Dash", new PlayerDashState(_fsm, _inputHandler, _controller, _playerTransform, _cooldownController, _dashParticle, _animator, _handsPOV));
+        _fsm.AddState("Dash", new PlayerDashState(_fsm, _inputHandler, _controller, _playerTransform, _cooldownController, _dashParticle, _animator, _handsPOV, _playerStatus));
 
         _fsm.SetInitialState("Idle"); // Define o estado inicial
     }
@@ -83,17 +83,11 @@ public class PlayerFSM : MonoBehaviour
             } 
         }
         _playerActualSpeed = targetSpeed;
-        //_playerActualSpeed = Mathf.Lerp(_playerActualSpeed, targetSpeed, 0.1f);
-        //if (Mathf.Abs(_playerActualSpeed - targetSpeed) < 0.01f)
-        //{
-        //    _playerActualSpeed = targetSpeed;
-        //}
         _playerStatus.actualSpeed = _playerActualSpeed;
     }
 
     private void UpdateCurrentState()
     {
-        // Atualiza os estados atuais e anteriores para o debug
         _currentState = _fsm.CurrentState?.GetType().Name ?? "None";
         _previousState = _fsm.PreviousState?.GetType().Name ?? "None";
     }

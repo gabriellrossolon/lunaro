@@ -114,6 +114,7 @@ public class InventoryManager : MonoBehaviour
     private void InstantiateAndSetupWeapon()
     {
         lastInstantiatedObject = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
+        rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
         switch (equippedWeapon.weaponType)
         {

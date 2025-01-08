@@ -26,8 +26,6 @@ public class PlayerManager : MonoBehaviour
         SFXManager.Instance.playerFootSource.PlayOneShot(SFXManager.Instance.actualStepSound);
     }
 
-
-
     public void DoDamage(float damage)
     {
         playerStatus.currentHp -= damage;

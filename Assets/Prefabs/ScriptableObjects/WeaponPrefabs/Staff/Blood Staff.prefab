@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 3060589552295112050}
   - component: {fileID: 3212624530053316812}
   - component: {fileID: 5169902968354267939}
-  - component: {fileID: 4588260104457088984}
   - component: {fileID: 7005866663766808291}
   m_Layer: 0
   m_Name: Blood Staff
@@ -121,22 +120,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4588260104457088984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5116089301490242297}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8d88078caed244bb167538623d9e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enchantAlwaysVisable: 1
-  isThrowable: 0
-  enchantmentFilters:
-  - {fileID: 8074662753852078682}
 --- !u!114 &7005866663766808291
 MonoBehaviour:
   m_ObjectHideFlags: 0

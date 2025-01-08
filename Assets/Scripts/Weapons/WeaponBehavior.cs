@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class WeaponBehavior : MonoBehaviour
 {
+    private PlayerStatus playerStatus;
+
     [HideInInspector] public bool attack;
     [HideInInspector] public bool block = false;
     public bool canAttack = true;
@@ -14,12 +16,20 @@ public class WeaponBehavior : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject projectileExitPoint;
 
+    [Header("Attack Resource Cost (Stamina/Mana)")]
+    public float resourceCost;
+
     [Header("Weapon Type Equipped")]
-    public Weapon.WeaponType weaponType; // Usando o enum WeaponType
+    public Weapon.WeaponType weaponType;
 
     private void Awake()
     {
         weaponAnim = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }
 
     private void Update()
@@ -46,14 +56,17 @@ public class WeaponBehavior : MonoBehaviour
 
     private void ExecuteStaffAttack()
     {
-        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
-        weaponAnim.SetTrigger("staffAttack");
+        if (canAttack && playerStatus.currentMana >= resourceCost)
+        {
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
+            weaponAnim.SetTrigger("staffAttack");
+        }
     }
 
     public void ExecuteSwordAttack()
     {
-        if (canAttack)
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
             if (changeAttack)
             {
@@ -87,6 +100,16 @@ public class WeaponBehavior : MonoBehaviour
     {
         SwordBehavior swordBehavior = GetComponentInChildren<SwordBehavior>();
         swordBehavior.colliderEnabled = !swordBehavior.colliderEnabled;
+    }
+
+    public void ConsumeMana()
+    {   
+        playerStatus.SubtractMana(resourceCost);
+    }
+
+    public void ConsumeStamina()
+    {
+        playerStatus.SubtractStamina(resourceCost);
     }
 }
 

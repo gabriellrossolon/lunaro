@@ -9,6 +9,7 @@ public class PlayerDashState : IState
     private readonly CooldownController _cooldownController;
     private readonly GameObject _dashParticle;
     private readonly Animator _animator;
+    private readonly PlayerStatus _playerStatus;
 
     private readonly GameObject _handsPOV;
 
@@ -21,7 +22,7 @@ public class PlayerDashState : IState
     public PlayerDashState(StateMachine fsm, InputHandler inputHandler,
         CharacterController controller, Transform playerTransform,
         CooldownController cooldownController, GameObject dashParticle, 
-        Animator animator, GameObject handsPOV)
+        Animator animator, GameObject handsPOV, PlayerStatus playerSTatus)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -31,10 +32,12 @@ public class PlayerDashState : IState
         _dashParticle = dashParticle;
         _animator = animator;
         _handsPOV = handsPOV;
+        _playerStatus = playerSTatus;
     }
 
     public void OnEnter()
     {
+        _playerStatus.SubtractStamina(10f);
         SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.dashSound);
         _handsPOV.GetComponent<Animator>().SetTrigger("dash");
         StartDash();

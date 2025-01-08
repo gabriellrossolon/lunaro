@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7775707474335628691}
   - component: {fileID: 2024135239641297071}
   - component: {fileID: 2128149521997832689}
-  - component: {fileID: 6505827175152548534}
   - component: {fileID: 7600322612624484178}
   - component: {fileID: 5709043041922519677}
   m_Layer: 0
@@ -90,22 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6505827175152548534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2635929240816447396}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8d88078caed244bb167538623d9e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enchantAlwaysVisable: 1
-  isThrowable: 0
-  enchantmentFilters:
-  - {fileID: 3407311097817244476}
 --- !u!114 &7600322612624484178
 MonoBehaviour:
   m_ObjectHideFlags: 0

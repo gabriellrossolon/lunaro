@@ -27,6 +27,7 @@ public class HudManager : MonoBehaviour
     public PlayerInput playerInput;
     public GameObject warnBtn;
     public GameObject globalVolume;
+    private PlayerStatus playerStatus;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -39,16 +40,48 @@ public class HudManager : MonoBehaviour
     [Header("Controllers")]
     private bool openedInventory = false;
 
+    [Header("Player Status")]
+    public Slider hpSlider;
+    public Slider hpLateSlider;
+    public float lateSliderSpeed = 0.5f;
+    public Slider staminaSlider;
+    public Slider manaSlider;
+
     private Color _targetVignetteColor = Color.black;
     private float _targetSmoothness = 0.1f;
     private float _transitionDuration = 0.5f;
     private float _transitionTime = 0f;
+
+    private void Start()
+    {
+        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+
+        hpSlider.maxValue = playerStatus.maxHp;
+        hpLateSlider.maxValue = playerStatus.maxHp;
+        staminaSlider.maxValue = playerStatus.maxStamina;
+        manaSlider.maxValue = playerStatus.maxMana;
+
+        hpSlider.value = playerStatus.currentHp;
+        hpLateSlider.value = playerStatus.currentHp;
+        staminaSlider.value = playerStatus.currentStamina;
+        manaSlider.value = playerStatus.currentMana;
+    }
 
     private void Update()
     {
         UpdateCursorState();
         OpenInventory();
         SmoothVignetteTransition();
+
+        hpSlider.value = playerStatus.currentHp;
+        staminaSlider.value = playerStatus.currentStamina;
+        manaSlider.value = playerStatus.currentMana;
+
+        // Atualiza o valor do hpLateSlider suavemente
+        if (hpLateSlider.value != playerStatus.currentHp)
+        {
+            hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
+        }
     }
 
     private void UpdateCursorState()

@@ -10,6 +10,10 @@ public class Weapon : ItemBase
     public int damage;
     public GameObject weaponPrefab;
 
+    [Header("Resource cost for Attack with this (Stamina or Mana)")]
+    public float resourceCost;
+
     [Header("If Ranged")]
     public GameObject projectile;
+    
 }
