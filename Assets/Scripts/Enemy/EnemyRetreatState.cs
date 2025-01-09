@@ -37,7 +37,7 @@ public class EnemyRetreatState : IState
 
         _agent.SetDestination(retreatPosition);
 
-        _randomRetreatTime = Random.Range(0.5f, 1f);
+        _randomRetreatTime = Random.Range(1f, 1.5f);
         _retreatTimer = 0f;
     }
 

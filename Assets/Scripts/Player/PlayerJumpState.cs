@@ -30,7 +30,7 @@ public class PlayerJumpState : IState
 
     public void OnEnter()
     {
-        SFXManager.Instance.playerMovementsSource.pitch = Random.Range(0.8f, 1.2f);
+        SFXManager.Instance.playerMovementsSource.pitch = Random.Range(0.9f, 1.1f);
         SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.jumpSound);
         ExecuteJump();
         if (_inputHandler.moveInput != Vector2.zero)

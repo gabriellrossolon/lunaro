@@ -50,16 +50,18 @@ public class PlayerCombatState : IState
 
     private void Attack()
     {
-        if (_inputHandler.attackInput)
+        if (_inputHandler.attackInput && !TempParent.Instance.isHoldingAnything)
         {
             _inputHandler.attackInput = false;
             _weaponBehavior.attack = true;
         }
+
+        _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
     }
 
     private void Block()
     {
-        if (_inputHandler.blockInput)
+        if (_inputHandler.blockInput && !TempParent.Instance.isHoldingAnything)
         {
             _weaponBehavior.block = true;
         }

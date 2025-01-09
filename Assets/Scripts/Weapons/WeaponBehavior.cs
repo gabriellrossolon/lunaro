@@ -58,8 +58,7 @@ public class WeaponBehavior : MonoBehaviour
     {
         if (canAttack && playerStatus.currentMana >= resourceCost)
         {
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
+           
             weaponAnim.SetTrigger("staffAttack");
         }
     }
@@ -90,6 +89,9 @@ public class WeaponBehavior : MonoBehaviour
 
     public void CallProjectile()
     {
+        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
+
         GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, Quaternion.identity);
         ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
         //projectileScript.damage = GetComponentInChildren<StaffBehavior>().damage;

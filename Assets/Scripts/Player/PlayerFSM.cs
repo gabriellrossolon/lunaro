@@ -80,8 +80,15 @@ public class PlayerFSM : MonoBehaviour
             else
             {
                 targetSpeed = _playerStatus.walkSpeed;
-            } 
+            }
         }
+
+        // Adjust speed if holding anything
+        if (TempParent.Instance.isHoldingAnything)
+        {
+            targetSpeed /= 2f;
+        }
+
         _playerActualSpeed = targetSpeed;
         _playerStatus.actualSpeed = _playerActualSpeed;
     }

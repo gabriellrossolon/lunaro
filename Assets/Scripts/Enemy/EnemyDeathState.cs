@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
+using System.Linq;
 
 public class EnemyDeathState : IState
 {
@@ -13,7 +15,7 @@ public class EnemyDeathState : IState
 
     private float _dissolveTimer = 5f;
     private float _delayTimer = 1f;
-    private Material _material;
+    private List<Material> _materials;
     private bool _hasStartedDissolving = false;
 
     public EnemyDeathState(StateMachine fsm, Animator animator,
@@ -28,7 +30,7 @@ public class EnemyDeathState : IState
         _agent = agent;
         _enemyEffects = enemyEffects;
 
-        InitializeMaterial();
+        InitializeMaterials();
     }
 
     public void OnEnter()
@@ -53,13 +55,13 @@ public class EnemyDeathState : IState
         }
     }
 
-    private void InitializeMaterial()
+    private void InitializeMaterials()
     {
-        SkinnedMeshRenderer skinnedMeshRenderer = _transform.GetComponentInChildren<SkinnedMeshRenderer>();
-        if (skinnedMeshRenderer != null)
-        {
-            _material = skinnedMeshRenderer.material;
-        }
+        // Get all SkinnedMeshRenderers in the enemy's hierarchy
+        SkinnedMeshRenderer[] skinnedMeshRenderers = _transform.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        // Collect all materials from the SkinnedMeshRenderers
+        _materials = skinnedMeshRenderers.SelectMany(renderer => renderer.materials).ToList();
     }
 
     private void DisableComponents()
@@ -90,11 +92,19 @@ public class EnemyDeathState : IState
 
     private void HandleDissolveEffect()
     {
-        if (_material != null)
+        if (_materials != null && _materials.Count > 0)
         {
             _dissolveTimer -= Time.deltaTime;
             float dissolveAmount = Mathf.Lerp(0, 1, 1 - (_dissolveTimer / 3f));
-            _material.SetFloat("_DissolveAmount", dissolveAmount);
+
+            // Apply dissolve effect to all materials
+            foreach (var material in _materials)
+            {
+                if (material.HasProperty("_DissolveAmount"))
+                {
+                    material.SetFloat("_DissolveAmount", dissolveAmount);
+                }
+            }
 
             if (dissolveAmount >= 1)
             {
@@ -103,11 +113,6 @@ public class EnemyDeathState : IState
         }
     }
 }
-
-
-
-
-
 
 
 

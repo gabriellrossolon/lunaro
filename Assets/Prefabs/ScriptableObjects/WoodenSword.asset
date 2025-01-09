@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
+  m_Name: WoodenSword
+  m_EditorClassIdentifier: 
+  itemName: Wooden Sword
+  icon: {fileID: 1875280339, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
+  description: A sword made with wood
+  weaponType: 1
+  damage: 1
+  weaponPrefab: {fileID: 6221104792513222413, guid: d810d698340dfc94988460b7f0e4f714, type: 3}
+  resourceCost: 3
+  projectile: {fileID: 0}

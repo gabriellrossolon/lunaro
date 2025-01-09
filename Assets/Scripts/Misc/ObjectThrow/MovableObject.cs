@@ -31,7 +31,10 @@ public class MovableObject : MonoBehaviour
         distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
 
         if (isHolding)
+        {
             Hold();
+            TempParent.Instance.isHoldingAnything = true;
+        }
     }
 
     private void OnMouseOver()
@@ -104,6 +107,7 @@ public class MovableObject : MonoBehaviour
             this.transform.SetParent(null);
             rb.useGravity = true;
         }
+        TempParent.Instance.isHoldingAnything = false;
     }
 
     private void OnTriggerEnter(Collider other)

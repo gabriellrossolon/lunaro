@@ -13,25 +13,25 @@ public class EnemyEffects : MonoBehaviour
     public AudioClip attackSound;
     public AudioClip attackImpactSound;
 
-    public AudioClip goblinGrunt;
+    public AudioClip enemyGrunt;
 
     private void Start()
     {
         _enemySoundSource = GetComponent<AudioSource>();
         _originalPitch = _enemySoundSource.pitch;
-        if (goblinGrunt != null) { StartCoroutine(PlayGoblinGruntRandomly()); }
+        if (enemyGrunt != null) { StartCoroutine(PlayEnemyGruntRandomly()); }
     }
 
-    private System.Collections.IEnumerator PlayGoblinGruntRandomly()
+    private System.Collections.IEnumerator PlayEnemyGruntRandomly()
     {
         while (true)
         {
-            float randomInterval = Random.Range(5f, 15f);
+            float randomInterval = Random.Range(4f, 10f);
             yield return new WaitForSeconds(randomInterval);
 
             _enemySoundSource.pitch = Random.Range(gruntPitchRange.x, gruntPitchRange.y);
-            _enemySoundSource.PlayOneShot(goblinGrunt);
-            yield return new WaitForSeconds(goblinGrunt.length);
+            _enemySoundSource.PlayOneShot(enemyGrunt);
+            yield return new WaitForSeconds(enemyGrunt.length);
 
             _enemySoundSource.pitch = _originalPitch;
         }
