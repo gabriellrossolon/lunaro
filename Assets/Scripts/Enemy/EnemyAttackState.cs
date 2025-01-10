@@ -11,7 +11,7 @@ public class EnemyAttackState : IState
     private readonly Animator _animator;
     private readonly EnemyEffects _enemyEffects;
     private readonly AudioSource _enemySoundSource;
-    private float _attackDuration = 1.5f; // Tempo de duração do ataque (em segundos)
+    private float _attackDuration = 2f; // Tempo de duração do ataque (em segundos)
     private float _attackTimer = 0f;
 
     public EnemyAttackState(StateMachine fsm, NavMeshAgent agent,
@@ -54,7 +54,7 @@ public class EnemyAttackState : IState
 
     public void OnExit() 
     {
-        
+        _agent.isStopped = false;
     }
 
     public void OnFixedTick() { }
@@ -68,11 +68,11 @@ public class EnemyAttackState : IState
 
     private void StateChange()
     {
-        if (_attackTimer <= 0f)
-        {
-            _agent.isStopped = false;
-            _fsm.SetState("Retreat");
-        }
+        //if (_attackTimer <= 0f)
+        //{
+        //    _agent.isStopped = false;
+        //    _fsm.SetState("Retreat");
+        //}
     }
 }
 

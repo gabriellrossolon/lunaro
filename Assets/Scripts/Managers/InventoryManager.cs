@@ -11,6 +11,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject rightHandHolder;
     public GameObject leftHandHolder;
     public WeaponBehavior rightWeaponBehavior;
+    public SecondaryBehavior secondaryBehavior;
 
     [Header("Inventory References")]
     public Transform inventoryGrid;
@@ -111,6 +112,7 @@ public class InventoryManager : MonoBehaviour
 
         if (equippedSecondary == null || equippedSecondary.secondaryPrefab == null)
         {
+            ResetSecondaryBehavior();
             return;
         }
 
@@ -133,6 +135,11 @@ public class InventoryManager : MonoBehaviour
     private void ResetWeaponBehavior()
     {
         rightWeaponBehavior.weaponType = Weapon.WeaponType.Empty;
+    }
+
+    private void ResetSecondaryBehavior()
+    {
+        secondaryBehavior.secondaryType = Secondary.SecondaryType.Empty;
     }
 
     // Instancia e configura a nova arma
@@ -175,9 +182,15 @@ public class InventoryManager : MonoBehaviour
         switch (equippedSecondary.secondaryType)
         {
             case Secondary.SecondaryType.Shield:
+                secondaryBehavior.secondaryType = Secondary.SecondaryType.Shield;
                 break;
 
             case Secondary.SecondaryType.Orb:
+                secondaryBehavior.secondaryType = Secondary.SecondaryType.Orb;
+                break;
+
+            case Secondary.SecondaryType.Book:
+                secondaryBehavior.secondaryType = Secondary.SecondaryType.Book;
                 break;
 
         }

@@ -5,7 +5,6 @@ public class WeaponBehavior : MonoBehaviour
     private PlayerStatus playerStatus;
 
     [HideInInspector] public bool attack;
-    [HideInInspector] public bool block = false;
     public bool canAttack = true;
     private Animator weaponAnim;
 
@@ -50,8 +49,6 @@ public class WeaponBehavior : MonoBehaviour
             }
             attack = false;
         }
-
-        if (weaponType == Weapon.WeaponType.Sword) { weaponAnim.SetBool("Blocking", block); }
     }
 
     private void ExecuteStaffAttack()

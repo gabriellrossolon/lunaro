@@ -12,6 +12,7 @@ public class PlayerCombatState : IState
     private readonly CooldownController _cooldownController;
 
     private WeaponBehavior _weaponBehavior;
+    private SecondaryBehavior _secondaryBehavior;
 
     public PlayerCombatState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, 
         Transform playerTransform, Transform cameraTransform, 
@@ -32,6 +33,7 @@ public class PlayerCombatState : IState
     {
         _handsPOV.SetActive(true);
         _weaponBehavior = _handsPOV.GetComponentInChildren<WeaponBehavior>();
+        _secondaryBehavior = _handsPOV.GetComponentInChildren<SecondaryBehavior>();
         InventoryManager.Instance.EquipWeapon();
     }
     public void OnExit() 
@@ -63,11 +65,11 @@ public class PlayerCombatState : IState
     {
         if (_inputHandler.blockInput && !TempParent.Instance.isHoldingAnything)
         {
-            _weaponBehavior.block = true;
+            _secondaryBehavior.block = true;
         }
         else
         {
-            _weaponBehavior.block = false;
+            _secondaryBehavior.block = false;
         }
     }
 

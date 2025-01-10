@@ -8,6 +8,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public int slotIndex;
 
+    private float timer = 0f;
+    private bool canTryEquip = true;
+
     public void OnDrop(PointerEventData eventData)
     {
         var draggedItem = eventData.pointerDrag?.GetComponent<InventoryItem>();
@@ -169,6 +172,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         InventoryManager.Instance.handsPOV.SetActive(false);
         InventoryManager.Instance.handsPOV.SetActive(true);
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
     // Return the dragged item to its previous parent if it is invalid
@@ -182,6 +186,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         UpdateItemIndex();
         HandleEmptyEquipSlot();
+
+        if ((slotType == SlotType.Weapon || slotType == SlotType.Secondary))
+        {
+            timer += Time.deltaTime;
+            if (timer >= 0.5f)
+                canTryEquip = true;
+        }
     }
 
     private void OnTransformChildrenChanged()

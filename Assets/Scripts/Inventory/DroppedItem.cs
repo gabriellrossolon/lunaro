@@ -40,7 +40,8 @@ public class DroppedItem : MonoBehaviour
             HudManager.Instance.warnBtn.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                player.GetComponentInChildren<LeftHand>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
+                SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.itemPickupSound);
+                player.GetComponentInChildren<SecondaryBehavior>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
 
                 InventoryManager.Instance.AddItem(item);
                 Destroy(gameObject, 0.2f);

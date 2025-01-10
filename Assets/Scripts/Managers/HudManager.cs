@@ -145,8 +145,22 @@ public class HudManager : MonoBehaviour
         }
         else if (item is Secondary secondary)
         {
-            itemType.text = "Secondary";
-
+            if (secondary.secondaryType == Secondary.SecondaryType.Shield)
+            {
+                itemType.text = "Shield";
+            }
+            else if (secondary.secondaryType == Secondary.SecondaryType.Orb)
+            {
+                itemType.text = "Magical Orb";
+            }
+            else if (secondary.secondaryType == Secondary.SecondaryType.Book)
+            {
+                itemType.text = "Magical Book";
+            }
+            else
+            {
+                itemType.text = "Unknown Weapon";
+            }
             itemDmg.text = null;
         }
         else

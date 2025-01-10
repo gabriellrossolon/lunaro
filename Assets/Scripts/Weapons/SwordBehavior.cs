@@ -25,9 +25,7 @@ public class SwordBehavior : MonoBehaviour
     private void OnDestroy()
     {
         if (playerStatus != null)
-        {
             playerStatus.ControlDamage(-damage);
-        }
     }
 
     private void Update()

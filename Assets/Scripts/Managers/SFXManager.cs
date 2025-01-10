@@ -73,7 +73,8 @@ public class SFXManager : MonoBehaviour
     [Header("Misc SFX")]
     public AudioSource miscSoundSource;
     public AudioClip objectThrowSound;
-
+    public AudioClip inventoryEquipSound;
+    public AudioClip itemPickupSound;
 
     // Layers for detection
     [Header("Layer Mapping")]

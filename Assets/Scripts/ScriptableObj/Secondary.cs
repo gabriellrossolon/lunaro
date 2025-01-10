@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSecondary", menuName = "Secondarys/Secondary")]
 public class Secondary : ItemBase
 {
-    public enum SecondaryType { Empty, Shield, Orb}
+    public enum SecondaryType { Empty, Shield, Orb, Book}
     [Header("Weapon Type")]
     public SecondaryType secondaryType;
 
