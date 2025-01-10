@@ -19,11 +19,14 @@ public class DroppedItem : MonoBehaviour
 
     private void Start()
     {
-        Vector3 randomDirection = new Vector3(Random.Range(-throwRadius, throwRadius), Random.Range(throwHeight * 0.5f, throwHeight), Random.Range(0f, throwRadius));
-        rb.AddForce(randomDirection.normalized * throwForce, ForceMode.Impulse);
+        if(rb != null)
+        {
+            Vector3 randomDirection = new Vector3(Random.Range(-throwRadius, throwRadius), Random.Range(throwHeight * 0.5f, throwHeight), Random.Range(0f, throwRadius));
+            rb.AddForce(randomDirection.normalized * throwForce, ForceMode.Impulse);
 
-        Vector3 randomRotation = new Vector3(0f, Random.Range(-1f, 1f), 0f); // Somente rotação no eixo Y
-        rb.AddTorque(randomRotation, ForceMode.Impulse);
+            Vector3 randomRotation = new Vector3(0f, Random.Range(-1f, 1f), 0f); // Somente rotação no eixo Y
+            rb.AddTorque(randomRotation, ForceMode.Impulse);
+        }
     }
 
     private void OnMouseOver()
