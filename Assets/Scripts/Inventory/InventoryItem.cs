@@ -54,7 +54,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void MoveItemToTopCanvas()
     {
-        transform.SetParent(originalCanvas.transform, true);
+        transform.SetParent(originalCanvas.transform, true); //Tira o objeto como filho do Slot assim que começa a mexer ele.
         rectTransform.position = Input.mousePosition;
     }
 

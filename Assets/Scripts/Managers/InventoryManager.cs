@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
     [Header("Player References")]
     public GameObject handsPOV;
     public GameObject rightHandHolder;
+    public GameObject leftHandHolder;
     public WeaponBehavior rightWeaponBehavior;
 
     [Header("Inventory References")]
@@ -21,8 +22,10 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Equipped Items")]
     public Weapon equippedWeapon;
+    public Secondary equippedSecondary;
 
-    private GameObject lastInstantiatedObject;
+    private GameObject lastInstantiatedWeapon;
+    private GameObject lastInstantiatedSecondary;
 
     // Inicializa a instância e configura as referências
     private void Awake()
@@ -82,6 +85,11 @@ public class InventoryManager : MonoBehaviour
         equippedWeapon = weapon;
         EquipWeapon();
     }
+    public void EquipSecondaryFromInventory(Secondary secondary)
+    {
+        equippedSecondary = secondary;
+        EquipSecondary();
+    }
 
     // Equipar a arma atual, instanciando no personagem
     public void EquipWeapon()
@@ -97,11 +105,28 @@ public class InventoryManager : MonoBehaviour
         InstantiateAndSetupWeapon();
     }
 
+    public void EquipSecondary()
+    {
+        ClearPreviousSecondary();
+
+        if (equippedSecondary == null || equippedSecondary.secondaryPrefab == null)
+        {
+            return;
+        }
+
+        InstantiateAndSetupSecondary();
+    }
+
     // Limpa a arma anterior
     private void ClearPreviousWeapon()
     {
-        if (lastInstantiatedObject != null)
-            Destroy(lastInstantiatedObject);
+        if (lastInstantiatedWeapon != null)
+            Destroy(lastInstantiatedWeapon);
+    }
+    private void ClearPreviousSecondary()
+    {
+        if (lastInstantiatedSecondary != null)
+            Destroy(lastInstantiatedSecondary);
     }
 
     // Reseta os comportamentos da arma
@@ -113,7 +138,7 @@ public class InventoryManager : MonoBehaviour
     // Instancia e configura a nova arma
     private void InstantiateAndSetupWeapon()
     {
-        lastInstantiatedObject = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
+        lastInstantiatedWeapon = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
         rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
         switch (equippedWeapon.weaponType)
@@ -131,15 +156,30 @@ public class InventoryManager : MonoBehaviour
                 break;
         }
 
-        if (lastInstantiatedObject.TryGetComponent<SwordBehavior>(out var swordBehavior))
+        if (lastInstantiatedWeapon.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {
             swordBehavior.damage = equippedWeapon.damage;
         }
-        else if (lastInstantiatedObject.TryGetComponent<StaffBehavior>(out var staffBehavior))
+        else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {
             rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
             staffBehavior.damage = equippedWeapon.damage;
             rightWeaponBehavior.projectileExitPoint = staffBehavior.projectileExit;
+        }
+    }
+
+    private void InstantiateAndSetupSecondary()
+    {
+        lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
+
+        switch (equippedSecondary.secondaryType)
+        {
+            case Secondary.SecondaryType.Shield:
+                break;
+
+            case Secondary.SecondaryType.Orb:
+                break;
+
         }
     }
 

@@ -15,6 +15,9 @@ public class StaffBehavior : MonoBehaviour
 
     private void OnDestroy()
     {
-        playerStatus.ControlDamage(-damage);
+        if (playerStatus != null)
+        {
+            playerStatus.ControlDamage(-damage);
+        }
     }
 }

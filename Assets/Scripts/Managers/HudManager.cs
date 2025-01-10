@@ -143,6 +143,12 @@ public class HudManager : MonoBehaviour
 
             itemDmg.text = null;
         }
+        else if (item is Secondary secondary)
+        {
+            itemType.text = "Secondary";
+
+            itemDmg.text = null;
+        }
         else
         {
             itemType.text = "Unknown Item";
