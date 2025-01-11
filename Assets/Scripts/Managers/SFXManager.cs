@@ -70,11 +70,17 @@ public class SFXManager : MonoBehaviour
     public AudioClip fleshImpactSound;
     public AudioClip magicCastSound;
 
+    [Header("UI SFX")]
+    public AudioSource UIMiscSource;
+    public AudioClip btnHoverSound;
+    public AudioClip btnClickSound;
+
     [Header("Misc SFX")]
     public AudioSource miscSoundSource;
     public AudioClip objectThrowSound;
     public AudioClip inventoryEquipSound;
     public AudioClip itemPickupSound;
+    public AudioClip teleportSound;
 
     // Layers for detection
     [Header("Layer Mapping")]

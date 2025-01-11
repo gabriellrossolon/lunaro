@@ -30,6 +30,7 @@ public class HudManager : MonoBehaviour
     private PlayerStatus playerStatus;
     public Texture2D cursorPointer;
     public Texture2D cursorClicker;
+    public GameObject teleportsPage;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -53,6 +54,8 @@ public class HudManager : MonoBehaviour
     private float _targetSmoothness = 0.1f;
     private float _transitionDuration = 0.5f;
     private float _transitionTime = 0f;
+
+    private bool openedTeleportPage = false;
 
     private void Start()
     {
@@ -88,7 +91,7 @@ public class HudManager : MonoBehaviour
 
     private void UpdateCursorState()
     {
-        bool hudIsOpen = openedInventory;
+        bool hudIsOpen = openedInventory || openedTeleportPage;
 
         if (hudIsOpen)
         {
@@ -115,6 +118,21 @@ public class HudManager : MonoBehaviour
 
             itemShow.SetActive(false);
         }
+    }
+
+    public void OpenTeleportPage()
+    {
+        openedTeleportPage = !openedTeleportPage;
+        teleportsPage.SetActive(openedTeleportPage);
+
+        //if (openedTeleportPage)
+        //{
+        //    Time.timeScale = 0f;
+        //}
+        //else
+        //{
+        //    Time.timeScale = 1f;
+        //}
     }
 
     public void RefreshItemShow(ItemBase item)
@@ -207,6 +225,5 @@ public class HudManager : MonoBehaviour
     public void SetCursor(Texture2D cursor)
     {
         Cursor.SetCursor(cursor, new Vector2(16, 16), CursorMode.Auto);
-
     }
 }

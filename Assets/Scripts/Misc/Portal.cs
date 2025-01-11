@@ -4,9 +4,10 @@ using System.Collections;
 
 public class Portal : MonoBehaviour
 {
-    public GameObject transition;
+    private GameObject transition;
     public enum PortalType
     {
+        None,
         HUB,
         DungeonA,
         Spawn
@@ -14,24 +15,38 @@ public class Portal : MonoBehaviour
 
     public PortalType portalType;
 
+    private void Awake()
+    {
+        transition = GameObject.FindWithTag("Transition");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            transition.GetComponent<Animator>().SetTrigger("start");
-            StartCoroutine(LoadSceneWithDelay(other));
+            if(portalType == PortalType.None)
+            {
+                //Transição de cenas pela tela:
+                HudManager.Instance.OpenTeleportPage();
+            }
+            else
+            {
+                //Transição de cenas direto pelo Portal:
+                if(transition != null) { transition.GetComponent<Animator>().SetTrigger("start"); }
+                StartCoroutine(LoadSceneWithDelay(other));
+            }
+
         }
     }
 
     private IEnumerator LoadSceneWithDelay(Collider other)
     {
-        // Aguardar 1 segundo
         yield return new WaitForSeconds(0.5f);
         other.GetComponent<CharacterController>().enabled = false;
         LoadSceneBasedOnPortalType();
     }
 
-    private void LoadSceneBasedOnPortalType()
+    public void LoadSceneBasedOnPortalType()
     {
         string sceneName = "";
 
@@ -52,13 +67,15 @@ public class Portal : MonoBehaviour
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene(sceneName);
+
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameObject player = GameObject.FindWithTag("Player");
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
-        transition.GetComponent<Animator>().SetTrigger("end");
+        if (transition != null) { transition.GetComponent<Animator>().SetTrigger("end"); }
         player.transform.position = spawnPoint.transform.position;
         player.GetComponent<CharacterController>().enabled = true;
 

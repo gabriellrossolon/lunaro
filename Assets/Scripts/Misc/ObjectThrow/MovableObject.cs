@@ -108,6 +108,7 @@ public class MovableObject : MonoBehaviour
             rb.useGravity = true;
         }
         TempParent.Instance.isHoldingAnything = false;
+        HudManager.Instance.warnBtn.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -122,7 +123,9 @@ public class MovableObject : MonoBehaviour
                 GameObject destroyPart = Instantiate(destroyParticle, other.ClosestPoint(transform.position), Quaternion.identity);
                 destroyPart.GetComponent<AudioSource>().PlayOneShot(destroySound);
                 Destroy(this.gameObject);
-            }        
+            }
+            TempParent.Instance.isHoldingAnything = false;
+            HudManager.Instance.warnBtn.SetActive(false);
         }
     }
 
@@ -133,6 +136,9 @@ public class MovableObject : MonoBehaviour
             GameObject destroyPart = Instantiate(destroyParticle, other.contacts[0].point, Quaternion.identity);
             destroyPart.GetComponent<AudioSource>().PlayOneShot(destroySound);
             Destroy(this.gameObject);
+
+            TempParent.Instance.isHoldingAnything = false;
+            HudManager.Instance.warnBtn.SetActive(false);
         }
     }
 }
