@@ -2830,7 +2830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.6803513, y: 6.240921}
+  m_AnchoredPosition: {x: -3.5, y: 6.240921}
   m_SizeDelta: {x: 38.2536, y: 38.2536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &153495013
@@ -11323,7 +11323,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -20680,8 +20680,8 @@ MonoBehaviour:
   HUBAmbientSound: {fileID: 8300000, guid: a623dcfb7c0a46e4aaa4f29c5ec146be, type: 3}
   dungeonAmbientSound: {fileID: 8300000, guid: df3c8f70ce26e5944b692bd618e0f9c7, type: 3}
   musicSource: {fileID: 638229532}
-  HUBMusicSound: {fileID: 8300000, guid: ba89fe699c8f1084dae9649031a5acf2, type: 3}
-  dungeonMusicSound: {fileID: 8300000, guid: 283987e2968b3d240961d43ca8793229, type: 3}
+  HUBMusicSound: {fileID: 8300000, guid: 9cc4e456ed3b98043899a392a1fdf73c, type: 3}
+  dungeonMusicSound: {fileID: 8300000, guid: faa7e4ccbb4271f4a914824949ddaa93, type: 3}
   playerFootSource: {fileID: 1533631449}
   stepGrassSound: {fileID: 8300000, guid: 37af765c94863fc41b3d2cca2c2bd45b, type: 3}
   stepStoneSound: {fileID: 8300000, guid: 2368452a819ac694a88ea5606e90868b, type: 3}
@@ -26196,6 +26196,8 @@ MonoBehaviour:
   playerInput: {fileID: 2089948641}
   warnBtn: {fileID: 1854257522}
   globalVolume: {fileID: 2124974965}
+  cursorPointer: {fileID: 2800000, guid: 348e509a9afbdc843b9420e3fc0b5725, type: 3}
+  cursorClicker: {fileID: 2800000, guid: 53bdb47ae009ee14fa4b5fb1d31ab2fa, type: 3}
   itemShow: {fileID: 1401071493}
   itemIcon: {fileID: 500369056}
   itemName: {fileID: 66544984}

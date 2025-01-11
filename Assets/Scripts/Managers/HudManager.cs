@@ -28,6 +28,8 @@ public class HudManager : MonoBehaviour
     public GameObject warnBtn;
     public GameObject globalVolume;
     private PlayerStatus playerStatus;
+    public Texture2D cursorPointer;
+    public Texture2D cursorClicker;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -200,5 +202,11 @@ public class HudManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetCursor(Texture2D cursor)
+    {
+        Cursor.SetCursor(cursor, new Vector2(16, 16), CursorMode.Auto);
+
     }
 }

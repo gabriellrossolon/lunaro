@@ -106,11 +106,15 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         HudManager.Instance.RefreshItemShow(item);
         HudManager.Instance.itemShow.SetActive(true);
+
+        HudManager.Instance.SetCursor(HudManager.Instance.cursorClicker);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         HudManager.Instance.itemShow.SetActive(false);
+
+        HudManager.Instance.SetCursor(HudManager.Instance.cursorPointer);
     }
 }
 
