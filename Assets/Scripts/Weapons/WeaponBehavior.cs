@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class WeaponBehavior : MonoBehaviour
 {
@@ -7,13 +8,17 @@ public class WeaponBehavior : MonoBehaviour
     [HideInInspector] public bool attack;
     public bool canAttack = true;
     private Animator weaponAnim;
+    public bool chargedAttack;
 
     [Header("Only if Melee")]
-    private bool changeAttack;
+    private int attackSequence = 1;
 
     [Header("Only if Ranged")]
     public GameObject projectilePrefab;
+    public GameObject beamPrefab;
     public GameObject projectileExitPoint;
+
+    private GameObject currentBeam; // Armazena a referência ao burst atual
 
     [Header("Attack Resource Cost (Stamina/Mana)")]
     public float resourceCost;
@@ -49,6 +54,11 @@ public class WeaponBehavior : MonoBehaviour
             }
             attack = false;
         }
+
+        if (weaponType == Weapon.WeaponType.Staff)
+        {
+            weaponAnim.SetBool("ChargingAttack", chargedAttack);
+        }
     }
 
     private void ExecuteStaffAttack()
@@ -64,20 +74,34 @@ public class WeaponBehavior : MonoBehaviour
     {
         if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
-            if (changeAttack)
+            switch (attackSequence)
             {
-                weaponAnim.SetTrigger("swordAttackRL");
+                case 1:
+                    weaponAnim.SetTrigger("swordAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("swordAttack2");
+                    attackSequence++;
+                    break;
+                case 3:
+                    weaponAnim.SetTrigger("swordAttack3");
+                    attackSequence++; 
+                    break;
+                case 4:
+                    weaponAnim.SetTrigger("swordAttack4");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1; 
+                    break;
             }
-            else
-            {
-                weaponAnim.SetTrigger("swordAttackUD");
-            }
-            changeAttack = !changeAttack;
 
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSound);
         }
     }
+
 
     public void CanAttack()
     {
@@ -91,9 +115,29 @@ public class WeaponBehavior : MonoBehaviour
 
         GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, Quaternion.identity);
         ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
-        //projectileScript.damage = GetComponentInChildren<StaffBehavior>().damage;
         projectileScript.SetDirection(transform.forward);
     }
+
+    public void CallBurst()
+    {
+        if (currentBeam != null)
+        {
+            Destroy(currentBeam);
+            currentBeam = null;
+        }
+        else
+        {
+            currentBeam = Instantiate(beamPrefab, projectileExitPoint.transform.position, projectileExitPoint.transform.rotation, projectileExitPoint.transform);
+
+            VisualEffect projectileEffect = currentBeam.GetComponentInChildren<VisualEffect>();
+            if (projectileEffect != null)
+            {
+                projectileEffect.Play();
+            }
+        }
+    }
+
+
 
     public void ActiveCollider()
     {

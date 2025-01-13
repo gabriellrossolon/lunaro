@@ -17925,6 +17925,37 @@ Transform:
   - {fileID: 37838472}
   m_Father: {fileID: 2131321243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &899748840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899748841}
+  m_Layer: 6
+  m_Name: LeftHandHint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &899748841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899748840}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.004, y: -0.187, z: -0.49800003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1802573251}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &902520509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22349,6 +22380,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 504941038}
+  - {fileID: 1955366510}
   m_Father: {fileID: 1712635023}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1144014101
@@ -23092,6 +23124,10 @@ PrefabInstance:
     - target: {fileID: 168972215940638578, guid: 7f41286c40f8c9b47b2e9aca41009724, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 212711521595382592, guid: 7f41286c40f8c9b47b2e9aca41009724, type: 3}
+      propertyPath: m_Data.m_Hint
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 212711521595382592, guid: 7f41286c40f8c9b47b2e9aca41009724, type: 3}
       propertyPath: m_Data.m_Target
@@ -24032,6 +24068,10 @@ PrefabInstance:
     - target: {fileID: 6953330683549273284, guid: 7f41286c40f8c9b47b2e9aca41009724, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6969734488044798314, guid: 7f41286c40f8c9b47b2e9aca41009724, type: 3}
+      propertyPath: m_Data.m_Hint
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6969734488044798314, guid: 7f41286c40f8c9b47b2e9aca41009724, type: 3}
       propertyPath: m_Data.m_Target
@@ -34877,7 +34917,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   canAttack: 1
+  chargedAttack: 0
   projectilePrefab: {fileID: 0}
+  beamPrefab: {fileID: 0}
   projectileExitPoint: {fileID: 0}
   resourceCost: 0
   weaponType: 0
@@ -36956,6 +36998,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1965936860}
+  - {fileID: 899748841}
   m_Father: {fileID: 2107900138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1802573252
@@ -39764,6 +39807,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8200d7010bb84664bb2dec7570d1a83a, type: 3}
+--- !u!1 &1955366509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1955366510}
+  m_Layer: 6
+  m_Name: RightHandHint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1955366510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955366509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.004, y: -0.187, z: -0.498}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1144014100}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1959380138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39913,7 +39987,7 @@ Transform:
   m_GameObject: {fileID: 1965936859}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5220189, y: 0.5023188, z: 0.48304316, w: 0.49177384}
-  m_LocalPosition: {x: 0.036, y: -0.026, z: -0.124}
+  m_LocalPosition: {x: 0.025, y: -0.025, z: -0.188}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42466,7 +42540,7 @@ MonoBehaviour:
   currentMana: 0
   hpRegenRate: 0.1
   canRegenHp: 1
-  staminaRegenRate: 5
+  staminaRegenRate: 10
   canRegenStamina: 1
   manaRegenRate: 5
   canRegenMana: 1

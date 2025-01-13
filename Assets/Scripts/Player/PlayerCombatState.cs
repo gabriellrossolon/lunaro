@@ -66,10 +66,12 @@ public class PlayerCombatState : IState
         if (_inputHandler.blockInput && !TempParent.Instance.isHoldingAnything)
         {
             _secondaryBehavior.block = true;
+            _weaponBehavior.chargedAttack = true;
         }
         else
         {
             _secondaryBehavior.block = false;
+            _weaponBehavior.chargedAttack = false;
         }
     }
 

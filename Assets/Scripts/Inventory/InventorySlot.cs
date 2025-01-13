@@ -8,9 +8,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public int slotIndex;
 
-    private float timer = 0f;
-    private bool canTryEquip = true;
-
     public void OnDrop(PointerEventData eventData)
     {
         var draggedItem = eventData.pointerDrag?.GetComponent<InventoryItem>();
@@ -186,13 +183,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         UpdateItemIndex();
         HandleEmptyEquipSlot();
-
-        if ((slotType == SlotType.Weapon || slotType == SlotType.Secondary))
-        {
-            timer += Time.deltaTime;
-            if (timer >= 0.5f)
-                canTryEquip = true;
-        }
     }
 
     private void OnTransformChildrenChanged()

@@ -170,6 +170,7 @@ public class InventoryManager : MonoBehaviour
         else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {
             rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
+            rightWeaponBehavior.beamPrefab = equippedWeapon.beam;
             staffBehavior.damage = equippedWeapon.damage;
             rightWeaponBehavior.projectileExitPoint = staffBehavior.projectileExit;
         }

@@ -68,7 +68,10 @@ public class EnemyFSM : MonoBehaviour
 
     public void Retreat()
     {
-        _fsm.SetState("Retreat");
+        if (_enemyStats.currentHp > 0)
+        {
+            _fsm.SetState("Retreat");
+        }
     }
 
     public void ActiveWeaponCollider()

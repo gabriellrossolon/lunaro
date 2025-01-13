@@ -15,5 +15,6 @@ public class Weapon : ItemBase
 
     [Header("If Ranged")]
     public GameObject projectile;
+    public GameObject beam;
     
 }
