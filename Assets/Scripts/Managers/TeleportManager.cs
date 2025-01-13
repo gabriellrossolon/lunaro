@@ -7,6 +7,7 @@ public class TeleportManager : MonoBehaviour
     public static TeleportManager Instance { get; private set; }
 
     private GameObject transition;
+    private GameObject player;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class TeleportManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         transition = GameObject.FindWithTag("Transition");
+        player = GameObject.FindWithTag("Player");
     }
 
     public void GoToDarkChambers()
@@ -34,6 +36,7 @@ public class TeleportManager : MonoBehaviour
     private IEnumerator LoadSceneWithDelay(string sceneName)
     {
         yield return new WaitForSeconds(0.5f);
+        player.GetComponent<CharacterController>().enabled = false;
         SceneManager.LoadScene(sceneName);
     }
 

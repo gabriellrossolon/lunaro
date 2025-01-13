@@ -32,9 +32,8 @@ public class BeamBehavior : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            //GameManager.Instance.TriggerSlowMotion();
-            other.GetComponent<EnemyFSM>().DoDamage(playerStatus.damage / 2);
-            other.GetComponent<Animator>().SetTrigger("hurt");
+            EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
+            if (enemyFSM != null) { enemyFSM.DoDamage(playerStatus.damage / 10); }
         }
         if (!other.CompareTag("Player"))
         {

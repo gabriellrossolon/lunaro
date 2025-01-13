@@ -1,5 +1,7 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.VFX;
+using static UnityEngine.Rendering.DebugUI;
 
 public class WeaponBehavior : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class WeaponBehavior : MonoBehaviour
     [HideInInspector] public bool attack;
     public bool canAttack = true;
     private Animator weaponAnim;
+
     public bool chargedAttack;
 
     [Header("Only if Melee")]
@@ -50,14 +53,25 @@ public class WeaponBehavior : MonoBehaviour
             }
             else if (weaponType == Weapon.WeaponType.Bow)
             {
-
+                // Implementar lógica para Bow
             }
             attack = false;
         }
 
         if (weaponType == Weapon.WeaponType.Staff)
         {
-            weaponAnim.SetBool("ChargingAttack", chargedAttack);
+            if (chargedAttack && playerStatus.currentMana >= resourceCost)
+            {
+                if (!weaponAnim.GetBool("ChargingAttack"))
+                {
+                    StartCoroutine(HandleChargingAttack());
+                }
+                weaponAnim.SetBool("ChargingAttack", true);
+            }
+            else
+            {
+                weaponAnim.SetBool("ChargingAttack", false);
+            }
         }
     }
 
@@ -65,9 +79,8 @@ public class WeaponBehavior : MonoBehaviour
     {
         if (canAttack && playerStatus.currentMana >= resourceCost)
         {
-           
             weaponAnim.SetTrigger("staffAttack");
-        }
+        }     
     }
 
     public void ExecuteSwordAttack()
@@ -137,7 +150,17 @@ public class WeaponBehavior : MonoBehaviour
         }
     }
 
-
+    private IEnumerator HandleChargingAttack()
+    {
+        while (chargedAttack)
+        {
+            if (playerStatus.currentMana >= resourceCost)
+            {
+                ConsumeManaControlled(resourceCost / 2);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 
     public void ActiveCollider()
     {
@@ -148,6 +171,11 @@ public class WeaponBehavior : MonoBehaviour
     public void ConsumeMana()
     {   
         playerStatus.SubtractMana(resourceCost);
+    }
+
+    public void ConsumeManaControlled(float value)
+    {
+        playerStatus.SubtractMana(value);
     }
 
     public void ConsumeStamina()
