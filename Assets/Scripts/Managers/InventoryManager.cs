@@ -304,6 +304,8 @@ public class InventoryManager : MonoBehaviour
         {
             case Secondary.SecondaryType.Shield:
                 secondaryBehavior.secondaryType = Secondary.SecondaryType.Shield;
+                secondaryBehavior.blockSound = equippedSecondary.blockSound;
+                secondaryBehavior.resourceCost = equippedSecondary.resourceCost;
                 break;
 
             case Secondary.SecondaryType.Orb:

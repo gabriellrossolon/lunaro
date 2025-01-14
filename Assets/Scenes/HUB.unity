@@ -21782,7 +21782,7 @@ MonoBehaviour:
   objectThrowSound: {fileID: 8300000, guid: 72685e4b92f93d640bc5e5c79c2d0532, type: 3}
   inventoryEquipSound: {fileID: 8300000, guid: e98fc63bd1e563340990bb4e60b9e17b, type: 3}
   itemPickupSound: {fileID: 8300000, guid: 44d361c0860d0f74ba492734e8d59f90, type: 3}
-  teleportSound: {fileID: 8300000, guid: 66cbcf9ee22a8db4289153e6fa3d3652, type: 3}
+  teleportSound: {fileID: 8300000, guid: e8bd00f8aec301d4bb46e9792cb1737e, type: 3}
   grassLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -42586,7 +42586,7 @@ MonoBehaviour:
   currentMana: 0
   hpRegenRate: 0.1
   canRegenHp: 1
-  staminaRegenRate: 10
+  staminaRegenRate: 5
   canRegenStamina: 1
   manaRegenRate: 5
   canRegenMana: 1
@@ -42609,7 +42609,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.8
+  m_Radius: 0.7
   m_SlopeLimit: 60
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -42943,7 +42943,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secondaryType: 0
   armBonesAnim: {fileID: 151347815}
-  block: 0
+  blockSound: {fileID: 0}
+  resourceCost: 0
+  blockInputReceived: 0
+  blocking: 0
 --- !u!1001 &2117695193
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -623,7 +623,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 0.3
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7589036856334850486
 MonoBehaviour:
@@ -639,6 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   colliderEnabled: 0
+  attackBlockedByPlayer: 0
 --- !u!1 &1967427578214838543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,6 +1197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   colliderEnabled: 0
+  attackBlockedByPlayer: 0
 --- !u!1 &3201399351111276124
 GameObject:
   m_ObjectHideFlags: 0
@@ -3255,7 +3257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 15
   patrolRadius: 10
-  attackRange: 2.7
+  attackRange: 2.3
   patrolSpeed: 2
   chaseSpeed: 2
   retreatSpeed: 1
@@ -3385,7 +3387,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: cd38db6faeb9df24282eef23da9ddd5c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0

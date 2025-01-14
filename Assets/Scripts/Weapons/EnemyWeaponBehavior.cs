@@ -9,6 +9,8 @@ public class EnemyWeaponBehavior : MonoBehaviour
     private AudioSource _enemySoundSource;
     public bool colliderEnabled = false;
 
+    [SerializeField] private bool attackBlockedByPlayer = false;
+
     private void Awake()
     {
         _coll = GetComponent<MeshCollider>();
@@ -26,11 +28,20 @@ public class EnemyWeaponBehavior : MonoBehaviour
     {
         colliderEnabled = !colliderEnabled;
         if (_coll != null) { _coll.enabled = colliderEnabled; }
+
+        if (colliderEnabled == false) { attackBlockedByPlayer = false; }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!attackBlockedByPlayer && other.gameObject.CompareTag("Shield"))
+        {
+            _enemySoundSource.PlayOneShot(other.GetComponent<ShieldBehavior>().blockedAttackSound);
+            Instantiate(_enemEffects.attackImpactFx, other.transform.position, Quaternion.identity);
+            other.GetComponent<ShieldBehavior>().ConsumeStamina();
+            attackBlockedByPlayer = true; // Marca o ataque como bloqueado
+        }
+        else if (!attackBlockedByPlayer && other.gameObject.CompareTag("Player"))
         {
             _enemySoundSource.PlayOneShot(_enemEffects.attackImpactSound);
             GameManager.Instance.TriggerSlowMotion();

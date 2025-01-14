@@ -231,7 +231,7 @@ Transform:
   m_GameObject: {fileID: 2258367984222584492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.6, y: -4.3, z: -23.3}
+  m_LocalPosition: {x: -30.1, y: -4.3, z: -13.3}
   m_LocalScale: {x: 1.0005583, y: 1.0005586, z: 1.0005581}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -256,7 +256,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 150
+  m_Radius: 90
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1201984497160020334
 MonoBehaviour:
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   colliderEnabled: 0
+  attackBlockedByPlayer: 0
 --- !u!1 &2474711700257063250
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +509,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8432135135297909805}
-  - component: {fileID: 4564221034759245581}
   m_Layer: 0
   m_Name: Index_Proximal_R
   m_TagString: Untagged
@@ -532,20 +532,6 @@ Transform:
   - {fileID: 6527829211889301229}
   m_Father: {fileID: 7734364726564640114}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4564221034759245581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4142590047667383229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043b97887ebeb654da6995fac86b9331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  colliderEnabled: 0
 --- !u!1 &4383301555476990948
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +636,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1930761473118041257}
-  - component: {fileID: 399946470065575894}
   m_Layer: 0
   m_Name: Index_Proximal_L
   m_TagString: Untagged
@@ -674,20 +659,6 @@ Transform:
   - {fileID: 437271082043181064}
   m_Father: {fileID: 7324694189978545473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &399946470065575894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5343804938082873421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043b97887ebeb654da6995fac86b9331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  colliderEnabled: 0
 --- !u!1 &5507487821492298598
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +686,7 @@ Transform:
   m_GameObject: {fileID: 5507487821492298598}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.8, y: -6, z: 0}
+  m_LocalPosition: {x: 2, y: -6, z: 17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -740,7 +711,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 150
+  m_Radius: 90
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2278864556623630473
 MonoBehaviour:
@@ -756,6 +727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   colliderEnabled: 0
+  attackBlockedByPlayer: 0
 --- !u!1 &5550679289825483188
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 15
   patrolRadius: 10
-  attackRange: 4
+  attackRange: 4.5
   patrolSpeed: 1
   chaseSpeed: 2
   retreatSpeed: 2

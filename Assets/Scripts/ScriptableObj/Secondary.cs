@@ -8,4 +8,9 @@ public class Secondary : ItemBase
     public SecondaryType secondaryType;
 
     public GameObject secondaryPrefab;
+
+    [Header("If Shield")]
+    public AudioClip blockSound;
+    public float resourceCost;
+
 }

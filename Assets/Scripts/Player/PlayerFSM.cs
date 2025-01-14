@@ -84,7 +84,7 @@ public class PlayerFSM : MonoBehaviour
         }
 
         // Adjust speed if holding anything
-        if (TempParent.Instance.isHoldingAnything)
+        if (TempParent.Instance.isHoldingAnything || _inputHandler.blockInput)
         {
             targetSpeed /= 2f;
         }
