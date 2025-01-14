@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewSecondary", menuName = "Secondarys/Secondary")]
+[CreateAssetMenu(fileName = "NewSecondary", menuName = "Equippables/Secondary")]
 public class Secondary : ItemBase
 {
     public enum SecondaryType { Empty, Shield, Orb, Book}

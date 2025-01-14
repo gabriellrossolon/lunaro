@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewPotion", menuName = "Potions/Potion")]
+[CreateAssetMenu(fileName = "NewPotion", menuName = "Consumables/Potion")]
 public class Potion : ItemBase
 {
     public int value;

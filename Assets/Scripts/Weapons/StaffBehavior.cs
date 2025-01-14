@@ -10,12 +10,12 @@ public class StaffBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        playerStatus.ControlDamage(damage);
+        playerStatus.ControlBaseDamage(damage);
     }
 
     private void OnDestroy()
     {
         if(playerStatus != null)
-            playerStatus.ControlDamage(-damage);
+            playerStatus.ControlBaseDamage(-damage);
     }
 }

@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject handsPOV;
     public GameObject rightHandHolder;
     public GameObject leftHandHolder;
+    private PlayerStatus playerStatus;
     public WeaponBehavior rightWeaponBehavior;
     public SecondaryBehavior secondaryBehavior;
 
@@ -22,11 +23,17 @@ public class InventoryManager : MonoBehaviour
     public List<ItemBase> inventoryItems = new List<ItemBase>();
 
     [Header("Equipped Items")]
-    public Weapon equippedWeapon;
-    public Secondary equippedSecondary;
+    [SerializeField] private Weapon equippedWeapon;
+    [SerializeField] private Secondary equippedSecondary;
+    [SerializeField] private Jewel equippedNecklace;
+    [SerializeField] private Jewel equippedRing;
+    [SerializeField] private Jewel equippedAmulet;
 
     private GameObject lastInstantiatedWeapon;
     private GameObject lastInstantiatedSecondary;
+    private Jewel lastNecklaceEquipped;
+    private Jewel lastRingEquipped;
+    private Jewel lastAmuletEquipped;
 
     // Inicializa a instância e configura as referências
     private void Awake()
@@ -44,6 +51,7 @@ public class InventoryManager : MonoBehaviour
     // Gera os slots do inventário ao iniciar o jogo
     private void Start()
     {
+        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         GenerateInventorySlots();
     }
 
@@ -80,7 +88,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // Equipar a arma a partir do inventário
+    // Equipar os itens a partir do inventário
     public void EquipWeaponFromInventory(Weapon weapon)
     {
         equippedWeapon = weapon;
@@ -92,10 +100,79 @@ public class InventoryManager : MonoBehaviour
         EquipSecondary();
     }
 
+    public void EquipJewelFromInventory(Jewel jewel, Jewel.JewelType jewelType)
+    {
+        if (jewel == null)
+        {
+            // Se a joia for null, significa que queremos remover a joia do tipo específico
+            switch (jewelType)
+            {
+                case Jewel.JewelType.Ring:
+                    // Remove a joia e os efeitos
+                    RemoveJewelFunction(lastRingEquipped);
+                    equippedRing = null; // Remove o Ring
+                    lastRingEquipped = null; // Limpa a última joia equipada
+                    break;
+
+                case Jewel.JewelType.Necklace:
+                    // Remove a joia e os efeitos
+                    RemoveJewelFunction(lastNecklaceEquipped);
+                    equippedNecklace = null; // Remove o Necklace
+                    lastNecklaceEquipped = null; // Limpa a última joia equipada
+                    break;
+
+                case Jewel.JewelType.Amulet:
+                    // Remove a joia e os efeitos
+                    RemoveJewelFunction(lastAmuletEquipped);
+                    equippedAmulet = null; // Remove o Amulet
+                    lastAmuletEquipped = null; // Limpa a última joia equipada
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            // Caso contrário, equipamos a joia normalmente
+            switch (jewel.jewelType)
+            {
+                case Jewel.JewelType.Ring:
+                    // Se havia uma joia anterior, removemos os efeitos dela
+                    if (lastRingEquipped != null) { RemoveJewelFunction(lastRingEquipped); }
+                    equippedRing = jewel;
+                    lastRingEquipped = jewel;  // Guarda a última joia equipada
+                    break;
+
+                case Jewel.JewelType.Necklace:
+                    // Se havia uma joia anterior, removemos os efeitos dela
+                    if (lastNecklaceEquipped != null) { RemoveJewelFunction(lastNecklaceEquipped); }
+                    equippedNecklace = jewel;
+                    lastNecklaceEquipped = jewel;  // Guarda a última joia equipada
+                    break;
+
+                case Jewel.JewelType.Amulet:
+                    // Se havia uma joia anterior, removemos os efeitos dela
+                    if (lastAmuletEquipped != null) { RemoveJewelFunction(lastAmuletEquipped); }
+                    equippedAmulet = jewel;
+                    lastAmuletEquipped = jewel;  // Guarda a última joia equipada
+                    break;
+
+                default:
+                    break;
+            }
+
+            // Agora aplica os efeitos da nova joia equipada
+            AddJewelFunction(jewel);
+        }
+    }
+
+
     // Equipar a arma atual, instanciando no personagem
     public void EquipWeapon()
     {
-        ClearPreviousWeapon();
+        if (lastInstantiatedWeapon != null)
+            Destroy(lastInstantiatedWeapon);
 
         if (equippedWeapon == null || equippedWeapon.weaponPrefab == null)
         {
@@ -108,7 +185,8 @@ public class InventoryManager : MonoBehaviour
 
     public void EquipSecondary()
     {
-        ClearPreviousSecondary();
+        if (lastInstantiatedSecondary != null)
+            Destroy(lastInstantiatedSecondary);
 
         if (equippedSecondary == null || equippedSecondary.secondaryPrefab == null)
         {
@@ -119,17 +197,59 @@ public class InventoryManager : MonoBehaviour
         InstantiateAndSetupSecondary();
     }
 
-    // Limpa a arma anterior
-    private void ClearPreviousWeapon()
+    private void ApplyJewelEffect(Jewel jewel, float value)
     {
-        if (lastInstantiatedWeapon != null)
-            Destroy(lastInstantiatedWeapon);
+        Jewel.StatType statToModify = jewel.statToModify;
+        Jewel.EffectType effectType = jewel.effectType;
+
+        switch (statToModify)
+        {
+            case Jewel.StatType.Damage:
+                if (effectType == Jewel.EffectType.IncreaseBase)
+                    playerStatus.ControlBaseDamage(value * jewel.valueToAdd);
+                else if (effectType == Jewel.EffectType.IncreasePercent)
+                    playerStatus.ControlDamagePercent(value * jewel.valueToAdd);
+                break;
+
+            case Jewel.StatType.HP:
+                if (effectType == Jewel.EffectType.IncreaseBase)
+                    playerStatus.ControlBaseHealth(value * jewel.valueToAdd);
+                else if (effectType == Jewel.EffectType.IncreaseRegeneration)
+                    playerStatus.ControlBaseHealthRegeneration(value * jewel.valueToAdd);
+                else if (effectType == Jewel.EffectType.IncreasePercent)
+                    playerStatus.ControlHealthPercent(value * jewel.valueToAdd);
+                break;
+
+            case Jewel.StatType.Stamina:
+                if (effectType == Jewel.EffectType.IncreaseBase)
+                    playerStatus.ControlBaseStamina(value * jewel.valueToAdd);
+                else if (effectType == Jewel.EffectType.IncreaseRegeneration)
+                    playerStatus.ControlBaseStaminaRegeneration(value * jewel.valueToAdd);
+                else if (effectType == Jewel.EffectType.IncreasePercent)
+                    playerStatus.ControlStaminaPercent(value * jewel.valueToAdd);
+                break;
+
+            case Jewel.StatType.Mana:
+                if (effectType == Jewel.EffectType.IncreaseBase)
+                    playerStatus.ControlBaseMana(value * jewel.valueToAdd);
+                else if (effectType == Jewel.EffectType.IncreaseRegeneration)
+                    playerStatus.ControlBaseManaRegeneration(value * jewel.valueToAdd);
+                else if (effectType == Jewel.EffectType.IncreasePercent)
+                    playerStatus.ControlManaPercent(value * jewel.valueToAdd);
+                break;
+        }
     }
-    private void ClearPreviousSecondary()
+
+    public void AddJewelFunction(Jewel jewel)
     {
-        if (lastInstantiatedSecondary != null)
-            Destroy(lastInstantiatedSecondary);
+        ApplyJewelEffect(jewel, 1); // Passa o valor positivo para adicionar o efeito
     }
+
+    public void RemoveJewelFunction(Jewel jewel)
+    {
+        ApplyJewelEffect(jewel, -1); // Passa o valor negativo para remover o efeito
+    }
+
 
     // Reseta os comportamentos da arma
     private void ResetWeaponBehavior()

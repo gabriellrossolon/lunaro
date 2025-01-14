@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    public enum SlotType { Inventory, Weapon, Nothing, Secondary }
+    public enum SlotType { Inventory, Weapon, Nothing, Secondary, Ring, Necklace, Amulet }
     public SlotType slotType;
 
     public int slotIndex;
@@ -56,28 +56,33 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         switch (slotType)
         {
             case SlotType.Inventory:
-                // Aceita qualquer tipo de item no inventário
                 return true;
 
             case SlotType.Weapon:
-                // Aceita apenas itens do tipo Weapon
                 return draggedItem.item is Weapon;
 
             case SlotType.Secondary:
-                // Aceita apenas itens secundários (você pode adicionar uma verificação específica para isso)
-                return draggedItem.item is Secondary; // Assumindo que você tenha uma classe ou interface chamada `SecondaryItem`
+                return draggedItem.item is Secondary;
+
+            case SlotType.Ring:
+            case SlotType.Necklace:
+            case SlotType.Amulet:
+                if (draggedItem.item is Jewel jewel)
+                {
+                    return (slotType == SlotType.Ring && jewel.jewelType == Jewel.JewelType.Ring) ||
+                           (slotType == SlotType.Necklace && jewel.jewelType == Jewel.JewelType.Necklace) ||
+                           (slotType == SlotType.Amulet && jewel.jewelType == Jewel.JewelType.Amulet);
+                }
+                return false;
 
             case SlotType.Nothing:
-                // Não aceita nenhum item
                 return false;
 
             default:
-                // Caso o tipo não seja tratado, retorna falso por segurança
                 return false;
         }
     }
 
-    // Equip the weapon if the item is a weapon
     private void EquipItemIfNeeded(InventoryItem draggedItem)
     {
         if (draggedItem == null || draggedItem.item == null)
@@ -93,9 +98,18 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 break;
 
             case SlotType.Secondary:
-                if (draggedItem.item is Secondary secondaryItem)
+                if (draggedItem.item is Secondary secondary)
                 {
-                    EquipSecondary(secondaryItem);
+                    EquipSecondary(secondary);
+                }
+                break;
+
+            case SlotType.Ring:
+            case SlotType.Necklace:
+            case SlotType.Amulet:
+                if (draggedItem.item is Jewel jewel)
+                {
+                    EquipJewel(jewel);
                 }
                 break;
 
@@ -104,6 +118,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 break;
         }
     }
+
 
     // Swap the items between the current slot and the dragged item
     private void SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
@@ -150,18 +165,22 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     //        }
     //    }
     //}
-
-    // Equip a weapon from the inventory
     private void EquipWeapon(Weapon weapon)
     {
         InventoryManager.Instance.EquipWeaponFromInventory(weapon);
         RefreshHandsPOV();
     }
 
-    private void EquipSecondary(Secondary secondaryItem)
+    private void EquipSecondary(Secondary secondary)
     {
-        InventoryManager.Instance.EquipSecondaryFromInventory(secondaryItem);
+        InventoryManager.Instance.EquipSecondaryFromInventory(secondary);
         RefreshHandsPOV(); // Atualiza a visão das mãos, se necessário
+    }
+
+    private void EquipJewel(Jewel jewel)
+    {
+        InventoryManager.Instance.EquipJewelFromInventory(jewel, jewel.jewelType);
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
     // Handle the refresh of the hands POV after equipping a weapon
@@ -182,15 +201,16 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private void Update()
     {
         UpdateItemIndex();
-        HandleEmptyEquipSlot();
+        
     }
 
     private void OnTransformChildrenChanged()
     {
-        if(slotType == SlotType.Weapon || slotType == SlotType.Secondary)
+        if(slotType != SlotType.Inventory || slotType != SlotType.Nothing)
         {
             EquipItemIfNeeded(GetComponentInChildren<InventoryItem>());
         }
+        HandleEmptyEquipSlot();
     }
 
     // Update the inventory list with the item from the current slot
@@ -206,14 +226,33 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     // Handle the case when the item slot is empty
     private void HandleEmptyEquipSlot()
     {
-        if (slotType == SlotType.Weapon && transform.childCount == 0)
+        if (transform.childCount == 0)
         {
-            InventoryManager.Instance.EquipWeaponFromInventory(null);
-        }
+            switch (slotType)
+            {
+                case SlotType.Weapon:
+                    InventoryManager.Instance.EquipWeaponFromInventory(null);
+                    break;
 
-        if (slotType == SlotType.Secondary && transform.childCount == 0)
-        {
-            InventoryManager.Instance.EquipSecondaryFromInventory(null);
+                case SlotType.Secondary:
+                    InventoryManager.Instance.EquipSecondaryFromInventory(null);
+                    break;
+
+                case SlotType.Ring:
+                    InventoryManager.Instance.EquipJewelFromInventory(null, Jewel.JewelType.Ring);
+                    break;
+
+                case SlotType.Necklace:
+                    InventoryManager.Instance.EquipJewelFromInventory(null, Jewel.JewelType.Necklace);
+                    break;
+
+                case SlotType.Amulet:
+                    InventoryManager.Instance.EquipJewelFromInventory(null, Jewel.JewelType.Amulet);
+                    break;
+
+                default:
+                    break; // Caso não seja nenhum dos tipos tratados
+            }
         }
     }
 

@@ -975,15 +975,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c849ee7b0a181f14fbdb07bf65ebaba9, type: 2}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4903c6eaed040854fba3f46b6dfdf327, type: 2}
+  - {fileID: 11400000, guid: a1363967e06df1e40ba873d67f105ebe, type: 2}
+  - {fileID: 11400000, guid: 2cc9872e52b956d448e381ff76098bd3, type: 2}
+  - {fileID: 11400000, guid: 4c6bca2b5b22a6649b38fd8f9c163296, type: 2}
+  - {fileID: 11400000, guid: a6be38b85a246744784b17714628d548, type: 2}
+  - {fileID: 11400000, guid: 0b6b28bd160a9f24fa3b37eeb5421d27, type: 2}
+  - {fileID: 11400000, guid: 61e2e0492be15da48aa68e85bdd4eb2d, type: 2}
   equippedWeapon: {fileID: 0}
   equippedSecondary: {fileID: 0}
+  equippedNecklace: {fileID: 0}
+  equippedRing: {fileID: 0}
+  equippedAmulet: {fileID: 0}
 --- !u!4 &51042469
 Transform:
   m_ObjectHideFlags: 0
@@ -16920,7 +16923,7 @@ GameObject:
   - component: {fileID: 869240146}
   - component: {fileID: 869240145}
   m_Layer: 5
-  m_Name: RingOneSlot
+  m_Name: RingSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16995,7 +16998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992dea8c2a312e14ab4edf2f0dad51ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotType: 2
+  slotType: 4
   slotIndex: 26
 --- !u!4 &869331778 stripped
 Transform:
@@ -27249,7 +27252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992dea8c2a312e14ab4edf2f0dad51ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotType: 2
+  slotType: 5
   slotIndex: 25
 --- !u!1001 &1336376989
 PrefabInstance:
@@ -29605,7 +29608,7 @@ GameObject:
   - component: {fileID: 1455061950}
   - component: {fileID: 1455061949}
   m_Layer: 5
-  m_Name: RingTwoSlot
+  m_Name: AmuletSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29650,7 +29653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 336b28736cc39b44fb560595c8bec797, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a8c722629fa1ff24baee63fa885237ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -29680,7 +29683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992dea8c2a312e14ab4edf2f0dad51ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotType: 2
+  slotType: 6
   slotIndex: 27
 --- !u!4 &1457189855 stripped
 Transform:

@@ -61,10 +61,7 @@ public class HudManager : MonoBehaviour
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
 
-        hpSlider.maxValue = playerStatus.maxHp;
-        hpLateSlider.maxValue = playerStatus.maxHp;
-        staminaSlider.maxValue = playerStatus.maxStamina;
-        manaSlider.maxValue = playerStatus.maxMana;
+        UpdateHUDStats();
 
         hpSlider.value = playerStatus.currentHp;
         hpLateSlider.value = playerStatus.currentHp;
@@ -77,6 +74,8 @@ public class HudManager : MonoBehaviour
         UpdateCursorState();
         OpenInventory();
         SmoothVignetteTransition();
+
+        UpdateHUDStats();
 
         hpSlider.value = playerStatus.currentHp;
         staminaSlider.value = playerStatus.currentStamina;
@@ -107,6 +106,14 @@ public class HudManager : MonoBehaviour
             virtualCamera.enabled = true;
             playerInput.enabled = true;
         }
+    }
+
+    public void UpdateHUDStats()
+    {
+        hpSlider.maxValue = playerStatus.maxHp;
+        hpLateSlider.maxValue = playerStatus.maxHp;
+        staminaSlider.maxValue = playerStatus.maxStamina;
+        manaSlider.maxValue = playerStatus.maxMana;
     }
 
     private void OpenInventory()
@@ -156,13 +163,7 @@ public class HudManager : MonoBehaviour
             {
                 itemType.text = "Unknown Weapon";
             }
-        }
-        else if (item is Potion potion)
-        {
-            itemType.text = "Potion";
-
-            itemDmg.text = null;
-        }
+        }    
         else if (item is Secondary secondary)
         {
             if (secondary.secondaryType == Secondary.SecondaryType.Shield)
@@ -180,6 +181,28 @@ public class HudManager : MonoBehaviour
             else
             {
                 itemType.text = "Unknown Weapon";
+            }
+            itemDmg.text = null;
+        }
+        else if (item is Potion potion)
+        {
+            itemType.text = "Potion";
+
+            itemDmg.text = null;
+        }
+        else if (item is Jewel jewel)
+        {
+            if (jewel.jewelType == Jewel.JewelType.Ring)
+            {
+                itemType.text = "Ring";
+            }
+            else if (jewel.jewelType == Jewel.JewelType.Necklace)
+            {
+                itemType.text = "Necklace";
+            }
+            else if (jewel.jewelType == Jewel.JewelType.Amulet)
+            {
+                itemType.text = "Amulet";
             }
             itemDmg.text = null;
         }

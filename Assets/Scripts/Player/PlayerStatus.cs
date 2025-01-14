@@ -44,17 +44,58 @@ public class PlayerStatus : MonoBehaviour
         ManaRegen();
     }
 
-    public void ControlDamage(float value)
+    //Funções que controlam a adição ou subtração de valores aos status do jogador:
+
+    public void ControlBaseDamage(float value)
     {
         damage += value;
         if (damage < 0)
             damage = 0;
     }
-
-    public void ControlHp(float value)
+    public void ControlBaseHealth(float value)
     {
         maxHp += value;
     }
+    public void ControlBaseStamina(float value)
+    {
+        maxStamina += value;
+    }
+    public void ControlBaseMana(float value)
+    {
+        maxMana += value;
+    }
+
+    public void ControlBaseHealthRegeneration(float value)
+    {
+        hpRegenRate += value;
+    }
+    public void ControlBaseStaminaRegeneration(float value)
+    {
+        staminaRegenRate += value;
+    }
+    public void ControlBaseManaRegeneration(float value)
+    {
+        manaRegenRate += value;
+    }
+
+    public void ControlDamagePercent(float value)
+    {
+
+    }
+    public void ControlHealthPercent(float value)
+    {
+
+    }
+    public void ControlStaminaPercent(float value)
+    {
+
+    }
+    public void ControlManaPercent(float value)
+    {
+
+    }
+
+    //Funções que controlam as regenerações dos Status do jogador:
 
     private void HpRegen()
     {
@@ -86,22 +127,20 @@ public class PlayerStatus : MonoBehaviour
             currentMana = maxMana;
     }
 
-    // Método para subtrair Stamina de forma suave
+    // Funções que subtraem status do jogador, como por exemplo habilidades que exigem uso de Mana ou Stamina:
     public void SubtractStamina(float value)
     {
         if (currentStamina >= value)
         {
-            canRegenStamina = false; // Desativa a regeneração enquanto subtrai
+            canRegenStamina = false; 
             StartCoroutine(SubtractStaminaSmoothly(value));
         }
     }
-
-    // Método para subtrair Mana de forma suave
     public void SubtractMana(float value)
     {
         if (currentMana >= value)
         {
-            canRegenMana = false; // Desativa a regeneração enquanto subtrai
+            canRegenMana = false; 
             StartCoroutine(SubtractManaSmoothly(value));
         }
     }
@@ -111,7 +150,7 @@ public class PlayerStatus : MonoBehaviour
         float startStamina = currentStamina;
         float endStamina = currentStamina - value;
         float elapsedTime = 0f;
-        float smoothTime = 0.5f; // Tempo para a subtração ser concluída (ajustável)
+        float smoothTime = 0.5f; 
 
         while (elapsedTime < smoothTime)
         {
@@ -121,15 +160,14 @@ public class PlayerStatus : MonoBehaviour
         }
 
         currentStamina = endStamina;
-        canRegenStamina = true; // Restaura a regeneração após subtrair
+        canRegenStamina = true; 
     }
-
     private IEnumerator SubtractManaSmoothly(float value)
     {
         float startMana = currentMana;
         float endMana = currentMana - value;
         float elapsedTime = 0f;
-        float smoothTime = 0.5f; // Tempo para a subtração ser concluída (ajustável)
+        float smoothTime = 0.5f; 
 
         while (elapsedTime < smoothTime)
         {
@@ -139,6 +177,6 @@ public class PlayerStatus : MonoBehaviour
         }
 
         currentMana = endMana;
-        canRegenMana = true; // Restaura a regeneração após subtrair
+        canRegenMana = true; 
     }
 }
