@@ -31,6 +31,7 @@ public class HudManager : MonoBehaviour
     public Texture2D cursorPointer;
     public Texture2D cursorClicker;
     public GameObject teleportsPage;
+    public TextMeshProUGUI potionCount;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -76,6 +77,7 @@ public class HudManager : MonoBehaviour
         SmoothVignetteTransition();
 
         UpdateHUDStats();
+        potionCount.text = InventoryManager.Instance.potionsCount.ToString();
 
         hpSlider.value = playerStatus.currentHp;
         staminaSlider.value = playerStatus.currentStamina;

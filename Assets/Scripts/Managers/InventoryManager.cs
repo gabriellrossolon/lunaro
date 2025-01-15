@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static Potion;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -29,6 +30,12 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Jewel equippedRing;
     [SerializeField] private Jewel equippedAmulet;
 
+    [SerializeField] private Potion equippedPotion;
+    public int potionsCount = 3;
+    public int maxPotionsCount = 3;
+    [SerializeField] private float potionRegenerationTimer = 0f;
+    [SerializeField] private float potionRegenerationCooldown = 60f; 
+
     private GameObject lastInstantiatedWeapon;
     private GameObject lastInstantiatedSecondary;
     private Jewel lastNecklaceEquipped;
@@ -53,6 +60,49 @@ public class InventoryManager : MonoBehaviour
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         GenerateInventorySlots();
+    }
+
+    private void Update()
+    {
+        if (equippedPotion != null && Input.GetKeyDown(KeyCode.F))
+        {
+            if (potionsCount <= 0)
+                return;
+
+            switch (equippedPotion.potionType)
+            {
+                case Potion.PotionType.Health:
+                    playerStatus.currentHp += equippedPotion.valueToRecover;
+                    break;
+
+                case Potion.PotionType.Stamina:
+                    playerStatus.currentStamina += equippedPotion.valueToRecover;
+                    break;
+
+                case Potion.PotionType.Mana:
+                    playerStatus.currentMana += equippedPotion.valueToRecover;
+                    break;
+
+                case Potion.PotionType.Empty:
+                    break;
+
+                default:
+                    break;
+            }
+            SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.drinkSound);
+            potionsCount--;
+            
+        }
+        if (potionsCount < maxPotionsCount)
+        {
+            potionRegenerationTimer += Time.deltaTime;
+
+            if (potionRegenerationTimer >= potionRegenerationCooldown)
+            {
+                potionsCount++;
+                potionRegenerationTimer = 0f;
+            }
+        }
     }
 
     // Adiciona um item ao inventário e atualiza a UI
@@ -165,6 +215,11 @@ public class InventoryManager : MonoBehaviour
             // Agora aplica os efeitos da nova joia equipada
             AddJewelFunction(jewel);
         }
+    }
+
+    public void EquipPotionFromInventory(Potion potion)
+    {
+        equippedPotion = potion;
     }
 
 

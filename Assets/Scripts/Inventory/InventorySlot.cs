@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    public enum SlotType { Inventory, Weapon, Nothing, Secondary, Ring, Necklace, Amulet }
+    public enum SlotType { Inventory, Weapon, Nothing, Secondary, Ring, Necklace, Amulet , Potion}
     public SlotType slotType;
 
     public int slotIndex;
@@ -75,6 +75,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 }
                 return false;
 
+            case SlotType.Potion:
+                return draggedItem.item is Potion;
+
             case SlotType.Nothing:
                 return false;
 
@@ -110,6 +113,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 if (draggedItem.item is Jewel jewel)
                 {
                     EquipJewel(jewel);
+                }
+                break;
+
+            case SlotType.Potion:
+                if (draggedItem.item is Potion potion)
+                {
+                    EquipPotion(potion);
                 }
                 break;
 
@@ -183,6 +193,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
+    private void EquipPotion(Potion potion)
+    {
+        InventoryManager.Instance.EquipPotionFromInventory(potion);
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
+    }
+
     // Handle the refresh of the hands POV after equipping a weapon
     private void RefreshHandsPOV()
     {
@@ -248,6 +264,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
                 case SlotType.Amulet:
                     InventoryManager.Instance.EquipJewelFromInventory(null, Jewel.JewelType.Amulet);
+                    break;
+
+                case SlotType.Potion:
+                    InventoryManager.Instance.EquipPotionFromInventory(null);
                     break;
 
                 default:

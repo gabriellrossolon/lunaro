@@ -81,6 +81,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip inventoryEquipSound;
     public AudioClip itemPickupSound;
     public AudioClip teleportSound;
+    public AudioClip drinkSound;
 
     // Layers for detection
     [Header("Layer Mapping")]
