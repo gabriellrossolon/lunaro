@@ -47,6 +47,7 @@ public class EnemyWeaponBehavior : MonoBehaviour
             GameManager.Instance.TriggerSlowMotion();
             PlayerManager.Instance.DoDamage(damage);
             Instantiate(_enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
+
         }
     }
 }

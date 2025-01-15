@@ -132,16 +132,19 @@ public class PlayerStatus : MonoBehaviour
     {
         if (currentStamina >= value)
         {
-            canRegenStamina = false; 
-            StartCoroutine(SubtractStaminaSmoothly(value));
+            //canRegenStamina = false; 
+            currentStamina -= value;
+            //StartCoroutine(SubtractStaminaSmoothly(value));
+            canRegenStamina = true;
         }
     }
     public void SubtractMana(float value)
     {
         if (currentMana >= value)
         {
-            canRegenMana = false; 
-            StartCoroutine(SubtractManaSmoothly(value));
+            //canRegenMana = false; 
+            currentMana -= value;
+            //StartCoroutine(SubtractManaSmoothly(value));
         }
     }
 

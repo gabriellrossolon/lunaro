@@ -39,6 +39,7 @@ public class HudManager : MonoBehaviour
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemType;
     public TextMeshProUGUI itemDmg;
+    public TextMeshProUGUI itemResourceCost;
     public TextMeshProUGUI itemDesc;
 
     [Header("Controllers")]
@@ -63,11 +64,7 @@ public class HudManager : MonoBehaviour
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
 
         UpdateHUDStats();
-
-        hpSlider.value = playerStatus.currentHp;
-        hpLateSlider.value = playerStatus.currentHp;
-        staminaSlider.value = playerStatus.currentStamina;
-        manaSlider.value = playerStatus.currentMana;
+        //hpLateSlider.value = playerStatus.currentHp;
     }
 
     private void Update()
@@ -77,17 +74,8 @@ public class HudManager : MonoBehaviour
         SmoothVignetteTransition();
 
         UpdateHUDStats();
+        potionCount.enabled = InventoryManager.Instance.equippedPotion != null;
         potionCount.text = InventoryManager.Instance.potionsCount.ToString();
-
-        hpSlider.value = playerStatus.currentHp;
-        staminaSlider.value = playerStatus.currentStamina;
-        manaSlider.value = playerStatus.currentMana;
-
-        // Atualiza o valor do hpLateSlider suavemente
-        if (hpLateSlider.value != playerStatus.currentHp)
-        {
-            hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
-        }
     }
 
     private void UpdateCursorState()
@@ -116,6 +104,14 @@ public class HudManager : MonoBehaviour
         hpLateSlider.maxValue = playerStatus.maxHp;
         staminaSlider.maxValue = playerStatus.maxStamina;
         manaSlider.maxValue = playerStatus.maxMana;
+
+        hpSlider.value = playerStatus.currentHp;
+        staminaSlider.value = playerStatus.currentStamina;
+        manaSlider.value = playerStatus.currentMana;
+        if (hpLateSlider.value != playerStatus.currentHp)
+        {
+            hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
+        }
     }
 
     private void OpenInventory()
@@ -156,14 +152,22 @@ public class HudManager : MonoBehaviour
             if (weapon.weaponType == Weapon.WeaponType.Sword)
             {
                 itemType.text = "Sword";
+                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
             }
             else if (weapon.weaponType == Weapon.WeaponType.Staff)
             {
                 itemType.text = "Staff";
+                itemResourceCost.text = weapon.resourceCost.ToString() + " Mana to Cast";
+            }
+            else if (weapon.weaponType == Weapon.WeaponType.Hammer)
+            {
+                itemType.text = "Hammer";
+                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
             }
             else
             {
                 itemType.text = "Unknown Weapon";
+                itemResourceCost.text = null;
             }
         }    
         else if (item is Secondary secondary)
@@ -171,26 +175,32 @@ public class HudManager : MonoBehaviour
             if (secondary.secondaryType == Secondary.SecondaryType.Shield)
             {
                 itemType.text = "Shield";
+                itemResourceCost.text = secondary.resourceCost.ToString() + " Stamina to Block";
             }
             else if (secondary.secondaryType == Secondary.SecondaryType.Orb)
             {
                 itemType.text = "Magical Orb";
+                itemResourceCost.text = null;
             }
             else if (secondary.secondaryType == Secondary.SecondaryType.Book)
             {
                 itemType.text = "Magical Book";
+                itemResourceCost.text = null;
             }
             else
             {
                 itemType.text = "Unknown Weapon";
+                itemResourceCost.text = null;
             }
             itemDmg.text = null;
+            itemResourceCost.text = null;
         }
         else if (item is Potion potion)
         {
             itemType.text = "Potion";
 
-            itemDmg.text = null;
+            itemDmg.text = "Recover " + potion.valueToRecover.ToString() + " " + potion.potionType.ToString() + " points";
+            itemResourceCost.text = null;
         }
         else if (item is Jewel jewel)
         {
@@ -207,11 +217,13 @@ public class HudManager : MonoBehaviour
                 itemType.text = "Amulet";
             }
             itemDmg.text = null;
+            itemResourceCost.text = null;
         }
         else
         {
             itemType.text = "Unknown Item";
             itemDmg.text = "Unknown Item";
+            itemResourceCost.text = null;
         }
     }
 

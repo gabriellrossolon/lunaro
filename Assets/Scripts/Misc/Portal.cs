@@ -78,7 +78,7 @@ public class Portal : MonoBehaviour
         if (transition != null) { transition.GetComponent<Animator>().SetTrigger("end"); }
         player.transform.position = spawnPoint.transform.position;
         player.GetComponent<CharacterController>().enabled = true;
-
+        InventoryManager.Instance.potionsCount = InventoryManager.Instance.maxPotionsCount;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

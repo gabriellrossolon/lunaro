@@ -66,8 +66,10 @@ public class SFXManager : MonoBehaviour
 
     [Header("Player Attacks SFX")]
     public AudioSource playerAttacksSource;
-    public AudioClip attackSound;
+    public AudioClip attackSwooshSound;
+    public AudioClip attackHeavySwooshSound;
     public AudioClip fleshImpactSound;
+    public AudioClip heavyImpactSound;
     public AudioClip magicCastSound;
 
     [Header("UI SFX")]
@@ -82,6 +84,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip itemPickupSound;
     public AudioClip teleportSound;
     public AudioClip drinkSound;
+    public AudioClip chestOpeningSound;
 
     // Layers for detection
     [Header("Layer Mapping")]

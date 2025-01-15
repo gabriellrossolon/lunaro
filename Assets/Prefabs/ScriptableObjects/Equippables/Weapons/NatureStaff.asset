@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
+  m_Name: NatureStaff
+  m_EditorClassIdentifier: 
+  itemName: Nature Staff
+  icon: {fileID: 514587281, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
+  description: Holds the aura of the Nature
+  weaponType: 2
+  damage: 3
+  weaponPrefab: {fileID: 1097140714873255449, guid: cb4f83b842fc4574aab1bfd4bace6a28, type: 3}
+  resourceCost: 5
+  projectile: {fileID: 1794803540568141391, guid: 70a87f829ded158448f588ccfef7440d, type: 3}
+  beam: {fileID: 7788710714552049125, guid: 1b23f9909402d0f459dbeb8f52cd36b3, type: 3}

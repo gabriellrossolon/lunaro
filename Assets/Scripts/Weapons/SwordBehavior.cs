@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class SwordBehavior : MonoBehaviour
 {
@@ -8,12 +7,12 @@ public class SwordBehavior : MonoBehaviour
     public float damage;
     public bool colliderEnabled = false;
 
-    [HideInInspector] public BoxCollider weaponColl;
+    [HideInInspector] public Collider weaponColl;
     public GameObject collisionParticle;
 
     private void Awake()
     {
-        weaponColl = GetComponent<BoxCollider>();
+        weaponColl = GetComponent<Collider>();
     }
 
     private void Start()

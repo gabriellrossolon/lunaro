@@ -30,10 +30,10 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Jewel equippedRing;
     [SerializeField] private Jewel equippedAmulet;
 
-    [SerializeField] private Potion equippedPotion;
+    public Potion equippedPotion;
     public int potionsCount = 3;
     public int maxPotionsCount = 3;
-    [SerializeField] private float potionRegenerationTimer = 0f;
+    private float potionRegenerationTimer = 0f;
     [SerializeField] private float potionRegenerationCooldown = 60f; 
 
     private GameObject lastInstantiatedWeapon;
@@ -333,6 +333,10 @@ public class InventoryManager : MonoBehaviour
                 rightWeaponBehavior.weaponType = Weapon.WeaponType.Staff; // Definindo o tipo de arma
                 break;
 
+            case Weapon.WeaponType.Hammer:
+                rightWeaponBehavior.weaponType = Weapon.WeaponType.Hammer; // Definindo o tipo de arma
+                break;
+
             case Weapon.WeaponType.Bow:
                 rightWeaponBehavior.weaponType = Weapon.WeaponType.Bow; // Definindo o tipo de arma
                 break;
@@ -341,6 +345,10 @@ public class InventoryManager : MonoBehaviour
         if (lastInstantiatedWeapon.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {
             swordBehavior.damage = equippedWeapon.damage;
+        }
+        else if (lastInstantiatedWeapon.TryGetComponent<HammerBehavior>(out var hammerBehavior))
+        {
+            hammerBehavior.damage = equippedWeapon.damage;
         }
         else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {

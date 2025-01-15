@@ -27,6 +27,7 @@ public class ChestBehavior : MonoBehaviour
     public void OpenChest()
     {
         animator.SetTrigger("Open");
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
         StartCoroutine(InstantiateItemsWithDelay());
     }
 

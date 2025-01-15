@@ -51,6 +51,10 @@ public class WeaponBehavior : MonoBehaviour
             {
                 ExecuteSwordAttack();
             }
+            else if(weaponType == Weapon.WeaponType.Hammer)
+            {
+                ExecuteHammerAttack();
+            }
             else if (weaponType == Weapon.WeaponType.Bow)
             {
                 // Implementar lógica para Bow
@@ -111,7 +115,30 @@ public class WeaponBehavior : MonoBehaviour
             }
 
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSound);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteHammerAttack()
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("hammerAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("hammerAttack2");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.3f, 0.5f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -156,16 +183,24 @@ public class WeaponBehavior : MonoBehaviour
         {
             if (playerStatus.currentMana >= resourceCost)
             {
-                ConsumeManaControlled(resourceCost / 2);
+                ConsumeManaControlled(resourceCost / 5);
+                playerStatus.canRegenMana = false;
             }
             yield return new WaitForSeconds(0.1f);
         }
+        playerStatus.canRegenMana = true;
     }
 
     public void ActiveCollider()
     {
         SwordBehavior swordBehavior = GetComponentInChildren<SwordBehavior>();
-        swordBehavior.colliderEnabled = !swordBehavior.colliderEnabled;
+        HammerBehavior hammerBehavior = GetComponentInChildren<HammerBehavior>();
+
+        if(swordBehavior != null)
+            swordBehavior.colliderEnabled = !swordBehavior.colliderEnabled;
+
+        if(hammerBehavior != null)
+            hammerBehavior.colliderEnabled = !hammerBehavior.colliderEnabled;
     }
 
     public void ConsumeMana()
