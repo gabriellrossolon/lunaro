@@ -133,8 +133,9 @@ GameObject:
   - component: {fileID: 136968834}
   - component: {fileID: 136968835}
   - component: {fileID: 136968836}
+  - component: {fileID: 136968837}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Twitter/X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +241,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 136968832}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 136968837}
+        m_TargetAssemblyTypeName: LinkButton, Assembly-CSharp
+        m_MethodName: OpenLink
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &136968835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +288,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &136968837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136968829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b871b8c55faafe84985be909ffcd4b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPlatform: 3
 --- !u!1 &142208418
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,8 +772,9 @@ GameObject:
   - component: {fileID: 332132438}
   - component: {fileID: 332132437}
   - component: {fileID: 332132441}
+  - component: {fileID: 332132442}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Discord
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -888,6 +915,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &332132442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332132435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b871b8c55faafe84985be909ffcd4b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPlatform: 0
 --- !u!1 &379713019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,7 +1147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -157, y: -474}
+  m_AnchoredPosition: {x: -175.92, y: -482}
   m_SizeDelta: {x: 510.8165, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &498601510
@@ -1399,8 +1439,9 @@ GameObject:
   - component: {fileID: 624261396}
   - component: {fileID: 624261397}
   - component: {fileID: 624261398}
+  - component: {fileID: 624261399}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Steam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1541,6 +1582,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &624261399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624261391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b871b8c55faafe84985be909ffcd4b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPlatform: 0
 --- !u!1 &804107834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,8 +2259,9 @@ GameObject:
   - component: {fileID: 1074840738}
   - component: {fileID: 1074840739}
   - component: {fileID: 1074840740}
+  - component: {fileID: 1074840741}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Youtube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2312,7 +2367,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1074840736}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1074840741}
+        m_TargetAssemblyTypeName: LinkButton, Assembly-CSharp
+        m_MethodName: OpenLink
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1074840739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2347,6 +2414,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1074840741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074840733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b871b8c55faafe84985be909ffcd4b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedPlatform: 2
 --- !u!1 &1077020133
 GameObject:
   m_ObjectHideFlags: 0
