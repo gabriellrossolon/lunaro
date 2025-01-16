@@ -13,13 +13,15 @@ public class ButtonCustom : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        HudManager.Instance.SetCursor(HudManager.Instance.cursorClicker);
+        if(HudManager.Instance != null)
+            HudManager.Instance.SetCursor(HudManager.Instance.cursorClicker);
         SFXManager.Instance.UIMiscSource.PlayOneShot(SFXManager.Instance.btnHoverSound);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        HudManager.Instance.SetCursor(HudManager.Instance.cursorPointer);
+        if(HudManager.Instance != null)
+            HudManager.Instance.SetCursor(HudManager.Instance.cursorPointer);
     }
 
     public void OnPointerClick(PointerEventData eventData)

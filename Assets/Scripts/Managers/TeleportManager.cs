@@ -32,11 +32,21 @@ public class TeleportManager : MonoBehaviour
         StartCoroutine(LoadSceneWithDelay("DungeonA"));
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
     }
+    public void GoToMenu()
+    {
+        transition.GetComponent<Animator>().SetTrigger("start");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        StartCoroutine(LoadSceneWithDelay("MainMenu"));
+        GameManager.Instance.PauseGame();
+    }
 
     private IEnumerator LoadSceneWithDelay(string sceneName)
     {
         yield return new WaitForSeconds(0.5f);
-        player.GetComponent<CharacterController>().enabled = false;
+
+        if(player != null)
+            player.GetComponent<CharacterController>().enabled = false;
+
         SceneManager.LoadScene(sceneName);
     }
 
@@ -44,10 +54,18 @@ public class TeleportManager : MonoBehaviour
     {
         GameObject player = GameObject.FindWithTag("Player");
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
-        transition.GetComponent<Animator>().SetTrigger("end");
-        player.transform.position = spawnPoint.transform.position;
-        player.GetComponent<CharacterController>().enabled = true;
-        InventoryManager.Instance.potionsCount = InventoryManager.Instance.maxPotionsCount;
+
+        if (transition != null)
+            transition.GetComponent<Animator>().SetTrigger("end");
+
+        if(spawnPoint != null)
+            player.transform.position = spawnPoint.transform.position;
+
+        if (player != null)
+            player.GetComponent<CharacterController>().enabled = true;
+
+        if(InventoryManager.Instance != null)
+            InventoryManager.Instance.potionsCount = InventoryManager.Instance.maxPotionsCount;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }

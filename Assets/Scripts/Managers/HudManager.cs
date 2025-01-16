@@ -21,7 +21,7 @@ public class HudManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    [Header("References")]
+    [Header("Misc References")]
     public GameObject inventory;
     public CinemachineVirtualCamera virtualCamera;
     public PlayerInput playerInput;
@@ -32,6 +32,8 @@ public class HudManager : MonoBehaviour
     public Texture2D cursorClicker;
     public GameObject teleportsPage;
     public TextMeshProUGUI potionCount;
+    public GameObject canvasObj;
+    public GameObject pauseUI;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -44,6 +46,7 @@ public class HudManager : MonoBehaviour
 
     [Header("Controllers")]
     private bool openedInventory = false;
+    private bool hidedCanvas = false;
 
     [Header("Player Status")]
     public Slider hpSlider;
@@ -71,6 +74,7 @@ public class HudManager : MonoBehaviour
     {
         UpdateCursorState();
         OpenInventory();
+        HideCanvas();
         SmoothVignetteTransition();
 
         UpdateHUDStats();
@@ -80,7 +84,7 @@ public class HudManager : MonoBehaviour
 
     private void UpdateCursorState()
     {
-        bool hudIsOpen = openedInventory || openedTeleportPage;
+        bool hudIsOpen = openedInventory || openedTeleportPage || GameManager.Instance.gamePaused;
 
         if (hudIsOpen)
         {
@@ -125,19 +129,19 @@ public class HudManager : MonoBehaviour
         }
     }
 
+    private void HideCanvas()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            hidedCanvas = !hidedCanvas;
+            canvasObj.SetActive(!hidedCanvas);
+        }
+    }
+
     public void OpenTeleportPage()
     {
         openedTeleportPage = !openedTeleportPage;
         teleportsPage.SetActive(openedTeleportPage);
-
-        //if (openedTeleportPage)
-        //{
-        //    Time.timeScale = 0f;
-        //}
-        //else
-        //{
-        //    Time.timeScale = 1f;
-        //}
     }
 
     public void RefreshItemShow(ItemBase item)

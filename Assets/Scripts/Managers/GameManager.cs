@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     private bool isSlowMotionActive = false;
 
+    public bool gamePaused = false;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -16,6 +18,12 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject); 
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
     }
 
     public void TriggerSlowMotion(float duration = 0.05f, float targetTimeScale = 0.4f)
@@ -52,6 +60,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = originalTimeScale;
         Time.fixedDeltaTime = 0.02f;
         isSlowMotionActive = false;
+    }
+
+    public void PauseGame()
+    {
+        gamePaused = !gamePaused;
+
+        HudManager.Instance.pauseUI.SetActive(gamePaused);
+        Time.timeScale = gamePaused ? 0f : 1f;
+    }
+
+    public void TimeStop()
+    {
+        gamePaused = !gamePaused;
+        Time.timeScale = gamePaused ? 0f : 1f;
     }
 }
 
