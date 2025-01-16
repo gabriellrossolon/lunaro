@@ -16,7 +16,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: fe56ec25963759b49955809beeb4324b, type: 3}
-  renderPipelineDetection: 2
+  renderPipelineDetection: 0
   detectedRenderPipeline: Universal Render Pipeline
   strippedLinesCount: 98
   shaderSourceCode: "//--------------------------------------------------------------------------------------------------------------------------------\r\n//
@@ -151,7 +151,6 @@ ScriptedImporter:
     PASS_SHADOW_CASTER\r\n\t\t\t\t#define CFXR_UBERSHADER\r\n\t\t\t\t#include \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t}\r\n\t\r\n\tCustomEditor
     \"CartoonFX.MaterialInspector\"\r\n}\r\n\r\n"
   shaderName: Cartoon FX/Remaster/Particle Ubershader
-  shaderErrors:
-  - 'Parse error: syntax error, unexpected $end, expecting TOK_SHADER (line 1)'
-  variantCount: 0
-  variantCountUsed: 0
+  shaderErrors: []
+  variantCount: 12300
+  variantCountUsed: 4
