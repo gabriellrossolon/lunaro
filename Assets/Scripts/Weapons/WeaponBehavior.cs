@@ -137,7 +137,7 @@ public class WeaponBehavior : MonoBehaviour
                     attackSequence = 1;
                     break;
             }
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.3f, 0.5f);
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }

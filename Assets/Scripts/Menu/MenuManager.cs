@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class MenuManager : MonoBehaviour
 
     public Texture2D cursorPointer;
     public Texture2D cursorClicker;
+
+    public GameObject eventSys;
+    public GameObject cam;
 
     private bool openedPatchNotes = false;
 
@@ -30,6 +34,9 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(LoadSceneWithDelay("HUB"));
+
+        eventSys.SetActive(false);
+        cam.SetActive(false);
     }
 
     private IEnumerator LoadSceneWithDelay(string sceneName)

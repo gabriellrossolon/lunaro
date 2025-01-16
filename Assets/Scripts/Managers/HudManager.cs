@@ -84,7 +84,7 @@ public class HudManager : MonoBehaviour
 
     private void UpdateCursorState()
     {
-        bool hudIsOpen = openedInventory || openedTeleportPage || GameManager.Instance.gamePaused;
+        bool hudIsOpen = openedInventory || openedTeleportPage || GameManager.Instance.gamePaused || (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled);
 
         if (hudIsOpen)
         {
