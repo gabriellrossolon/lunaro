@@ -11,8 +11,6 @@ public class EnemyAttackState : IState
     private readonly Animator _animator;
     private readonly EnemyEffects _enemyEffects;
     private readonly AudioSource _enemySoundSource;
-    private float _attackDuration = 2f;
-    private float _attackTimer = 0f;
 
     public EnemyAttackState(StateMachine fsm, NavMeshAgent agent,
         Transform transform, Transform playerTransform,
@@ -47,9 +45,6 @@ public class EnemyAttackState : IState
             _animator.SetTrigger("attack3");
         }
         _enemySoundSource.PlayOneShot(_enemyEffects.attackSound);
-
-        // Reinicia o contador do ataque
-        _attackTimer = _attackDuration;
     }
 
     public void OnExit() 
@@ -61,8 +56,6 @@ public class EnemyAttackState : IState
 
     public void OnTick()
     {
-        _attackTimer -= Time.deltaTime;
-
         StateChange();
     }
 

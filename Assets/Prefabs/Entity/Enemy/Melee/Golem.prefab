@@ -270,8 +270,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043b97887ebeb654da6995fac86b9331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  weaponType: 0
+  _enemEffects: {fileID: 0}
+  _enemyStats: {fileID: 0}
+  _enemySoundSource: {fileID: 0}
   colliderEnabled: 0
+  enemyProjectile: {fileID: 0}
+  projectileExit: {fileID: 0}
+  damage: 0
   attackBlockedByPlayer: 0
 --- !u!1 &2474711700257063250
 GameObject:
@@ -725,8 +731,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043b97887ebeb654da6995fac86b9331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  weaponType: 0
+  _enemEffects: {fileID: 0}
+  _enemyStats: {fileID: 0}
+  _enemySoundSource: {fileID: 0}
   colliderEnabled: 0
+  enemyProjectile: {fileID: 0}
+  projectileExit: {fileID: 0}
+  damage: 0
   attackBlockedByPlayer: 0
 --- !u!1 &5550679289825483188
 GameObject:
@@ -922,7 +934,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1237879237273795375}
@@ -961,6 +973,7 @@ MonoBehaviour:
   patrolSpeed: 1
   chaseSpeed: 2
   retreatSpeed: 2
+  retreatDistance: {x: 1.5, y: 3}
   attackDamage: 7
   maxHp: 50
   currentHp: 0

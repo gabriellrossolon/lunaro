@@ -11,6 +11,7 @@ public class EnemyStats : MonoBehaviour
     public float patrolSpeed;
     public float chaseSpeed;
     public float retreatSpeed;
+    public Vector2 retreatDistance;
 
     public float attackDamage;
 

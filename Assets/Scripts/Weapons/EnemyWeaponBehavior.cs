@@ -2,13 +2,23 @@ using UnityEngine;
 
 public class EnemyWeaponBehavior : MonoBehaviour
 {
-    public float damage;
+    public enum WeaponType { Empty, Sword, Staff}
+    public WeaponType weaponType;
+
     private MeshCollider _coll;
-    private EnemyEffects _enemEffects;
-    private EnemyStats _enemyStats;
-    private AudioSource _enemySoundSource;
+    [HideInInspector] public EnemyEffects _enemEffects;
+    [HideInInspector] public EnemyStats _enemyStats;
+    [HideInInspector] public AudioSource _enemySoundSource;
+
+    [Header("Only if Melee")]
     public bool colliderEnabled = false;
 
+    [Header("Only if Ranged")]
+    public GameObject enemyProjectile;
+    public GameObject projectileExit;
+
+    [Header("Any Weapon")]
+    public float damage;
     [SerializeField] private bool attackBlockedByPlayer = false;
 
     private void Awake()
@@ -24,6 +34,8 @@ public class EnemyWeaponBehavior : MonoBehaviour
         damage = _enemyStats.attackDamage;
     }
 
+
+    //Comportamentos caso a arma seja Melee
     public void CallCollider()
     {
         colliderEnabled = !colliderEnabled;
@@ -31,7 +43,6 @@ public class EnemyWeaponBehavior : MonoBehaviour
 
         if (colliderEnabled == false) { attackBlockedByPlayer = false; }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (!attackBlockedByPlayer && other.gameObject.CompareTag("Shield"))
@@ -47,7 +58,16 @@ public class EnemyWeaponBehavior : MonoBehaviour
             GameManager.Instance.TriggerSlowMotion();
             PlayerManager.Instance.DoDamage(damage);
             Instantiate(_enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
-
         }
+    }
+
+
+    //Comportamentos caso a arma seja ranged (solte um projectile)
+    public void CallProjectile()
+    {
+        GameObject projectile = Instantiate(enemyProjectile, projectileExit.transform.position, Quaternion.identity);
+        EnemyProjectileBehavior enemProjBeh = projectile.GetComponent<EnemyProjectileBehavior>();
+        enemProjBeh.damage = damage;
+        enemProjBeh.weaponBehavior = this;
     }
 }

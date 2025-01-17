@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d7e46e5a79d3441b5bc419683c0d28, type: 3}
-  m_Name: MagicOrb
+  m_Name: VulcanOrb
   m_EditorClassIdentifier: 
-  itemName: Magic Orb
-  icon: {fileID: -1672089880, guid: b08a6dde74082024bbaeadb779b2525e, type: 3}
-  description: A magic orb that Buffs your damage
+  itemName: Vulcan Orb
+  icon: {fileID: -737662692, guid: b08a6dde74082024bbaeadb779b2525e, type: 3}
+  description: A orb powered by Fire
   secondaryType: 2
-  secondaryPrefab: {fileID: 3969420526009768494, guid: 68ed3b65eb1e39249ab72c52c3bad1c3, type: 3}
+  secondaryPrefab: {fileID: 3969420526009768494, guid: 0602eebaba043cb4fb4364647246f144, type: 3}
+  blockSound: {fileID: 0}
+  resourceCost: 0

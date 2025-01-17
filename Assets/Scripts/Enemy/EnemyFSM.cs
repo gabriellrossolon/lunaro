@@ -78,6 +78,11 @@ public class EnemyFSM : MonoBehaviour
     {
         _enemyWeaponBehavior.CallCollider();
     }
+
+    public void CallProjectile()
+    {
+        _enemyWeaponBehavior.CallProjectile();
+    }
 }
 
 
