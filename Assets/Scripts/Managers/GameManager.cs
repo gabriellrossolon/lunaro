@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,16 +10,20 @@ public class GameManager : MonoBehaviour
 
     public bool gamePaused = false;
 
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private EventSystem mainEventSystem;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); 
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update()
@@ -74,6 +80,55 @@ public class GameManager : MonoBehaviour
     {
         gamePaused = !gamePaused;
         Time.timeScale = gamePaused ? 0f : 1f;
+    }
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        DestroyDuplicateEventSystems();
+        DestroyDuplicateCameras();
+    }
+
+    private void DestroyDuplicateEventSystems()
+    {
+        if (mainEventSystem == null)
+        {
+            return;
+        }
+
+        EventSystem[] eventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
+
+        if (eventSystems.Length > 1)
+        {
+            foreach (EventSystem eventSystem in eventSystems)
+            {
+                if (eventSystem != mainEventSystem)
+                {
+                    Destroy(eventSystem.gameObject);
+                }
+            }
+        }
+    }
+
+    private void DestroyDuplicateCameras()
+    {
+        if (mainCamera == null)
+        {
+            return;
+        }
+
+        Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+
+        if (cameras.Length > 1)
+        {
+            foreach (Camera camera in cameras)
+            {
+                if (camera != mainCamera)
+                {
+                    Destroy(camera.gameObject);
+                }
+            }
+        }
     }
 }
 

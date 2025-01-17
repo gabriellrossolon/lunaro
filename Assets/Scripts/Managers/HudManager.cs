@@ -34,6 +34,7 @@ public class HudManager : MonoBehaviour
     public TextMeshProUGUI potionCount;
     public GameObject canvasObj;
     public GameObject pauseUI;
+    public GameObject optionsUI;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -47,6 +48,7 @@ public class HudManager : MonoBehaviour
     [Header("Controllers")]
     private bool openedInventory = false;
     private bool hidedCanvas = false;
+    private bool openedOptionsUI = false;
 
     [Header("Player Status")]
     public Slider hpSlider;
@@ -266,5 +268,14 @@ public class HudManager : MonoBehaviour
     public void SetCursor(Texture2D cursor)
     {
         Cursor.SetCursor(cursor, new Vector2(16, 16), CursorMode.Auto);
+    }
+
+    public void OpenOption()
+    {
+        openedOptionsUI = !openedOptionsUI;
+
+        optionsUI.SetActive(openedOptionsUI);
+        if (openedOptionsUI)
+            VolumeManager.Instance.InitializeVolumeSlider();
     }
 }

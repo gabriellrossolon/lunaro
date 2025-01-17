@@ -15,7 +15,10 @@ public class MenuManager : MonoBehaviour
     public GameObject eventSys;
     public GameObject cam;
 
+    public GameObject optionsUI;
+
     private bool openedPatchNotes = false;
+    private bool openedOptionsUI = false;
 
     public static MenuManager Instance { get; private set; }
     private void Awake()
@@ -34,9 +37,6 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(LoadSceneWithDelay("HUB"));
-
-        eventSys.SetActive(false);
-        cam.SetActive(false);
     }
 
     private IEnumerator LoadSceneWithDelay(string sceneName)
@@ -61,5 +61,14 @@ public class MenuManager : MonoBehaviour
         Animator anim = buttonGameObject.GetComponentInParent<Animator>();
         openedPatchNotes = !openedPatchNotes;
         anim.SetTrigger(openedPatchNotes ? "open" : "close");
+    }
+
+    public void OpenOption()
+    {
+        openedOptionsUI = !openedOptionsUI;
+
+        optionsUI.SetActive(openedOptionsUI);
+        if (openedOptionsUI)
+            VolumeManager.Instance.InitializeVolumeSlider();
     }
 }
