@@ -112,6 +112,11 @@ public class MenuManager : MonoBehaviour
             VolumeManager.Instance.InitializeVolumeSlider();
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         player = GameObject.FindWithTag("Player");
