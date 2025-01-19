@@ -79,6 +79,16 @@ public class EnemyFSM : MonoBehaviour
         _enemyWeaponBehavior.CallCollider();
     }
 
+    public void ReableBlockedAttack()
+    {
+        EnemyWeaponBehavior[] weaponBehaviors = GetComponentsInChildren<EnemyWeaponBehavior>();
+
+        foreach (var weaponBehavior in weaponBehaviors)
+        {
+            weaponBehavior.attackBlockedByPlayer = false;
+        }
+    }
+
     public void CallProjectile()
     {
         _enemyWeaponBehavior.CallProjectile();

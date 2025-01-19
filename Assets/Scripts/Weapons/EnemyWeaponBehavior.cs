@@ -19,7 +19,7 @@ public class EnemyWeaponBehavior : MonoBehaviour
 
     [Header("Any Weapon")]
     public float damage;
-    [SerializeField] private bool attackBlockedByPlayer = false;
+    public bool attackBlockedByPlayer = false;
 
     private void Awake()
     {
@@ -32,6 +32,11 @@ public class EnemyWeaponBehavior : MonoBehaviour
     private void Start()
     {
         damage = _enemyStats.attackDamage;
+    }
+
+    private void Update()
+    {
+
     }
 
 
