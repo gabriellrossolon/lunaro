@@ -15,6 +15,10 @@ public class EnemyEffects : MonoBehaviour
 
     public AudioClip enemyGrunt;
 
+    [Header("Takenned Attacks")]
+    public AudioClip attackTakenSound;
+    public GameObject attackTakenParticle;
+
     private void Start()
     {
         _enemySoundSource = GetComponent<AudioSource>();

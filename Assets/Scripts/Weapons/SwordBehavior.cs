@@ -8,7 +8,6 @@ public class SwordBehavior : MonoBehaviour
     public bool colliderEnabled = false;
 
     [HideInInspector] public Collider weaponColl;
-    public GameObject collisionParticle;
 
     private void Awake()
     {
@@ -37,12 +36,13 @@ public class SwordBehavior : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             GameManager.Instance.TriggerSlowMotion();
-            Instantiate(collisionParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
             other.GetComponent<EnemyFSM>().DoDamage(playerStatus.damage);
             other.GetComponent<Animator>().SetTrigger("hurt");
 
+            EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
+            Instantiate(enemyFX.attackTakenParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.fleshImpactSound);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
         }
     }
 }
