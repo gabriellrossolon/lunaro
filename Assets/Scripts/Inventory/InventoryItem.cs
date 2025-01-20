@@ -107,6 +107,9 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         HudManager.Instance.RefreshItemShow(item);
         HudManager.Instance.itemShow.SetActive(true);
 
+        Vector3 mousePosition = eventData.position;  // Posição do mouse na tela
+        HudManager.Instance.itemShow.transform.position = mousePosition;
+
         HudManager.Instance.SetCursor(HudManager.Instance.cursorClicker);
     }
 

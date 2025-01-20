@@ -84,7 +84,8 @@ public class WeaponBehavior : MonoBehaviour
         if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
         {
             weaponAnim.SetTrigger("staffAttack");
-            leftHandAnim.SetTrigger("retreat");
+            string retreatTrigger = "retreat" + Random.Range(1, 4); 
+            leftHandAnim.SetTrigger(retreatTrigger);
         }     
     }
 
@@ -114,7 +115,8 @@ public class WeaponBehavior : MonoBehaviour
                     attackSequence = 1; 
                     break;
             }
-            leftHandAnim.SetTrigger("retreat");
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
 
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
@@ -139,7 +141,8 @@ public class WeaponBehavior : MonoBehaviour
                     attackSequence = 1;
                     break;
             }
-            leftHandAnim.SetTrigger("retreat");
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
 
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);

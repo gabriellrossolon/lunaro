@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    public enum SlotType { Inventory, Weapon, Nothing, Secondary, Ring, Necklace, Amulet , Potion}
+    public enum SlotType { Inventory, Weapon, Nothing, Secondary, Ring, Necklace, Amulet , Potion, Stash}
     public SlotType slotType;
 
     public int slotIndex;
-
+    private int stashIndexStartAt = 33;
     public void OnDrop(PointerEventData eventData)
     {
         var draggedItem = eventData.pointerDrag?.GetComponent<InventoryItem>();
@@ -42,6 +42,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         draggedItem.previousParent = transform;
 
         UpdateInventoryList(draggedItem);
+        UpdateStashList(draggedItem);
 
         // Equip the item if it's a weapon
         //EquipItemIfNeeded(draggedItem);
@@ -56,6 +57,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         switch (slotType)
         {
             case SlotType.Inventory:
+                return true;
+
+            case SlotType.Stash:
                 return true;
 
             case SlotType.Weapon:
@@ -154,8 +158,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         existingItem.previousParent = draggedPreviousParent;
 
         // Update the inventory list
-        UpdateInventoryList(draggedItem);
-        UpdateInventoryList(existingItem);
+        if(slotType == SlotType.Inventory)
+            UpdateInventoryList(draggedItem);
+
+        if (slotType == SlotType.Stash)
+            UpdateStashList(existingItem);
 
         // Equip the new item if needed
         //EquipItemIfNeeded(draggedItem);
@@ -237,6 +244,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             InventoryItem childItem = GetComponentInChildren<InventoryItem>();
             InventoryManager.Instance.inventoryItems[slotIndex] = childItem?.item;
         }
+
+        if(slotType == SlotType.Stash)
+        {
+            InventoryItem childItem = GetComponentInChildren<InventoryItem>();
+            InventoryManager.Instance.stashItems[slotIndex - stashIndexStartAt] = childItem?.item;
+        }
     }
 
     // Handle the case when the item slot is empty
@@ -296,6 +309,28 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             Debug.LogWarning($"Índice {slotIndex} fora dos limites da lista de inventário.");
         }
     }
+
+
+    private void UpdateStashList(InventoryItem draggedItem)
+    {
+        var stashList = InventoryManager.Instance.stashItems;
+
+        if (slotIndex >= stashIndexStartAt && slotIndex - stashIndexStartAt < stashList.Count) //Aqui começa os Index do StashSlot
+        {
+            var previousIndex = stashList.IndexOf(draggedItem.item);
+            if (previousIndex != -1 && previousIndex != slotIndex)
+            {
+                stashList[previousIndex] = null;
+            }
+
+            stashList[slotIndex - stashIndexStartAt] = draggedItem.item; //Subtrai a quantia de Index de Stash Slot, EX: Se é o Index 33, vai pra stashIndex 0
+        }
+        else if (slotType == SlotType.Stash)
+        {
+            Debug.LogWarning($"Índice {slotIndex} fora dos limites da lista de stash (deve ser 1 ou maior).");
+        }
+    }
+
 }
 
 

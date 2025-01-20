@@ -20,8 +20,14 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventorySlotPrefab;
     public GameObject inventoryItemPrefab;
 
+    [Header("Stash References")]
+    public Transform stashGrid;
+
     [Header("Inventory")]
     public List<ItemBase> inventoryItems = new List<ItemBase>();
+
+    [Header("Stash")]
+    public List<ItemBase> stashItems = new List<ItemBase>();
 
     [Header("Equipped Items")]
     [SerializeField] private Weapon equippedWeapon;
@@ -60,6 +66,7 @@ public class InventoryManager : MonoBehaviour
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         GenerateInventorySlots();
+        GenerateStashSlots();
     }
 
     private void Update()
@@ -117,6 +124,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     inventoryItems[i] = item;
                     GenerateInventorySlots(); // Atualiza a UI
+                    GenerateStashSlots();
                     return;
                 }
             }
@@ -124,6 +132,7 @@ public class InventoryManager : MonoBehaviour
             // Se não houver índices vazios, adicionamos o item ao final da lista
             inventoryItems.Add(item);
             GenerateInventorySlots(); // Atualiza a UI
+            GenerateStashSlots();
         }
     }
 
@@ -427,6 +436,58 @@ public class InventoryManager : MonoBehaviour
                         if (inventoryItemImage != null && icon != null)
                         {
                             inventoryItemImage.sprite = icon; // Atribui o sprite
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void GenerateStashSlots()
+    {
+        // Limpa os slots existentes (caso tenha algum)
+        foreach (Transform child in stashGrid)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Gera os slots de inventário com base nos itens no inventário
+        for (int i = 0; i < stashItems.Count; i++)
+        {
+            // Instancia o prefab de InventorySlot
+            GameObject slotObject = Instantiate(inventorySlotPrefab, stashGrid);
+
+            // Define o índice do slot
+            InventorySlot slot = slotObject.GetComponent<InventorySlot>();
+            if (slot != null)
+            {
+                slot.slotIndex = i + 33; // Atribui o índice ao slot
+                slot.slotType = InventorySlot.SlotType.Stash;
+            }
+
+            // Verifica se o item não é nulo antes de criar o InventoryItem
+            if (stashItems[i] != null)
+            {
+                // Instancia o prefab de InventoryItem dentro do InventorySlot
+                GameObject stashItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
+
+                // Associa o item ScriptableObject ao InventoryItem
+                InventoryItem stashItem = stashItemObject.GetComponent<InventoryItem>();
+                if (stashItem != null)
+                {
+                    stashItem.item = stashItems[i];
+
+                    // Obtém o componente Image do InventoryItem
+                    Image stashItemImage = stashItem.GetComponent<Image>();
+
+                    // Usando reflexão para procurar o campo "icon" no ScriptableObject
+                    var iconField = stashItems[i].GetType().GetField("icon");
+                    if (iconField != null)
+                    {
+                        Sprite icon = iconField.GetValue(stashItems[i]) as Sprite;
+                        if (stashItemImage != null && icon != null)
+                        {
+                            stashItemImage.sprite = icon; // Atribui o sprite
                         }
                     }
                 }

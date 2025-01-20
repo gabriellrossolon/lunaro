@@ -35,6 +35,7 @@ public class HudManager : MonoBehaviour
     public GameObject canvasObj;
     public GameObject pauseUI;
     public GameObject optionsUI;
+    public GameObject stash;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -49,6 +50,7 @@ public class HudManager : MonoBehaviour
     private bool openedInventory = false;
     private bool hidedCanvas = false;
     private bool openedOptionsUI = false;
+    [HideInInspector] public bool openedStash = false;
 
     [Header("Player Status")]
     public Slider hpSlider;
@@ -75,7 +77,10 @@ public class HudManager : MonoBehaviour
     private void Update()
     {
         UpdateCursorState();
-        OpenInventory();
+
+        if(Input.GetKeyDown(KeyCode.B))
+            OpenInventory();
+
         HideCanvas();
         SmoothVignetteTransition();
 
@@ -86,7 +91,7 @@ public class HudManager : MonoBehaviour
 
     private void UpdateCursorState()
     {
-        bool hudIsOpen = openedInventory || openedTeleportPage || GameManager.Instance.gamePaused || (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled);
+        bool hudIsOpen = openedInventory || openedTeleportPage || GameManager.Instance.gamePaused || (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled || openedStash);
 
         if (hudIsOpen)
         {
@@ -122,13 +127,21 @@ public class HudManager : MonoBehaviour
 
     private void OpenInventory()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            openedInventory = !openedInventory;
-            inventory.SetActive(openedInventory);
+        openedInventory = !openedInventory;
+        inventory.SetActive(openedInventory);
 
-            itemShow.SetActive(false);
-        }
+        itemShow.SetActive(false);
+    }
+
+    public void OpenStashUI()
+    {
+        openedStash = !openedStash;
+        stash.SetActive(openedStash);
+
+        itemShow.SetActive(false);
+
+        if(!openedInventory)
+            OpenInventory();
     }
 
     private void HideCanvas()
