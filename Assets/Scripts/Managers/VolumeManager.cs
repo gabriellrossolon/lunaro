@@ -1,12 +1,30 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class VolumeManager : MonoBehaviour
 {
-    private GameObject sliderObj;
-    private Slider volumeSlider;
-    [SerializeField] private float volumeValue = 1f;
+    [Header("Master Volume")]
+    private GameObject masterSliderObj;
+    private Slider masterVolumeSlider;
+    [SerializeField] private float masterVolumeValue = 1f;
+
+    [Header("Music Volume")]
+    public AudioMixer musicVolumeMixer;
+    private GameObject musicSliderObj;
+    private Slider musicVolumeSlider;
+    [SerializeField] private float musicVolumeValue = 1f;
+
+    [Header("Effects Volume")]
+    public AudioMixer effectsVolumeMixer;
+    private GameObject effectsSliderObj;
+    private Slider effectsVolumeSlider;
+    [SerializeField] private float effectsVolumeValue = 1f;
+
+    private GameObject screenCheckboxObj;
+    private Toggle screenCheckbox;
+    public bool isFullScreen = true;
 
     public static VolumeManager Instance { get; private set; }
 
@@ -25,7 +43,9 @@ public class VolumeManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        AudioListener.volume = volumeValue;
+        AudioListener.volume = masterVolumeValue;
+        musicVolumeMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolumeValue, 0.0001f)) * 20);
+        effectsVolumeMixer.SetFloat("EffectsVolume", Mathf.Log10(Mathf.Max(effectsVolumeValue, 0.0001f)) * 20);
     }
 
     private void OnDestroy()
@@ -35,20 +55,56 @@ public class VolumeManager : MonoBehaviour
 
     public void InitializeVolumeSlider()
     {
-        sliderObj = GameObject.FindGameObjectWithTag("VolumeSlider");
-
-        if (sliderObj != null)
+        masterSliderObj = GameObject.FindGameObjectWithTag("MasterVolumeSlider");
+        if (masterSliderObj != null)
         {
-            volumeSlider = sliderObj.GetComponent<Slider>();
-            volumeSlider.value = volumeValue;
-            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+            masterVolumeSlider = masterSliderObj.GetComponent<Slider>();
+            masterVolumeSlider.value = masterVolumeValue;
+            masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+        }
+
+        musicSliderObj = GameObject.FindGameObjectWithTag("MusicVolumeSlider");
+        if (musicSliderObj != null)
+        {
+            musicVolumeSlider = musicSliderObj.GetComponent<Slider>();
+            musicVolumeSlider.value = musicVolumeValue;
+            musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+        }
+
+        effectsSliderObj = GameObject.FindGameObjectWithTag("EffectsVolumeSlider");
+        if (effectsSliderObj != null)
+        {
+            effectsVolumeSlider = effectsSliderObj.GetComponent<Slider>();
+            effectsVolumeSlider.value = effectsVolumeValue;
+            effectsVolumeSlider.onValueChanged.AddListener(OnEffectsVolumeChanged);
         }
     }
 
-    public void OnVolumeChanged(float value)
+    public void InitializeScreenCheckbox()
     {
-        volumeValue = value;
-        AudioListener.volume = volumeValue;
-        PlayerPrefs.SetFloat("Volume", volumeValue);
+        screenCheckboxObj = GameObject.FindGameObjectWithTag("ScreenCheckBox");
+        if(screenCheckboxObj != null)
+        {
+            screenCheckbox = screenCheckboxObj.GetComponent<Toggle>();
+            screenCheckbox.isOn = isFullScreen;
+        }
+    }
+
+    public void OnMasterVolumeChanged(float value)
+    {
+        masterVolumeValue = value;
+        AudioListener.volume = masterVolumeValue;
+    }
+
+    public void OnMusicVolumeChanged(float value)
+    {
+        musicVolumeValue = value;
+        musicVolumeMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolumeValue, 0.0001f)) * 20);
+    }
+
+    public void OnEffectsVolumeChanged(float value)
+    {
+        effectsVolumeValue = value;
+        effectsVolumeMixer.SetFloat("EffectsVolume", Mathf.Log10(Mathf.Max(effectsVolumeValue, 0.0001f)) * 20);
     }
 }

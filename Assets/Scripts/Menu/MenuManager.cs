@@ -27,6 +27,9 @@ public class MenuManager : MonoBehaviour
     private GameObject transition;
     private GameObject player;
 
+    public Toggle fullScreenCheckbox;
+    private bool isFullScreen = true;
+
     public static MenuManager Instance { get; private set; }
 
     private void Awake()
@@ -42,6 +45,11 @@ public class MenuManager : MonoBehaviour
 
         transition = GameObject.FindWithTag("Transition");
         player = GameObject.FindWithTag("Player");
+    }
+
+    private void Start()
+    {
+        //fullScreenCheckbox.isOn = isFullScreen;
     }
 
     public void GoToHUBFromMenu()
@@ -109,12 +117,33 @@ public class MenuManager : MonoBehaviour
 
         optionsUI.SetActive(openedOptionsUI);
         if (openedOptionsUI)
+        {
             VolumeManager.Instance.InitializeVolumeSlider();
+            VolumeManager.Instance.InitializeScreenCheckbox();
+        }
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void OnFullScreenToggleChanged()
+    {
+        isFullScreen = !isFullScreen;
+
+        Screen.fullScreen = isFullScreen;
+
+        if (isFullScreen)
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+        }
+        else
+        {
+            Screen.SetResolution(1280, 720, false);
+        }
+
+        VolumeManager.Instance.isFullScreen = isFullScreen;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

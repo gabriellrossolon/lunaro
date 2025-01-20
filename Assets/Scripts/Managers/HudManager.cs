@@ -36,6 +36,7 @@ public class HudManager : MonoBehaviour
     public GameObject pauseUI;
     public GameObject optionsUI;
     public GameObject stash;
+    public Toggle fullScreenCheckbox;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -51,6 +52,7 @@ public class HudManager : MonoBehaviour
     private bool hidedCanvas = false;
     private bool openedOptionsUI = false;
     [HideInInspector] public bool openedStash = false;
+    private bool isFullScreen = true;
 
     [Header("Player Status")]
     public Slider hpSlider;
@@ -289,6 +291,27 @@ public class HudManager : MonoBehaviour
 
         optionsUI.SetActive(openedOptionsUI);
         if (openedOptionsUI)
+        {
             VolumeManager.Instance.InitializeVolumeSlider();
+            VolumeManager.Instance.InitializeScreenCheckbox();
+        }
+    }
+
+    public void OnFullScreenToggleChanged()
+    {
+        isFullScreen = !isFullScreen;
+
+        Screen.fullScreen = isFullScreen;
+
+        if (isFullScreen)
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+        }
+        else
+        {
+            Screen.SetResolution(1280, 720, false);
+        }
+
+        VolumeManager.Instance.isFullScreen = isFullScreen;
     }
 }

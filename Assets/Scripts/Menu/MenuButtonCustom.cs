@@ -5,12 +5,13 @@ using UnityEngine.EventSystems;
 public class MenuButtonCustom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private Button btn;
+    private Toggle toggle;
     private Animator anim;
-
 
     private void Awake()
     {
         btn = GetComponent<Button>();
+        toggle = GetComponent<Toggle>();
         anim = GetComponent<Animator>();
     }
 
