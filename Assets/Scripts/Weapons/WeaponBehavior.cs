@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.VFX;
-using static UnityEngine.Rendering.DebugUI;
 
 public class WeaponBehavior : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class WeaponBehavior : MonoBehaviour
     [HideInInspector] public bool attack;
     public bool canAttack = true;
     private Animator weaponAnim;
+    [SerializeField] private Animator leftHandAnim;
 
     public bool chargedAttack;
 
@@ -21,7 +21,7 @@ public class WeaponBehavior : MonoBehaviour
     public GameObject beamPrefab;
     public GameObject projectileExitPoint;
 
-    private GameObject currentBeam; // Armazena a referência ao burst atual
+    private GameObject currentBeam;
 
     [Header("Attack Resource Cost (Stamina/Mana)")]
     public float resourceCost;
@@ -81,9 +81,10 @@ public class WeaponBehavior : MonoBehaviour
 
     private void ExecuteStaffAttack()
     {
-        if (canAttack && playerStatus.currentMana >= resourceCost)
+        if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
         {
             weaponAnim.SetTrigger("staffAttack");
+            leftHandAnim.SetTrigger("retreat");
         }     
     }
 
@@ -113,6 +114,7 @@ public class WeaponBehavior : MonoBehaviour
                     attackSequence = 1; 
                     break;
             }
+            leftHandAnim.SetTrigger("retreat");
 
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
@@ -137,6 +139,8 @@ public class WeaponBehavior : MonoBehaviour
                     attackSequence = 1;
                     break;
             }
+            leftHandAnim.SetTrigger("retreat");
+
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }

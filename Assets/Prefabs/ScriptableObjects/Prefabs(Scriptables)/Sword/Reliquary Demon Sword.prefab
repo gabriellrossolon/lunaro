@@ -116,7 +116,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0.152, z: 0}
-  m_LocalScale: {x: 1.2, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1.4, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 235049359697015466}
@@ -190,7 +190,6 @@ MonoBehaviour:
   damage: 0
   colliderEnabled: 0
   weaponColl: {fileID: 0}
-  collisionParticle: {fileID: 6600992782611876899, guid: 6f315d0b88f296b489a8c91cfa4999b2, type: 3}
 --- !u!65 &-2409835607574866881
 BoxCollider:
   m_ObjectHideFlags: 0
