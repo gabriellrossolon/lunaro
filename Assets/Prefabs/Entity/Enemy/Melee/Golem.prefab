@@ -256,7 +256,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 60
+  m_Radius: 120
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1201984497160020334
 MonoBehaviour:
@@ -717,7 +717,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 60
+  m_Radius: 120
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2278864556623630473
 MonoBehaviour:
@@ -969,7 +969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 15
   patrolRadius: 10
-  attackRange: 4
+  attackRange: 5
   patrolSpeed: 1
   chaseSpeed: 2
   retreatSpeed: 2
@@ -1089,8 +1089,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 4.0209966, z: 4}
-  m_Center: {x: -0.021884441, y: 2.0030034, z: 0.12532794}
+  m_Size: {x: 5, y: 4.0209966, z: 3.1454487}
+  m_Center: {x: -0.021884441, y: 2.0030034, z: 0.26858065}
 --- !u!95 &1768337159404522990
 Animator:
   serializedVersion: 7
