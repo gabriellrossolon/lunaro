@@ -36,6 +36,14 @@ public class TeleportManager : MonoBehaviour
         StartCoroutine(LoadSceneWithLoading("DungeonA"));
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
     }
+    public void GoToFrozenValley()
+    {
+        HudManager.Instance.OpenTeleportPage();
+        transition.GetComponent<Animator>().SetTrigger("start");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        StartCoroutine(LoadSceneWithLoading("DungeonB"));
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
+    }
 
     public void GoToMenu()
     {

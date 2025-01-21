@@ -46,6 +46,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
         // Equip the item if it's a weapon
         //EquipItemIfNeeded(draggedItem);
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
     // Check if the item is compatible with the slot type
@@ -166,6 +167,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
         // Equip the new item if needed
         //EquipItemIfNeeded(draggedItem);
+
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
     // Remove the item from the current slot

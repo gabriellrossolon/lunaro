@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 257020518233259889}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.1, y: 0.49, z: -3.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -73,8 +73,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropBag: {fileID: 3473008286833546067, guid: e2bc8e8ae48593e4e91af5086ee9cf1c, type: 3}
   dropPoint: {fileID: 6995722430264617348}
+  maxDistance: 3
   chestItems: []
-  maxDistance: 2.5
+  randomItems: 1
+  chestCapacity: 3
+  commonChance: 55
+  uncommonChance: 30
+  rareChance: 15
+  legendaryChance: 0
 --- !u!95 &2729767526160798263
 Animator:
   serializedVersion: 7
@@ -355,7 +361,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.184, z: 0}
-  m_LocalScale: {x: 0.29289, y: 0.29289, z: 0.29289}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6242213676401519950}

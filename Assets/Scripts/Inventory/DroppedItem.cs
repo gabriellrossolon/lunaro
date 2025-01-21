@@ -9,17 +9,18 @@ public class DroppedItem : MonoBehaviour
 
     public float throwForce = 5f;
     public float throwRadius = 2f;
-    public float throwHeight = 2f;  // Altura máxima para o lançamento
+    public float throwHeight = 2f; 
 
     private void Awake()
     {
-        player = PlayerManager.Instance.gameObject;
         rb = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
-        if(rb != null)
+        player = PlayerManager.Instance.gameObject;
+
+        if (rb != null)
         {
             Vector3 randomDirection = new Vector3(Random.Range(-throwRadius, throwRadius), Random.Range(throwHeight * 0.5f, throwHeight), Random.Range(0f, throwRadius));
             rb.AddForce(randomDirection.normalized * throwForce, ForceMode.Impulse);

@@ -40,7 +40,7 @@ public class SwordBehavior : MonoBehaviour
             other.GetComponent<Animator>().SetTrigger("hurt");
 
             EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
-            Instantiate(enemyFX.attackTakenParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
+            Instantiate(enemyFX.attackTakenParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity, other.transform);
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
         }

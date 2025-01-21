@@ -37,6 +37,9 @@ public class HudManager : MonoBehaviour
     public GameObject optionsUI;
     public GameObject stash;
     public Toggle fullScreenCheckbox;
+    public TextMeshProUGUI playerGoldText;
+    public GameObject shortcuts;
+    [HideInInspector] public Animator shortcutsAnim;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -71,6 +74,7 @@ public class HudManager : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        shortcutsAnim = shortcuts.GetComponent<Animator>();
 
         UpdateHUDStats();
         //hpLateSlider.value = playerStatus.currentHp;
@@ -89,6 +93,8 @@ public class HudManager : MonoBehaviour
         UpdateHUDStats();
         potionCount.enabled = InventoryManager.Instance.equippedPotion != null;
         potionCount.text = InventoryManager.Instance.potionsCount.ToString();
+
+        playerGoldText.text = playerStatus.playerGold.ToString();
     }
 
     private void UpdateCursorState()
@@ -141,9 +147,6 @@ public class HudManager : MonoBehaviour
         stash.SetActive(openedStash);
 
         itemShow.SetActive(false);
-
-        if(!openedInventory)
-            OpenInventory();
     }
 
     private void HideCanvas()
@@ -214,7 +217,6 @@ public class HudManager : MonoBehaviour
                 itemResourceCost.text = null;
             }
             itemDmg.text = null;
-            itemResourceCost.text = null;
         }
         else if (item is Potion potion)
         {

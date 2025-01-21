@@ -115,25 +115,21 @@ public class InventoryManager : MonoBehaviour
     // Adiciona um item ao inventário e atualiza a UI
     public void AddItem(ItemBase item)
     {
-        if (!inventoryItems.Contains(item))
+        for (int i = 0; i < inventoryItems.Count; i++)
         {
-            // Se o item não estiver no inventário, buscamos o primeiro índice vazio e colocamos o item lá
-            for (int i = 0; i < inventoryItems.Count; i++)
+            if (inventoryItems[i] == null) // Encontrar um índice vazio
             {
-                if (inventoryItems[i] == null) // Encontrar um índice vazio
-                {
-                    inventoryItems[i] = item;
-                    GenerateInventorySlots(); // Atualiza a UI
-                    GenerateStashSlots();
-                    return;
-                }
+                inventoryItems[i] = item;
+                GenerateInventorySlots(); // Atualiza a UI
+                GenerateStashSlots();
+                return;
             }
-
-            // Se não houver índices vazios, adicionamos o item ao final da lista
-            inventoryItems.Add(item);
-            GenerateInventorySlots(); // Atualiza a UI
-            GenerateStashSlots();
         }
+
+        // Se não houver índices vazios, adicionamos o item ao final da lista
+        inventoryItems.Add(item);
+        GenerateInventorySlots(); // Atualiza a UI
+        GenerateStashSlots();
     }
 
     // Remove um item do inventário e atualiza a UI

@@ -10,6 +10,7 @@ public class Portal : MonoBehaviour
         None,
         HUB,
         DungeonA,
+        DungeonB,
         Spawn
     }
 
@@ -58,6 +59,10 @@ public class Portal : MonoBehaviour
 
             case PortalType.DungeonA:
                 sceneName = "DungeonA";
+                break;
+
+            case PortalType.DungeonB:
+                sceneName = "DungeonB";
                 break;
 
             case PortalType.Spawn:

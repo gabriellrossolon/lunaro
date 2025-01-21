@@ -8,10 +8,19 @@ public class ChestBehavior : MonoBehaviour
     public GameObject dropBag;
     public GameObject dropPoint;
     private GameObject player;
-    public List<ItemBase> chestItems = new List<ItemBase>();
+    private Collider chestCollider;
     public float maxDistance;
 
-    private Collider chestCollider;
+    public List<ItemBase> chestItems = new List<ItemBase>();
+
+    [Header("Random Item Configuration")]
+    public bool randomItems = false;
+    public int chestCapacity = 3;
+
+    [Range(0, 100)] public float commonChance = 50f;
+    [Range(0, 100)] public float uncommonChance = 30f;
+    [Range(0, 100)] public float rareChance = 15f;
+    [Range(0, 100)] public float legendaryChance = 5f;
 
     private void Awake()
     {
@@ -22,6 +31,11 @@ public class ChestBehavior : MonoBehaviour
     private void Start()
     {
         player = PlayerManager.Instance.gameObject;
+
+        if (randomItems)
+        {
+            GenerateRandomItems();
+        }
     }
 
     public void OpenChest()
@@ -47,15 +61,15 @@ public class ChestBehavior : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        DisableChestBehavior();  // Desativa o script e o collider após instanciar os itens
+        DisableChestBehavior();
     }
 
     private void DisableChestBehavior()
     {
-        enabled = false;  // Desativa o script ChestBehavior
+        enabled = false;
         if (chestCollider != null)
         {
-            chestCollider.enabled = false;  // Desativa o Collider, impedindo a detecção de OnMouseOver e OnMouseExit
+            chestCollider.enabled = false;
         }
     }
 
@@ -83,7 +97,44 @@ public class ChestBehavior : MonoBehaviour
         HudManager.Instance.warnBtn.SetActive(false);
         HudManager.Instance.itemShow.SetActive(false);
     }
+
+    private void GenerateRandomItems()
+    {
+        chestItems.Clear();
+
+        for (int i = 0; i < chestCapacity; i++)
+        {
+            int maxAttempts = 10;
+            int attempts = 0;
+
+            while (attempts < maxAttempts)
+            {
+                Rarity chosenRarity = GetRandomRarity();
+                List<ItemBase> itemsByRarity = ItemDatabase.Instance.GetItemsByRarity(chosenRarity);
+
+                if (itemsByRarity != null && itemsByRarity.Count > 0)
+                {
+                    ItemBase randomItem = itemsByRarity[Random.Range(0, itemsByRarity.Count)];
+
+                    if (!chestItems.Contains(randomItem))
+                    {
+                        chestItems.Add(randomItem);
+                        break; 
+                    }
+                }
+
+                attempts++; 
+            }
+        }
+    }
+
+    private Rarity GetRandomRarity()
+    {
+        float roll = Random.Range(0f, 100f);
+
+        if (roll <= commonChance) return Rarity.Common;
+        if (roll <= commonChance + uncommonChance) return Rarity.Uncommon;
+        if (roll <= commonChance + uncommonChance + rareChance) return Rarity.Rare;
+        return Rarity.Legendary;
+    }
 }
-
-
-

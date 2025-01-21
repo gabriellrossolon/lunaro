@@ -470,6 +470,18 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
+    m_Name: Hurt
+    m_StateMachine: {fileID: -1667141008724994777}
+    m_Mask: {fileID: 31900000, guid: 27bec3ed7d722744cbad3dcf10ad3a01, type: 2}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 1
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
     m_Name: UpLayer
     m_StateMachine: {fileID: -1135673195909085515}
     m_Mask: {fileID: 0}
@@ -481,18 +493,6 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
-  - serializedVersion: 5
-    m_Name: Hurt
-    m_StateMachine: {fileID: -1667141008724994777}
-    m_Mask: {fileID: 31900000, guid: 27bec3ed7d722744cbad3dcf10ad3a01, type: 2}
-    m_Motions: []
-    m_Behaviours: []
-    m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0.3
-    m_IKPass: 0
-    m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
 --- !u!1102 &156336558619747982
 AnimatorState:
   serializedVersion: 6
@@ -501,7 +501,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GoblinGetHit
-  m_Speed: 1.4
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 484643681967106504}
@@ -561,7 +561,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 1
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -862,7 +862,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: bed5f4e551c1fb149bb4dc4434c3971c, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 4f954e75e935195419d2667e31d6e4a0, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

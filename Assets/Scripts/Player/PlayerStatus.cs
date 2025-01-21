@@ -30,6 +30,9 @@ public class PlayerStatus : MonoBehaviour
     public float manaRegenRate = 10f;
     public bool canRegenMana = true;
 
+    [Header("Misc Stats")]
+    public float playerGold;
+
     private void Start()
     {
         currentHp = maxHp;
@@ -181,5 +184,13 @@ public class PlayerStatus : MonoBehaviour
 
         currentMana = endMana;
         canRegenMana = true; 
+    }
+
+    //Controle de Gold
+
+    public void ControlGold(float value)
+    {
+        playerGold += value;
+        HudManager.Instance.shortcutsAnim.SetTrigger("enterGold");
     }
 }

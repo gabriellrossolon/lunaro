@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -17,8 +15,12 @@ public class EnemyStats : MonoBehaviour
 
     public float maxHp;
     public float currentHp;
+
+    public float goldCarryed;
+    [SerializeField] private Vector2 goldRange; 
     private void Start()
     {
         currentHp = maxHp;
+        goldCarryed = Random.Range((int)goldRange.x, (int)goldRange.y + 1);
     }
 }
