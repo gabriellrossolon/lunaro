@@ -4,8 +4,8 @@ public class SecondaryBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
     public Secondary.SecondaryType secondaryType;
-    private Animator secondaryAnim;
-    public Animator armBonesAnim;
+    [HideInInspector] public Animator secondaryAnim;
+    [HideInInspector] public Animator armBonesAnim;
 
     [HideInInspector] public AudioClip blockSound;
     [HideInInspector] public float resourceCost;
@@ -13,6 +13,7 @@ public class SecondaryBehavior : MonoBehaviour
     [HideInInspector] public bool blockInputReceived = false;
     [HideInInspector] public bool blocking = false;
 
+    public WeaponBehavior weaponBeh;
 
     private void Start()
     {
@@ -59,5 +60,21 @@ public class SecondaryBehavior : MonoBehaviour
             armBonesAnim.SetBool("isWithShield", false);
             armBonesAnim.SetBool("isWithBook", false);
         }
+    }
+
+    //Funções do Weapon Behavior
+    public void CanAttack()
+    {
+        weaponBeh.CanAttack();
+    }
+
+    public void CallProjectile()
+    {
+        weaponBeh.CallProjectile();
+    }
+
+    public void ConsumeStamina()
+    {
+        weaponBeh.ConsumeStamina();
     }
 }

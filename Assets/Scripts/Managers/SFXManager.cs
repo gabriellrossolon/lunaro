@@ -78,6 +78,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip fleshImpactSound;
     public AudioClip heavyImpactSound;
     public AudioClip magicCastSound;
+    public AudioClip bowSwooshSound;
 
     [Header("UI SFX")]
     public AudioSource UIMiscSource;

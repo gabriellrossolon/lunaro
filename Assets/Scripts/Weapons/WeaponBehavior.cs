@@ -57,7 +57,7 @@ public class WeaponBehavior : MonoBehaviour
             }
             else if (weaponType == Weapon.WeaponType.Bow)
             {
-                // Implementar lógica para Bow
+                ExecuteBowAttack();
             }
             attack = false;
         }
@@ -77,6 +77,8 @@ public class WeaponBehavior : MonoBehaviour
                 weaponAnim.SetBool("ChargingAttack", false);
             }
         }
+
+        leftHandAnim.SetBool("holdingBow", weaponType == Weapon.WeaponType.Bow);
     }
 
     private void ExecuteStaffAttack()
@@ -87,6 +89,15 @@ public class WeaponBehavior : MonoBehaviour
             string retreatTrigger = "retreat" + Random.Range(1, 4); 
             leftHandAnim.SetTrigger(retreatTrigger);
         }     
+    }
+
+    private void ExecuteBowAttack()
+    {
+        if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
+        {
+            leftHandAnim.SetTrigger("bowAttack");
+            GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetTrigger("attack");
+        }
     }
 
     public void ExecuteSwordAttack()
@@ -157,10 +168,19 @@ public class WeaponBehavior : MonoBehaviour
 
     public void CallProjectile()
     {
-        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
+        if(weaponType == Weapon.WeaponType.Staff)
+        {
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
+        }
+        else if (weaponType == Weapon.WeaponType.Bow)
+        {
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+            if(SFXManager.Instance.bowSwooshSound != null)
+                SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.bowSwooshSound);
+        }
 
-        GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, Quaternion.identity);
+        GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, transform.rotation);
         ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
         projectileScript.SetDirection(transform.forward);
     }

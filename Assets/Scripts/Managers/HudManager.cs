@@ -188,6 +188,11 @@ public class HudManager : MonoBehaviour
                 itemType.text = "Hammer";
                 itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
             }
+            else if (weapon.weaponType == Weapon.WeaponType.Bow)
+            {
+                itemType.text = "Bow";
+                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
+            }
             else
             {
                 itemType.text = "Unknown Weapon";

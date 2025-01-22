@@ -11,6 +11,10 @@ public class ProjectileBehavior : MonoBehaviour
     private Rigidbody rb;
     public GameObject collisionParticle;
 
+    public enum ProjectileType { Nothing, Magic, Arrow }
+    public ProjectileType projectileType;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,8 +48,25 @@ public class ProjectileBehavior : MonoBehaviour
         }
         if (!other.CompareTag("Player"))
         {
-            GameObject collParticle = Instantiate(collisionParticle, transform.position, transform.rotation);
-            collParticle.GetComponent<AudioSource>().PlayOneShot(projectileImpactSound);
+            EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
+            if (projectileType == ProjectileType.Magic)
+            {
+                GameObject collParticle = Instantiate(collisionParticle, transform.position, transform.rotation);
+                collParticle.GetComponent<AudioSource>().PlayOneShot(projectileImpactSound);
+            }
+            else if (projectileType == ProjectileType.Arrow || projectileType == ProjectileType.Nothing)
+            {
+                if (other.CompareTag("Enemy"))
+                {
+                    GameObject collParticle = Instantiate(enemyFX.attackImpactFx, transform.position, transform.rotation);
+                    collParticle.GetComponent<AudioSource>().PlayOneShot(enemyFX.attackTakenSound);
+                }
+                else
+                {
+                    GameObject collParticle = Instantiate(collisionParticle, transform.position, transform.rotation);
+                    collParticle.GetComponent<AudioSource>().PlayOneShot(projectileImpactSound);
+                }
+            }
             Destroy(this.gameObject);
         }
     }

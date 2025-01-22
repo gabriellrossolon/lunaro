@@ -1,5 +1,6 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
@@ -35,6 +36,22 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             ReturnItemToPreviousParent(draggedItem);
             return;
         }
+        else if (DraggedItemIsTwoHanded(draggedItem))
+        {
+            if (IsWithSecondaryEquipped() && slotType == SlotType.Weapon)
+            {
+                ReturnItemToPreviousParent(draggedItem);
+                return;
+            }
+        }
+        else if (DraggedItemIsSecondary(draggedItem))
+        {
+            if (isWithTwoHandEquipped() && slotType == SlotType.Secondary)
+            {
+                ReturnItemToPreviousParent(draggedItem);
+                return;
+            }
+        }
 
         // Place the item in the slot and update the inventory list
         draggedItem.transform.SetParent(transform);
@@ -49,7 +66,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
-    // Check if the item is compatible with the slot type
+    // VERIFICAÇÕES SE O ITEM PODE OU NÃO ENTRAR NO SLOT
     private bool IsItemCompatibleWithSlot(InventoryItem draggedItem)
     {
         if (draggedItem == null || draggedItem.item == null)
@@ -91,6 +108,55 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
+    private bool DraggedItemIsTwoHanded(InventoryItem draggedItem)
+    {
+        if (draggedItem.item is Weapon weapon && 
+            weapon.weaponType == Weapon.WeaponType.Bow)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private bool DraggedItemIsSecondary(InventoryItem draggedItem)
+    {
+        if (draggedItem.item is Secondary secondary)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private bool isWithTwoHandEquipped()
+    {
+        if (InventoryManager.Instance.equippedWeapon != null &&
+           InventoryManager.Instance.equippedWeapon is Weapon weapon &&
+           weapon.weaponType == Weapon.WeaponType.Bow)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private bool IsWithSecondaryEquipped()
+    {
+        if (InventoryManager.Instance.equippedSecondary != null && 
+            InventoryManager.Instance.equippedSecondary is Secondary secondary)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     private void EquipItemIfNeeded(InventoryItem draggedItem)
     {
         if (draggedItem == null || draggedItem.item == null)
@@ -143,6 +209,39 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             ReturnItemToPreviousParent(draggedItem);
             return;
         }
+        else if (DraggedItemIsTwoHanded(draggedItem))
+        {
+            if (IsWithSecondaryEquipped() && slotType == SlotType.Weapon)
+            {
+                ReturnItemToPreviousParent(draggedItem);
+                return;
+            }
+        }
+        else if (DraggedItemIsSecondary(draggedItem))
+        {
+            if (isWithTwoHandEquipped() && slotType == SlotType.Secondary)
+            {
+                ReturnItemToPreviousParent(draggedItem);
+                return;
+            }
+        }
+        else if (IsWithSecondaryEquipped())
+        {
+            if(existingItem.item is Weapon weapon && weapon.weaponType == Weapon.WeaponType.Bow)
+            {
+                ReturnItemToPreviousParent(draggedItem);
+                return;
+            }
+        }
+        else if (isWithTwoHandEquipped())
+        {
+            if (existingItem.item is Secondary secondary)
+            {
+                ReturnItemToPreviousParent(draggedItem);
+                return;
+            }
+        }
+
 
         Transform draggedPreviousParent = draggedItem.previousParent;
         Transform existingPreviousParent = existingItem.previousParent;

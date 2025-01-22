@@ -52,27 +52,33 @@ public class PlayerCombatState : IState
 
     private void Attack()
     {
-        if (_inputHandler.attackInput && !TempParent.Instance.isHoldingAnything)
+        if(_weaponBehavior != null)
         {
-            _inputHandler.attackInput = false;
-            _weaponBehavior.attack = true;
-        }
+            if (_inputHandler.attackInput && !TempParent.Instance.isHoldingAnything)
+            {
+                _inputHandler.attackInput = false;
+                _weaponBehavior.attack = true;
+            }
 
-        _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
+            _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
+        }
     }
 
     private void Block()
     {
-        if (_inputHandler.blockInput && !TempParent.Instance.isHoldingAnything)
+        if(_secondaryBehavior != null && _weaponBehavior != null)
         {
-            _secondaryBehavior.blockInputReceived = true;
-            _weaponBehavior.chargedAttack = true;
-        }
-        else
-        {
-            _secondaryBehavior.blockInputReceived = false;
-            _weaponBehavior.chargedAttack = false;
-        }
+            if (_inputHandler.blockInput && !TempParent.Instance.isHoldingAnything)
+            {
+                _secondaryBehavior.blockInputReceived = true;
+                _weaponBehavior.chargedAttack = true;
+            }
+            else
+            {
+                _secondaryBehavior.blockInputReceived = false;
+                _weaponBehavior.chargedAttack = false;
+            }
+        } 
     }
 
     private void CombatMovement()

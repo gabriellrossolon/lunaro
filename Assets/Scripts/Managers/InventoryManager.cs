@@ -30,8 +30,8 @@ public class InventoryManager : MonoBehaviour
     public List<ItemBase> stashItems = new List<ItemBase>();
 
     [Header("Equipped Items")]
-    [SerializeField] private Weapon equippedWeapon;
-    [SerializeField] private Secondary equippedSecondary;
+    [SerializeField] public Weapon equippedWeapon;
+    [SerializeField] public Secondary equippedSecondary;
     [SerializeField] private Jewel equippedNecklace;
     [SerializeField] private Jewel equippedRing;
     [SerializeField] private Jewel equippedAmulet;
@@ -362,6 +362,13 @@ public class InventoryManager : MonoBehaviour
             staffBehavior.damage = equippedWeapon.damage;
             rightWeaponBehavior.projectileExitPoint = staffBehavior.projectileExit;
         }
+        else if (lastInstantiatedWeapon.TryGetComponent<BowBehavior>(out var bowBehavior))
+        {
+            rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
+            bowBehavior.damage = equippedWeapon.damage;
+            rightWeaponBehavior.projectileExitPoint = bowBehavior.projectileExit;
+        }
+
     }
 
     private void InstantiateAndSetupSecondary()
