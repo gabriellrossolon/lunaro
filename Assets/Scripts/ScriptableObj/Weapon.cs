@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Equippables/Weapon")]
 public class Weapon : ItemBase
 {
-    public enum WeaponType { Empty, Sword, Staff, Bow, Hammer }
+    public enum WeaponType { Empty, Sword, Staff, Bow, Hammer, GreatHammer, GreatSword }
     [Header("Weapon Type")]
     public WeaponType weaponType;
 

@@ -237,6 +237,7 @@ public class InventoryManager : MonoBehaviour
         if (equippedWeapon == null || equippedWeapon.weaponPrefab == null)
         {
             ResetWeaponBehavior();
+            rightWeaponBehavior.SetWeaponType(Weapon.WeaponType.Empty);
             return;
         }
 
@@ -328,24 +329,8 @@ public class InventoryManager : MonoBehaviour
         lastInstantiatedWeapon = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
         rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
-        switch (equippedWeapon.weaponType)
-        {
-            case Weapon.WeaponType.Sword:
-                rightWeaponBehavior.weaponType = Weapon.WeaponType.Sword; // Definindo o tipo de arma
-                break;
+        rightWeaponBehavior.SetWeaponType(equippedWeapon.weaponType);
 
-            case Weapon.WeaponType.Staff:
-                rightWeaponBehavior.weaponType = Weapon.WeaponType.Staff; // Definindo o tipo de arma
-                break;
-
-            case Weapon.WeaponType.Hammer:
-                rightWeaponBehavior.weaponType = Weapon.WeaponType.Hammer; // Definindo o tipo de arma
-                break;
-
-            case Weapon.WeaponType.Bow:
-                rightWeaponBehavior.weaponType = Weapon.WeaponType.Bow; // Definindo o tipo de arma
-                break;
-        }
 
         if (lastInstantiatedWeapon.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {
@@ -367,6 +352,14 @@ public class InventoryManager : MonoBehaviour
             rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
             bowBehavior.damage = equippedWeapon.damage;
             rightWeaponBehavior.projectileExitPoint = bowBehavior.projectileExit;
+        }
+        else if (lastInstantiatedWeapon.TryGetComponent<GreatHammerBehavior>(out var greatHammerBehavior))
+        {
+            greatHammerBehavior.damage = equippedWeapon.damage;
+        }
+        else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
+        {
+            greatSwordBehavior.damage = equippedWeapon.damage;
         }
 
     }

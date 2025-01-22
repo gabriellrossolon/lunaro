@@ -9,7 +9,11 @@ public class WeaponBehavior : MonoBehaviour
     [HideInInspector] public bool attack;
     public bool canAttack = true;
     private Animator weaponAnim;
+    [Header("Left Hand References")]
     [SerializeField] private Animator leftHandAnim;
+    [SerializeField] private GameObject leftHandGrip;
+    [SerializeField] private GameObject holdingObjectL;
+    [SerializeField] private GameObject holdingObjectR;
 
     public bool chargedAttack;
 
@@ -17,9 +21,9 @@ public class WeaponBehavior : MonoBehaviour
     private int attackSequence = 1;
 
     [Header("Only if Ranged")]
-    public GameObject projectilePrefab;
-    public GameObject beamPrefab;
-    public GameObject projectileExitPoint;
+    [HideInInspector] public GameObject projectilePrefab;
+    [HideInInspector] public GameObject beamPrefab;
+    [HideInInspector] public GameObject projectileExitPoint;
 
     private GameObject currentBeam;
 
@@ -59,6 +63,14 @@ public class WeaponBehavior : MonoBehaviour
             {
                 ExecuteBowAttack();
             }
+            else if (weaponType == Weapon.WeaponType.GreatHammer)
+            {
+                ExecuteGreatHammerAttack();
+            }
+            else if (weaponType == Weapon.WeaponType.GreatSword)
+            {
+                ExecuteGreatSwordAttack();
+            }
             attack = false;
         }
 
@@ -79,6 +91,10 @@ public class WeaponBehavior : MonoBehaviour
         }
 
         leftHandAnim.SetBool("holdingBow", weaponType == Weapon.WeaponType.Bow);
+
+        weaponAnim.SetBool("TwoHanded", (weaponType == Weapon.WeaponType.GreatHammer || weaponType == Weapon.WeaponType.GreatSword));
+        leftHandAnim.SetBool("TwoHanded", (weaponType == Weapon.WeaponType.GreatHammer || weaponType == Weapon.WeaponType.GreatSword));
+        //UpdateLeftHandGripParent();
     }
 
     private void ExecuteStaffAttack()
@@ -160,6 +176,53 @@ public class WeaponBehavior : MonoBehaviour
         }
     }
 
+    public void ExecuteGreatHammerAttack()
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("greatHammerAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("greatHammerAttack2");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteGreatSwordAttack()
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("greatSwordAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("greatSwordAttack2");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
 
     public void CanAttack()
     {
@@ -244,5 +307,30 @@ public class WeaponBehavior : MonoBehaviour
     {
         playerStatus.SubtractStamina(resourceCost);
     }
+
+    private void UpdateLeftGripToHandR()
+    {
+        leftHandGrip.transform.SetParent(holdingObjectR.transform);
+    }
+
+    private void UpdateLeftGripToHandL()
+    {
+        leftHandGrip.transform.SetParent(holdingObjectL.transform);
+    }
+
+    public void SetWeaponType(Weapon.WeaponType type)
+    {
+        weaponType = type;
+
+        if (weaponType == Weapon.WeaponType.GreatSword || weaponType == Weapon.WeaponType.GreatHammer)
+        {
+            Invoke(nameof(UpdateLeftGripToHandR), 0.2f);
+        }
+        else
+        {
+            UpdateLeftGripToHandL();
+        }
+    }
+
 }
 

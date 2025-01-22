@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7246780041431630877}
   - component: {fileID: 8674202252096541746}
   - component: {fileID: 7170610939633028201}
-  - component: {fileID: 3227891063854364072}
+  - component: {fileID: 5499788318250942157}
   - component: {fileID: 291403577388351535}
   m_Layer: 7
   m_Name: Nature Hammer
@@ -88,7 +88,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3227891063854364072
+--- !u!114 &5499788318250942157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,13 +97,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2243412744172260901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a69d9c29da16eef4ea68dc747697da5f, type: 3}
+  m_Script: {fileID: 11500000, guid: b1248d8453b9d474b91652e47604eebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
   colliderEnabled: 0
   weaponColl: {fileID: 0}
-  collisionParticle: {fileID: 4021103657954561961, guid: 1e326ae8280591843b03538deef8b5ea, type: 3}
+  collisionParticle: {fileID: 0}
 --- !u!65 &291403577388351535
 BoxCollider:
   m_ObjectHideFlags: 0

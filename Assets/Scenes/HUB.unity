@@ -16996,37 +16996,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8655543793238465293, guid: 20d4eb3b4aaf4bf4babf1647e8dac01e, type: 3}
   m_PrefabInstance: {fileID: 1930623966}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &826221944
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 826221945}
-  m_Layer: 6
-  m_Name: LeftHandHint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &826221945
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826221944}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004, y: -0.187, z: -0.49800003}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1455117469}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827216422
 GameObject:
   m_ObjectHideFlags: 0
@@ -22588,6 +22557,9 @@ MonoBehaviour:
   attack: 0
   canAttack: 1
   leftHandAnim: {fileID: 1902067312}
+  leftHandGrip: {fileID: 842253427}
+  holdingObjectL: {fileID: 1455117468}
+  holdingObjectR: {fileID: 1088453662}
   chargedAttack: 0
   projectilePrefab: {fileID: 0}
   beamPrefab: {fileID: 0}
@@ -23510,7 +23482,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 94139798}
-  - {fileID: 1423666569}
   m_Father: {fileID: 1048678623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1088453664
@@ -31315,37 +31286,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80fbcca516ae2424b8d1f7aba9641bc7, type: 3}
---- !u!1 &1423666568
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1423666569}
-  m_Layer: 6
-  m_Name: RightHandHint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1423666569
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423666568}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.004, y: -0.187, z: -0.498}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1088453663}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1424504238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31839,7 +31779,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 842253428}
-  - {fileID: 826221945}
   m_Father: {fileID: 1902067310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1455117470
@@ -32013,7 +31952,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.7
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -49368,7 +49307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2077176255}
   m_Layer: 6
-  m_Name: OneHanded
+  m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50151,9 +50090,9 @@ MonoBehaviour:
   stashGrid: {fileID: 849154863}
   inventoryItems:
   - {fileID: 11400000, guid: 1b2d679f955c0d7478a58ab27870d0ec, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c7d4dc815c3d80b45899f296eb552a75, type: 2}
+  - {fileID: 11400000, guid: c849ee7b0a181f14fbdb07bf65ebaba9, type: 2}
+  - {fileID: 11400000, guid: da9592ffea5fda442b6d5a0683230613, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

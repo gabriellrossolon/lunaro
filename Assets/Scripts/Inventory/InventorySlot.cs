@@ -111,7 +111,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private bool DraggedItemIsTwoHanded(InventoryItem draggedItem)
     {
         if (draggedItem.item is Weapon weapon && 
-            weapon.weaponType == Weapon.WeaponType.Bow)
+            (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.GreatSword))
         {
             return true;
         }
@@ -135,7 +135,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         if (InventoryManager.Instance.equippedWeapon != null &&
            InventoryManager.Instance.equippedWeapon is Weapon weapon &&
-           weapon.weaponType == Weapon.WeaponType.Bow)
+           (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.GreatSword))
         {
             return true;
         }
@@ -227,7 +227,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
         else if (IsWithSecondaryEquipped())
         {
-            if(existingItem.item is Weapon weapon && weapon.weaponType == Weapon.WeaponType.Bow)
+            if (existingItem.item is Weapon weapon &&
+                (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.Sword))
             {
                 ReturnItemToPreviousParent(draggedItem);
                 return;

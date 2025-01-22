@@ -190,7 +190,17 @@ public class HudManager : MonoBehaviour
             }
             else if (weapon.weaponType == Weapon.WeaponType.Bow)
             {
-                itemType.text = "Bow";
+                itemType.text = "Bow (2Hand)";
+                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
+            }
+            else if (weapon.weaponType == Weapon.WeaponType.GreatHammer)
+            {
+                itemType.text = "Great Hammer (2Hand)";
+                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
+            }
+            else if (weapon.weaponType == Weapon.WeaponType.GreatSword)
+            {
+                itemType.text = "Great Sword (2Hand)";
                 itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
             }
             else
