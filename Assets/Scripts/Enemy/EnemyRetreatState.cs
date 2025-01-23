@@ -71,9 +71,7 @@ public class EnemyRetreatState : IState
         }
 
         if (Vector3.Distance(_transform.position, _playerTransform.position) > _enemyStats.detectionRange)
-        {
             _fsm.SetState("Patrol");
-        }
     }
 }
 

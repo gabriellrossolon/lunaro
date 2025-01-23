@@ -10,6 +10,21 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public int slotIndex;
     private int stashIndexStartAt = 33;
+
+    private void Update()
+    {
+        UpdateItemIndex();
+    }
+
+    private void OnTransformChildrenChanged()
+    {
+        if (slotType != SlotType.Inventory || slotType != SlotType.Nothing)
+        {
+            EquipItemIfNeeded(GetComponentInChildren<InventoryItem>());
+        }
+        HandleEmptyEquipSlot();
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
         var draggedItem = eventData.pointerDrag?.GetComponent<InventoryItem>();
@@ -20,10 +35,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             {
                 var existingItem = transform.GetChild(0).GetComponent<InventoryItem>();
                 StartCoroutine(SwapItems(draggedItem, existingItem));
-
-                //CASO QUEIRA TIRAR FUNCIONALIDADE DE SWAP
-                //ReturnItemToPreviousParent(draggedItem);
-                //return;
             }
             else
             {
@@ -32,10 +43,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
-    // Place the item in the current slot, ensuring it's valid for the slot type
     private void PlaceItemInSlot(InventoryItem draggedItem)
     {
-        // Check if the item is compatible with the slot type
         if (!IsItemCompatibleWithSlot(draggedItem))
         {
             ReturnItemToPreviousParent(draggedItem);
@@ -58,7 +67,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             }
         }
 
-        // Place the item in the slot and update the inventory list
         draggedItem.transform.SetParent(transform);
         draggedItem.transform.localPosition = Vector3.zero;
         draggedItem.previousParent = transform;
@@ -66,8 +74,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         UpdateInventoryList(draggedItem);
         UpdateStashList(draggedItem);
 
-        // Equip the item if it's a weapon
-        //EquipItemIfNeeded(draggedItem);
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
@@ -115,8 +121,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     private bool DraggedItemIsTwoHanded(InventoryItem draggedItem)
     {
-        if (draggedItem.item is Weapon weapon && 
-            (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.GreatSword))
+        if (draggedItem.item is Weapon weapon && (
+            weapon.weaponType == Weapon.WeaponType.Bow || 
+            weapon.weaponType == Weapon.WeaponType.GreatHammer || 
+            weapon.weaponType == Weapon.WeaponType.GreatSword
+            ))
         {
             return true;
         }
@@ -128,19 +137,18 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private bool DraggedItemIsSecondary(InventoryItem draggedItem)
     {
         if (draggedItem.item is Secondary secondary)
-        {
             return true;
-        }
         else
-        {
             return false;
-        }
     }
     private bool isWithTwoHandEquipped()
     {
         if (InventoryManager.Instance.equippedWeapon != null &&
-           InventoryManager.Instance.equippedWeapon is Weapon weapon &&
-           (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.GreatSword))
+           InventoryManager.Instance.equippedWeapon is Weapon weapon &&(
+           weapon.weaponType == Weapon.WeaponType.Bow || 
+           weapon.weaponType == Weapon.WeaponType.GreatHammer || 
+           weapon.weaponType == Weapon.WeaponType.GreatSword
+           ))
         {
             return true;
         }
@@ -200,13 +208,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 break;
 
             default:
-                // Nenhuma ação necessária para outros tipos de slots
                 break;
         }
     }
 
-
-    // Swap the items between the current slot and the dragged item
     private IEnumerator SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
     {
         if (!IsItemCompatibleWithSlot(draggedItem))
@@ -253,7 +258,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
         existingItem.transform.SetParent(draggedPreviousParent);
         existingItem.transform.localPosition = Vector3.zero;
+
         yield return new WaitForSeconds(0.05f); //Pequeno delay para que não ocorra a troca de ambos no mesmo Frame
+
         draggedItem.transform.SetParent(transform);
         draggedItem.transform.localPosition = Vector3.zero;
         
@@ -269,21 +276,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
-
-    // Remove the item from the current slot
-    //public void RemoveItemFromSlot()
-    //{
-    //    if (transform.childCount > 0)
-    //    {
-    //        var itemToRemove = transform.GetChild(0).GetComponent<InventoryItem>();
-    //        if (itemToRemove != null)
-    //        {
-    //            itemToRemove.transform.SetParent(null);
-    //            itemToRemove.transform.localPosition = Vector3.zero;
-    //            UpdateInventoryList(itemToRemove);
-    //        }
-    //    }
-    //}
     private void EquipWeapon(Weapon weapon)
     {
         InventoryManager.Instance.EquipWeaponFromInventory(weapon);
@@ -293,7 +285,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private void EquipSecondary(Secondary secondary)
     {
         InventoryManager.Instance.EquipSecondaryFromInventory(secondary);
-        RefreshHandsPOV(); // Atualiza a visão das mãos, se necessário
+        RefreshHandsPOV();
     }
 
     private void EquipJewel(Jewel jewel)
@@ -308,7 +300,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
-    // Handle the refresh of the hands POV after equipping a weapon
     private void RefreshHandsPOV()
     {
         InventoryManager.Instance.handsPOV.SetActive(false);
@@ -316,26 +307,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
-    // Return the dragged item to its previous parent if it is invalid
     private void ReturnItemToPreviousParent(InventoryItem draggedItem)
     {
         draggedItem.transform.SetParent(draggedItem.previousParent);
         draggedItem.transform.localPosition = Vector3.zero;
-    }
-
-    private void Update()
-    {
-        UpdateItemIndex();
-        
-    }
-
-    private void OnTransformChildrenChanged()
-    {
-        if(slotType != SlotType.Inventory || slotType != SlotType.Nothing)
-        {
-            EquipItemIfNeeded(GetComponentInChildren<InventoryItem>());
-        }
-        HandleEmptyEquipSlot();
     }
 
     // Update the inventory list with the item from the current slot
@@ -354,8 +329,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
-    // Handle the case when the item slot is empty
-    private void HandleEmptyEquipSlot()
+    private void HandleEmptyEquipSlot() //PASSA VALOR NULL PARA O SLOT CASO NÃO TENHA NADA NELE (OU SEJA PASSA QUE O SLOT VAI EQUIPAR NADA)
     {
         if (transform.childCount == 0)
         {
@@ -386,12 +360,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     break;
 
                 default:
-                    break; // Caso não seja nenhum dos tipos tratados
+                    break;
             }
         }
     }
 
-    // Update the inventory list when an item is placed in the slot
     private void UpdateInventoryList(InventoryItem draggedItem)
     {
         var inventoryList = InventoryManager.Instance.inventoryItems;
@@ -412,12 +385,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
-
     private void UpdateStashList(InventoryItem draggedItem)
     {
         var stashList = InventoryManager.Instance.stashItems;
 
-        if (slotIndex >= stashIndexStartAt && slotIndex - stashIndexStartAt < stashList.Count) //Aqui começa os Index do StashSlot
+        if (slotIndex >= stashIndexStartAt && slotIndex - stashIndexStartAt < stashList.Count) 
         {
             var previousIndex = stashList.IndexOf(draggedItem.item);
             if (previousIndex != -1 && previousIndex != slotIndex)
@@ -425,7 +397,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 stashList[previousIndex] = null;
             }
 
-            stashList[slotIndex - stashIndexStartAt] = draggedItem.item; //Subtrai a quantia de Index de Stash Slot, EX: Se é o Index 33, vai pra stashIndex 0
+            stashList[slotIndex - stashIndexStartAt] = draggedItem.item;
         }
         else if (slotType == SlotType.Stash)
         {

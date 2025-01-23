@@ -33,14 +33,11 @@ public class PlayerJumpState : IState
         SFXManager.Instance.playerMovementsSource.pitch = Random.Range(0.9f, 1.1f);
         SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.jumpSound);
         ExecuteJump();
+
         if (_inputHandler.moveInput != Vector2.zero)
-        {
             _animator.SetTrigger("jumpSprint");
-        }
         else
-        {
             _animator.SetTrigger("jump");
-        }
     }
 
     public void OnExit() { }
@@ -68,8 +65,13 @@ public class PlayerJumpState : IState
 
     private void StateChange()
     {
-        if (_inputHandler.dashInput && _cooldownController.canDash) { _fsm.SetState("Dash"); }
-        if (verticalVelocity <= 0) _fsm.SetState("Fall");
-        if (_controller.isGrounded) { _fsm.SetState("Idle"); }
+        if (_inputHandler.dashInput && _cooldownController.canDash)
+            _fsm.SetState("Dash");
+
+        if (verticalVelocity <= 0)
+            _fsm.SetState("Fall");
+
+        if (_controller.isGrounded)
+            _fsm.SetState("Idle");
     }
 }

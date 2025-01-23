@@ -69,13 +69,9 @@ public class NPCPatrolState : IState
     private void StateChange()
     {
         if (Time.time - _patrolStartTime >= _patrolDuration)
-        {
             _fsm.SetState("Idle");
-        }
 
         if (_distanceToPlayer <= _npcBehaviour.detectionRange)
-        {
             _fsm.SetState("LookAt");
-        }
     }
 }

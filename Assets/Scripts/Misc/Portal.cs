@@ -27,12 +27,10 @@ public class Portal : MonoBehaviour
         {
             if(portalType == PortalType.None)
             {
-                //Transição de cenas pela tela:
                 HudManager.Instance.OpenTeleportPage();
             }
             else
             {
-                //Transição de cenas direto pelo Portal:
                 if(transition != null) { transition.GetComponent<Animator>().SetTrigger("start"); }
                 StartCoroutine(LoadSceneWithDelay(other));
             }

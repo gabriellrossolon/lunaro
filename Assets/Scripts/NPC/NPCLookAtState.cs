@@ -65,8 +65,6 @@ public class NPCLookAtState : IState
     private void ChangeState()
     {
         if (_distanceToPlayer > _npcBehaviour.detectionRange)
-        {
             _fsm.SetState("Idle");
-        }
     }
 }

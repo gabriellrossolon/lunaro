@@ -73,21 +73,15 @@ public class PlayerFSM : MonoBehaviour
         else if (_inputHandler.moveInput != Vector2.zero)
         {
             _animator.SetBool("isMoving", true);
+
             if (_inputHandler.sprintInput)
-            {
                 targetSpeed = _playerStatus.runSpeed;
-            }
             else
-            {
                 targetSpeed = _playerStatus.walkSpeed;
-            }
         }
 
-        // Adjust speed if holding anything
         if (TempParent.Instance.isHoldingAnything || _inputHandler.blockInput)
-        {
             targetSpeed /= 2f;
-        }
 
         _playerActualSpeed = targetSpeed;
         _playerStatus.actualSpeed = _playerActualSpeed;

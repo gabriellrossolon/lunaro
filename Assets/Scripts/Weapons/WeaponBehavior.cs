@@ -47,51 +47,43 @@ public class WeaponBehavior : MonoBehaviour
 
     private void Update()
     {
+        ChooseAttack();
+        ControlHandsAnimations();
+        ControlSpecialAttacks();    
+    }
+
+    public void ChooseAttack()
+    {
         if (attack)
         {
-            if (weaponType == Weapon.WeaponType.Staff)
+            switch (weaponType)
             {
-                ExecuteStaffAttack();
+                case Weapon.WeaponType.Staff:
+                    ExecuteStaffAttack();
+                    break;
+                case Weapon.WeaponType.Sword:
+                    ExecuteSwordAttack();
+                    break;
+                case Weapon.WeaponType.Hammer:
+                    ExecuteHammerAttack();
+                    break;
+                case Weapon.WeaponType.Bow:
+                    ExecuteBowAttack();
+                    break;
+                case Weapon.WeaponType.GreatHammer:
+                    ExecuteGreatHammerAttack();
+                    break;
+                case Weapon.WeaponType.GreatSword:
+                    ExecuteGreatSwordAttack();
+                    break;
             }
-            else if (weaponType == Weapon.WeaponType.Sword)
-            {
-                ExecuteSwordAttack();
-            }
-            else if(weaponType == Weapon.WeaponType.Hammer)
-            {
-                ExecuteHammerAttack();
-            }
-            else if (weaponType == Weapon.WeaponType.Bow)
-            {
-                ExecuteBowAttack();
-            }
-            else if (weaponType == Weapon.WeaponType.GreatHammer)
-            {
-                ExecuteGreatHammerAttack();
-            }
-            else if (weaponType == Weapon.WeaponType.GreatSword)
-            {
-                ExecuteGreatSwordAttack();
-            }
+
             attack = false;
         }
+    }
 
-        if (weaponType == Weapon.WeaponType.Staff)
-        {
-            if (chargedAttack && playerStatus.currentMana >= resourceCost)
-            {
-                if (!weaponAnim.GetBool("ChargingAttack"))
-                {
-                    StartCoroutine(HandleChargingAttack());
-                }
-                weaponAnim.SetBool("ChargingAttack", true);
-            }
-            else
-            {
-                weaponAnim.SetBool("ChargingAttack", false);
-            }
-        }
-
+    public void ControlHandsAnimations()
+    {
         leftHandAnim.SetBool("holdingBow", weaponType == Weapon.WeaponType.Bow);
         weaponAnim.SetBool("BowHanded", weaponType == Weapon.WeaponType.Bow);
 
@@ -99,6 +91,24 @@ public class WeaponBehavior : MonoBehaviour
         leftHandAnim.SetBool("TwoHanded", (weaponType == Weapon.WeaponType.GreatHammer || weaponType == Weapon.WeaponType.GreatSword));
 
         armBonesAnim.SetBool("isWithBow", weaponType == Weapon.WeaponType.Bow);
+    }
+
+    public void ControlSpecialAttacks()
+    {
+        if (weaponType == Weapon.WeaponType.Staff)
+        {
+            if (chargedAttack && playerStatus.currentMana >= resourceCost)
+            {
+                if (!weaponAnim.GetBool("ChargingAttack"))
+                    StartCoroutine(HandleChargingAttack());
+
+                weaponAnim.SetBool("ChargingAttack", true);
+            }
+            else
+            {
+                weaponAnim.SetBool("ChargingAttack", false);
+            }
+        }
     }
 
     private void ExecuteStaffAttack()
@@ -326,11 +336,6 @@ public class WeaponBehavior : MonoBehaviour
         leftHandGrip.transform.SetParent(holdingObjectR.transform);
     }
 
-    private void UpdateLeftGripToHandL()
-    {
-        leftHandGrip.transform.SetParent(holdingObjectL.transform);
-    }
-
     public void SetWeaponType(Weapon.WeaponType type)
     {
         weaponType = type;
@@ -342,7 +347,7 @@ public class WeaponBehavior : MonoBehaviour
         else
         {
             CancelInvoke(nameof(UpdateLeftGripToHandR));
-            UpdateLeftGripToHandL();
+            leftHandGrip.transform.SetParent(holdingObjectL.transform);
         }
     }
 }

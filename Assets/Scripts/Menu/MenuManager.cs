@@ -47,15 +47,11 @@ public class MenuManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
-    private void Start()
-    {
-        //fullScreenCheckbox.isOn = isFullScreen;
-    }
-
     public void GoToHUBFromMenu()
     {
         if(transition != null)
             transition.GetComponent<Animator>().SetTrigger("start");
+
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(LoadSceneWithLoading("HUB"));
     }
@@ -90,9 +86,7 @@ public class MenuManager : MonoBehaviour
                 loadingBar.value = fakeProgress;
 
             if (asyncLoad.progress >= 0.9f && fakeProgress >= 1f)
-            {
                 asyncLoad.allowSceneActivation = true;
-            }
 
             yield return null;
         }
@@ -135,13 +129,9 @@ public class MenuManager : MonoBehaviour
         Screen.fullScreen = isFullScreen;
 
         if (isFullScreen)
-        {
             Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
-        }
         else
-        {
             Screen.SetResolution(1280, 720, false);
-        }
 
         VolumeManager.Instance.isFullScreen = isFullScreen;
     }

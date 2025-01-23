@@ -73,12 +73,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         ResetDraggableState();
 
         if (ShouldReturnItem(eventData))
-        {
             ReturnItemToOriginalPosition();
-        }
-        else
-        {
-        }
 
         transform.SetParent(previousParent);
         rectTransform.localPosition = Vector3.zero;
@@ -92,8 +87,9 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private bool ShouldReturnItem(PointerEventData eventData)
     {
-        return eventData.pointerEnter == null || eventData.pointerEnter.GetComponent<InventorySlot>() == null ||
-               eventData.pointerEnter.transform == previousParent;
+        return eventData.pointerEnter == null || 
+            eventData.pointerEnter.GetComponent<InventorySlot>() == null || 
+            eventData.pointerEnter.transform == previousParent;
     }
 
     private void ReturnItemToOriginalPosition()
@@ -107,7 +103,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         HudManager.Instance.RefreshItemShow(item);
         HudManager.Instance.itemShow.SetActive(true);
 
-        Vector3 mousePosition = eventData.position;  // Posição do mouse na tela
+        Vector3 mousePosition = eventData.position; 
         HudManager.Instance.itemShow.transform.position = mousePosition;
 
         HudManager.Instance.SetCursor(HudManager.Instance.cursorClicker);

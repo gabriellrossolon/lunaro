@@ -4,7 +4,7 @@ using static Secondary;
 public class SecondaryBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
-    public Secondary.SecondaryType secondaryType;
+    public SecondaryType secondaryType;
     [HideInInspector] public Animator secondaryAnim;
     public Animator armBonesAnim;
 

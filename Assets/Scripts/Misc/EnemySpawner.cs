@@ -21,23 +21,13 @@ public class DungeonSpawner : MonoBehaviour
         GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("EnemySpawnPoint");
 
         foreach (GameObject obj in spawnPointObjects)
-        {
             spawnPoints.Add(obj.transform);
-        }
-
-        if (spawnPoints.Count == 0)
-        {
-            Debug.LogWarning("Nenhum ponto de spawn encontrado com a tag 'SpawnPoint'!");
-        }
     }
 
     void SpawnEnemies()
     {
         if (enemyPrefabs.Count == 0 || spawnPoints.Count == 0)
-        {
-            Debug.LogWarning("Não há prefabs de inimigos ou pontos de spawn definidos!");
             return;
-        }
 
         HashSet<int> usedSpawnPoints = new HashSet<int>();
 

@@ -103,9 +103,8 @@ public class PlayerStatus : MonoBehaviour
     private void HpRegen()
     {
         if (canRegenHp && currentHp < maxHp)
-        {
             currentHp += hpRegenRate * Time.deltaTime;
-        }
+
         if (currentHp > maxHp)
             currentHp = maxHp;
     }
@@ -113,9 +112,8 @@ public class PlayerStatus : MonoBehaviour
     private void StaminaRegen()
     {
         if (canRegenStamina && currentStamina < maxStamina)
-        {
             currentStamina += staminaRegenRate * Time.deltaTime;
-        }
+
         if (currentStamina > maxStamina)
             currentStamina = maxStamina;
     }
@@ -123,9 +121,8 @@ public class PlayerStatus : MonoBehaviour
     private void ManaRegen()
     {
         if (canRegenMana && currentMana < maxMana)
-        {
             currentMana += manaRegenRate * Time.deltaTime;
-        }
+
         if (currentMana > maxMana)
             currentMana = maxMana;
     }
@@ -135,9 +132,7 @@ public class PlayerStatus : MonoBehaviour
     {
         if (currentStamina >= value)
         {
-            //canRegenStamina = false; 
             currentStamina -= value;
-            //StartCoroutine(SubtractStaminaSmoothly(value));
             canRegenStamina = true;
         }
     }
@@ -145,49 +140,11 @@ public class PlayerStatus : MonoBehaviour
     {
         if (currentMana >= value)
         {
-            //canRegenMana = false; 
             currentMana -= value;
-            //StartCoroutine(SubtractManaSmoothly(value));
         }
     }
-
-    private IEnumerator SubtractStaminaSmoothly(float value)
-    {
-        float startStamina = currentStamina;
-        float endStamina = currentStamina - value;
-        float elapsedTime = 0f;
-        float smoothTime = 0.5f; 
-
-        while (elapsedTime < smoothTime)
-        {
-            currentStamina = Mathf.Lerp(startStamina, endStamina, (elapsedTime / smoothTime));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        currentStamina = endStamina;
-        canRegenStamina = true; 
-    }
-    private IEnumerator SubtractManaSmoothly(float value)
-    {
-        float startMana = currentMana;
-        float endMana = currentMana - value;
-        float elapsedTime = 0f;
-        float smoothTime = 0.5f; 
-
-        while (elapsedTime < smoothTime)
-        {
-            currentMana = Mathf.Lerp(startMana, endMana, (elapsedTime / smoothTime));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        currentMana = endMana;
-        canRegenMana = true; 
-    }
-
+   
     //Controle de Gold
-
     public void ControlGold(float value)
     {
         playerGold += value;

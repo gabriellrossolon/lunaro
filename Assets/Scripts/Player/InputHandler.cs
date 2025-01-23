@@ -31,9 +31,7 @@ public class InputHandler : MonoBehaviour
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
-        {
             attackInput = true;
-        }
     }
 
     public void OnBlock(InputAction.CallbackContext context)

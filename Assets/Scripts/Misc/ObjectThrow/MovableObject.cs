@@ -42,13 +42,9 @@ public class MovableObject : MonoBehaviour
         if (distance <= maxDistance)
         {
             if (!isHolding)
-            {
                 HudManager.Instance.warnBtn.SetActive(true);
-            }
             else
-            {
                 HudManager.Instance.warnBtn.SetActive(false);
-            }
 
             if (Input.GetKeyDown(KeyCode.E) && !isHolding)
             {
@@ -81,9 +77,7 @@ public class MovableObject : MonoBehaviour
         distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
 
         if (distance >= maxDistance)
-        {
             Drop();
-        }
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;

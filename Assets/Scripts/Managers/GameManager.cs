@@ -92,9 +92,7 @@ public class GameManager : MonoBehaviour
     private void DestroyDuplicateEventSystems()
     {
         if (mainEventSystem == null)
-        {
             return;
-        }
 
         EventSystem[] eventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
 
@@ -113,9 +111,7 @@ public class GameManager : MonoBehaviour
     private void DestroyDuplicateCameras()
     {
         if (mainCamera == null)
-        {
             return;
-        }
 
         Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
 

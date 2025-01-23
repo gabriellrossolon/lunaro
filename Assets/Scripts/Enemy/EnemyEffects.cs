@@ -22,7 +22,10 @@ public class EnemyEffects : MonoBehaviour
     private void Start()
     {
         _enemySoundSource = GetComponent<AudioSource>();
-        _originalPitch = _enemySoundSource.pitch;
+
+        if(_enemySoundSource != null)
+            _originalPitch = _enemySoundSource.pitch;
+
         if (enemyGrunt != null) { StartCoroutine(PlayEnemyGruntRandomly()); }
     }
 

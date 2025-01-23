@@ -51,14 +51,10 @@ public class EnemyIdleState : IState
     private void StateChange()
     {
         if (Time.time - _idleStartTime >= _idleDuration)
-        {
             _fsm.SetState("Patrol");
-        }
 
         if (Vector3.Distance(_transform.position, _playerTransform.position) <= _enemyStats.detectionRange)
-        {
             _fsm.SetState("Chase");
-        }
     }
 }
 

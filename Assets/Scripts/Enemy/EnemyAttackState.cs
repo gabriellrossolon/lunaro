@@ -31,19 +31,10 @@ public class EnemyAttackState : IState
     {
         _agent.isStopped = true;
 
-        int randomAttack = Random.Range(0, 3); // Gera um número aleatório entre 0 (inclusive) e 2 (exclusive)
-        if (randomAttack == 0)
-        {
-            _animator.SetTrigger("attack1");
-        }
-        else if (randomAttack == 1)
-        {
-            _animator.SetTrigger("attack2");
-        }
-        else
-        {
-            _animator.SetTrigger("attack3");
-        }
+        string[] attacks = { "attack1", "attack2", "attack3" };
+        int randomAttack = Random.Range(0, attacks.Length);
+        _animator.SetTrigger(attacks[randomAttack]);
+
         _enemySoundSource.PlayOneShot(_enemyEffects.attackSound);
     }
 

@@ -35,12 +35,8 @@ public class LinkButton : MonoBehaviour
         string url = GetURL();
 
         if (!string.IsNullOrEmpty(url))
-        {
             Application.OpenURL(url);
-        }
         else
-        {
             Debug.LogWarning("URL não definido para a plataforma selecionada.");
-        }
     }
 }

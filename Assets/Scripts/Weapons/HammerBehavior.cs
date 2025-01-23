@@ -36,13 +36,24 @@ public class HammerBehavior : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            GameManager.Instance.TriggerSlowMotion();
-            Instantiate(collisionParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
-            other.GetComponent<EnemyFSM>().DoDamage(playerStatus.damage);
-            other.GetComponent<Animator>().SetTrigger("hurt");
+            EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
+            EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
+            Animator enemyAnim = other.GetComponent<Animator>();
 
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
+            GameManager.Instance.TriggerSlowMotion();
+
+            if (enemyAnim != null)
+                enemyAnim.SetTrigger("hurt");
+
+            if (enemyFSM != null)
+                enemyFSM.DoDamage(playerStatus.damage);
+
+            if (enemyFX != null)
+            {
+                Instantiate(enemyFX.attackTakenParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity, other.transform);
+                SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+                SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
+            }
         }
     }
 }

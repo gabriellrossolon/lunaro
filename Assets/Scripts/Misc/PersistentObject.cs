@@ -16,8 +16,3 @@ public class PersistentObject : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 }
-
-
-
-
-

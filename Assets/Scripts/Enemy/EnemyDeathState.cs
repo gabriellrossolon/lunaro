@@ -58,10 +58,8 @@ public class EnemyDeathState : IState
 
     private void InitializeMaterials()
     {
-        // Get all SkinnedMeshRenderers in the enemy's hierarchy
         SkinnedMeshRenderer[] skinnedMeshRenderers = _transform.GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        // Collect all materials from the SkinnedMeshRenderers
         _materials = skinnedMeshRenderers.SelectMany(renderer => renderer.materials).ToList();
     }
 
@@ -98,7 +96,6 @@ public class EnemyDeathState : IState
             _dissolveTimer -= Time.deltaTime;
             float dissolveAmount = Mathf.Lerp(0, 1, 1 - (_dissolveTimer / 3f));
 
-            // Apply dissolve effect to all materials
             foreach (var material in _materials)
             {
                 if (material.HasProperty("_DissolveAmount"))

@@ -44,9 +44,12 @@ public class EnemyWeaponBehavior : MonoBehaviour
     public void CallCollider()
     {
         colliderEnabled = !colliderEnabled;
-        if (_coll != null) { _coll.enabled = colliderEnabled; }
 
-        if (colliderEnabled == false) { attackBlockedByPlayer = false; }
+        if (_coll != null)
+            _coll.enabled = colliderEnabled;
+
+        if (colliderEnabled == false)
+            attackBlockedByPlayer = false;
     }
     private void OnTriggerEnter(Collider other)
     {

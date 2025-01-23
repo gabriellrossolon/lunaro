@@ -41,10 +41,16 @@ public class ProjectileBehavior : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
-            if(enemyFSM != null) { enemyFSM.DoDamage(playerStatus.damage); }
+            Animator enemyAnim = other.GetComponent<Animator>();
+
+            if(enemyFSM != null)
+                enemyFSM.DoDamage(playerStatus.damage);
+
+            if(enemyAnim != null)
+                enemyAnim.SetTrigger("hurt");
+
             GameManager.Instance.TriggerSlowMotion();
-            other.GetComponent<Animator>().SetTrigger("hurt");
-            
+
         }
         if (!other.CompareTag("Player"))
         {
@@ -58,7 +64,7 @@ public class ProjectileBehavior : MonoBehaviour
             {
                 if (other.CompareTag("Enemy"))
                 {
-                    GameObject collParticle = Instantiate(enemyFX.attackImpactFx, transform.position, transform.rotation);
+                    GameObject collParticle = Instantiate(enemyFX.attackTakenParticle, transform.position, transform.rotation);
                     collParticle.GetComponent<AudioSource>().PlayOneShot(enemyFX.attackTakenSound);
                 }
                 else

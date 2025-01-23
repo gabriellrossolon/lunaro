@@ -15,6 +15,7 @@ public class ButtonCustom : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if(HudManager.Instance != null)
             HudManager.Instance.SetCursor(HudManager.Instance.cursorClicker);
+
         SFXManager.Instance.UIMiscSource.PlayOneShot(SFXManager.Instance.btnHoverSound);
     }
 

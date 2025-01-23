@@ -19,7 +19,9 @@ public class MenuButtonCustom : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (MenuManager.Instance != null)
             MenuManager.Instance.SetCursor(MenuManager.Instance.cursorClicker);
+
         MenuManager.Instance.menuSoundSource.PlayOneShot(MenuManager.Instance.btnHoverSound);
+
         if (anim != null)
             anim.SetBool("Selected", true);
     }
@@ -28,6 +30,7 @@ public class MenuButtonCustom : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (MenuManager.Instance != null)
             MenuManager.Instance.SetCursor(MenuManager.Instance.cursorPointer);
+
         if (anim != null)
             anim.SetBool("Selected", false);
     }
@@ -35,6 +38,7 @@ public class MenuButtonCustom : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerClick(PointerEventData eventData)
     {
         MenuManager.Instance.menuSoundSource.PlayOneShot(MenuManager.Instance.btnClickSound);
+
         if (anim != null)
             anim.SetBool("Selected", true);
     }  

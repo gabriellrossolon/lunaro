@@ -48,9 +48,8 @@ public class EnemyPatrolState : IState
     public void OnTick()
     {
         if (!_agent.pathPending && _agent.remainingDistance <= _destinationThreshold)
-        {
             SetRandomDestination();
-        }
+
         StateChange();
     }
 
@@ -61,22 +60,16 @@ public class EnemyPatrolState : IState
         randomDirection.y = _spawnPosition.y;
 
         if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _enemyStats.patrolRadius, NavMesh.AllAreas))
-        {
             _agent.SetDestination(hit.position);
-        }
     }
 
     private void StateChange()
     {
         if (Vector3.Distance(_transform.position, _playerTransform.position) <= _enemyStats.detectionRange)
-        {
             _fsm.SetState("Chase");
-        }
 
         if (Time.time - _patrolStartTime >= _patrolDuration)
-        {
             _fsm.SetState("Idle");
-        }
     }
 }
 

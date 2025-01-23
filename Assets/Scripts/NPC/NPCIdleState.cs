@@ -51,13 +51,9 @@ public class NPCIdleState : IState
     private void ChangeState()
     {
         if (_npcType == NPCFSM.NPCType.Wanderer && Time.time - _idleStartTime >= _idleDuration && _distanceToPlayer > _npcBehaviour.detectionRange)
-        {
             _fsm.SetState("Patrol");
-        }
 
-        if(_distanceToPlayer <= _npcBehaviour.detectionRange)
-        {
+        if (_distanceToPlayer <= _npcBehaviour.detectionRange)
             _fsm.SetState("LookAt");
-        }
     }
 }

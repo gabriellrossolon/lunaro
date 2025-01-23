@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class AnimationHandler : MonoBehaviour
 {
     private Animator _animator;
+    private InputHandler _handler;
 
     private float velocityZ;
     private float velocityX;
@@ -17,6 +18,7 @@ public class AnimationHandler : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _handler = GetComponent<InputHandler>();
     }
 
     private void Start()
@@ -43,8 +45,17 @@ public class AnimationHandler : MonoBehaviour
         ChangeVelocity(forwardPressed, backwardPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
         LockOrResetVelocity(forwardPressed, backwardPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
 
-        _animator.SetFloat(VelocityZHash, velocityZ);
-        _animator.SetFloat(VelocityXHash, velocityX);
+        if(_handler.moveInput != Vector2.zero)
+        {
+            _animator.SetFloat(VelocityZHash, velocityZ);
+            _animator.SetFloat(VelocityXHash, velocityX);
+        }
+        else
+        {
+            _animator.SetFloat(VelocityZHash, 0f);
+            _animator.SetFloat(VelocityXHash, 0f);
+        }
+       
     }
 
     private void ChangeVelocity(bool forwardPressed, bool backwardPressed, bool leftPressed, bool rightPressed, bool runPressed, float currentMaxVelocity)

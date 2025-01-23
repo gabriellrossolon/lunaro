@@ -107,25 +107,15 @@ public class SFXManager : MonoBehaviour
         if (Physics.Raycast(playerPosition, Vector3.down, out hit, 1.5f))
         {
             if ((grassLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
-            {
                 actualStepSound = stepGrassSound;
-            }
             else if ((stoneLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
-            {
                 actualStepSound = stepStoneSound;
-            }
             else if ((sandLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
-            {
                 actualStepSound = stepSandSound;
-            }
             else if ((woodLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
-            {
                 actualStepSound = stepWoodSound;
-            }
             else
-            {
                 actualStepSound = defaultStepSound;
-            }
         }
         else
         {

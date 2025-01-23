@@ -48,7 +48,6 @@ public class InventoryManager : MonoBehaviour
     private Jewel lastRingEquipped;
     private Jewel lastAmuletEquipped;
 
-    // Inicializa a instância e configura as referências
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -61,7 +60,6 @@ public class InventoryManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Gera os slots do inventário ao iniciar o jogo
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
@@ -71,79 +69,38 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (equippedPotion != null && Input.GetKeyDown(KeyCode.F))
-        {
-            if (potionsCount <= 0)
-                return;
-
-            switch (equippedPotion.potionType)
-            {
-                case Potion.PotionType.Health:
-                    playerStatus.currentHp += equippedPotion.valueToRecover;
-                    break;
-
-                case Potion.PotionType.Stamina:
-                    playerStatus.currentStamina += equippedPotion.valueToRecover;
-                    break;
-
-                case Potion.PotionType.Mana:
-                    playerStatus.currentMana += equippedPotion.valueToRecover;
-                    break;
-
-                case Potion.PotionType.Empty:
-                    break;
-
-                default:
-                    break;
-            }
-            SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.drinkSound);
-            potionsCount--;
-            
-        }
-        if (potionsCount < maxPotionsCount)
-        {
-            potionRegenerationTimer += Time.deltaTime;
-
-            if (potionRegenerationTimer >= potionRegenerationCooldown)
-            {
-                potionsCount++;
-                potionRegenerationTimer = 0f;
-            }
-        }
+        PotionControll();
     }
 
-    // Adiciona um item ao inventário e atualiza a UI
+    //CONTROLADORES DE ADIÇÂO OU REMOÇÂO DE ITENS DA LIST INVENTORY
     public void AddItem(ItemBase item)
     {
         for (int i = 0; i < inventoryItems.Count; i++)
         {
-            if (inventoryItems[i] == null) // Encontrar um índice vazio
+            if (inventoryItems[i] == null) 
             {
                 inventoryItems[i] = item;
-                GenerateInventorySlots(); // Atualiza a UI
+                GenerateInventorySlots();
                 GenerateStashSlots();
                 return;
             }
         }
 
-        // Se não houver índices vazios, adicionamos o item ao final da lista
         inventoryItems.Add(item);
-        GenerateInventorySlots(); // Atualiza a UI
+        GenerateInventorySlots(); 
         GenerateStashSlots();
     }
-
-    // Remove um item do inventário e atualiza a UI
     public void RemoveItem(ItemBase item)
     {
         int index = inventoryItems.IndexOf(item);
         if (index >= 0)
         {
-            inventoryItems[index] = null; // Limpa o item no índice, sem remover o índice
-            GenerateInventorySlots(); // Atualiza a UI
+            inventoryItems[index] = null; 
+            GenerateInventorySlots(); 
         }
     }
 
-    // Equipar os itens a partir do inventário
+    //CONTROLADORES DE VINCULO DE ITEM AO SLOT DE ITEM EQUIPADO
     public void EquipWeaponFromInventory(Weapon weapon)
     {
         equippedWeapon = weapon;
@@ -154,33 +111,28 @@ public class InventoryManager : MonoBehaviour
         equippedSecondary = secondary;
         EquipSecondary();
     }
-
     public void EquipJewelFromInventory(Jewel jewel, Jewel.JewelType jewelType)
     {
         if (jewel == null)
         {
-            // Se a joia for null, significa que queremos remover a joia do tipo específico
             switch (jewelType)
             {
                 case Jewel.JewelType.Ring:
-                    // Remove a joia e os efeitos
                     RemoveJewelFunction(lastRingEquipped);
-                    equippedRing = null; // Remove o Ring
-                    lastRingEquipped = null; // Limpa a última joia equipada
+                    equippedRing = null; 
+                    lastRingEquipped = null; 
                     break;
 
                 case Jewel.JewelType.Necklace:
-                    // Remove a joia e os efeitos
                     RemoveJewelFunction(lastNecklaceEquipped);
-                    equippedNecklace = null; // Remove o Necklace
-                    lastNecklaceEquipped = null; // Limpa a última joia equipada
+                    equippedNecklace = null; 
+                    lastNecklaceEquipped = null; 
                     break;
 
                 case Jewel.JewelType.Amulet:
-                    // Remove a joia e os efeitos
                     RemoveJewelFunction(lastAmuletEquipped);
-                    equippedAmulet = null; // Remove o Amulet
-                    lastAmuletEquipped = null; // Limpa a última joia equipada
+                    equippedAmulet = null; 
+                    lastAmuletEquipped = null;
                     break;
 
                 default:
@@ -189,46 +141,39 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            // Caso contrário, equipamos a joia normalmente
             switch (jewel.jewelType)
             {
                 case Jewel.JewelType.Ring:
-                    // Se havia uma joia anterior, removemos os efeitos dela
                     if (lastRingEquipped != null) { RemoveJewelFunction(lastRingEquipped); }
                     equippedRing = jewel;
-                    lastRingEquipped = jewel;  // Guarda a última joia equipada
+                    lastRingEquipped = jewel; 
                     break;
 
                 case Jewel.JewelType.Necklace:
-                    // Se havia uma joia anterior, removemos os efeitos dela
                     if (lastNecklaceEquipped != null) { RemoveJewelFunction(lastNecklaceEquipped); }
                     equippedNecklace = jewel;
-                    lastNecklaceEquipped = jewel;  // Guarda a última joia equipada
+                    lastNecklaceEquipped = jewel; 
                     break;
 
                 case Jewel.JewelType.Amulet:
-                    // Se havia uma joia anterior, removemos os efeitos dela
                     if (lastAmuletEquipped != null) { RemoveJewelFunction(lastAmuletEquipped); }
                     equippedAmulet = jewel;
-                    lastAmuletEquipped = jewel;  // Guarda a última joia equipada
+                    lastAmuletEquipped = jewel; 
                     break;
 
                 default:
                     break;
             }
 
-            // Agora aplica os efeitos da nova joia equipada
             AddJewelFunction(jewel);
         }
     }
-
     public void EquipPotionFromInventory(Potion potion)
     {
         equippedPotion = potion;
     }
 
-
-    // Equipar a arma atual, instanciando no personagem
+    //CONTROLADORES DE INSTANCIAMENTO DO ITEM NA MÂO DO JOGADOR
     public void EquipWeapon()
     {
         if (lastInstantiatedWeapon != null)
@@ -243,7 +188,6 @@ public class InventoryManager : MonoBehaviour
 
         InstantiateAndSetupWeapon();
     }
-
     public void EquipSecondary()
     {
         if (lastInstantiatedSecondary != null)
@@ -258,6 +202,7 @@ public class InventoryManager : MonoBehaviour
         InstantiateAndSetupSecondary();
     }
 
+    //CONTROLADORES DE APLICAÇÂO DO EFEITO PASSIVO DAS JEWELS AO JOGADOR
     private void ApplyJewelEffect(Jewel jewel, float value)
     {
         Jewel.StatType statToModify = jewel.statToModify;
@@ -300,30 +245,26 @@ public class InventoryManager : MonoBehaviour
                 break;
         }
     }
-
     public void AddJewelFunction(Jewel jewel)
     {
-        ApplyJewelEffect(jewel, 1); // Passa o valor positivo para adicionar o efeito
+        ApplyJewelEffect(jewel, 1); 
     }
-
     public void RemoveJewelFunction(Jewel jewel)
     {
-        ApplyJewelEffect(jewel, -1); // Passa o valor negativo para remover o efeito
+        ApplyJewelEffect(jewel, -1); 
     }
 
-
-    // Reseta os comportamentos da arma
+    //RESETS DOS ENUMS DE ITEM EQUIPADO NOS WEAPON E SECONDARY SCRIPTS
     private void ResetWeaponBehavior()
     {
         rightWeaponBehavior.weaponType = Weapon.WeaponType.Empty;
     }
-
     private void ResetSecondaryBehavior()
     {
         secondaryBehavior.secondaryType = Secondary.SecondaryType.Empty;
     }
 
-    // Instancia e configura a nova arma
+    //SETUP DAS ARMAS E SECUNDARIOS
     private void InstantiateAndSetupWeapon()
     {
         lastInstantiatedWeapon = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
@@ -363,7 +304,6 @@ public class InventoryManager : MonoBehaviour
         }
 
     }
-
     private void InstantiateAndSetupSecondary()
     {
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
@@ -387,51 +327,84 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // Gera os slots de inventário com base nos itens do inventário
+    //GERADORES DOS PREFABS DE SLOT NO JOGO
     public void GenerateInventorySlots()
     {
-        // Limpa os slots existentes (caso tenha algum)
         foreach (Transform child in inventoryGrid)
         {
             Destroy(child.gameObject);
         }
 
-        // Gera os slots de inventário com base nos itens no inventário
         for (int i = 0; i < inventoryItems.Count; i++)
         {
-            // Instancia o prefab de InventorySlot
             GameObject slotObject = Instantiate(inventorySlotPrefab, inventoryGrid);
 
-            // Define o índice do slot
             InventorySlot slot = slotObject.GetComponent<InventorySlot>();
             if (slot != null)
             {
-                slot.slotIndex = i; // Atribui o índice ao slot
+                slot.slotIndex = i; 
             }
 
-            // Verifica se o item não é nulo antes de criar o InventoryItem
             if (inventoryItems[i] != null)
             {
-                // Instancia o prefab de InventoryItem dentro do InventorySlot
                 GameObject inventoryItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
 
-                // Associa o item ScriptableObject ao InventoryItem
                 InventoryItem inventoryItem = inventoryItemObject.GetComponent<InventoryItem>();
                 if (inventoryItem != null)
                 {
                     inventoryItem.item = inventoryItems[i];
 
-                    // Obtém o componente Image do InventoryItem
                     Image inventoryItemImage = inventoryItem.GetComponent<Image>();
 
-                    // Usando reflexão para procurar o campo "icon" no ScriptableObject
                     var iconField = inventoryItems[i].GetType().GetField("icon");
                     if (iconField != null)
                     {
                         Sprite icon = iconField.GetValue(inventoryItems[i]) as Sprite;
                         if (inventoryItemImage != null && icon != null)
                         {
-                            inventoryItemImage.sprite = icon; // Atribui o sprite
+                            inventoryItemImage.sprite = icon; 
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public void GenerateStashSlots()
+    {
+        foreach (Transform child in stashGrid)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < stashItems.Count; i++)
+        {
+            GameObject slotObject = Instantiate(inventorySlotPrefab, stashGrid);
+
+            InventorySlot slot = slotObject.GetComponent<InventorySlot>();
+            if (slot != null)
+            {
+                slot.slotIndex = i + 33; 
+                slot.slotType = InventorySlot.SlotType.Stash;
+            }
+
+            if (stashItems[i] != null)
+            {
+                GameObject stashItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
+
+                InventoryItem stashItem = stashItemObject.GetComponent<InventoryItem>();
+                if (stashItem != null)
+                {
+                    stashItem.item = stashItems[i];
+
+                    Image stashItemImage = stashItem.GetComponent<Image>();
+
+                    var iconField = stashItems[i].GetType().GetField("icon");
+                    if (iconField != null)
+                    {
+                        Sprite icon = iconField.GetValue(stashItems[i]) as Sprite;
+                        if (stashItemImage != null && icon != null)
+                        {
+                            stashItemImage.sprite = icon; 
                         }
                     }
                 }
@@ -439,54 +412,46 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void GenerateStashSlots()
+    //AVULSOS
+    public void PotionControll()
     {
-        // Limpa os slots existentes (caso tenha algum)
-        foreach (Transform child in stashGrid)
+        if (equippedPotion != null && Input.GetKeyDown(KeyCode.F))
         {
-            Destroy(child.gameObject);
-        }
+            if (potionsCount <= 0)
+                return;
 
-        // Gera os slots de inventário com base nos itens no inventário
-        for (int i = 0; i < stashItems.Count; i++)
-        {
-            // Instancia o prefab de InventorySlot
-            GameObject slotObject = Instantiate(inventorySlotPrefab, stashGrid);
-
-            // Define o índice do slot
-            InventorySlot slot = slotObject.GetComponent<InventorySlot>();
-            if (slot != null)
+            switch (equippedPotion.potionType)
             {
-                slot.slotIndex = i + 33; // Atribui o índice ao slot
-                slot.slotType = InventorySlot.SlotType.Stash;
+                case PotionType.Health:
+                    playerStatus.currentHp += equippedPotion.valueToRecover;
+                    break;
+
+                case PotionType.Stamina:
+                    playerStatus.currentStamina += equippedPotion.valueToRecover;
+                    break;
+
+                case PotionType.Mana:
+                    playerStatus.currentMana += equippedPotion.valueToRecover;
+                    break;
+
+                case PotionType.Empty:
+                    break;
+
+                default:
+                    break;
             }
+            SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.drinkSound);
+            potionsCount--;
 
-            // Verifica se o item não é nulo antes de criar o InventoryItem
-            if (stashItems[i] != null)
+        }
+        if (potionsCount < maxPotionsCount)
+        {
+            potionRegenerationTimer += Time.deltaTime;
+
+            if (potionRegenerationTimer >= potionRegenerationCooldown)
             {
-                // Instancia o prefab de InventoryItem dentro do InventorySlot
-                GameObject stashItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
-
-                // Associa o item ScriptableObject ao InventoryItem
-                InventoryItem stashItem = stashItemObject.GetComponent<InventoryItem>();
-                if (stashItem != null)
-                {
-                    stashItem.item = stashItems[i];
-
-                    // Obtém o componente Image do InventoryItem
-                    Image stashItemImage = stashItem.GetComponent<Image>();
-
-                    // Usando reflexão para procurar o campo "icon" no ScriptableObject
-                    var iconField = stashItems[i].GetType().GetField("icon");
-                    if (iconField != null)
-                    {
-                        Sprite icon = iconField.GetValue(stashItems[i]) as Sprite;
-                        if (stashItemImage != null && icon != null)
-                        {
-                            stashItemImage.sprite = icon; // Atribui o sprite
-                        }
-                    }
-                }
+                potionsCount++;
+                potionRegenerationTimer = 0f;
             }
         }
     }

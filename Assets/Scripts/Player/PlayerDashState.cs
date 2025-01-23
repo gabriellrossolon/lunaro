@@ -86,17 +86,11 @@ public class PlayerDashState : IState
         float targetYRotation;
 
         if (_inputHandler.moveInput.y > 0)
-        {
             targetYRotation = 180f;
-        }
         else if (_inputHandler.moveInput.y < 0)
-        {
-            targetYRotation = 0f; 
-        }
+            targetYRotation = 0f;
         else
-        {
             return;
-        }
 
         _dashParticle.transform.localRotation = Quaternion.Euler(0f, targetYRotation, 0f);
     }
@@ -109,17 +103,11 @@ public class PlayerDashState : IState
         if (dashTimer <= 0)
         {
             if (!_controller.isGrounded)
-            {
                 _fsm.SetState("Fall");
-            }
             else if (_fsm.PreviousState is PlayerCombatState)
-            {
                 _fsm.SetState("Combat");
-            }
             else
-            {
                 _fsm.SetState("Idle");
-            }
         }
     }
 }

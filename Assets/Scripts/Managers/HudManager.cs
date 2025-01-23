@@ -77,7 +77,6 @@ public class HudManager : MonoBehaviour
         shortcutsAnim = shortcuts.GetComponent<Animator>();
 
         UpdateHUDStats();
-        //hpLateSlider.value = playerStatus.currentHp;
     }
 
     private void Update()
@@ -99,7 +98,11 @@ public class HudManager : MonoBehaviour
 
     private void UpdateCursorState()
     {
-        bool hudIsOpen = openedInventory || openedTeleportPage || GameManager.Instance.gamePaused || (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled || openedStash);
+        bool hudIsOpen = openedInventory || 
+            openedTeleportPage || 
+            GameManager.Instance.gamePaused || 
+            (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled || 
+            openedStash);
 
         if (hudIsOpen)
         {
@@ -128,11 +131,10 @@ public class HudManager : MonoBehaviour
         staminaSlider.value = playerStatus.currentStamina;
         manaSlider.value = playerStatus.currentMana;
         if (hpLateSlider.value != playerStatus.currentHp)
-        {
             hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
-        }
     }
 
+    //OPEN UI FUNCTIONS
     private void OpenInventory()
     {
         openedInventory = !openedInventory;
@@ -149,6 +151,24 @@ public class HudManager : MonoBehaviour
         itemShow.SetActive(false);
     }
 
+    public void OpenTeleportPage()
+    {
+        openedTeleportPage = !openedTeleportPage;
+        teleportsPage.SetActive(openedTeleportPage);
+    }
+
+    public void OpenOption()
+    {
+        openedOptionsUI = !openedOptionsUI;
+
+        optionsUI.SetActive(openedOptionsUI);
+        if (openedOptionsUI)
+        {
+            VolumeManager.Instance.InitializeVolumeSlider();
+            VolumeManager.Instance.InitializeScreenCheckbox();
+        }
+    }
+
     private void HideCanvas()
     {
         if (Input.GetKeyDown(KeyCode.F1))
@@ -158,104 +178,102 @@ public class HudManager : MonoBehaviour
         }
     }
 
-    public void OpenTeleportPage()
-    {
-        openedTeleportPage = !openedTeleportPage;
-        teleportsPage.SetActive(openedTeleportPage);
-    }
+    //---
 
     public void RefreshItemShow(ItemBase item)
     {
         itemIcon.sprite = item.icon;
         itemName.text = item.itemName;
         itemDesc.text = item.description;
+
         if (item is Weapon weapon)
         {
             itemDmg.text = "Damage  " + weapon.damage.ToString();
 
-            if (weapon.weaponType == Weapon.WeaponType.Sword)
+            string resourceText = weapon.resourceCost.ToString();
+            switch (weapon.weaponType)
             {
-                itemType.text = "Sword";
-                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
+                case Weapon.WeaponType.Sword:
+                    itemType.text = "Sword";
+                    itemResourceCost.text = resourceText + " Stamina to Attack";
+                    break;
+                case Weapon.WeaponType.Staff:
+                    itemType.text = "Staff";
+                    itemResourceCost.text = resourceText + " Mana to Cast";
+                    break;
+                case Weapon.WeaponType.Hammer:
+                    itemType.text = "Hammer";
+                    itemResourceCost.text = resourceText + " Stamina to Attack";
+                    break;
+                case Weapon.WeaponType.Bow:
+                    itemType.text = "Bow (2Hand)";
+                    itemResourceCost.text = resourceText + " Stamina to Attack";
+                    break;
+                case Weapon.WeaponType.GreatHammer:
+                    itemType.text = "Great Hammer (2Hand)";
+                    itemResourceCost.text = resourceText + " Stamina to Attack";
+                    break;
+                case Weapon.WeaponType.GreatSword:
+                    itemType.text = "Great Sword (2Hand)";
+                    itemResourceCost.text = resourceText + " Stamina to Attack";
+                    break;
+                default:
+                    itemType.text = "Unknown Weapon";
+                    itemResourceCost.text = null;
+                    break;
             }
-            else if (weapon.weaponType == Weapon.WeaponType.Staff)
-            {
-                itemType.text = "Staff";
-                itemResourceCost.text = weapon.resourceCost.ToString() + " Mana to Cast";
-            }
-            else if (weapon.weaponType == Weapon.WeaponType.Hammer)
-            {
-                itemType.text = "Hammer";
-                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
-            }
-            else if (weapon.weaponType == Weapon.WeaponType.Bow)
-            {
-                itemType.text = "Bow (2Hand)";
-                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
-            }
-            else if (weapon.weaponType == Weapon.WeaponType.GreatHammer)
-            {
-                itemType.text = "Great Hammer (2Hand)";
-                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
-            }
-            else if (weapon.weaponType == Weapon.WeaponType.GreatSword)
-            {
-                itemType.text = "Great Sword (2Hand)";
-                itemResourceCost.text = weapon.resourceCost.ToString() + " Stamina to Attack";
-            }
-            else
-            {
-                itemType.text = "Unknown Weapon";
-                itemResourceCost.text = null;
-            }
-        }    
+        }
         else if (item is Secondary secondary)
         {
-            if (secondary.secondaryType == Secondary.SecondaryType.Shield)
-            {
-                itemType.text = "Shield";
-                itemResourceCost.text = secondary.resourceCost.ToString() + " Stamina to Block";
-            }
-            else if (secondary.secondaryType == Secondary.SecondaryType.Orb)
-            {
-                itemType.text = "Magical Orb";
-                itemResourceCost.text = null;
-            }
-            else if (secondary.secondaryType == Secondary.SecondaryType.Book)
-            {
-                itemType.text = "Magical Book";
-                itemResourceCost.text = null;
-            }
-            else
-            {
-                itemType.text = "Unknown Weapon";
-                itemResourceCost.text = null;
-            }
             itemDmg.text = null;
+            string resourceText = secondary.resourceCost.ToString();
+
+            switch (secondary.secondaryType)
+            {
+                case Secondary.SecondaryType.Shield:
+                    itemType.text = "Shield";
+                    itemResourceCost.text = resourceText + " Stamina to Block";
+                    break;
+                case Secondary.SecondaryType.Orb:
+                    itemType.text = "Magical Orb";
+                    itemResourceCost.text = null;
+                    break;
+                case Secondary.SecondaryType.Book:
+                    itemType.text = "Magical Book";
+                    itemResourceCost.text = null;
+                    break;
+                default:
+                    itemType.text = "Unknown Secondary";
+                    itemResourceCost.text = null;
+                    break;
+            }
         }
         else if (item is Potion potion)
         {
             itemType.text = "Potion";
-
             itemDmg.text = "Recover " + potion.valueToRecover.ToString() + " " + potion.potionType.ToString() + " points";
             itemResourceCost.text = null;
         }
         else if (item is Jewel jewel)
         {
-            if (jewel.jewelType == Jewel.JewelType.Ring)
-            {
-                itemType.text = "Ring";
-            }
-            else if (jewel.jewelType == Jewel.JewelType.Necklace)
-            {
-                itemType.text = "Necklace";
-            }
-            else if (jewel.jewelType == Jewel.JewelType.Amulet)
-            {
-                itemType.text = "Amulet";
-            }
             itemDmg.text = null;
             itemResourceCost.text = null;
+
+            switch (jewel.jewelType)
+            {
+                case Jewel.JewelType.Ring:
+                    itemType.text = "Ring";
+                    break;
+                case Jewel.JewelType.Necklace:
+                    itemType.text = "Necklace";
+                    break;
+                case Jewel.JewelType.Amulet:
+                    itemType.text = "Amulet";
+                    break;
+                default:
+                    itemType.text = "Unknown Jewel";
+                    break;
+            }
         }
         else
         {
@@ -265,10 +283,12 @@ public class HudManager : MonoBehaviour
         }
     }
 
+
+    //CONTROLE DA VIGNETTE (EFEITO AO LEVAR DANO)
     public void ChangeVignetteColorToRed()
     {
         _targetVignetteColor = Color.red;
-        _targetSmoothness = 0.6f; // Ajustando o smoothness para 0.6
+        _targetSmoothness = 0.6f; 
         _transitionTime = 0f;
     }
 
@@ -297,21 +317,10 @@ public class HudManager : MonoBehaviour
         }
     }
 
+    //ELEMENTOS AVULSOS
     public void SetCursor(Texture2D cursor)
     {
         Cursor.SetCursor(cursor, new Vector2(16, 16), CursorMode.Auto);
-    }
-
-    public void OpenOption()
-    {
-        openedOptionsUI = !openedOptionsUI;
-
-        optionsUI.SetActive(openedOptionsUI);
-        if (openedOptionsUI)
-        {
-            VolumeManager.Instance.InitializeVolumeSlider();
-            VolumeManager.Instance.InitializeScreenCheckbox();
-        }
     }
 
     public void OnFullScreenToggleChanged()

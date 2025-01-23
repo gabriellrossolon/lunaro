@@ -66,14 +66,10 @@ public class DroppedItem : MonoBehaviour
         if (HudManager.Instance != null)
         {
             if (HudManager.Instance.warnBtn.activeSelf)
-            {
                 HudManager.Instance.warnBtn.SetActive(false);
-            }
 
             if (HudManager.Instance.itemShow.activeSelf)
-            {
                 HudManager.Instance.itemShow.SetActive(false);
-            }
         }
     }
 }

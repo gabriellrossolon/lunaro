@@ -60,8 +60,10 @@ public class PlayerFallState : IState
 
     private void StateChange()
     {
-        if (_controller.isGrounded) { _fsm.SetState("Idle"); }
-        if (_inputHandler.attackInput || _inputHandler.blockInput) _fsm.SetState("Combat");
+        if (_controller.isGrounded)
+            _fsm.SetState("Idle");
 
+        if (_inputHandler.attackInput || _inputHandler.blockInput)
+            _fsm.SetState("Combat");
     }
 }

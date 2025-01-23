@@ -33,9 +33,7 @@ public class ChestBehavior : MonoBehaviour
         player = PlayerManager.Instance.gameObject;
 
         if (randomItems)
-        {
             GenerateRandomItems();
-        }
     }
 
     public void OpenChest()
@@ -54,9 +52,7 @@ public class ChestBehavior : MonoBehaviour
             DroppedItem droppedItem = newDropBag.GetComponent<DroppedItem>();
 
             if (droppedItem != null)
-            {
                 droppedItem.item = item;
-            }
 
             yield return new WaitForSeconds(0.5f);
         }
@@ -68,9 +64,7 @@ public class ChestBehavior : MonoBehaviour
     {
         enabled = false;
         if (chestCollider != null)
-        {
             chestCollider.enabled = false;
-        }
     }
 
     private void OnMouseOver()
@@ -81,9 +75,7 @@ public class ChestBehavior : MonoBehaviour
         {
             HudManager.Instance.warnBtn.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
-            {
                 OpenChest();
-            }
         }
         else
         {

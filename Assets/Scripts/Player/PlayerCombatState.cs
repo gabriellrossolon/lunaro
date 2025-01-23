@@ -38,8 +38,7 @@ public class PlayerCombatState : IState
     }
     public void OnExit() 
     {
-        //_handsPOV.GetComponent<Animator>().SetTrigger("Exit");
-        //_handsPOV.SetActive(false); 
+
     }
     public void OnFixedTick() { }
     public void OnTick()
@@ -85,7 +84,7 @@ public class PlayerCombatState : IState
     {
         Vector2 input = _inputHandler.moveInput;
         Vector3 move = new Vector3(input.x, 0, input.y);
-        move = _playerTransform.TransformDirection(move); //Faz com que a rotação do jogador seja a mesma da rotação da camera
+        move = _playerTransform.TransformDirection(move);
         if (_controller.enabled)
         {
             _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed);
@@ -95,9 +94,16 @@ public class PlayerCombatState : IState
 
     private void StateChange()
     {
-        if (Input.GetKeyDown(KeyCode.R)) _fsm.SetState("Idle");
-        if (!_controller.isGrounded) _fsm.SetState("Fall");
-        if (_inputHandler.jumpInput && _controller.isGrounded) { _fsm.SetState("Jump"); }
-        if(_inputHandler.dashInput && _cooldownController.canDash && _inputHandler.moveInput != Vector2.zero) { _fsm.SetState("Dash"); }
+        if (Input.GetKeyDown(KeyCode.R)) 
+            _fsm.SetState("Idle");
+        
+        if (!_controller.isGrounded) 
+            _fsm.SetState("Fall");
+
+        if (_inputHandler.jumpInput && _controller.isGrounded)
+            _fsm.SetState("Jump");
+
+        if (_inputHandler.dashInput && _cooldownController.canDash && _inputHandler.moveInput != Vector2.zero)
+            _fsm.SetState("Dash");
     }
 }
