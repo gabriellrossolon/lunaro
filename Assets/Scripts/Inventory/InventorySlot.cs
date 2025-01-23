@@ -1,6 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
+using System.Collections;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
@@ -18,7 +19,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             if (transform.childCount > 0)
             {
                 var existingItem = transform.GetChild(0).GetComponent<InventoryItem>();
-                SwapItems(draggedItem, existingItem);
+                StartCoroutine(SwapItems(draggedItem, existingItem));
+
+                //CASO QUEIRA TIRAR FUNCIONALIDADE DE SWAP
+                //ReturnItemToPreviousParent(draggedItem);
+                //return;
             }
             else
             {
@@ -202,19 +207,19 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
 
     // Swap the items between the current slot and the dragged item
-    private void SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
+    private IEnumerator SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
     {
         if (!IsItemCompatibleWithSlot(draggedItem))
         {
             ReturnItemToPreviousParent(draggedItem);
-            return;
+            yield break;
         }
         else if (DraggedItemIsTwoHanded(draggedItem))
         {
             if (IsWithSecondaryEquipped() && slotType == SlotType.Weapon)
             {
                 ReturnItemToPreviousParent(draggedItem);
-                return;
+                yield break;
             }
         }
         else if (DraggedItemIsSecondary(draggedItem))
@@ -222,7 +227,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             if (isWithTwoHandEquipped() && slotType == SlotType.Secondary)
             {
                 ReturnItemToPreviousParent(draggedItem);
-                return;
+                yield break;
             }
         }
         else if (IsWithSecondaryEquipped())
@@ -231,7 +236,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.GreatSword))
             {
                 ReturnItemToPreviousParent(draggedItem);
-                return;
+                yield break;
             }
         }
         else if (isWithTwoHandEquipped())
@@ -239,34 +244,28 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             if (existingItem.item is Secondary secondary)
             {
                 ReturnItemToPreviousParent(draggedItem);
-                return;
+                yield break;
             }
         }
-
 
         Transform draggedPreviousParent = draggedItem.previousParent;
         Transform existingPreviousParent = existingItem.previousParent;
 
-        // Swap the positions of the items
-        draggedItem.transform.SetParent(transform);
-        draggedItem.transform.localPosition = Vector3.zero;
-
         existingItem.transform.SetParent(draggedPreviousParent);
         existingItem.transform.localPosition = Vector3.zero;
+        yield return new WaitForSeconds(0.05f); //Pequeno delay para que não ocorra a troca de ambos no mesmo Frame
+        draggedItem.transform.SetParent(transform);
+        draggedItem.transform.localPosition = Vector3.zero;
+        
 
-        // Update the previous parents
         draggedItem.previousParent = transform;
         existingItem.previousParent = draggedPreviousParent;
 
-        // Update the inventory list
         if(slotType == SlotType.Inventory)
             UpdateInventoryList(draggedItem);
 
         if (slotType == SlotType.Stash)
             UpdateStashList(existingItem);
-
-        // Equip the new item if needed
-        //EquipItemIfNeeded(draggedItem);
 
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }

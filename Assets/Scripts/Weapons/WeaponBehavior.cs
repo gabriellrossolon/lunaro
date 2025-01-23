@@ -330,7 +330,6 @@ public class WeaponBehavior : MonoBehaviour
 
     public void SetWeaponType(Weapon.WeaponType type)
     {
-        Debug.Log($"Weapon type set to: {type}");
         weaponType = type;
 
         if (weaponType == Weapon.WeaponType.GreatSword || weaponType == Weapon.WeaponType.GreatHammer)
