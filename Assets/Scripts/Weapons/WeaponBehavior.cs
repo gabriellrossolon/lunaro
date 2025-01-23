@@ -15,6 +15,8 @@ public class WeaponBehavior : MonoBehaviour
     [SerializeField] private GameObject holdingObjectL;
     [SerializeField] private GameObject holdingObjectR;
 
+    public Animator armBonesAnim;
+
     public bool chargedAttack;
 
     [Header("Only if Melee")]
@@ -95,7 +97,8 @@ public class WeaponBehavior : MonoBehaviour
 
         weaponAnim.SetBool("TwoHanded", (weaponType == Weapon.WeaponType.GreatHammer || weaponType == Weapon.WeaponType.GreatSword));
         leftHandAnim.SetBool("TwoHanded", (weaponType == Weapon.WeaponType.GreatHammer || weaponType == Weapon.WeaponType.GreatSword));
-        //UpdateLeftHandGripParent();
+
+        armBonesAnim.SetBool("isWithBow", weaponType == Weapon.WeaponType.Bow);
     }
 
     private void ExecuteStaffAttack()

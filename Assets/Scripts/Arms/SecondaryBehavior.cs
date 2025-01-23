@@ -1,11 +1,12 @@
 using UnityEngine;
+using static Secondary;
 
 public class SecondaryBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
     public Secondary.SecondaryType secondaryType;
     [HideInInspector] public Animator secondaryAnim;
-    [HideInInspector] public Animator armBonesAnim;
+    public Animator armBonesAnim;
 
     [HideInInspector] public AudioClip blockSound;
     [HideInInspector] public float resourceCost;
@@ -23,43 +24,15 @@ public class SecondaryBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (secondaryType == Secondary.SecondaryType.Shield)
+        if (secondaryType == SecondaryType.Shield)
         {
             secondaryAnim.SetBool("isBlocking", blocking);
-            if (blockInputReceived && playerStatus.currentStamina >= resourceCost)
-            {
-                blocking = true;
-            }
-            else
-            {
-                blocking = false;
-            }
+            blocking = blockInputReceived && playerStatus.currentStamina >= resourceCost;
         }
 
-        if (secondaryType == Secondary.SecondaryType.Orb)
-        {
-            armBonesAnim.SetBool("isWithOrb", true);
-            armBonesAnim.SetBool("isWithShield", false);
-            armBonesAnim.SetBool("isWithBook", false);
-        }
-        else if (secondaryType == Secondary.SecondaryType.Shield)
-        {
-            armBonesAnim.SetBool("isWithShield", true);
-            armBonesAnim.SetBool("isWithOrb", false);
-            armBonesAnim.SetBool("isWithBook", false);
-        }
-        else if (secondaryType == Secondary.SecondaryType.Book)
-        {
-            armBonesAnim.SetBool("isWithShield", false);
-            armBonesAnim.SetBool("isWithOrb", false);
-            armBonesAnim.SetBool("isWithBook", true);
-        }
-        else
-        {
-            armBonesAnim.SetBool("isWithOrb", false);
-            armBonesAnim.SetBool("isWithShield", false);
-            armBonesAnim.SetBool("isWithBook", false);
-        }
+        armBonesAnim.SetBool("isWithOrb", secondaryType == SecondaryType.Orb);
+        armBonesAnim.SetBool("isWithShield", secondaryType == SecondaryType.Shield);
+        armBonesAnim.SetBool("isWithBook", secondaryType == SecondaryType.Book);
     }
 
     //Funções do Weapon Behavior

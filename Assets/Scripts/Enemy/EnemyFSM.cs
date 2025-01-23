@@ -64,6 +64,11 @@ public class EnemyFSM : MonoBehaviour
         _enemyStats.currentHp -= damage;
 
         if (_enemyStats.currentHp <= 0) { _fsm.SetState("Death"); }
+
+        if(_fsm.CurrentState is EnemyIdleState || _fsm.CurrentState is EnemyPatrolState)
+        {
+            _fsm.SetState("Chase");
+        }
     }
 
     public void Retreat()
