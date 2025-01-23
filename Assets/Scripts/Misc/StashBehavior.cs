@@ -36,9 +36,7 @@ public class StashBehavior : MonoBehaviour
         {
             HudManager.Instance.warnBtn.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
-            {
                 OpenStash();
-            }
         }
         else
         {
