@@ -286,12 +286,20 @@ public class WeaponBehavior : MonoBehaviour
     {
         SwordBehavior swordBehavior = GetComponentInChildren<SwordBehavior>();
         HammerBehavior hammerBehavior = GetComponentInChildren<HammerBehavior>();
+        GreatHammerBehavior greatHammerBehavior = GetComponentInChildren<GreatHammerBehavior>();
+        GreatSwordBehavior greatSwordBehavior = GetComponentInChildren<GreatSwordBehavior>();
 
         if(swordBehavior != null)
             swordBehavior.colliderEnabled = !swordBehavior.colliderEnabled;
 
         if(hammerBehavior != null)
             hammerBehavior.colliderEnabled = !hammerBehavior.colliderEnabled;
+
+        if(greatHammerBehavior != null)
+            greatHammerBehavior.colliderEnabled = !greatHammerBehavior.colliderEnabled;
+
+        if (greatSwordBehavior != null)
+            greatSwordBehavior.colliderEnabled = !greatSwordBehavior.colliderEnabled;
     }
 
     public void ConsumeMana()

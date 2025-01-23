@@ -37,12 +37,13 @@ public class GreatHammerBehavior : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             GameManager.Instance.TriggerSlowMotion();
-            Instantiate(collisionParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
             other.GetComponent<EnemyFSM>().DoDamage(playerStatus.damage);
             other.GetComponent<Animator>().SetTrigger("hurt");
 
+            EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
+            Instantiate(enemyFX.attackTakenParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity, other.transform);
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
         }
     }
 }
