@@ -91,6 +91,7 @@ public class WeaponBehavior : MonoBehaviour
         }
 
         leftHandAnim.SetBool("holdingBow", weaponType == Weapon.WeaponType.Bow);
+        weaponAnim.SetBool("BowHanded", weaponType == Weapon.WeaponType.Bow);
 
         weaponAnim.SetBool("TwoHanded", (weaponType == Weapon.WeaponType.GreatHammer || weaponType == Weapon.WeaponType.GreatSword));
         leftHandAnim.SetBool("TwoHanded", (weaponType == Weapon.WeaponType.GreatHammer || weaponType == Weapon.WeaponType.GreatSword));
@@ -111,7 +112,7 @@ public class WeaponBehavior : MonoBehaviour
     {
         if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
         {
-            leftHandAnim.SetTrigger("bowAttack");
+            weaponAnim.SetTrigger("bowAttack");
             GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetTrigger("attack");
         }
     }
@@ -308,6 +309,7 @@ public class WeaponBehavior : MonoBehaviour
         playerStatus.SubtractStamina(resourceCost);
     }
 
+    //
     private void UpdateLeftGripToHandR()
     {
         leftHandGrip.transform.SetParent(holdingObjectR.transform);
@@ -320,6 +322,7 @@ public class WeaponBehavior : MonoBehaviour
 
     public void SetWeaponType(Weapon.WeaponType type)
     {
+        Debug.Log($"Weapon type set to: {type}");
         weaponType = type;
 
         if (weaponType == Weapon.WeaponType.GreatSword || weaponType == Weapon.WeaponType.GreatHammer)
@@ -328,9 +331,9 @@ public class WeaponBehavior : MonoBehaviour
         }
         else
         {
+            CancelInvoke(nameof(UpdateLeftGripToHandR));
             UpdateLeftGripToHandL();
         }
     }
-
 }
 

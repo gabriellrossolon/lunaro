@@ -228,7 +228,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         else if (IsWithSecondaryEquipped())
         {
             if (existingItem.item is Weapon weapon &&
-                (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.Sword))
+                (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.GreatSword))
             {
                 ReturnItemToPreviousParent(draggedItem);
                 return;
