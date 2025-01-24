@@ -15,10 +15,6 @@ public class PlayerDashState : IState
 
     private Vector3 dashDirection;
     private float dashTimer;
-
-    private const float dashSpeed = 25f;
-    private const float dashDuration = 0.1f;
-
     public PlayerDashState(StateMachine fsm, InputHandler inputHandler,
         CharacterController controller, Transform playerTransform,
         CooldownController cooldownController, GameObject dashParticle, 
@@ -61,7 +57,7 @@ public class PlayerDashState : IState
 
     private void StartDash()
     {
-        dashTimer = dashDuration;
+        dashTimer = _playerStatus.dashDuration;
 
         Vector2 input = _inputHandler.moveInput;
         if (input.magnitude > 0)
@@ -77,7 +73,7 @@ public class PlayerDashState : IState
 
     private void PerformDash()
     {
-        Vector3 dashVelocity = dashDirection * dashSpeed;
+        Vector3 dashVelocity = dashDirection * _playerStatus.dashSpeed;
         _controller.Move(dashVelocity * Time.deltaTime);
     }
 

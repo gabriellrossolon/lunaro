@@ -43,11 +43,11 @@ public class ProjectileBehavior : MonoBehaviour
             EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
             Animator enemyAnim = other.GetComponent<Animator>();
 
-            if(enemyFSM != null)
-                enemyFSM.DoDamage(playerStatus.damage);
-
             if(enemyAnim != null)
                 enemyAnim.SetTrigger("hurt");
+
+            if (enemyFSM != null)
+                enemyFSM.DoDamage(playerStatus.damage);
 
             GameManager.Instance.TriggerSlowMotion();
 

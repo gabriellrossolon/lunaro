@@ -39,13 +39,10 @@ public class GreatSwordBehavior : MonoBehaviour
             EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
             Animator enemyAnim = other.GetComponent<Animator>();
 
-            GameManager.Instance.TriggerSlowMotion();
+            GameManager.Instance.TriggerSlowMotion(0.2f, 0.3f);
 
             if (enemyAnim != null)
                 enemyAnim.SetTrigger("hurt");
-
-            if (enemyFSM != null)
-                enemyFSM.DoDamage(playerStatus.damage);
 
             if (enemyFX != null)
             {
@@ -53,6 +50,9 @@ public class GreatSwordBehavior : MonoBehaviour
                 SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
                 SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
             }
+
+            if (enemyFSM != null)
+                enemyFSM.DoDamage(playerStatus.damage);
         }
     }
 }

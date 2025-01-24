@@ -4,20 +4,20 @@ using UnityEngine.VFX;
 
 public class WeaponBehavior : MonoBehaviour
 {
+    [Header("References")]
     private PlayerStatus playerStatus;
-
-    [HideInInspector] public bool attack;
-    public bool canAttack = true;
-    private Animator weaponAnim;
-    [Header("Left Hand References")]
     [SerializeField] private Animator leftHandAnim;
+    public Animator armBonesAnim;
+    private Animator weaponAnim;
     [SerializeField] private GameObject leftHandGrip;
     [SerializeField] private GameObject holdingObjectL;
     [SerializeField] private GameObject holdingObjectR;
 
-    public Animator armBonesAnim;
-
+    [Header("Controllers")]
+    [HideInInspector] public bool attack;
+    public bool canAttack = true;
     public bool chargedAttack;
+    private bool emittingTrail = false;
 
     [Header("Only if Melee")]
     private int attackSequence = 1;
@@ -26,7 +26,6 @@ public class WeaponBehavior : MonoBehaviour
     [HideInInspector] public GameObject projectilePrefab;
     [HideInInspector] public GameObject beamPrefab;
     [HideInInspector] public GameObject projectileExitPoint;
-
     private GameObject currentBeam;
 
     [Header("Attack Resource Cost (Stamina/Mana)")]
@@ -233,7 +232,7 @@ public class WeaponBehavior : MonoBehaviour
                     break;
             }
 
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
@@ -293,6 +292,15 @@ public class WeaponBehavior : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         playerStatus.canRegenMana = true;
+    }
+
+    public void CallTrail()
+    {
+        TrailRenderer trailRend = GetComponentInChildren<TrailRenderer>();
+        emittingTrail = !emittingTrail;
+
+        if(trailRend != null)
+            trailRend.emitting = emittingTrail;
     }
 
     public void ActiveCollider()

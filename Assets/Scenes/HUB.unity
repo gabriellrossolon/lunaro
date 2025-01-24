@@ -13945,7 +13945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14010,8 +14010,8 @@ MonoBehaviour:
   dungeonAmbientSound: {fileID: 8300000, guid: df3c8f70ce26e5944b692bd618e0f9c7, type: 3}
   glacialAmbientSound: {fileID: 8300000, guid: b135e3d0fe63b4140b7767ac3d0d9e06, type: 3}
   musicSource: {fileID: 520880800}
-  HUBMusicSound: {fileID: 8300000, guid: 9cc4e456ed3b98043899a392a1fdf73c, type: 3}
-  dungeonMusicSound: {fileID: 0}
+  HUBMusicSound: {fileID: 8300000, guid: e30c627764c21dc4c8396b879d404a7c, type: 3}
+  dungeonMusicSound: {fileID: 8300000, guid: 9c80cd15c4d098a4fa11487f9493773a, type: 3}
   glacialMusicSound: {fileID: 0}
   playerFootSource: {fileID: 1569180871}
   stepGrassSound: {fileID: 8300000, guid: 37af765c94863fc41b3d2cca2c2bd45b, type: 3}
@@ -16953,6 +16953,8 @@ MonoBehaviour:
   runSpeed: 8
   actualSpeed: 0
   jumpHeight: 1
+  dashSpeed: 30
+  dashDuration: 0.2
   damage: 0
   maxHp: 25
   currentHp: 0
@@ -22878,13 +22880,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded74f8ce4d530442a613d87b208fde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 0
-  canAttack: 1
   leftHandAnim: {fileID: 1902067312}
+  armBonesAnim: {fileID: 1300687246}
   leftHandGrip: {fileID: 842253427}
   holdingObjectL: {fileID: 1455117468}
   holdingObjectR: {fileID: 1088453662}
-  armBonesAnim: {fileID: 1300687246}
+  attack: 0
+  canAttack: 1
   chargedAttack: 0
   projectilePrefab: {fileID: 0}
   beamPrefab: {fileID: 0}
@@ -31317,7 +31319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1409669293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31399,7 +31401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 557.3845, y: 2.2606}
+  m_AnchoredPosition: {x: 1490, y: 2.2606}
   m_SizeDelta: {x: 747.1724, y: 1043.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1409931716
@@ -51139,7 +51141,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c7d4dc815c3d80b45899f296eb552a75, type: 2}
   - {fileID: 11400000, guid: c849ee7b0a181f14fbdb07bf65ebaba9, type: 2}
   - {fileID: 11400000, guid: da9592ffea5fda442b6d5a0683230613, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ac13337e686fd4a4faea488712e3acfd, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

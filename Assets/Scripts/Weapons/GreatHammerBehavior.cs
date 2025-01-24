@@ -38,15 +38,12 @@ public class GreatHammerBehavior : MonoBehaviour
         {
             EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
             EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
-            Animator enemyAnim = other.GetComponent<Animator>(); 
-            
-            GameManager.Instance.TriggerSlowMotion();
-            
-            if(enemyAnim != null)
-                enemyAnim.SetTrigger("hurt");
+            Animator enemyAnim = other.GetComponent<Animator>();
 
-            if(enemyFSM != null)
-                enemyFSM.DoDamage(playerStatus.damage);
+            GameManager.Instance.TriggerSlowMotion(0.2f, 0.2f);
+
+            if (enemyAnim != null)
+                enemyAnim.SetTrigger("hurt");
 
             if (enemyFX != null)
             {
@@ -54,6 +51,9 @@ public class GreatHammerBehavior : MonoBehaviour
                 SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
                 SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
             }
+
+            if (enemyFSM != null)
+                enemyFSM.DoDamage(playerStatus.damage);
         }
     }
 }

@@ -138,10 +138,12 @@ public class HudManager : MonoBehaviour
     private void OpenInventory()
     {
         openedInventory = !openedInventory;
-        inventory.SetActive(openedInventory);
+        inventory.GetComponent<Animator>().SetBool("openedInventory", openedInventory);
 
         itemShow.SetActive(false);
     }
+
+
 
     public void OpenStashUI()
     {
