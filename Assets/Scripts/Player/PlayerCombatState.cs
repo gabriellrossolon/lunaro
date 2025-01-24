@@ -10,14 +10,15 @@ public class PlayerCombatState : IState
     private readonly PlayerStatus _playerStatus;
     private readonly GameObject _handsPOV;
     private readonly CooldownController _cooldownController;
+    private readonly WeaponBehavior _weaponBehavior;
+    private readonly SecondaryBehavior _secondaryBehavior;
 
-    private WeaponBehavior _weaponBehavior;
-    private SecondaryBehavior _secondaryBehavior;
 
     public PlayerCombatState(StateMachine fsm, InputHandler inputHandler, CharacterController controller, 
         Transform playerTransform, Transform cameraTransform, 
         PlayerStatus playerStatus, GameObject handsPOV, 
-        CooldownController cooldownController)
+        CooldownController cooldownController, WeaponBehavior weaponBehavior,
+        SecondaryBehavior secondaryBehavior)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -27,13 +28,13 @@ public class PlayerCombatState : IState
         _playerStatus = playerStatus;
         _handsPOV = handsPOV;
         _cooldownController = cooldownController;
+        _weaponBehavior = weaponBehavior;
+        _secondaryBehavior = secondaryBehavior;
     }
 
     public void OnEnter() 
     {
         _handsPOV.SetActive(true);
-        _weaponBehavior = _handsPOV.GetComponentInChildren<WeaponBehavior>();
-        _secondaryBehavior = _handsPOV.GetComponentInChildren<SecondaryBehavior>();
         InventoryManager.Instance.EquipWeapon();
     }
     public void OnExit() 

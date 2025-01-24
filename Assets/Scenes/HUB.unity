@@ -10480,7 +10480,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -16952,7 +16952,7 @@ MonoBehaviour:
   walkSpeed: 5
   runSpeed: 8
   actualSpeed: 0
-  jumpHeight: 1
+  jumpHeight: 1.5
   dashSpeed: 30
   dashDuration: 0.2
   damage: 0
@@ -22861,7 +22861,7 @@ Transform:
   m_GameObject: {fileID: 1048678622}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.39999998, y: -0.241, z: 0.598}
+  m_LocalPosition: {x: 0.4, y: -0.241, z: 0.598}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22886,8 +22886,10 @@ MonoBehaviour:
   holdingObjectL: {fileID: 1455117468}
   holdingObjectR: {fileID: 1088453662}
   attack: 0
-  canAttack: 1
   chargedAttack: 0
+  dashAttack: 0
+  jumpAttack: 0
+  canAttack: 1
   projectilePrefab: {fileID: 0}
   beamPrefab: {fileID: 0}
   projectileExitPoint: {fileID: 0}

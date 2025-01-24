@@ -15,9 +15,12 @@ public class WeaponBehavior : MonoBehaviour
 
     [Header("Controllers")]
     [HideInInspector] public bool attack;
-    public bool canAttack = true;
     public bool chargedAttack;
+    public bool dashAttack;
+    public bool jumpAttack;
+    public bool canAttack = true;
     private bool emittingTrail = false;
+    
 
     [Header("Only if Melee")]
     private int attackSequence = 1;
@@ -53,7 +56,7 @@ public class WeaponBehavior : MonoBehaviour
 
     public void ChooseAttack()
     {
-        if (attack)
+        if (attack) //Caso seja ataque normal
         {
             switch (weaponType)
             {
@@ -78,6 +81,58 @@ public class WeaponBehavior : MonoBehaviour
             }
 
             attack = false;
+        }
+
+        if(dashAttack) //Caso seja dash attack
+        {
+            switch (weaponType)
+            {
+                case Weapon.WeaponType.Staff:
+                    ExecuteStaffAttack();
+                    break;
+                case Weapon.WeaponType.Sword:
+                    ExecuteSwordAttack();
+                    break;
+                case Weapon.WeaponType.Hammer:
+                    ExecuteHammerAttack();
+                    break;
+                case Weapon.WeaponType.Bow:
+                    ExecuteBowAttack();
+                    break;
+                case Weapon.WeaponType.GreatHammer:
+                    ExecuteGreatHammerDashAttack();
+                    break;
+                case Weapon.WeaponType.GreatSword:
+                    ExecuteGreatSwordDashAttack();
+                    break;
+            }
+            dashAttack = false;
+        }
+
+        if (jumpAttack) //Caso seja jump attack
+        {
+            switch (weaponType)
+            {
+                case Weapon.WeaponType.Staff:
+                    ExecuteStaffAttack();
+                    break;
+                case Weapon.WeaponType.Sword:
+                    ExecuteSwordAttack();
+                    break;
+                case Weapon.WeaponType.Hammer:
+                    ExecuteHammerAttack();
+                    break;
+                case Weapon.WeaponType.Bow:
+                    ExecuteBowAttack();
+                    break;
+                case Weapon.WeaponType.GreatHammer:
+                    ExecuteGreatHammerJumpAttack();
+                    break;
+                case Weapon.WeaponType.GreatSword:
+                    ExecuteGreatSwordJumpAttack();
+                    break;
+            }
+            jumpAttack = false;
         }
     }
 
@@ -212,6 +267,25 @@ public class WeaponBehavior : MonoBehaviour
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
+    private void ExecuteGreatHammerDashAttack()
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            weaponAnim.SetTrigger("greatHammerDashAttack");
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    private void ExecuteGreatHammerJumpAttack()
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            weaponAnim.SetTrigger("greatHammerJumpAttack");
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }   
+    }
 
     public void ExecuteGreatSwordAttack()
     {
@@ -235,6 +309,26 @@ public class WeaponBehavior : MonoBehaviour
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
+    }
+
+    private void ExecuteGreatSwordDashAttack()
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            weaponAnim.SetTrigger("greatSwordDashAttack");
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    private void ExecuteGreatSwordJumpAttack()
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            weaponAnim.SetTrigger("greatSwordJumpAttack");
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }  
     }
 
     public void CanAttack()

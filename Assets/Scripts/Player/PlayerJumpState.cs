@@ -10,13 +10,14 @@ public class PlayerJumpState : IState
     private readonly PlayerStatus _playerStatus;
     private readonly CooldownController _cooldownController;
     private readonly Animator _animator;
+    private readonly WeaponBehavior _weaponBehavior;
 
     private float verticalVelocity;
 
     public PlayerJumpState(StateMachine fsm, InputHandler inputHandler, 
         CharacterController controller, Transform playerTransform, 
         Transform cameraTransform, PlayerStatus playerStatus,
-        CooldownController cooldownController, Animator animator)
+        CooldownController cooldownController, Animator animator, WeaponBehavior weaponBehavior)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -26,6 +27,7 @@ public class PlayerJumpState : IState
         _playerStatus = playerStatus;
         _cooldownController = cooldownController;
         _animator = animator;
+        _weaponBehavior = weaponBehavior;
     }
 
     public void OnEnter()
@@ -44,6 +46,7 @@ public class PlayerJumpState : IState
     public void OnFixedTick() { }
     public void OnTick()
     {
+        PerformJumpAttack();
         AirMovement();
         verticalVelocity += _playerStatus.playerGravity * Time.deltaTime;
         StateChange();
@@ -61,6 +64,19 @@ public class PlayerJumpState : IState
     private void ExecuteJump()
     {
         verticalVelocity = Mathf.Sqrt(_playerStatus.jumpHeight * -2f * _playerStatus.playerGravity);
+    }
+    private void PerformJumpAttack()
+    {
+        if (_weaponBehavior != null)
+        {
+            if (_inputHandler.attackInput && !TempParent.Instance.isHoldingAnything)
+            {
+                _inputHandler.attackInput = false;
+                _weaponBehavior.jumpAttack = true;
+            }
+
+            _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
+        }
     }
 
     private void StateChange()

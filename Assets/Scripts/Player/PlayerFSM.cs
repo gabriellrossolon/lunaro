@@ -13,6 +13,8 @@ public class PlayerFSM : MonoBehaviour
     private PlayerStatus _playerStatus;
     private CooldownController _cooldownController;
     private Animator _animator;
+    private WeaponBehavior _weaponBehavior;
+    private SecondaryBehavior _secondaryBehavior;
     public StateMachine FSM => _fsm;
 
     [Header("Public References")]
@@ -35,13 +37,15 @@ public class PlayerFSM : MonoBehaviour
         _playerStatus = GetComponent<PlayerStatus>();
         _cooldownController = GetComponent<CooldownController>();
         _animator = GetComponent<Animator>();
+        _weaponBehavior = GetComponentInChildren<WeaponBehavior>();
+        _secondaryBehavior = GetComponentInChildren<SecondaryBehavior>();
 
         _fsm.AddState("Idle", new PlayerIdleState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV));
         _fsm.AddState("Move", new PlayerMoveState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController));
-        _fsm.AddState("Jump", new PlayerJumpState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _cooldownController, _animator));
-        _fsm.AddState("Fall", new PlayerFallState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _animator));
-        _fsm.AddState("Combat", new PlayerCombatState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController));
-        _fsm.AddState("Dash", new PlayerDashState(_fsm, _inputHandler, _controller, _playerTransform, _cooldownController, _dashParticle, _animator, _handsPOV, _playerStatus));
+        _fsm.AddState("Jump", new PlayerJumpState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _cooldownController, _animator, _weaponBehavior));
+        _fsm.AddState("Fall", new PlayerFallState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _animator, _weaponBehavior));
+        _fsm.AddState("Combat", new PlayerCombatState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController, _weaponBehavior, _secondaryBehavior));
+        _fsm.AddState("Dash", new PlayerDashState(_fsm, _inputHandler, _controller, _playerTransform, _cooldownController, _dashParticle, _animator, _handsPOV, _playerStatus, _weaponBehavior));
 
         _fsm.SetInitialState("Idle"); // Define o estado inicial
     }

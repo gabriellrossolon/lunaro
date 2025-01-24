@@ -10,6 +10,7 @@ public class PlayerDashState : IState
     private readonly GameObject _dashParticle;
     private readonly Animator _animator;
     private readonly PlayerStatus _playerStatus;
+    private readonly WeaponBehavior _weaponBehavior;
 
     private readonly GameObject _handsPOV;
 
@@ -18,7 +19,8 @@ public class PlayerDashState : IState
     public PlayerDashState(StateMachine fsm, InputHandler inputHandler,
         CharacterController controller, Transform playerTransform,
         CooldownController cooldownController, GameObject dashParticle, 
-        Animator animator, GameObject handsPOV, PlayerStatus playerSTatus)
+        Animator animator, GameObject handsPOV, PlayerStatus playerSTatus, 
+        WeaponBehavior weaponBehavior)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -29,6 +31,7 @@ public class PlayerDashState : IState
         _animator = animator;
         _handsPOV = handsPOV;
         _playerStatus = playerSTatus;
+        _weaponBehavior = weaponBehavior;
     }
 
     public void OnEnter()
@@ -51,6 +54,7 @@ public class PlayerDashState : IState
     {
         PerformDash();
         StateChange();
+        PerformDashAttack();
     }
 
     public void OnFixedTick() { }
@@ -75,6 +79,20 @@ public class PlayerDashState : IState
     {
         Vector3 dashVelocity = dashDirection * _playerStatus.dashSpeed;
         _controller.Move(dashVelocity * Time.deltaTime);
+    }
+
+    private void PerformDashAttack()
+    {
+        if (_weaponBehavior != null)
+        {
+            if (_inputHandler.attackInput && !TempParent.Instance.isHoldingAnything)
+            {
+                _inputHandler.attackInput = false;
+                _weaponBehavior.dashAttack = true;
+            }
+
+            _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
+        }
     }
 
     private void AdjustParticleRotation()

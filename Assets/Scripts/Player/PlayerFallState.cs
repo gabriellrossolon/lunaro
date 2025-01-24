@@ -9,13 +9,14 @@ public class PlayerFallState : IState
     private readonly Transform _cameraTransform;
     private readonly PlayerStatus _playerStatus;
     private readonly Animator _animator;
+    private readonly WeaponBehavior _weaponBehavior;
 
     private float verticalVelocity;
 
     public PlayerFallState(StateMachine fsm, InputHandler inputHandler, 
         CharacterController controller, Transform playerTransform, 
         Transform cameraTransform, PlayerStatus playerStatus, 
-        Animator animator)
+        Animator animator, WeaponBehavior weaponBehavior)
     {
         _fsm = fsm;
         _inputHandler = inputHandler;
@@ -24,6 +25,7 @@ public class PlayerFallState : IState
         _cameraTransform = cameraTransform;
         _playerStatus = playerStatus;
         _animator = animator;
+        _weaponBehavior = weaponBehavior;
     }
 
     public void OnEnter()
@@ -38,6 +40,7 @@ public class PlayerFallState : IState
     public void OnFixedTick() { }
     public void OnTick()
     {
+        PerformJumpAttack();
         MoveWhileFalling();
         Falling();
         StateChange();
@@ -56,6 +59,20 @@ public class PlayerFallState : IState
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = _playerTransform.TransformDirection(move); // Faz com que a rotação do jogador seja a mesma da rotação da câmera
         if(_controller.enabled) { _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed); }
+    }
+
+    private void PerformJumpAttack()
+    {
+        if (_weaponBehavior != null)
+        {
+            if (_inputHandler.attackInput && !TempParent.Instance.isHoldingAnything)
+            {
+                _inputHandler.attackInput = false;
+                _weaponBehavior.jumpAttack = true;
+            }
+
+            _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
+        }
     }
 
     private void StateChange()

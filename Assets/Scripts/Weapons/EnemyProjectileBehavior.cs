@@ -42,7 +42,6 @@ public class EnemyProjectileBehavior : MonoBehaviour
         else if (!attackBlockedByPlayer && other.gameObject.CompareTag("Player"))
         {
             weaponBehavior._enemySoundSource.PlayOneShot(weaponBehavior._enemEffects.attackImpactSound);
-            GameManager.Instance.TriggerSlowMotion();
             PlayerManager.Instance.DoDamage(damage);
             Instantiate(weaponBehavior._enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         }
