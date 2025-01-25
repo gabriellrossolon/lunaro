@@ -39,7 +39,7 @@ public class GreatSwordBehavior : MonoBehaviour
             EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
             Animator enemyAnim = other.GetComponent<Animator>();
 
-            GameManager.Instance.TriggerSlowMotion(0.2f, 0.3f);
+            GameManager.Instance.TriggerSlowMotion(0.2f, 0.2f);
 
             if (enemyAnim != null)
                 enemyAnim.SetTrigger("hurt");
