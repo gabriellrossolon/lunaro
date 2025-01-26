@@ -46,11 +46,6 @@ public class EnemyFSM : MonoBehaviour
         _fsm.SetInitialState("Patrol");
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         UpdateCurrentState();
@@ -73,9 +68,14 @@ public class EnemyFSM : MonoBehaviour
     {
         _enemyStats.currentHp -= damage;
 
-        if (_enemyStats.currentHp <= 0) { _fsm.SetState("Death"); }
+        if (_enemyStats.currentHp <= 0)
+        {
+            _fsm.SetState("Death");
+            GameManager.Instance.TriggerSlowMotion(0.4f, 0.1f);
+        }
 
-        if(_fsm.CurrentState is EnemyIdleState || _fsm.CurrentState is EnemyPatrolState)
+
+        if (_fsm.CurrentState is EnemyIdleState || _fsm.CurrentState is EnemyPatrolState)
             _fsm.SetState("Chase");
 
     }

@@ -1007,17 +1007,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 439
+    m_Bits: 951
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.7956908, z: 1.2}
-  m_Center: {x: 0.0030155112, y: 0.8978454, z: 0.04129276}
+  m_Size: {x: 1.2999998, y: 2.4024575, z: 1.2}
+  m_Center: {x: 0.0030154919, y: 1.2012287, z: 0.041292768}
 --- !u!95 &8721451850522253916
 Animator:
   serializedVersion: 7
@@ -2248,6 +2248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8764981772939471387}
   - component: {fileID: 7972952806961322181}
+  - component: {fileID: 2606896293011483860}
   m_Layer: 0
   m_Name: KickCollider
   m_TagString: Untagged
@@ -2291,6 +2292,27 @@ MonoBehaviour:
   projectileExit: {fileID: 0}
   damage: 0
   attackBlockedByPlayer: 0
+--- !u!135 &2606896293011483860
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3833333391446353723}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3952885996337965247
 GameObject:
   m_ObjectHideFlags: 0
@@ -3299,6 +3321,7 @@ GameObject:
   - component: {fileID: 8923540077085308917}
   - component: {fileID: 6219217849604409789}
   - component: {fileID: 4587076785202168855}
+  - component: {fileID: 987558671978312892}
   m_Layer: 0
   m_Name: PT_Sword_01_a
   m_TagString: Untagged
@@ -3395,6 +3418,28 @@ MonoBehaviour:
   projectileExit: {fileID: 0}
   damage: 0
   attackBlockedByPlayer: 0
+--- !u!64 &987558671978312892
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603466022497809881}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2544109580854566363, guid: c4ee69f08dc865c458547e9a01d06ab7, type: 3}
 --- !u!1 &5638246823582004890
 GameObject:
   m_ObjectHideFlags: 0

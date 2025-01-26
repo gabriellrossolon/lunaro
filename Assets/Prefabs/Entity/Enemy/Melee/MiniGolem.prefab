@@ -827,6 +827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 
   _previousState: 
+  isRagdoll: 0
 --- !u!114 &4111368309663438618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,17 +953,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 439
+    m_Bits: 951
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 4.0209966, z: 4}
-  m_Center: {x: -0.021884441, y: 2.0030034, z: 0.12532794}
+  m_Size: {x: 5, y: 5.8642387, z: 4}
+  m_Center: {x: -0.021884441, y: 2.9246244, z: 0.12532806}
 --- !u!95 &4250712089907557306
 Animator:
   serializedVersion: 7

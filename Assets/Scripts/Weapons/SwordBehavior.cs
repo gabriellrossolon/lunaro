@@ -39,7 +39,6 @@ public class SwordBehavior : MonoBehaviour
             EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
             Animator enemyAnim = other.GetComponent<Animator>();
 
-            GameManager.Instance.TriggerSlowMotion();
 
             if (enemyAnim != null)
                 enemyAnim.SetTrigger("hurt");
@@ -53,6 +52,8 @@ public class SwordBehavior : MonoBehaviour
 
             if (enemyFSM != null)
                 enemyFSM.DoDamage(playerStatus.damage);
+
+            GameManager.Instance.TriggerSlowMotion();
         }
     }
 }

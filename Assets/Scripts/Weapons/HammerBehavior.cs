@@ -38,9 +38,7 @@ public class HammerBehavior : MonoBehaviour
         {
             EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
             EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
-            Animator enemyAnim = other.GetComponent<Animator>();
-
-            GameManager.Instance.TriggerSlowMotion();
+            Animator enemyAnim = other.GetComponent<Animator>(); 
 
             if (enemyAnim != null)
                 enemyAnim.SetTrigger("hurt");
@@ -54,6 +52,8 @@ public class HammerBehavior : MonoBehaviour
 
             if (enemyFSM != null)
                 enemyFSM.DoDamage(playerStatus.damage);
+
+            GameManager.Instance.TriggerSlowMotion();
         }
     }
 }
