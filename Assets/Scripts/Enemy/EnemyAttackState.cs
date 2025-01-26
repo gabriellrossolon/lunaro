@@ -47,7 +47,16 @@ public class EnemyAttackState : IState
 
     public void OnTick()
     {
+        LookAtPlayer();
         StateChange();
+    }
+
+    private void LookAtPlayer()
+    {
+        Vector3 directionToPlayer = (_playerTransform.position - _transform.position).normalized;
+
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+        _transform.rotation = Quaternion.Slerp(_transform.rotation, lookRotation, Time.deltaTime * 10f); // Suavizar rotação.
     }
 
     private void StateChange()

@@ -23,7 +23,7 @@ public class EnemyFSM : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _transform = this.transform;
-        _playerTransform = PlayerManager.Instance.transform;
+        _playerTransform = GameObject.FindWithTag("Player").transform;
         _enemyStats = GetComponent<EnemyStats>();
         _animator = GetComponent<Animator>();
         _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();
@@ -39,6 +39,11 @@ public class EnemyFSM : MonoBehaviour
         _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects));
 
         _fsm.SetInitialState("Patrol");
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Update()

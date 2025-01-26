@@ -18,6 +18,7 @@ public class EnemyDeathState : IState
     private List<Material> _materials;
     private bool _hasStartedDissolving = false;
 
+
     public EnemyDeathState(StateMachine fsm, Animator animator,
         Transform transform, Transform playerTransform,
         EnemyStats enemyStats, NavMeshAgent agent, EnemyEffects enemyEffects)
@@ -35,6 +36,7 @@ public class EnemyDeathState : IState
 
     public void OnEnter()
     {
+        ClearAllForces();
         DisableComponents();
         _animator.SetTrigger("death");
         PlayerManager.Instance.playerStatus.ControlGold(_enemyStats.goldCarryed);
@@ -70,7 +72,8 @@ public class EnemyDeathState : IState
             _transform.GetComponent<CapsuleCollider>(),
             _transform.GetComponent<BoxCollider>(),
             _agent,
-            _enemyEffects
+            _enemyEffects,
+            //_animator
         })
         {
             if (component is Behaviour behaviour)
@@ -110,7 +113,10 @@ public class EnemyDeathState : IState
             }
         }
     }
+
+    void ClearAllForces()
+    {
+        _agent.speed = 0;
+        _agent.isStopped = true;
+    }
 }
-
-
-
