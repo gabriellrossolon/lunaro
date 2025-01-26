@@ -1,5 +1,6 @@
 using UnityEngine.AI;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyFSM : MonoBehaviour
 {
@@ -12,12 +13,15 @@ public class EnemyFSM : MonoBehaviour
     private EnemyWeaponBehavior _enemyWeaponBehavior;
     private EnemyEffects _enemyEffects;
     private AudioSource _enemySoundSource;
+    private EnemyFSM _enemyFSM;
 
     public StateMachine FSM => _fsm;
 
     [Header("Debug")]
     public string _currentState;
     public string _previousState;
+
+    public bool isRagdoll;
 
     private void Awake()
     {
@@ -29,6 +33,7 @@ public class EnemyFSM : MonoBehaviour
         _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();
         _enemyEffects = GetComponent<EnemyEffects>();
         _enemySoundSource = GetComponent<AudioSource>();
+        _enemyFSM = this;
 
         _fsm = new();
         _fsm.AddState("Idle", new EnemyIdleState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent));
@@ -36,7 +41,7 @@ public class EnemyFSM : MonoBehaviour
         _fsm.AddState("Chase", new EnemyChaseState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
         _fsm.AddState("Attack", new EnemyAttackState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator, _enemyEffects, _enemySoundSource));
         _fsm.AddState("Retreat", new EnemyRetreatState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
-        _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects));
+        _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects, _enemyFSM));
 
         _fsm.SetInitialState("Patrol");
     }

@@ -12,16 +12,18 @@ public class EnemyDeathState : IState
     private readonly EnemyStats _enemyStats;
     private readonly NavMeshAgent _agent;
     private readonly EnemyEffects _enemyEffects;
+    private readonly EnemyFSM _enemyFSM;
 
     private float _dissolveTimer = 5f;
-    private float _delayTimer = 1f;
+    private float _delayTimer = 0.5f;
     private List<Material> _materials;
     private bool _hasStartedDissolving = false;
 
 
     public EnemyDeathState(StateMachine fsm, Animator animator,
         Transform transform, Transform playerTransform,
-        EnemyStats enemyStats, NavMeshAgent agent, EnemyEffects enemyEffects)
+        EnemyStats enemyStats, NavMeshAgent agent, EnemyEffects enemyEffects,
+        EnemyFSM enemyFSM)
     {
         _fsm = fsm;
         _animator = animator;
@@ -30,6 +32,7 @@ public class EnemyDeathState : IState
         _enemyStats = enemyStats;
         _agent = agent;
         _enemyEffects = enemyEffects;
+        _enemyFSM = enemyFSM;
 
         InitializeMaterials();
     }
@@ -69,17 +72,29 @@ public class EnemyDeathState : IState
     {
         foreach (var component in new Component[]
         {
-            _transform.GetComponent<CapsuleCollider>(),
-            _transform.GetComponent<BoxCollider>(),
-            _agent,
-            _enemyEffects,
-            //_animator
+        _transform.GetComponent<CapsuleCollider>(),
+        _transform.GetComponent<BoxCollider>(),
+        _transform.GetComponent<Rigidbody>(),
+        _agent,
+        _enemyEffects,
+        _animator
         })
         {
-            if (component is Behaviour behaviour)
-                behaviour.enabled = false;
+            if (component == _animator)
+            {
+                if (_enemyFSM.isRagdoll)
+                {
+                    _animator.enabled = false;
+                }
+            }
             else if (component is Collider collider)
+            {
                 collider.enabled = false;
+            }
+            else if (component is Behaviour behaviour)
+            {
+                behaviour.enabled = false;
+            }
         }
     }
 
@@ -97,7 +112,7 @@ public class EnemyDeathState : IState
         if (_materials != null && _materials.Count > 0)
         {
             _dissolveTimer -= Time.deltaTime;
-            float dissolveAmount = Mathf.Lerp(0, 1, 1 - (_dissolveTimer / 3f));
+            float dissolveAmount = Mathf.Lerp(0, 1, 1 - (_dissolveTimer / 6f));
 
             foreach (var material in _materials)
             {
