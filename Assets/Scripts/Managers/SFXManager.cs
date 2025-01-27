@@ -42,6 +42,12 @@ public class SFXManager : MonoBehaviour
             ambientSource.clip = glacialAmbientSound;
             musicSource.clip = glacialMusicSound;
         }
+        else if (scene.name == "Arena")
+        {
+            ambientSource.clip = arenaAmbientSound;
+            musicSource.clip = arenaMusicSound;
+        }
+
         ambientSource.Play();
         musicSource.Play();
     }
@@ -51,12 +57,14 @@ public class SFXManager : MonoBehaviour
     public AudioClip HUBAmbientSound;
     public AudioClip dungeonAmbientSound;
     public AudioClip glacialAmbientSound;
+    public AudioClip arenaAmbientSound;
 
     [Header("Scene Music")]
     public AudioSource musicSource;
     public AudioClip HUBMusicSound;
     public AudioClip dungeonMusicSound;
     public AudioClip glacialMusicSound;
+    public AudioClip arenaMusicSound;
 
     [Header("Player Foot SFX")]
     public AudioSource playerFootSource;

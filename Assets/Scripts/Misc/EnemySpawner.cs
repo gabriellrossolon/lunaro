@@ -8,11 +8,22 @@ public class DungeonSpawner : MonoBehaviour
     public int numberOfEnemiesToSpawn = 5;
 
     private List<Transform> spawnPoints = new List<Transform>();
+    private List<GameObject> activeEnemies = new List<GameObject>();
+
+    [SerializeField] private bool continousSpawner;
 
     void Start()
     {
         FindSpawnPoints();
         SpawnEnemies();
+    }
+
+    void Update()
+    {
+        if (continousSpawner && AllEnemiesDestroyed())
+        {
+            SpawnEnemies();
+        }
     }
 
     void FindSpawnPoints()
@@ -30,6 +41,7 @@ public class DungeonSpawner : MonoBehaviour
             return;
 
         HashSet<int> usedSpawnPoints = new HashSet<int>();
+        activeEnemies.Clear();
 
         for (int i = 0; i < numberOfEnemiesToSpawn; i++)
         {
@@ -44,7 +56,14 @@ public class DungeonSpawner : MonoBehaviour
             usedSpawnPoints.Add(randomSpawnIndex);
             Transform spawnPoint = spawnPoints[randomSpawnIndex];
 
-            Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
+            GameObject spawnedEnemy = Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
+            activeEnemies.Add(spawnedEnemy);
         }
+    }
+
+    bool AllEnemiesDestroyed()
+    {
+        activeEnemies.RemoveAll(enemy => enemy == null);
+        return activeEnemies.Count == 0;
     }
 }

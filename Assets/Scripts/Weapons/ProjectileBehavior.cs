@@ -14,7 +14,6 @@ public class ProjectileBehavior : MonoBehaviour
     public enum ProjectileType { Nothing, Magic, Arrow }
     public ProjectileType projectileType;
 
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,12 +27,24 @@ public class ProjectileBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        Destroy(gameObject, 2f);
+
+        if (projectileType == ProjectileType.Magic)
+        {
+            rb.useGravity = false; 
+            rb.linearVelocity = direction * speed; 
+        }
+        else if (projectileType == ProjectileType.Arrow)
+        {
+            rb.useGravity = true; 
+            LaunchArrow(); 
+        }
+
+        Destroy(gameObject, 5f); // Destroi o projétil após 5 segundos
     }
 
-    private void FixedUpdate()
+    private void LaunchArrow()
     {
-        rb.linearVelocity = direction * speed;
+        rb.AddForce(direction * speed, ForceMode.VelocityChange);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,18 +54,19 @@ public class ProjectileBehavior : MonoBehaviour
             EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
             Animator enemyAnim = other.GetComponent<Animator>();
 
-            if(enemyAnim != null)
+            if (enemyAnim != null)
                 enemyAnim.SetTrigger("hurt");
 
             if (enemyFSM != null)
                 enemyFSM.DoDamage(playerStatus.damage);
 
             GameManager.Instance.TriggerSlowMotion();
-
         }
+
         if (!other.CompareTag("Player"))
         {
             EnemyEffects enemyFX = other.GetComponent<EnemyEffects>();
+
             if (projectileType == ProjectileType.Magic)
             {
                 GameObject collParticle = Instantiate(collisionParticle, transform.position, transform.rotation);
@@ -73,6 +85,7 @@ public class ProjectileBehavior : MonoBehaviour
                     collParticle.GetComponent<AudioSource>().PlayOneShot(projectileImpactSound);
                 }
             }
+
             Destroy(this.gameObject);
         }
     }

@@ -52,6 +52,14 @@ public class TeleportManager : MonoBehaviour
         StartCoroutine(LoadSceneWithLoading("MainMenu"));
         GameManager.Instance.PauseGame();
     }
+    public void GoToArena()
+    {
+        HudManager.Instance.OpenTeleportPage();
+        transition.GetComponent<Animator>().SetTrigger("start");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        StartCoroutine(LoadSceneWithLoading("Arena"));
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
+    }
 
     private IEnumerator LoadSceneWithLoading(string sceneName)
     {
