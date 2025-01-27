@@ -93,6 +93,8 @@ public class SFXManager : MonoBehaviour
     public AudioClip teleportSound;
     public AudioClip drinkSound;
     public AudioClip chestOpeningSound;
+    public AudioClip xpCollectSound;
+    public AudioClip levelUpSound;
 
     // Layers for detection
     [Header("Layer Mapping")]

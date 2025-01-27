@@ -27,7 +27,6 @@ public class HudManager : MonoBehaviour
     public PlayerInput playerInput;
     public GameObject warnBtn;
     public GameObject globalVolume;
-    private PlayerStatus playerStatus;
     public Texture2D cursorPointer;
     public Texture2D cursorClicker;
     public GameObject teleportsPage;
@@ -40,6 +39,8 @@ public class HudManager : MonoBehaviour
     public TextMeshProUGUI playerGoldText;
     public GameObject shortcuts;
     [HideInInspector] public Animator shortcutsAnim;
+    private PlayerStatus playerStatus;
+    private LevelBehavior levelBehavior;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -49,6 +50,10 @@ public class HudManager : MonoBehaviour
     public TextMeshProUGUI itemDmg;
     public TextMeshProUGUI itemResourceCost;
     public TextMeshProUGUI itemDesc;
+
+    [Header("Player Level References")]
+    public TextMeshProUGUI playerLevel;
+    public Slider playerExperience;
 
     [Header("Controllers")]
     private bool openedInventory = false;
@@ -74,8 +79,10 @@ public class HudManager : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        levelBehavior = PlayerManager.Instance.GetComponent<LevelBehavior>();
         shortcutsAnim = shortcuts.GetComponent<Animator>();
 
+        UpdateHUDLevel();
         UpdateHUDStats();
     }
 
@@ -134,6 +141,14 @@ public class HudManager : MonoBehaviour
             hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
     }
 
+    public void UpdateHUDLevel()
+    {
+        playerExperience.maxValue = levelBehavior.experienceToUp;
+        playerExperience.value = levelBehavior.experience;
+
+        playerLevel.text = levelBehavior.level.ToString();
+    }
+
     //OPEN UI FUNCTIONS
     private void OpenInventory()
     {
@@ -142,8 +157,6 @@ public class HudManager : MonoBehaviour
 
         itemShow.SetActive(false);
     }
-
-
 
     public void OpenStashUI()
     {

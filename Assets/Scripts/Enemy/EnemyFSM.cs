@@ -105,6 +105,12 @@ public class EnemyFSM : MonoBehaviour
     {
         _enemyWeaponBehavior.CallProjectile();
     }
+
+    public void DropXp()
+    {
+        GameObject xpOrb = Instantiate(_enemyEffects.xpOrb, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        xpOrb.GetComponent<ExperienceOrbBehavior>().xpValue = _enemyStats.xpCarryed;
+    }
 }
 
 

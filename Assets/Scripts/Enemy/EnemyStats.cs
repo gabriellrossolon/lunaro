@@ -17,7 +17,9 @@ public class EnemyStats : MonoBehaviour
     public float currentHp;
 
     public float goldCarryed;
-    [SerializeField] private Vector2 goldRange; 
+    [SerializeField] private Vector2 goldRange;
+
+    public float xpCarryed;
     private void Start()
     {
         currentHp = maxHp;

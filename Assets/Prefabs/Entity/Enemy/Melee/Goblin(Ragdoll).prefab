@@ -304,6 +304,7 @@ MonoBehaviour:
   currentHp: 0
   goldCarryed: 0
   goldRange: {x: 1, y: 3}
+  xpCarryed: 2
 --- !u!114 &2925835889830671311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +322,7 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 8f4145a2be3c6094ca4a14d28f6230e4, type: 3}
   attackImpactSound: {fileID: 8300000, guid: 049af9b7b2c2143449d180d41f4df9c5, type: 3}
   enemyGrunt: {fileID: 8300000, guid: f0b4f5599cae7bd4786b42d2492b3d25, type: 3}
+  xpOrb: {fileID: 3338034077606413047, guid: 06a4b2a93674c6647873404ebdaf42c7, type: 3}
   attackTakenSound: {fileID: 8300000, guid: 049af9b7b2c2143449d180d41f4df9c5, type: 3}
   attackTakenParticle: {fileID: 6600992782611876899, guid: 6f315d0b88f296b489a8c91cfa4999b2, type: 3}
 --- !u!195 &1945275020689305732

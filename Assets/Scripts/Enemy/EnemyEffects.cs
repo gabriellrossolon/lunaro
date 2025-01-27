@@ -15,6 +15,9 @@ public class EnemyEffects : MonoBehaviour
 
     public AudioClip enemyGrunt;
 
+    [Header("XP")]
+    public GameObject xpOrb;
+
     [Header("Takenned Attacks")]
     public AudioClip attackTakenSound;
     public GameObject attackTakenParticle;

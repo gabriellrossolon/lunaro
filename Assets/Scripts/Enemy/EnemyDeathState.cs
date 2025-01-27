@@ -43,6 +43,7 @@ public class EnemyDeathState : IState
         DisableComponents();
         _animator.SetTrigger("death");
         PlayerManager.Instance.playerStatus.ControlGold(_enemyStats.goldCarryed);
+        _enemyFSM.DropXp();
     }
 
     public void OnExit() { }
