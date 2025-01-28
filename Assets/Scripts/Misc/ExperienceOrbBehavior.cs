@@ -1,14 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using static Unity.Burst.Intrinsics.X86;
 
 public class ExperienceOrbBehavior : MonoBehaviour
 {
     [SerializeField] private float attractionSpeed = 3f;
-    [SerializeField] private float upwardImpulse = 3f;
     [SerializeField] private float attractionDistance = 8f;
+    [SerializeField] private float throwRadius = 4f;
+    [SerializeField] private float throwHeight = 4f;
+    [SerializeField] private float throwForce = 4f;
 
     private Rigidbody rb;
     private Transform player;
+    [SerializeField] private Collider triggerColl; 
 
     public float xpValue;
 
@@ -19,7 +23,9 @@ public class ExperienceOrbBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         player = PlayerManager.Instance.transform;
 
-        rb.linearVelocity = new Vector3(0, upwardImpulse, 0);
+        Vector3 randomDirection = new Vector3(Random.Range(-throwRadius, throwRadius), Random.Range(throwHeight * 0.5f, throwHeight), Random.Range(0f, throwRadius));
+        rb.AddForce(randomDirection.normalized * throwForce, ForceMode.Impulse);
+
 
         StartCoroutine(ActivateMovementAfterDelay(1f));
 
@@ -50,6 +56,7 @@ public class ExperienceOrbBehavior : MonoBehaviour
     private IEnumerator ActivateMovementAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        triggerColl.enabled = true;
         canGoToPlayer = true;
     }
 }

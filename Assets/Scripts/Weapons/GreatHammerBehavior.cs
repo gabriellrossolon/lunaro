@@ -53,7 +53,7 @@ public class GreatHammerBehavior : MonoBehaviour
             if (enemyFSM != null)
                 enemyFSM.DoDamage(playerStatus.damage);
 
-            GameManager.Instance.TriggerSlowMotion(0.2f, 0.2f);
+            GameManager.Instance.TriggerSlowMotion(0.1f, 0.2f);
         }
     }
 }
