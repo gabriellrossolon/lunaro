@@ -82,6 +82,7 @@ public class EnemyFSM : MonoBehaviour
 
     public void Retreat()
     {
+        _agent.isStopped = false;
         if (_enemyStats.currentHp > 0)
             _fsm.SetState("Retreat");
     }

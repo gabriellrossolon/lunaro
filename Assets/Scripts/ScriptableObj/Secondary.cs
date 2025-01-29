@@ -13,4 +13,7 @@ public class Secondary : ItemBase
     public AudioClip blockSound;
     public float resourceCost;
 
+    [Header("If Orb")]
+    public float damage;
+    public GameObject skillPrefab;
 }

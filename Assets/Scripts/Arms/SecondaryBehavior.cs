@@ -16,6 +16,7 @@ public class SecondaryBehavior : MonoBehaviour
 
     public WeaponBehavior weaponBeh;
 
+    private bool canUseSkill = true;
     private void Start()
     {
         secondaryAnim = GetComponent<Animator>();
@@ -29,25 +30,63 @@ public class SecondaryBehavior : MonoBehaviour
             secondaryAnim.SetBool("isBlocking", blocking);
             blocking = blockInputReceived && playerStatus.currentStamina >= resourceCost;
         }
+        else if (secondaryType == SecondaryType.Orb)
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && canUseSkill && playerStatus.currentMana >= resourceCost)
+            {
+                secondaryAnim.SetTrigger("orbAttack");
+            }
+        }
 
         armBonesAnim.SetBool("isWithOrb", secondaryType == SecondaryType.Orb);
         armBonesAnim.SetBool("isWithShield", secondaryType == SecondaryType.Shield);
         armBonesAnim.SetBool("isWithBook", secondaryType == SecondaryType.Book);
     }
 
-    //Funções do Weapon Behavior
-    public void CanAttack()
+    public void CallProjectileInLeft()
     {
-        weaponBeh.CanAttack();
+        var magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
+        if(magicOrbBeh != null)
+        {
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
+
+            GameObject newProjectile = Instantiate(magicOrbBeh.skillPrefab, magicOrbBeh.exitPoint.transform.position, Quaternion.identity);
+            ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
+            projectileScript.projectileDamage = magicOrbBeh.damage;
+            projectileScript.SetDirection(Camera.main.transform.forward);
+        }
     }
 
-    public void CallProjectile()
+    public void CanUseSkill()
     {
-        weaponBeh.CallProjectile();
+        canUseSkill = !canUseSkill;
+    }
+
+    public void ConsumeMana()
+    {
+        playerStatus.SubtractMana(resourceCost);
     }
 
     public void ConsumeStamina()
     {
-        weaponBeh.ConsumeStamina();
+        playerStatus.SubtractStamina(resourceCost);
     }
+
+
+    //Funções do Weapon Behavior
+    //public void CanAttack()
+    //{
+    //    weaponBeh.CanAttack();
+    //}
+
+    //public void CallProjectile()
+    //{
+    //    weaponBeh.CallProjectile();
+    //}
+
+    //public void ConsumeStamina()
+    //{
+    //    weaponBeh.ConsumeStamina();
+    //}
 }

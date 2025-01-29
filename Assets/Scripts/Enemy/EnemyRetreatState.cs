@@ -28,17 +28,17 @@ public class EnemyRetreatState : IState
 
     public void OnEnter()
     {
-        _agent.speed = _enemyStats.retreatSpeed;
-        _agent.updateRotation = false;
-        _animator.SetBool("isRetreating", true);
-
         Vector3 directionAwayFromPlayer = _transform.position - _playerTransform.position;
         Vector3 retreatPosition = _transform.position + directionAwayFromPlayer.normalized * _retreatDistance;
-
+        
         _agent.SetDestination(retreatPosition);
+        _agent.speed = _enemyStats.retreatSpeed;
 
         _randomRetreatTime = Random.Range(_enemyStats.retreatDistance.x, _enemyStats.retreatDistance.y);
         _retreatTimer = 0f;
+
+        _agent.updateRotation = false;
+        _animator.SetBool("isRetreating", true);
     }
 
     public void OnExit()

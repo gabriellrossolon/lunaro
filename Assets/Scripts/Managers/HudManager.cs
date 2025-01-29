@@ -55,6 +55,9 @@ public class HudManager : MonoBehaviour
     public TextMeshProUGUI playerLevel;
     public Slider playerExperience;
 
+    [Header("Cooldown References")]
+    public Slider dashCooldowSlider;
+
     [Header("Controllers")]
     private bool openedInventory = false;
     private bool hidedCanvas = false;

@@ -318,12 +318,22 @@ public class InventoryManager : MonoBehaviour
 
             case Secondary.SecondaryType.Orb:
                 secondaryBehavior.secondaryType = Secondary.SecondaryType.Orb;
+                secondaryBehavior.resourceCost = equippedSecondary.resourceCost;
                 break;
 
             case Secondary.SecondaryType.Book:
                 secondaryBehavior.secondaryType = Secondary.SecondaryType.Book;
                 break;
+        }
 
+        if (lastInstantiatedSecondary.TryGetComponent<MagicBookBehavior>(out var magicBookBehavior))
+        {
+            magicBookBehavior.skillPrefab = equippedSecondary.skillPrefab;
+        }
+        else if (lastInstantiatedSecondary.TryGetComponent<MagicOrbBehavior>(out var magicOrbBehavior))
+        {
+            magicOrbBehavior.skillPrefab = equippedSecondary.skillPrefab;
+            magicOrbBehavior.damage = equippedSecondary.damage;
         }
     }
 

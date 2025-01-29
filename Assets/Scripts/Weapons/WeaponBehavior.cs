@@ -340,19 +340,28 @@ public class WeaponBehavior : MonoBehaviour
     {
         if(weaponType == Weapon.WeaponType.Staff)
         {
+            var staffBeh = GetComponentInChildren<StaffBehavior>();
+
+            GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, transform.rotation);
+            ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
+            projectileScript.projectileDamage = staffBeh.damage;
+            projectileScript.SetDirection(transform.forward);
+
             SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
             SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
         }
         else if (weaponType == Weapon.WeaponType.Bow)
         {
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-            if(SFXManager.Instance.bowSwooshSound != null)
-                SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.bowSwooshSound);
-        }
+            var bowBeh = GetComponentInChildren<BowBehavior>();
 
-        GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, transform.rotation);
-        ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
-        projectileScript.SetDirection(transform.forward);
+            GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, transform.rotation);
+            ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
+            projectileScript.projectileDamage = bowBeh.damage;
+            projectileScript.SetDirection(transform.forward);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.bowSwooshSound);
+        }
     }
 
     public void CallBurst()
@@ -365,8 +374,12 @@ public class WeaponBehavior : MonoBehaviour
         else
         {
             currentBeam = Instantiate(beamPrefab, projectileExitPoint.transform.position, projectileExitPoint.transform.rotation, projectileExitPoint.transform);
+            var beamBeh = currentBeam.GetComponent<BeamBehavior>();
+            var staffBeh = GetComponentInChildren<StaffBehavior>();
 
-            VisualEffect projectileEffect = currentBeam.GetComponentInChildren<VisualEffect>();
+            beamBeh.damage = staffBeh.damage;
+            
+                VisualEffect projectileEffect = currentBeam.GetComponentInChildren<VisualEffect>();
             if (projectileEffect != null)
             {
                 projectileEffect.Play();

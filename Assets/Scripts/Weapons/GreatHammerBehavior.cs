@@ -18,13 +18,13 @@ public class GreatHammerBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        playerStatus.ControlBaseDamage(damage);
+        //playerStatus.ControlBaseDamage(damage);
     }
 
     private void OnDestroy()
     {
-        if (playerStatus != null)
-            playerStatus.ControlBaseDamage(-damage);
+        //if (playerStatus != null)
+            //playerStatus.ControlBaseDamage(-damage);
     }
 
     private void Update()
@@ -51,7 +51,7 @@ public class GreatHammerBehavior : MonoBehaviour
             }
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(playerStatus.damage);
+                enemyFSM.DoDamage(damage + playerStatus.damage);
 
             GameManager.Instance.TriggerSlowMotion(0.1f, 0.2f);
         }

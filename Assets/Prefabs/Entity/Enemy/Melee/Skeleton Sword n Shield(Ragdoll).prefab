@@ -222,7 +222,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -740,7 +740,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -857,8 +857,8 @@ Transform:
   m_GameObject: {fileID: 1401391915806908183}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.2145137, z: 0, w: 0.976721}
-  m_LocalPosition: {x: -1.4302465, y: -1.6904786, z: 0.911497}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: -1.4302465, y: -1.69, z: 0.911497}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5662021090200348952}
@@ -896,7 +896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 15
   patrolRadius: 10
-  attackRange: 2.3
+  attackRange: 2.4
   patrolSpeed: 2
   chaseSpeed: 2
   retreatSpeed: 2
@@ -1016,7 +1016,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.2999998, y: 2.4024575, z: 1.2}
   m_Center: {x: 0.0030154919, y: 1.2012287, z: 0.041292768}
@@ -1400,7 +1400,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1722,7 +1722,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2015,7 +2015,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2307,7 +2307,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -2782,7 +2782,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -3228,7 +3228,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -3323,7 +3323,7 @@ GameObject:
   - component: {fileID: 8923540077085308917}
   - component: {fileID: 6219217849604409789}
   - component: {fileID: 4587076785202168855}
-  - component: {fileID: 987558671978312892}
+  - component: {fileID: 3400428418385650087}
   m_Layer: 0
   m_Name: PT_Sword_01_a
   m_TagString: Untagged
@@ -3420,8 +3420,8 @@ MonoBehaviour:
   projectileExit: {fileID: 0}
   damage: 0
   attackBlockedByPlayer: 0
---- !u!64 &987558671978312892
-MeshCollider:
+--- !u!65 &3400428418385650087
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3438,10 +3438,9 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2544109580854566363, guid: c4ee69f08dc865c458547e9a01d06ab7, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.8261018, z: 0.1}
+  m_Center: {x: 0.0000022696288, y: -0.47963443, z: 0.0000005260812}
 --- !u!1 &5638246823582004890
 GameObject:
   m_ObjectHideFlags: 0
@@ -3714,7 +3713,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -3941,7 +3940,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -4164,7 +4163,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -4358,7 +4357,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
