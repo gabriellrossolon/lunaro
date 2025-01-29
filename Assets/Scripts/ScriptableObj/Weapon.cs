@@ -22,4 +22,7 @@ public class Weapon : ItemBase
     [Header("If GreatHammer")]
     public GameObject earthquake;
 
+    [Header("If GreatSword")]
+    public GameObject circularCut;
+
 }

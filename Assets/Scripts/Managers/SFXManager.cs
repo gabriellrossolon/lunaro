@@ -88,6 +88,9 @@ public class SFXManager : MonoBehaviour
     public AudioClip magicCastSound;
     public AudioClip bowSwooshSound;
 
+    [Header("Player Skills SFX")]
+    public AudioClip circularCutSound;
+
     [Header("UI SFX")]
     public AudioSource UIMiscSource;
     public AudioClip btnHoverSound;

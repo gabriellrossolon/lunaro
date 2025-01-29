@@ -77,7 +77,7 @@ public class GreatHammerBehavior : MonoBehaviour
     //Special Attacks
     public void UseEarthquake(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack)
+        if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
         {
             weaponAnim.SetTrigger("greatHammerSpecial");
         }
@@ -85,12 +85,14 @@ public class GreatHammerBehavior : MonoBehaviour
     }
     public void CallEarthquakePrefab() //Quem instancia o Earthquake (Especial do GreatHammer) é a propria animation;
     {
+        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
+
         GameObject currentEarthquake = Instantiate(earthquakePrefab, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
 
-        var greatHamBeh = GetComponentInChildren<GreatHammerBehavior>();
         var explosionBeh = currentEarthquake.GetComponent<ExplosionBehavior>();
 
-        explosionBeh.explosionDamage = greatHamBeh.damage;
+        explosionBeh.explosionDamage = damage;
     }
 
 

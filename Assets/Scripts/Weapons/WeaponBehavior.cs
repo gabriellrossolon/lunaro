@@ -176,13 +176,16 @@ public class WeaponBehavior : MonoBehaviour
             var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
             greatHammerBeh.UseEarthquake(chargedAttack, resourceCost, canAttack, weaponAnim);
         }
-
+        if (weaponType == Weapon.WeaponType.GreatSword)
+        {
+            var greatSwordrBeh = GetComponentInChildren<GreatSwordBehavior>();
+            greatSwordrBeh.UseCircularCut(chargedAttack, resourceCost, canAttack, weaponAnim);
+        }
         if (weaponType == Weapon.WeaponType.Staff)
         {
             var staffBeh = GetComponentInChildren<StaffBehavior>();
             staffBeh.UseMagicBeam(chargedAttack, resourceCost, weaponAnim);
         }
-
         if (weaponType == Weapon.WeaponType.Bow)
         {
             var bowBeh = GetComponentInChildren<BowBehavior>();
@@ -193,7 +196,6 @@ public class WeaponBehavior : MonoBehaviour
     {
         canAttack = !canAttack;
     }//Controlada pela propria animação
-
 
     //Funções de Chamada
     public void CallProjectile() //Chama o Projectile no proprio Script da arma
@@ -221,6 +223,11 @@ public class WeaponBehavior : MonoBehaviour
             case "MagicBeam":
                 var staffBeh = GetComponentInChildren<StaffBehavior>();
                 staffBeh.CallBeamPrefab();
+                break;
+
+            case "CircularCut":
+                var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
+                greatSwordBeh.CallCircularCutPrefab();
                 break;
 
             default:

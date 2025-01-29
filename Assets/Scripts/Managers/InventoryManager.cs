@@ -302,6 +302,7 @@ public class InventoryManager : MonoBehaviour
         else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
         {
             greatSwordBehavior.damage = equippedWeapon.damage;
+            greatSwordBehavior.circularCutPrefab = equippedWeapon.circularCut;
         }
 
     }

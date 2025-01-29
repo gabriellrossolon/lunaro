@@ -8,9 +8,6 @@ public class ExplosionBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-
-        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
     }
 
     private void OnTriggerEnter(Collider other)

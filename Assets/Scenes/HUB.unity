@@ -14887,6 +14887,7 @@ MonoBehaviour:
   heavyImpactSound: {fileID: 8300000, guid: b44854593a232744680cfbbd5eeb1095, type: 3}
   magicCastSound: {fileID: 8300000, guid: 5cdcbe6aa40262a4b8a52cff582bf0f8, type: 3}
   bowSwooshSound: {fileID: 8300000, guid: d0634db339fb5d34cba391843a9100a9, type: 3}
+  circularCutSound: {fileID: 8300000, guid: f9805603e36c68c4295255e4473eb368, type: 3}
   UIMiscSource: {fileID: 1148383622}
   btnHoverSound: {fileID: 8300000, guid: 0e8110f346f5863499b2cc3317220c59, type: 3}
   btnClickSound: {fileID: 8300000, guid: 4db958f17c8cd2e49a12547b09b9ea18, type: 3}
@@ -23912,10 +23913,6 @@ MonoBehaviour:
   dashAttack: 0
   jumpAttack: 0
   canAttack: 1
-  projectilePrefab: {fileID: 0}
-  beamPrefab: {fileID: 0}
-  projectileExitPoint: {fileID: 0}
-  earthquakePrefab: {fileID: 0}
   resourceCost: 0
   weaponType: 0
 --- !u!95 &1048678625
@@ -47205,15 +47202,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b76479d4a1a91b4ba0f49f54f30081a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondaryType: 0
   secondaryAnim: {fileID: 0}
   armBonesAnim: {fileID: 1300687246}
-  blockSound: {fileID: 0}
   resourceCost: 0
-  blockInputReceived: 0
+  blockInput: 0
   blocking: 0
-  skillInputReceived: 0
-  weaponBeh: {fileID: 1048678624}
+  skillInput: 0
+  secondaryType: 0
 --- !u!95 &1902067312
 Animator:
   serializedVersion: 7
