@@ -973,8 +973,8 @@ MonoBehaviour:
   attackRange: 5
   patrolSpeed: 1
   chaseSpeed: 2
-  retreatSpeed: 2
-  retreatDistance: {x: 1, y: 1.5}
+  retreatSpeed: 1.5
+  retreatDistance: {x: 2, y: 3}
   attackDamage: 7
   maxHp: 75
   currentHp: 0
@@ -1060,7 +1060,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1093,7 +1093,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 5, y: 5.765553, z: 3.1454487}
-  m_Center: {x: -0.021884441, y: 2.8752806, z: 0.2685807}
+  m_Center: {x: 0, y: 2.8752806, z: 0}
 --- !u!95 &1768337159404522990
 Animator:
   serializedVersion: 7

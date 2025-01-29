@@ -15,6 +15,11 @@ public class Weapon : ItemBase
 
     [Header("If Ranged")]
     public GameObject projectile;
+
+    [Header("If Staff")]
     public GameObject beam;
-    
+
+    [Header("If GreatHammer")]
+    public GameObject earthquake;
+
 }

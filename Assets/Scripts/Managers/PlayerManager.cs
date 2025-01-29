@@ -1,9 +1,10 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
     public PlayerStatus playerStatus;
-
+    public CinemachineVirtualCamera cinemachineCam;
     public static PlayerManager Instance;
 
     private void Awake()

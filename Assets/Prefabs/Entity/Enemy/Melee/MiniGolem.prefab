@@ -842,7 +842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 15
   patrolRadius: 10
-  attackRange: 3
+  attackRange: 2.5
   patrolSpeed: 1
   chaseSpeed: 2
   retreatSpeed: 2
@@ -932,7 +932,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -941,8 +941,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.31
-  m_Height: 4.1330914
+  m_Radius: 2
+  m_Height: 4.5
   m_Direction: 1
   m_Center: {x: 0, y: 2.0079331, z: 0}
 --- !u!65 &6098125585447596481
@@ -964,8 +964,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 5.8642387, z: 4}
-  m_Center: {x: -0.021884441, y: 2.9246244, z: 0.12532806}
+  m_Size: {x: 4, y: 5.8642387, z: 3}
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!95 &4250712089907557306
 Animator:
   serializedVersion: 7

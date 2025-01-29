@@ -20,7 +20,7 @@ public class WeaponBehavior : MonoBehaviour
     public bool jumpAttack;
     public bool canAttack = true;
     private bool emittingTrail = false;
-    
+    private bool isTimeSlowedByBow = false;
 
     [Header("Only if Melee")]
     private int attackSequence = 1;
@@ -30,6 +30,9 @@ public class WeaponBehavior : MonoBehaviour
     [HideInInspector] public GameObject beamPrefab;
     [HideInInspector] public GameObject projectileExitPoint;
     private GameObject currentBeam;
+
+    [Header("Only if GreatHammer")]
+    [HideInInspector] public GameObject earthquakePrefab;
 
     [Header("Attack Resource Cost (Stamina/Mana)")]
     public float resourceCost;
@@ -163,7 +166,49 @@ public class WeaponBehavior : MonoBehaviour
                 weaponAnim.SetBool("ChargingAttack", false);
             }
         }
+
+        if (weaponType == Weapon.WeaponType.Bow)
+        {
+            if (chargedAttack && !isTimeSlowedByBow)
+            {
+                Time.timeScale = 0.7f; 
+                StartCoroutine(SmoothFOVTransition(50f)); 
+                isTimeSlowedByBow = true;
+            }
+            else if (!chargedAttack && isTimeSlowedByBow)
+            {
+                Time.timeScale = 1f; 
+                StartCoroutine(SmoothFOVTransition(70f)); 
+                isTimeSlowedByBow = false; 
+            }
+        }
+
+        if (weaponType == Weapon.WeaponType.GreatHammer)
+        {
+            if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack)
+            {
+
+                weaponAnim.SetTrigger("greatHammerSpecial");
+            }
+            chargedAttack = false;
+
+        }
     }
+    private IEnumerator SmoothFOVTransition(float targetFOV)
+    {
+        float startFOV = PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView;
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime * 5f;
+            PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView = Mathf.Lerp(startFOV, targetFOV, t);
+            yield return null;
+        }
+
+        PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView = targetFOV;
+    }
+
 
     private void ExecuteStaffAttack()
     {
@@ -177,7 +222,7 @@ public class WeaponBehavior : MonoBehaviour
 
     private void ExecuteBowAttack()
     {
-        if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
+        if (canAttack && playerStatus.currentMana >= resourceCost)
         {
             weaponAnim.SetTrigger("bowAttack");
             GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetTrigger("attack");
@@ -364,7 +409,7 @@ public class WeaponBehavior : MonoBehaviour
         }
     }
 
-    public void CallBurst()
+    public void CallBurst() //Quem chama o Burst (Beam) é a propria animação
     {
         if (currentBeam != null)
         {
@@ -385,6 +430,16 @@ public class WeaponBehavior : MonoBehaviour
                 projectileEffect.Play();
             }
         }
+    }
+
+    public void CallEarthquake() //Quem chama o Earthquake (Especial do GreatHammer) é a propria animation;
+    {
+        GameObject currentEarthquake = Instantiate(earthquakePrefab, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
+
+        var greatHamBeh = GetComponentInChildren<GreatHammerBehavior>();
+        var explosionBeh = currentEarthquake.GetComponent<ExplosionBehavior>();
+
+        explosionBeh.explosionDamage = greatHamBeh.damage;
     }
 
     private IEnumerator HandleChargingAttack()

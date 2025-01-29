@@ -14,6 +14,8 @@ public class SecondaryBehavior : MonoBehaviour
     [HideInInspector] public bool blockInputReceived = false;
     [HideInInspector] public bool blocking = false;
 
+    [HideInInspector] public bool skillInputReceived = false;
+
     public WeaponBehavior weaponBeh;
 
     private bool canUseSkill = true;
@@ -32,10 +34,11 @@ public class SecondaryBehavior : MonoBehaviour
         }
         else if (secondaryType == SecondaryType.Orb)
         {
-            if (Input.GetKeyDown(KeyCode.Q) && canUseSkill && playerStatus.currentMana >= resourceCost)
+            if (skillInputReceived && canUseSkill && playerStatus.currentMana >= resourceCost)
             {
                 secondaryAnim.SetTrigger("orbAttack");
             }
+            skillInputReceived = false;
         }
 
         armBonesAnim.SetBool("isWithOrb", secondaryType == SecondaryType.Orb);

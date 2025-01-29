@@ -28,6 +28,7 @@ public class EnemyRetreatState : IState
 
     public void OnEnter()
     {
+        _agent.isStopped = false;
         Vector3 directionAwayFromPlayer = _transform.position - _playerTransform.position;
         Vector3 retreatPosition = _transform.position + directionAwayFromPlayer.normalized * _retreatDistance;
         

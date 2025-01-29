@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject rightHandHolder;
     public GameObject leftHandHolder;
     private PlayerStatus playerStatus;
+    private InputHandler _inputHandler;
     public WeaponBehavior rightWeaponBehavior;
     public SecondaryBehavior secondaryBehavior;
 
@@ -63,6 +64,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        _inputHandler = PlayerManager.Instance.GetComponent<InputHandler>();
         GenerateInventorySlots();
         GenerateStashSlots();
     }
@@ -296,7 +298,8 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatHammerBehavior>(out var greatHammerBehavior))
         {
-            greatHammerBehavior.damage = equippedWeapon.damage;
+            rightWeaponBehavior.earthquakePrefab = equippedWeapon.earthquake;
+            greatHammerBehavior.damage = equippedWeapon.damage; 
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
         {
@@ -425,7 +428,7 @@ public class InventoryManager : MonoBehaviour
     //AVULSOS
     public void PotionControll()
     {
-        if (equippedPotion != null && Input.GetKeyDown(KeyCode.F))
+        if (equippedPotion != null && _inputHandler.potionInput)
         {
             if (potionsCount <= 0)
                 return;
@@ -452,6 +455,8 @@ public class InventoryManager : MonoBehaviour
             }
             SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.drinkSound);
             potionsCount--;
+
+            _inputHandler.potionInput = false;
 
         }
         if (potionsCount < maxPotionsCount)

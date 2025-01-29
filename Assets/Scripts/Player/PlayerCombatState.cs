@@ -46,6 +46,7 @@ public class PlayerCombatState : IState
     {
         Attack();
         Block();
+        Skill();
         CombatMovement();
         StateChange();
     }
@@ -79,6 +80,18 @@ public class PlayerCombatState : IState
                 _weaponBehavior.chargedAttack = false;
             }
         } 
+    }
+
+    private void Skill()
+    {
+        if(_secondaryBehavior != null)
+        {
+            if(_inputHandler.skillInput && !TempParent.Instance.isHoldingAnything)
+            {
+                _secondaryBehavior.skillInputReceived = true;
+            }
+            _inputHandler.skillInput = false;
+        }
     }
 
     private void CombatMovement()
