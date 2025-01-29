@@ -9,6 +9,8 @@ public class GreatSwordBehavior : MonoBehaviour
 
     [HideInInspector] public Collider weaponColl;
 
+    private int attackSequence = 1;
+
     private void Awake()
     {
         weaponColl = GetComponent<Collider>();
@@ -17,18 +19,56 @@ public class GreatSwordBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        //playerStatus.ControlBaseDamage(damage);
     }
-
-    private void OnDestroy()
-    {
-        //if (playerStatus != null)
-        //    playerStatus.ControlBaseDamage(-damage);
-    }
-
     private void Update()
     {
         weaponColl.enabled = colliderEnabled;
+    }
+
+    //Attack Variations (Only Basic Attacks)
+
+    public void ExecuteGreatSwordAttack(bool canAttack, float resourceCost, Animator weaponAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("greatSwordAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("greatSwordAttack2");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteGreatSwordDashAttack(bool canAttack, float resourceCost, Animator weaponAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            weaponAnim.SetTrigger("greatSwordDashAttack");
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteGreatSwordJumpAttack(bool canAttack, float resourceCost, Animator weaponAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            weaponAnim.SetTrigger("greatSwordJumpAttack");
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

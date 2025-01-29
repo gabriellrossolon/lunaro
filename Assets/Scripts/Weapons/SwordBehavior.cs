@@ -9,6 +9,8 @@ public class SwordBehavior : MonoBehaviour
 
     [HideInInspector] public Collider weaponColl;
 
+    private int attackSequence = 1;
+
     private void Awake()
     {
         weaponColl = GetComponent<Collider>();
@@ -17,18 +19,115 @@ public class SwordBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        //playerStatus.ControlBaseDamage(damage);
-    }
-
-    private void OnDestroy()
-    {
-        //if (playerStatus != null)
-        //    playerStatus.ControlBaseDamage(-damage);
     }
 
     private void Update()
     {
         weaponColl.enabled = colliderEnabled;
+    }
+
+    //Attack Variations (Only Basic Attacks)
+
+    public void ExecuteSwordAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("swordAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("swordAttack2");
+                    attackSequence++;
+                    break;
+                case 3:
+                    weaponAnim.SetTrigger("swordAttack3");
+                    attackSequence++;
+                    break;
+                case 4:
+                    weaponAnim.SetTrigger("swordAttack4");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteSwordDashAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("swordAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("swordAttack2");
+                    attackSequence++;
+                    break;
+                case 3:
+                    weaponAnim.SetTrigger("swordAttack3");
+                    attackSequence++;
+                    break;
+                case 4:
+                    weaponAnim.SetTrigger("swordAttack4");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteSwordJumpAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("swordAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("swordAttack2");
+                    attackSequence++;
+                    break;
+                case 3:
+                    weaponAnim.SetTrigger("swordAttack3");
+                    attackSequence++;
+                    break;
+                case 4:
+                    weaponAnim.SetTrigger("swordAttack4");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

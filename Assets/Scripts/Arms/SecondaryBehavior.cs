@@ -3,22 +3,22 @@ using static Secondary;
 
 public class SecondaryBehavior : MonoBehaviour
 {
+    [Header("References")]
     private PlayerStatus playerStatus;
-    public SecondaryType secondaryType;
     [HideInInspector] public Animator secondaryAnim;
     public Animator armBonesAnim;
 
-    [HideInInspector] public AudioClip blockSound;
+    [Header("Use Resource Cost (Stamina/Mana")]
     [HideInInspector] public float resourceCost;
 
-    [HideInInspector] public bool blockInputReceived = false;
-    [HideInInspector] public bool blocking = false;
-
-    [HideInInspector] public bool skillInputReceived = false;
-
-    public WeaponBehavior weaponBeh;
-
+    [Header("Controllers")]
+    public bool blockInput = false;
+    public bool blocking = false;
+    public bool skillInput = false;
     private bool canUseSkill = true;
+
+    public SecondaryType secondaryType;
+
     private void Start()
     {
         secondaryAnim = GetComponent<Animator>();
@@ -27,37 +27,62 @@ public class SecondaryBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (secondaryType == SecondaryType.Shield)
+        ChooseAction();
+        ControlAnimations();
+    }
+
+    private void ChooseAction()
+    {
+        if (skillInput)
         {
-            secondaryAnim.SetBool("isBlocking", blocking);
-            blocking = blockInputReceived && playerStatus.currentStamina >= resourceCost;
-        }
-        else if (secondaryType == SecondaryType.Orb)
-        {
-            if (skillInputReceived && canUseSkill && playerStatus.currentMana >= resourceCost)
+            switch (secondaryType)
             {
-                secondaryAnim.SetTrigger("orbAttack");
+                case SecondaryType.Orb:
+                    var magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
+                    magicOrbBeh.UseOrbSkill(canUseSkill, resourceCost, secondaryAnim);
+                    break;
+
+                case SecondaryType.Book:
+                    var magicBookBeh = GetComponentInChildren<MagicBookBehavior>();
+                    magicBookBeh.UseBookSkill();
+                    break;
             }
-            skillInputReceived = false;
+
+            skillInput = false;
         }
 
+        if (blockInput)
+        {
+            switch (secondaryType)
+            {
+                case SecondaryType.Shield:
+                    var shieldBeh = GetComponentInChildren<ShieldBehavior>();
+                    shieldBeh.UseBlock(blocking, secondaryAnim);
+
+                    blocking = blockInput && playerStatus.currentStamina >= resourceCost;
+                    break;
+            }
+        }
+    }
+
+    private void ControlAnimations()
+    {
         armBonesAnim.SetBool("isWithOrb", secondaryType == SecondaryType.Orb);
         armBonesAnim.SetBool("isWithShield", secondaryType == SecondaryType.Shield);
         armBonesAnim.SetBool("isWithBook", secondaryType == SecondaryType.Book);
     }
 
+
     public void CallProjectileInLeft()
     {
-        var magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
-        if(magicOrbBeh != null)
+        if (secondaryType == SecondaryType.Orb)
         {
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
-
-            GameObject newProjectile = Instantiate(magicOrbBeh.skillPrefab, magicOrbBeh.exitPoint.transform.position, Quaternion.identity);
-            ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
-            projectileScript.projectileDamage = magicOrbBeh.damage;
-            projectileScript.SetDirection(Camera.main.transform.forward);
+            var magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
+            magicOrbBeh.CallSkillProjectilePrefab();
+        }
+        if(secondaryType == SecondaryType.Book)
+        {
+            var magicBookBeh = GetComponentInChildren<MagicBookBehavior>();
         }
     }
 
@@ -76,20 +101,9 @@ public class SecondaryBehavior : MonoBehaviour
         playerStatus.SubtractStamina(resourceCost);
     }
 
-
-    //Funções do Weapon Behavior
-    //public void CanAttack()
-    //{
-    //    weaponBeh.CanAttack();
-    //}
-
-    //public void CallProjectile()
-    //{
-    //    weaponBeh.CallProjectile();
-    //}
-
-    //public void ConsumeStamina()
-    //{
-    //    weaponBeh.ConsumeStamina();
-    //}
+    //Controll Weapon Type
+    public void SetSecondaryType(Secondary.SecondaryType type)
+    {
+        secondaryType = type;
+    }
 }

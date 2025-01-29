@@ -285,20 +285,18 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {
-            rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
-            rightWeaponBehavior.beamPrefab = equippedWeapon.beam;
+            staffBehavior.beamPrefab = equippedWeapon.beam;
+            staffBehavior.staffProjectilePrefab = equippedWeapon.projectile;
             staffBehavior.damage = equippedWeapon.damage;
-            rightWeaponBehavior.projectileExitPoint = staffBehavior.projectileExit;
         }
         else if (lastInstantiatedWeapon.TryGetComponent<BowBehavior>(out var bowBehavior))
         {
-            rightWeaponBehavior.projectilePrefab = equippedWeapon.projectile;
+            bowBehavior.bowProjectilePrefab = equippedWeapon.projectile;
             bowBehavior.damage = equippedWeapon.damage;
-            rightWeaponBehavior.projectileExitPoint = bowBehavior.projectileExit;
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatHammerBehavior>(out var greatHammerBehavior))
         {
-            rightWeaponBehavior.earthquakePrefab = equippedWeapon.earthquake;
+            greatHammerBehavior.earthquakePrefab = equippedWeapon.earthquake;
             greatHammerBehavior.damage = equippedWeapon.damage; 
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
@@ -310,28 +308,18 @@ public class InventoryManager : MonoBehaviour
     private void InstantiateAndSetupSecondary()
     {
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
+        secondaryBehavior.resourceCost = equippedSecondary.resourceCost;
 
-        switch (equippedSecondary.secondaryType)
+        secondaryBehavior.SetSecondaryType(equippedSecondary.secondaryType);
+
+        if(lastInstantiatedSecondary.TryGetComponent<ShieldBehavior>(out var shieldBehavior))
         {
-            case Secondary.SecondaryType.Shield:
-                secondaryBehavior.secondaryType = Secondary.SecondaryType.Shield;
-                secondaryBehavior.blockSound = equippedSecondary.blockSound;
-                secondaryBehavior.resourceCost = equippedSecondary.resourceCost;
-                break;
-
-            case Secondary.SecondaryType.Orb:
-                secondaryBehavior.secondaryType = Secondary.SecondaryType.Orb;
-                secondaryBehavior.resourceCost = equippedSecondary.resourceCost;
-                break;
-
-            case Secondary.SecondaryType.Book:
-                secondaryBehavior.secondaryType = Secondary.SecondaryType.Book;
-                break;
+            shieldBehavior.blockedAttackSound = equippedSecondary.blockSound;
         }
-
-        if (lastInstantiatedSecondary.TryGetComponent<MagicBookBehavior>(out var magicBookBehavior))
+        else if (lastInstantiatedSecondary.TryGetComponent<MagicBookBehavior>(out var magicBookBehavior))
         {
             magicBookBehavior.skillPrefab = equippedSecondary.skillPrefab;
+            magicBookBehavior.damage = equippedSecondary.damage;
         }
         else if (lastInstantiatedSecondary.TryGetComponent<MagicOrbBehavior>(out var magicOrbBehavior))
         {

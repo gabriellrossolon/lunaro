@@ -17,13 +17,18 @@ public class ShieldBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        blockedAttackSound = secondBeh.blockSound;
         resourceCost = secondBeh.resourceCost;
     }
 
     private void Update()
     {
         coll.enabled = secondBeh.blocking;
+    }
+
+    //Ações básicas
+    public void UseBlock(bool blocking, Animator secondaryAnim)
+    {
+        secondaryAnim.SetBool("isBlocking", blocking);
     }
 
     public void ConsumeStamina()

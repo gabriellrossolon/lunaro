@@ -71,12 +71,12 @@ public class PlayerCombatState : IState
         {
             if (_inputHandler.blockInput && !TempParent.Instance.isHoldingAnything)
             {
-                _secondaryBehavior.blockInputReceived = true;
+                _secondaryBehavior.blockInput = true;
                 _weaponBehavior.chargedAttack = true;
             }
             else
             {
-                _secondaryBehavior.blockInputReceived = false;
+                _secondaryBehavior.blockInput = false;
                 _weaponBehavior.chargedAttack = false;
             }
         } 
@@ -88,7 +88,7 @@ public class PlayerCombatState : IState
         {
             if(_inputHandler.skillInput && !TempParent.Instance.isHoldingAnything)
             {
-                _secondaryBehavior.skillInputReceived = true;
+                _secondaryBehavior.skillInput = true;
             }
             _inputHandler.skillInput = false;
         }

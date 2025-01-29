@@ -10,6 +10,8 @@ public class HammerBehavior : MonoBehaviour
     [HideInInspector] public Collider weaponColl;
     public GameObject collisionParticle;
 
+    private int attackSequence = 1;
+
     private void Awake()
     {
         weaponColl = GetComponent<Collider>();
@@ -18,18 +20,91 @@ public class HammerBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        //playerStatus.ControlBaseDamage(damage);
-    }
-
-    private void OnDestroy()
-    {
-        //if (playerStatus != null)
-        //    playerStatus.ControlBaseDamage(-damage);
     }
 
     private void Update()
     {
         weaponColl.enabled = colliderEnabled;
+    }
+
+    //Attack Variations (Only Basic Attacks)
+
+    public void ExecuteHammerAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("hammerAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("hammerAttack2");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteHammerDashAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("hammerAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("hammerAttack2");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
+    }
+
+    public void ExecuteHammerJumpAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
+    {
+        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        {
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("hammerAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("hammerAttack2");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
+            string retreatTrigger = "retreat" + Random.Range(1, 4);
+            leftHandAnim.SetTrigger(retreatTrigger);
+
+            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
+            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

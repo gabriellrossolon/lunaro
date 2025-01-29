@@ -14,25 +14,12 @@ public class WeaponBehavior : MonoBehaviour
     [SerializeField] private GameObject holdingObjectR;
 
     [Header("Controllers")]
-    [HideInInspector] public bool attack;
+    public bool attack;
     public bool chargedAttack;
     public bool dashAttack;
     public bool jumpAttack;
     public bool canAttack = true;
     private bool emittingTrail = false;
-    private bool isTimeSlowedByBow = false;
-
-    [Header("Only if Melee")]
-    private int attackSequence = 1;
-
-    [Header("Only if Ranged")]
-    [HideInInspector] public GameObject projectilePrefab;
-    [HideInInspector] public GameObject beamPrefab;
-    [HideInInspector] public GameObject projectileExitPoint;
-    private GameObject currentBeam;
-
-    [Header("Only if GreatHammer")]
-    [HideInInspector] public GameObject earthquakePrefab;
 
     [Header("Attack Resource Cost (Stamina/Mana)")]
     public float resourceCost;
@@ -63,23 +50,33 @@ public class WeaponBehavior : MonoBehaviour
         {
             switch (weaponType)
             {
-                case Weapon.WeaponType.Staff:
-                    ExecuteStaffAttack();
-                    break;
                 case Weapon.WeaponType.Sword:
-                    ExecuteSwordAttack();
+                    var swordBeh = GetComponentInChildren<SwordBehavior>();
+                    swordBeh.ExecuteSwordAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
+
                 case Weapon.WeaponType.Hammer:
-                    ExecuteHammerAttack();
-                    break;
-                case Weapon.WeaponType.Bow:
-                    ExecuteBowAttack();
-                    break;
-                case Weapon.WeaponType.GreatHammer:
-                    ExecuteGreatHammerAttack();
-                    break;
+                    var hammerBeh = GetComponentInChildren<HammerBehavior>();
+                    hammerBeh.ExecuteHammerAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
+                    break;        
                 case Weapon.WeaponType.GreatSword:
-                    ExecuteGreatSwordAttack();
+                    var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
+                    greatSwordBeh.ExecuteGreatSwordAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
+                case Weapon.WeaponType.GreatHammer:
+                    var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
+                    greatHammerBeh.ExecuteGreatHammerAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
+                case Weapon.WeaponType.Staff:
+                    var staffBeh = GetComponentInChildren<StaffBehavior>();
+                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
+                    break;
+
+                case Weapon.WeaponType.Bow:
+                    var bowBeh = GetComponentInChildren<BowBehavior>();
+                    bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
                     break;
             }
 
@@ -90,23 +87,34 @@ public class WeaponBehavior : MonoBehaviour
         {
             switch (weaponType)
             {
-                case Weapon.WeaponType.Staff:
-                    ExecuteStaffAttack();
-                    break;
                 case Weapon.WeaponType.Sword:
-                    ExecuteSwordAttack();
+                    var swordBeh = GetComponentInChildren<SwordBehavior>();
+                    swordBeh.ExecuteSwordDashAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
+
                 case Weapon.WeaponType.Hammer:
-                    ExecuteHammerAttack();
+                    var hammerBeh = GetComponentInChildren<HammerBehavior>();
+                    hammerBeh.ExecuteHammerDashAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
-                case Weapon.WeaponType.Bow:
-                    ExecuteBowAttack();
-                    break;
-                case Weapon.WeaponType.GreatHammer:
-                    ExecuteGreatHammerDashAttack();
-                    break;
+
                 case Weapon.WeaponType.GreatSword:
-                    ExecuteGreatSwordDashAttack();
+                    var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
+                    greatSwordBeh.ExecuteGreatSwordDashAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
+                case Weapon.WeaponType.GreatHammer:
+                    var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
+                    greatHammerBeh.ExecuteGreatHammerDashAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
+                case Weapon.WeaponType.Staff: //Staff não possui Dash Attack
+                    var staffBeh = GetComponentInChildren<StaffBehavior>();
+                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
+                    break;
+
+                case Weapon.WeaponType.Bow: //Bow não possui Dash Attack
+                    var bowBeh = GetComponentInChildren<BowBehavior>();
+                    bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
                     break;
             }
             dashAttack = false;
@@ -116,29 +124,41 @@ public class WeaponBehavior : MonoBehaviour
         {
             switch (weaponType)
             {
-                case Weapon.WeaponType.Staff:
-                    ExecuteStaffAttack();
-                    break;
                 case Weapon.WeaponType.Sword:
-                    ExecuteSwordAttack();
+                    var swordBeh = GetComponentInChildren<SwordBehavior>();
+                    swordBeh.ExecuteSwordJumpAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
+
                 case Weapon.WeaponType.Hammer:
-                    ExecuteHammerAttack();
-                    break;
-                case Weapon.WeaponType.Bow:
-                    ExecuteBowAttack();
-                    break;
-                case Weapon.WeaponType.GreatHammer:
-                    ExecuteGreatHammerJumpAttack();
-                    break;
+                    var hammerBeh = GetComponentInChildren<HammerBehavior>();
+                    hammerBeh.ExecuteHammerJumpAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
+                    break;  
+                    
                 case Weapon.WeaponType.GreatSword:
-                    ExecuteGreatSwordJumpAttack();
+                    var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
+                    greatSwordBeh.ExecuteGreatSwordJumpAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
+                case Weapon.WeaponType.GreatHammer:
+                    var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
+                    greatHammerBeh.ExecuteGreatHammerJumpAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
+                case Weapon.WeaponType.Staff: //Staff não possui jumpAttack
+                    var staffBeh = GetComponentInChildren<StaffBehavior>();
+                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
+                    break;
+
+                case Weapon.WeaponType.Bow: //Bow não possui Jump Attack
+                    var bowBeh = GetComponentInChildren<BowBehavior>();
+                    bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
                     break;
             }
             jumpAttack = false;
         }
     }
 
+    //Controladores
     public void ControlHandsAnimations()
     {
         leftHandAnim.SetBool("holdingBow", weaponType == Weapon.WeaponType.Bow);
@@ -149,313 +169,65 @@ public class WeaponBehavior : MonoBehaviour
 
         armBonesAnim.SetBool("isWithBow", weaponType == Weapon.WeaponType.Bow);
     }
-
     public void ControlSpecialAttacks()
     {
+        if (weaponType == Weapon.WeaponType.GreatHammer)
+        {
+            var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
+            greatHammerBeh.UseEarthquake(chargedAttack, resourceCost, canAttack, weaponAnim);
+        }
+
         if (weaponType == Weapon.WeaponType.Staff)
         {
-            if (chargedAttack && playerStatus.currentMana >= resourceCost)
-            {
-                if (!weaponAnim.GetBool("ChargingAttack"))
-                    StartCoroutine(HandleChargingAttack());
-
-                weaponAnim.SetBool("ChargingAttack", true);
-            }
-            else
-            {
-                weaponAnim.SetBool("ChargingAttack", false);
-            }
+            var staffBeh = GetComponentInChildren<StaffBehavior>();
+            staffBeh.UseMagicBeam(chargedAttack, resourceCost, weaponAnim);
         }
 
         if (weaponType == Weapon.WeaponType.Bow)
         {
-            if (chargedAttack && !isTimeSlowedByBow)
-            {
-                Time.timeScale = 0.7f; 
-                StartCoroutine(SmoothFOVTransition(50f)); 
-                isTimeSlowedByBow = true;
-            }
-            else if (!chargedAttack && isTimeSlowedByBow)
-            {
-                Time.timeScale = 1f; 
-                StartCoroutine(SmoothFOVTransition(70f)); 
-                isTimeSlowedByBow = false; 
-            }
-        }
-
-        if (weaponType == Weapon.WeaponType.GreatHammer)
-        {
-            if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack)
-            {
-
-                weaponAnim.SetTrigger("greatHammerSpecial");
-            }
-            chargedAttack = false;
-
-        }
+            var bowBeh = GetComponentInChildren<BowBehavior>();
+            bowBeh.UseConcentration(chargedAttack);
+        } 
     }
-    private IEnumerator SmoothFOVTransition(float targetFOV)
-    {
-        float startFOV = PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView;
-        float t = 0f;
-
-        while (t < 1f)
-        {
-            t += Time.unscaledDeltaTime * 5f;
-            PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView = Mathf.Lerp(startFOV, targetFOV, t);
-            yield return null;
-        }
-
-        PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView = targetFOV;
-    }
-
-
-    private void ExecuteStaffAttack()
-    {
-        if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
-        {
-            weaponAnim.SetTrigger("staffAttack");
-            string retreatTrigger = "retreat" + Random.Range(1, 4); 
-            leftHandAnim.SetTrigger(retreatTrigger);
-        }     
-    }
-
-    private void ExecuteBowAttack()
-    {
-        if (canAttack && playerStatus.currentMana >= resourceCost)
-        {
-            weaponAnim.SetTrigger("bowAttack");
-            GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetTrigger("attack");
-        }
-    }
-
-    public void ExecuteSwordAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            switch (attackSequence)
-            {
-                case 1:
-                    weaponAnim.SetTrigger("swordAttack1");
-                    attackSequence++;
-                    break;
-                case 2:
-                    weaponAnim.SetTrigger("swordAttack2");
-                    attackSequence++;
-                    break;
-                case 3:
-                    weaponAnim.SetTrigger("swordAttack3");
-                    attackSequence++; 
-                    break;
-                case 4:
-                    weaponAnim.SetTrigger("swordAttack4");
-                    attackSequence = 1;
-                    break;
-                default:
-                    attackSequence = 1; 
-                    break;
-            }
-            string retreatTrigger = "retreat" + Random.Range(1, 4);
-            leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }
-    }
-
-    public void ExecuteHammerAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            switch (attackSequence)
-            {
-                case 1:
-                    weaponAnim.SetTrigger("hammerAttack1");
-                    attackSequence++;
-                    break;
-                case 2:
-                    weaponAnim.SetTrigger("hammerAttack2");
-                    attackSequence = 1;
-                    break;
-                default:
-                    attackSequence = 1;
-                    break;
-            }
-            string retreatTrigger = "retreat" + Random.Range(1, 4);
-            leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }
-    }
-
-    public void ExecuteGreatHammerAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            switch (attackSequence)
-            {
-                case 1:
-                    weaponAnim.SetTrigger("greatHammerAttack1");
-                    attackSequence++;
-                    break;
-                case 2:
-                    weaponAnim.SetTrigger("greatHammerAttack2");
-                    attackSequence = 1;
-                    break;
-                default:
-                    attackSequence = 1;
-                    break;
-            }
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }
-    }
-    private void ExecuteGreatHammerDashAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            weaponAnim.SetTrigger("greatHammerDashAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }
-    }
-
-    private void ExecuteGreatHammerJumpAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            weaponAnim.SetTrigger("greatHammerJumpAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }   
-    }
-
-    public void ExecuteGreatSwordAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            switch (attackSequence)
-            {
-                case 1:
-                    weaponAnim.SetTrigger("greatSwordAttack1");
-                    attackSequence++;
-                    break;
-                case 2:
-                    weaponAnim.SetTrigger("greatSwordAttack2");
-                    attackSequence = 1;
-                    break;
-                default:
-                    attackSequence = 1;
-                    break;
-            }
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }
-    }
-
-    private void ExecuteGreatSwordDashAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            weaponAnim.SetTrigger("greatSwordDashAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }
-    }
-
-    private void ExecuteGreatSwordJumpAttack()
-    {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
-        {
-            weaponAnim.SetTrigger("greatSwordJumpAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
-        }  
-    }
-
     public void CanAttack()
     {
         canAttack = !canAttack;
-    }
+    }//Controlada pela propria animação
 
-    public void CallProjectile()
+
+    //Funções de Chamada
+    public void CallProjectile() //Chama o Projectile no proprio Script da arma
     {
         if(weaponType == Weapon.WeaponType.Staff)
         {
             var staffBeh = GetComponentInChildren<StaffBehavior>();
-
-            GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, transform.rotation);
-            ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
-            projectileScript.projectileDamage = staffBeh.damage;
-            projectileScript.SetDirection(transform.forward);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
+            staffBeh.CallStaffProjectile();
         }
         else if (weaponType == Weapon.WeaponType.Bow)
         {
             var bowBeh = GetComponentInChildren<BowBehavior>();
-
-            GameObject newProjectile = Instantiate(projectilePrefab, projectileExitPoint.transform.position, transform.rotation);
-            ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
-            projectileScript.projectileDamage = bowBeh.damage;
-            projectileScript.SetDirection(transform.forward);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.bowSwooshSound);
+            bowBeh.CallBowProjectile();
         }
     }
-
-    public void CallBurst() //Quem chama o Burst (Beam) é a propria animação
+    public void CallSpecialHability(string specialHabilityName)
     {
-        if (currentBeam != null)
+        switch (specialHabilityName)
         {
-            Destroy(currentBeam);
-            currentBeam = null;
+            case "Earthquake":
+                var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
+                greatHammerBeh.CallEarthquakePrefab();
+                break;
+
+            case "MagicBeam":
+                var staffBeh = GetComponentInChildren<StaffBehavior>();
+                staffBeh.CallBeamPrefab();
+                break;
+
+            default:
+                Debug.LogWarning("Habilidade não reconhecida: " + specialHabilityName);
+                break;
         }
-        else
-        {
-            currentBeam = Instantiate(beamPrefab, projectileExitPoint.transform.position, projectileExitPoint.transform.rotation, projectileExitPoint.transform);
-            var beamBeh = currentBeam.GetComponent<BeamBehavior>();
-            var staffBeh = GetComponentInChildren<StaffBehavior>();
-
-            beamBeh.damage = staffBeh.damage;
-            
-                VisualEffect projectileEffect = currentBeam.GetComponentInChildren<VisualEffect>();
-            if (projectileEffect != null)
-            {
-                projectileEffect.Play();
-            }
-        }
-    }
-
-    public void CallEarthquake() //Quem chama o Earthquake (Especial do GreatHammer) é a propria animation;
-    {
-        GameObject currentEarthquake = Instantiate(earthquakePrefab, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
-
-        var greatHamBeh = GetComponentInChildren<GreatHammerBehavior>();
-        var explosionBeh = currentEarthquake.GetComponent<ExplosionBehavior>();
-
-        explosionBeh.explosionDamage = greatHamBeh.damage;
-    }
-
-    private IEnumerator HandleChargingAttack()
-    {
-        while (chargedAttack)
-        {
-            if (playerStatus.currentMana >= resourceCost)
-            {
-                ConsumeManaControlled(resourceCost / 5);
-                playerStatus.canRegenMana = false;
-            }
-            yield return new WaitForSeconds(0.1f);
-        }
-        playerStatus.canRegenMana = true;
-    }
-
+    }//Chama a habilidade especial pela animação
     public void CallTrail()
     {
         TrailRenderer trailRend = GetComponentInChildren<TrailRenderer>();
@@ -463,8 +235,7 @@ public class WeaponBehavior : MonoBehaviour
 
         if(trailRend != null)
             trailRend.emitting = emittingTrail;
-    }
-
+    }//Chama o Trail pela Propria animação
     public void ActiveCollider()
     {
         SwordBehavior swordBehavior = GetComponentInChildren<SwordBehavior>();
@@ -483,29 +254,18 @@ public class WeaponBehavior : MonoBehaviour
 
         if (greatSwordBehavior != null)
             greatSwordBehavior.colliderEnabled = !greatSwordBehavior.colliderEnabled;
-    }
+    }//Ativa o Colisor da Arma pela propria animação
 
-    public void ConsumeMana()
+    public void ConsumeMana() //Geralmente chamado pelo próprio Animation
     {   
         playerStatus.SubtractMana(resourceCost);
     }
-
-    public void ConsumeManaControlled(float value)
-    {
-        playerStatus.SubtractMana(value);
-    }
-
-    public void ConsumeStamina()
+    public void ConsumeStamina() //Geralmente chamado pelo próprio Animation
     {
         playerStatus.SubtractStamina(resourceCost);
     }
 
-    //
-    private void UpdateLeftGripToHandR()
-    {
-        leftHandGrip.transform.SetParent(holdingObjectR.transform);
-    }
-
+    //Controle da animação das mãos para 2Handed
     public void SetWeaponType(Weapon.WeaponType type)
     {
         weaponType = type;
@@ -519,6 +279,10 @@ public class WeaponBehavior : MonoBehaviour
             CancelInvoke(nameof(UpdateLeftGripToHandR));
             leftHandGrip.transform.SetParent(holdingObjectL.transform);
         }
+    }
+    private void UpdateLeftGripToHandR()
+    {
+        leftHandGrip.transform.SetParent(holdingObjectR.transform);
     }
 }
 
