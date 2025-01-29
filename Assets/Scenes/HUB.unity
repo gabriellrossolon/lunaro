@@ -17713,6 +17713,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c78851ff-09cc-4095-b6eb-33a80b64ebfc
     m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 815638316}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b751f3b4-c42a-4dbb-b687-d4b0b0b1b678
+    m_ActionName: 'Player/Skill[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 815638316}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnPotion
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e90f9095-8b67-48d8-b2ba-3fe238ac94c5
+    m_ActionName: 'Player/Potion[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -17736,6 +17768,8 @@ MonoBehaviour:
   attackInput: 0
   blockInput: 0
   dashInput: 0
+  skillInput: 0
+  potionInput: 0
 --- !u!114 &815638317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17749,6 +17783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 0}
+  cinemachineCam: {fileID: 511235854}
 --- !u!114 &815638318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23880,6 +23915,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   beamPrefab: {fileID: 0}
   projectileExitPoint: {fileID: 0}
+  earthquakePrefab: {fileID: 0}
   resourceCost: 0
   weaponType: 0
 --- !u!95 &1048678625
@@ -47176,6 +47212,7 @@ MonoBehaviour:
   resourceCost: 0
   blockInputReceived: 0
   blocking: 0
+  skillInputReceived: 0
   weaponBeh: {fileID: 1048678624}
 --- !u!95 &1902067312
 Animator:
