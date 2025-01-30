@@ -81,7 +81,7 @@ public class PlayerJumpState : IState
 
     private void StateChange()
     {
-        if (_inputHandler.dashInput && _cooldownController.canDash)
+        if (_inputHandler.dashInput && _cooldownController.CanUseDash())
             _fsm.SetState("Dash");
 
         if (verticalVelocity <= 0)

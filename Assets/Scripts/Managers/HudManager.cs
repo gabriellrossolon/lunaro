@@ -56,7 +56,9 @@ public class HudManager : MonoBehaviour
     public Slider playerExperience;
 
     [Header("Cooldown References")]
-    public Slider dashCooldowSlider;
+    public Slider dashCooldownSlider;
+    public Slider skillCooldownSlider;
+    public Slider magicCooldownSlider;
 
     [Header("Controllers")]
     private bool openedInventory = false;
@@ -244,24 +246,34 @@ public class HudManager : MonoBehaviour
         else if (item is Secondary secondary)
         {
             itemDmg.text = null;
-            string resourceText = secondary.resourceCost.ToString();
+            string resourceText = null;
 
             switch (secondary.secondaryType)
             {
                 case Secondary.SecondaryType.Shield:
                     itemType.text = "Shield";
+                    resourceText = secondary.blockResourceCost.ToString();
                     itemResourceCost.text = resourceText + " Stamina to Block";
+
+                    itemDmg.text = "Block Percent " + "100%";
                     break;
                 case Secondary.SecondaryType.Orb:
                     itemType.text = "Magical Orb";
-                    itemResourceCost.text = null;
+                    resourceText = secondary.spell.spellResourceCost.ToString();
+                    itemResourceCost.text = resourceText + " Mana to Cast Spell";
+
+                    itemDmg.text = "Spell Damage " + secondary.spell.spellDamage.ToString();
                     break;
                 case Secondary.SecondaryType.Book:
                     itemType.text = "Magical Book";
-                    itemResourceCost.text = null;
+                    resourceText = secondary.spell.spellResourceCost.ToString();
+                    itemResourceCost.text = resourceText + " Mana to Cast Spell";
+
+                    itemDmg.text = "Spell Damage " + secondary.spell.spellDamage.ToString();
                     break;
                 default:
                     itemType.text = "Unknown Secondary";
+                    resourceText = null;
                     itemResourceCost.text = null;
                     break;
             }

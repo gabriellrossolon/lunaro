@@ -13,6 +13,14 @@ public class WeaponBehavior : MonoBehaviour
     [SerializeField] private GameObject holdingObjectL;
     [SerializeField] private GameObject holdingObjectR;
 
+    [Header("Scripts das Armas")]
+    private SwordBehavior swordBeh;
+    private HammerBehavior hammerBeh;
+    private GreatSwordBehavior greatSwordBeh;
+    private GreatHammerBehavior greatHammerBeh;
+    private StaffBehavior staffBeh;
+    private BowBehavior bowBeh;
+
     [Header("Controllers")]
     public bool attack;
     public bool chargedAttack;
@@ -51,31 +59,25 @@ public class WeaponBehavior : MonoBehaviour
             switch (weaponType)
             {
                 case Weapon.WeaponType.Sword:
-                    var swordBeh = GetComponentInChildren<SwordBehavior>();
                     swordBeh.ExecuteSwordAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
 
                 case Weapon.WeaponType.Hammer:
-                    var hammerBeh = GetComponentInChildren<HammerBehavior>();
                     hammerBeh.ExecuteHammerAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;        
                 case Weapon.WeaponType.GreatSword:
-                    var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
                     greatSwordBeh.ExecuteGreatSwordAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
                 case Weapon.WeaponType.GreatHammer:
-                    var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
                     greatHammerBeh.ExecuteGreatHammerAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
                 case Weapon.WeaponType.Staff:
-                    var staffBeh = GetComponentInChildren<StaffBehavior>();
                     staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
                     break;
 
                 case Weapon.WeaponType.Bow:
-                    var bowBeh = GetComponentInChildren<BowBehavior>();
                     bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
                     break;
             }
@@ -88,32 +90,26 @@ public class WeaponBehavior : MonoBehaviour
             switch (weaponType)
             {
                 case Weapon.WeaponType.Sword:
-                    var swordBeh = GetComponentInChildren<SwordBehavior>();
                     swordBeh.ExecuteSwordDashAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
 
                 case Weapon.WeaponType.Hammer:
-                    var hammerBeh = GetComponentInChildren<HammerBehavior>();
                     hammerBeh.ExecuteHammerDashAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
 
                 case Weapon.WeaponType.GreatSword:
-                    var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
                     greatSwordBeh.ExecuteGreatSwordDashAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
                 case Weapon.WeaponType.GreatHammer:
-                    var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
                     greatHammerBeh.ExecuteGreatHammerDashAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
                 case Weapon.WeaponType.Staff: //Staff não possui Dash Attack
-                    var staffBeh = GetComponentInChildren<StaffBehavior>();
                     staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
                     break;
 
                 case Weapon.WeaponType.Bow: //Bow não possui Dash Attack
-                    var bowBeh = GetComponentInChildren<BowBehavior>();
                     bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
                     break;
             }
@@ -125,32 +121,26 @@ public class WeaponBehavior : MonoBehaviour
             switch (weaponType)
             {
                 case Weapon.WeaponType.Sword:
-                    var swordBeh = GetComponentInChildren<SwordBehavior>();
                     swordBeh.ExecuteSwordJumpAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;
 
                 case Weapon.WeaponType.Hammer:
-                    var hammerBeh = GetComponentInChildren<HammerBehavior>();
                     hammerBeh.ExecuteHammerJumpAttack(canAttack, resourceCost, weaponAnim, leftHandAnim);
                     break;  
                     
                 case Weapon.WeaponType.GreatSword:
-                    var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
                     greatSwordBeh.ExecuteGreatSwordJumpAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
                 case Weapon.WeaponType.GreatHammer:
-                    var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
                     greatHammerBeh.ExecuteGreatHammerJumpAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
                 case Weapon.WeaponType.Staff: //Staff não possui jumpAttack
-                    var staffBeh = GetComponentInChildren<StaffBehavior>();
                     staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
                     break;
 
                 case Weapon.WeaponType.Bow: //Bow não possui Jump Attack
-                    var bowBeh = GetComponentInChildren<BowBehavior>();
                     bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
                     break;
             }
@@ -171,62 +161,55 @@ public class WeaponBehavior : MonoBehaviour
     }
     public void ControlSpecialAttacks()
     {
-        if (weaponType == Weapon.WeaponType.GreatHammer)
+        switch (weaponType)
         {
-            var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
-            greatHammerBeh.UseEarthquake(chargedAttack, resourceCost, canAttack, weaponAnim);
+            case Weapon.WeaponType.GreatHammer:
+                greatHammerBeh.UseEarthquake(chargedAttack, resourceCost, canAttack, weaponAnim);
+                break;
+
+            case Weapon.WeaponType.GreatSword:
+                greatSwordBeh.UseCircularCut(chargedAttack, resourceCost, canAttack, weaponAnim);
+                break;
+
+            case Weapon.WeaponType.Staff:
+                staffBeh.UseMagicBeam(chargedAttack, resourceCost, weaponAnim);
+                break;
+
+            case Weapon.WeaponType.Bow:
+                bowBeh.UseConcentration(chargedAttack);
+                break;
         }
-        if (weaponType == Weapon.WeaponType.GreatSword)
-        {
-            var greatSwordrBeh = GetComponentInChildren<GreatSwordBehavior>();
-            greatSwordrBeh.UseCircularCut(chargedAttack, resourceCost, canAttack, weaponAnim);
-        }
-        if (weaponType == Weapon.WeaponType.Staff)
-        {
-            var staffBeh = GetComponentInChildren<StaffBehavior>();
-            staffBeh.UseMagicBeam(chargedAttack, resourceCost, weaponAnim);
-        }
-        if (weaponType == Weapon.WeaponType.Bow)
-        {
-            var bowBeh = GetComponentInChildren<BowBehavior>();
-            bowBeh.UseConcentration(chargedAttack);
-        } 
     }
-    public void CanAttack()
+    public void CanAttack()//Controlada pela propria animação
     {
         canAttack = !canAttack;
-    }//Controlada pela propria animação
+    }
 
     //Funções de Chamada
     public void CallProjectile() //Chama o Projectile no proprio Script da arma
     {
         if(weaponType == Weapon.WeaponType.Staff)
         {
-            var staffBeh = GetComponentInChildren<StaffBehavior>();
             staffBeh.CallStaffProjectile();
         }
         else if (weaponType == Weapon.WeaponType.Bow)
         {
-            var bowBeh = GetComponentInChildren<BowBehavior>();
             bowBeh.CallBowProjectile();
         }
     }
-    public void CallSpecialHability(string specialHabilityName)
+    public void CallSpecialHability(string specialHabilityName) //Chamado pela animação
     {
         switch (specialHabilityName)
         {
             case "Earthquake":
-                var greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
                 greatHammerBeh.CallEarthquakePrefab();
                 break;
 
             case "MagicBeam":
-                var staffBeh = GetComponentInChildren<StaffBehavior>();
                 staffBeh.CallBeamPrefab();
                 break;
 
             case "CircularCut":
-                var greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
                 greatSwordBeh.CallCircularCutPrefab();
                 break;
 
@@ -272,11 +255,50 @@ public class WeaponBehavior : MonoBehaviour
         playerStatus.SubtractStamina(resourceCost);
     }
 
-    //Controle da animação das mãos para 2Handed
+    //Seta o tipo de arma que o jogador esta usando
     public void SetWeaponType(Weapon.WeaponType type)
     {
         weaponType = type;
 
+        swordBeh = null;
+        hammerBeh = null;
+        greatSwordBeh = null;
+        greatHammerBeh = null;
+        staffBeh = null;
+        bowBeh = null;
+
+        switch (weaponType)
+        {
+            case Weapon.WeaponType.Sword:
+                swordBeh = GetComponentInChildren<SwordBehavior>();
+                break;
+
+            case Weapon.WeaponType.Hammer:
+                hammerBeh = GetComponentInChildren<HammerBehavior>();
+                break;
+
+            case Weapon.WeaponType.GreatSword:
+                greatSwordBeh = GetComponentInChildren<GreatSwordBehavior>();
+                break;
+
+            case Weapon.WeaponType.GreatHammer:
+                greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
+                break;
+
+            case Weapon.WeaponType.Staff:
+                staffBeh = GetComponentInChildren<StaffBehavior>();
+                break;
+
+            case Weapon.WeaponType.Bow:
+                bowBeh = GetComponentInChildren<BowBehavior>();
+                break;
+        }
+
+        UpdateHandAnimation(); //Atualiza animações das mãos sempre que troca de arma (Para 1Handed ou 2Handed)
+    }
+    //Controle da animação das mãos para 2Handed
+    private void UpdateHandAnimation()
+    {
         if (weaponType == Weapon.WeaponType.GreatSword || weaponType == Weapon.WeaponType.GreatHammer)
         {
             Invoke(nameof(UpdateLeftGripToHandR), 0.2f);

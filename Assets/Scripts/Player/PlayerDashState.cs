@@ -40,7 +40,8 @@ public class PlayerDashState : IState
         SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.dashSound);
         _handsPOV.GetComponent<Animator>().SetTrigger("dash");
         StartDash();
-        _cooldownController.canDash = false;
+        //_cooldownController.canDash = false;
+        _cooldownController.StartDashCooldown();
         _dashParticle.SetActive(true);
         AdjustParticleRotation();
     }

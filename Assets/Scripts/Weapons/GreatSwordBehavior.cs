@@ -3,19 +3,21 @@ using UnityEngine;
 public class GreatSwordBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
+    private CooldownController cooldownController;
 
     public float damage;
     public bool colliderEnabled = false;
 
     [HideInInspector] public Collider weaponColl;
 
-    public GameObject circularCutPrefab;
+    public GameObject weaponSkillPrefab;
 
     private int attackSequence = 1;
 
     private void Awake()
     {
         weaponColl = GetComponent<Collider>();
+        cooldownController = GetComponentInParent<CooldownController>();
     }
 
     private void Start()
@@ -76,9 +78,12 @@ public class GreatSwordBehavior : MonoBehaviour
     //Special Habilities
     public void UseCircularCut(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
+        if (!cooldownController.CanUseSkill()) return;
+
         if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
         {
             weaponAnim.SetTrigger("greatSwordSpecial");
+            cooldownController.StartSkillCooldown();
         }
         chargedAttack = false;
     }
@@ -89,10 +94,10 @@ public class GreatSwordBehavior : MonoBehaviour
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.circularCutSound);
 
         Vector3 playerPos = new Vector3(PlayerManager.Instance.transform.position.x, PlayerManager.Instance.transform.position.y + 0.5f, PlayerManager.Instance.transform.position.z);
-        GameObject currentCircularCut = Instantiate(circularCutPrefab, playerPos, Camera.main.transform.rotation);
 
-        //var cutBeh = currentCircularCut.GetComponent<CircularCutBehavior>();
-        //cutBeh.cutDamage = damage;
+        GameObject currentCircularCut = Instantiate(weaponSkillPrefab, playerPos, Camera.main.transform.rotation);
+        var cutBeh = currentCircularCut.GetComponent<CircularCutBehavior>();
+        cutBeh.circularCutDamage = damage;
     }
 
     private void OnTriggerEnter(Collider other)

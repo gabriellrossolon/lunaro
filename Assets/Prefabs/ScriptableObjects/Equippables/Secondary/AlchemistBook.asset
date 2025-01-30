@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Alchemist Book
   icon: {fileID: 1267911855, guid: b08a6dde74082024bbaeadb779b2525e, type: 3}
-  description: Increase your Mana Regeneration
+  description: A Magical Book
   secondaryType: 3
   secondaryPrefab: {fileID: 4651891779183240518, guid: 9aad4d41907e1cd4ab06bfdc0503622c, type: 3}
   blockSound: {fileID: 0}
-  resourceCost: 0
-  skillPrefab: {fileID: 0}
+  blockResourceCost: 0
+  spell: {fileID: 11400000, guid: ac73a85ebca6288488dcddc605825fbf, type: 2}

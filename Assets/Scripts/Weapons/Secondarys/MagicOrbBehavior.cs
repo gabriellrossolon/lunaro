@@ -3,11 +3,16 @@ using UnityEngine;
 public class MagicOrbBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
+    private CooldownController cooldownController;
 
     public GameObject skillPrefab;
     public GameObject exitPoint;
     public float damage;
 
+    private void Awake()
+    {
+        cooldownController = GetComponentInParent<CooldownController>();
+    }
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
@@ -16,9 +21,13 @@ public class MagicOrbBehavior : MonoBehaviour
     //Common Skills
     public void UseOrbSkill(bool canUseSkill, float resourceCost, Animator secondaryAnim)
     {
+        if (!cooldownController.CanUseMagic()) return;
+
+
         if (canUseSkill && playerStatus.currentMana >= resourceCost)
         {
             secondaryAnim.SetTrigger("orbAttack");
+            cooldownController.StartMagicCooldown();
         }
     }
 

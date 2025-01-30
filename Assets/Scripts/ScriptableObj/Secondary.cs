@@ -11,9 +11,8 @@ public class Secondary : ItemBase
 
     [Header("If Shield")]
     public AudioClip blockSound;
-    public float resourceCost;
+    public float blockResourceCost;
 
-    [Header("If Orb")]
-    public float damage;
-    public GameObject skillPrefab;
+    [Header("Secondary Skill")]
+    public Spell spell;
 }

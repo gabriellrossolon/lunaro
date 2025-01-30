@@ -117,7 +117,7 @@ public class PlayerCombatState : IState
         if (_inputHandler.jumpInput && _controller.isGrounded)
             _fsm.SetState("Jump");
 
-        if (_inputHandler.dashInput && _cooldownController.canDash && _inputHandler.moveInput != Vector2.zero && !_weaponBehavior.chargedAttack)
+        if (_inputHandler.dashInput && _cooldownController.CanUseDash() && _inputHandler.moveInput != Vector2.zero && !_weaponBehavior.chargedAttack)
             _fsm.SetState("Dash");
     }
 }

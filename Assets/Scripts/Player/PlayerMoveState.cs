@@ -69,7 +69,7 @@ public class PlayerMoveState : IState
         if (_inputHandler.attackInput || _inputHandler.blockInput)
             _fsm.SetState("Combat");
 
-        if (_inputHandler.dashInput && _cooldownController.canDash)
+        if (_inputHandler.dashInput && _cooldownController.CanUseDash())
             _fsm.SetState("Dash");
     }
 }

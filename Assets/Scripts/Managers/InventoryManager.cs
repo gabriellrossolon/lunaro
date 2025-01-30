@@ -285,7 +285,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {
-            staffBehavior.beamPrefab = equippedWeapon.beam;
+            staffBehavior.beamPrefab = equippedWeapon.weaponSkill.skillPrefab;
             staffBehavior.staffProjectilePrefab = equippedWeapon.projectile;
             staffBehavior.damage = equippedWeapon.damage;
         }
@@ -296,36 +296,38 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatHammerBehavior>(out var greatHammerBehavior))
         {
-            greatHammerBehavior.earthquakePrefab = equippedWeapon.earthquake;
+            greatHammerBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
             greatHammerBehavior.damage = equippedWeapon.damage; 
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
         {
+            greatSwordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
             greatSwordBehavior.damage = equippedWeapon.damage;
-            greatSwordBehavior.circularCutPrefab = equippedWeapon.circularCut;
         }
 
     }
     private void InstantiateAndSetupSecondary()
     {
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
-        secondaryBehavior.resourceCost = equippedSecondary.resourceCost;
-
+        
         secondaryBehavior.SetSecondaryType(equippedSecondary.secondaryType);
 
         if(lastInstantiatedSecondary.TryGetComponent<ShieldBehavior>(out var shieldBehavior))
         {
             shieldBehavior.blockedAttackSound = equippedSecondary.blockSound;
+            secondaryBehavior.resourceCost = equippedSecondary.blockResourceCost; //Se for escudo, o custo de recurso vem da propria Scriptable de Secondary
         }
         else if (lastInstantiatedSecondary.TryGetComponent<MagicBookBehavior>(out var magicBookBehavior))
         {
-            magicBookBehavior.skillPrefab = equippedSecondary.skillPrefab;
-            magicBookBehavior.damage = equippedSecondary.damage;
+            magicBookBehavior.skillPrefab = equippedSecondary.spell.spellPrefab;
+            magicBookBehavior.damage = equippedSecondary.spell.spellDamage;
+            secondaryBehavior.resourceCost = equippedSecondary.spell.spellResourceCost; //Se for orb/book, o custo vem da Scriptable da Spell
         }
         else if (lastInstantiatedSecondary.TryGetComponent<MagicOrbBehavior>(out var magicOrbBehavior))
         {
-            magicOrbBehavior.skillPrefab = equippedSecondary.skillPrefab;
-            magicOrbBehavior.damage = equippedSecondary.damage;
+            magicOrbBehavior.skillPrefab = equippedSecondary.spell.spellPrefab;
+            magicOrbBehavior.damage = equippedSecondary.spell.spellDamage;
+            secondaryBehavior.resourceCost = equippedSecondary.spell.spellResourceCost; //Se for orb/book, o custo vem da Scriptable da Spell
         }
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 public class GreatHammerBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
+    private CooldownController cooldownController;
 
     public float damage;
     public bool colliderEnabled = false;
@@ -12,11 +13,12 @@ public class GreatHammerBehavior : MonoBehaviour
 
     private int attackSequence = 1;
 
-    public GameObject earthquakePrefab;
+    public GameObject weaponSkillPrefab;
 
     private void Awake()
     {
         weaponColl = GetComponent<Collider>();
+        cooldownController = GetComponentInParent<CooldownController>();
     }
 
     private void Start()
@@ -77,9 +79,12 @@ public class GreatHammerBehavior : MonoBehaviour
     //Special Attacks
     public void UseEarthquake(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
+        if (!cooldownController.CanUseSkill()) return;
+
         if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
         {
             weaponAnim.SetTrigger("greatHammerSpecial");
+            cooldownController.StartSkillCooldown();
         }
         chargedAttack = false;
     }
@@ -88,7 +93,7 @@ public class GreatHammerBehavior : MonoBehaviour
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
 
-        GameObject currentEarthquake = Instantiate(earthquakePrefab, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
+        GameObject currentEarthquake = Instantiate(weaponSkillPrefab, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
 
         var explosionBeh = currentEarthquake.GetComponent<ExplosionBehavior>();
 

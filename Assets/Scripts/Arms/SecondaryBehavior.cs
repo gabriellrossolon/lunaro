@@ -8,6 +8,11 @@ public class SecondaryBehavior : MonoBehaviour
     [HideInInspector] public Animator secondaryAnim;
     public Animator armBonesAnim;
 
+    [Header("Secondary Scripts")]
+    private ShieldBehavior shieldBeh;
+    private MagicOrbBehavior magicOrbBeh;
+    private MagicBookBehavior magicBookBeh;
+
     [Header("Use Resource Cost (Stamina/Mana")]
     [HideInInspector] public float resourceCost;
 
@@ -38,12 +43,10 @@ public class SecondaryBehavior : MonoBehaviour
             switch (secondaryType)
             {
                 case SecondaryType.Orb:
-                    var magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
                     magicOrbBeh.UseOrbSkill(canUseSkill, resourceCost, secondaryAnim);
                     break;
 
                 case SecondaryType.Book:
-                    var magicBookBeh = GetComponentInChildren<MagicBookBehavior>();
                     magicBookBeh.UseBookSkill();
                     break;
             }
@@ -51,17 +54,13 @@ public class SecondaryBehavior : MonoBehaviour
             skillInput = false;
         }
 
-        if (blockInput)
+        switch (secondaryType) //Esse deve sempre estar sendo verificado
         {
-            switch (secondaryType)
-            {
-                case SecondaryType.Shield:
-                    var shieldBeh = GetComponentInChildren<ShieldBehavior>();
-                    shieldBeh.UseBlock(blocking, secondaryAnim);
+            case SecondaryType.Shield:
+                shieldBeh.UseBlock(blocking, secondaryAnim);
 
-                    blocking = blockInput && playerStatus.currentStamina >= resourceCost;
-                    break;
-            }
+                blocking = blockInput && playerStatus.currentStamina >= resourceCost;
+                break;
         }
     }
 
@@ -77,12 +76,11 @@ public class SecondaryBehavior : MonoBehaviour
     {
         if (secondaryType == SecondaryType.Orb)
         {
-            var magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
             magicOrbBeh.CallSkillProjectilePrefab();
         }
         if(secondaryType == SecondaryType.Book)
         {
-            var magicBookBeh = GetComponentInChildren<MagicBookBehavior>();
+
         }
     }
 
@@ -102,8 +100,25 @@ public class SecondaryBehavior : MonoBehaviour
     }
 
     //Controll Weapon Type
-    public void SetSecondaryType(Secondary.SecondaryType type)
+    public void SetSecondaryType(SecondaryType type)
     {
         secondaryType = type;
+
+        shieldBeh = null;
+        magicOrbBeh = null;
+        magicBookBeh = null;
+
+        switch (secondaryType)
+        {
+            case SecondaryType.Shield:
+                shieldBeh = GetComponentInChildren<ShieldBehavior>();
+                break;
+            case SecondaryType.Orb:
+                magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
+                break;
+            case SecondaryType.Book:
+                magicBookBeh = GetComponentInChildren<MagicBookBehavior>();
+                break;
+        }
     }
 }
