@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
+  m_Script: {fileID: 11500000, guid: be5783be416de3041830dd9e0c6f6edc, type: 3}
   m_Name: IronFang
   m_EditorClassIdentifier: 
-  itemName: IronFang Sword
-  icon: {fileID: 1048221046, guid: b08a6dde74082024bbaeadb779b2525e, type: 3}
-  description: A sword capable of piercing like fangs
-  weaponType: 1
-  damage: 3
+  itemName: Iron Fang
+  icon: {fileID: -1744033716, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
+  description: Insert
+  damage: 6
   weaponPrefab: {fileID: 1522552506750433049, guid: 4af162bb0d5b8864c85402758bac5282, type: 3}
-  resourceCost: 5
-  projectile: {fileID: 0}
-  beam: {fileID: 0}
+  resourceCost: 3
+  weaponSkill: {fileID: 0}

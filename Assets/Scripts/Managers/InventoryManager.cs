@@ -184,7 +184,7 @@ public class InventoryManager : MonoBehaviour
         if (equippedWeapon == null || equippedWeapon.weaponPrefab == null)
         {
             ResetWeaponBehavior();
-            rightWeaponBehavior.SetWeaponType(Weapon.WeaponType.Empty);
+            //rightWeaponBehavior.SetWeaponType(null);
             return;
         }
 
@@ -259,7 +259,7 @@ public class InventoryManager : MonoBehaviour
     //RESETS DOS ENUMS DE ITEM EQUIPADO NOS WEAPON E SECONDARY SCRIPTS
     private void ResetWeaponBehavior()
     {
-        rightWeaponBehavior.weaponType = Weapon.WeaponType.Empty;
+        rightWeaponBehavior.SetWeaponType(null);
     }
     private void ResetSecondaryBehavior()
     {
@@ -272,40 +272,63 @@ public class InventoryManager : MonoBehaviour
         lastInstantiatedWeapon = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
         rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
-        rightWeaponBehavior.SetWeaponType(equippedWeapon.weaponType);
-
+        rightWeaponBehavior.SetWeaponType(equippedWeapon);
 
         if (lastInstantiatedWeapon.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {
             swordBehavior.damage = equippedWeapon.damage;
+            if (equippedWeapon is Sword sword)
+            {
+                // Lógica do Sword, se necessário
+            }
         }
         else if (lastInstantiatedWeapon.TryGetComponent<HammerBehavior>(out var hammerBehavior))
         {
             hammerBehavior.damage = equippedWeapon.damage;
+            if (equippedWeapon is Hammer hammer)
+            {
+                // Lógica do Hammer, se necessário
+            }
         }
         else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {
             staffBehavior.beamPrefab = equippedWeapon.weaponSkill.skillPrefab;
-            staffBehavior.staffProjectilePrefab = equippedWeapon.projectile;
+            if (equippedWeapon is Staff staff)
+            {
+                staffBehavior.staffProjectilePrefab = staff.projectile;
+            }
             staffBehavior.damage = equippedWeapon.damage;
         }
         else if (lastInstantiatedWeapon.TryGetComponent<BowBehavior>(out var bowBehavior))
         {
-            bowBehavior.bowProjectilePrefab = equippedWeapon.projectile;
+            if (equippedWeapon is Bow bow)
+            {
+                bowBehavior.bowProjectilePrefab = bow.projectile;
+            }
             bowBehavior.damage = equippedWeapon.damage;
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatHammerBehavior>(out var greatHammerBehavior))
         {
             greatHammerBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
-            greatHammerBehavior.damage = equippedWeapon.damage; 
+            greatHammerBehavior.damage = equippedWeapon.damage;
+            if (equippedWeapon is GreatHammer greatHammer)
+            {
+                // Lógica do GreatHammer, se necessário
+            }
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
         {
             greatSwordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
             greatSwordBehavior.damage = equippedWeapon.damage;
+            if (equippedWeapon is GreatSword greatSword)
+            {
+                // Lógica do GreatSword, se necessário
+            }
         }
-
     }
+
+
+
     private void InstantiateAndSetupSecondary()
     {
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);

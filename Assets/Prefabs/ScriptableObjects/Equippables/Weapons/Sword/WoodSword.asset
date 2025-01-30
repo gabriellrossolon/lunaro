@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
-  m_Name: WoodenSword
+  m_Script: {fileID: 11500000, guid: be5783be416de3041830dd9e0c6f6edc, type: 3}
+  m_Name: WoodSword
   m_EditorClassIdentifier: 
   itemName: Wooden Sword
   icon: {fileID: 1875280339, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
-  description: A sword made with wood
-  weaponType: 1
-  damage: 1
+  description: Insert
+  damage: 2
   weaponPrefab: {fileID: 6221104792513222413, guid: d810d698340dfc94988460b7f0e4f714, type: 3}
-  resourceCost: 3
-  projectile: {fileID: 0}
+  resourceCost: 2
+  weaponSkill: {fileID: 0}

@@ -121,18 +121,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     private bool DraggedItemIsTwoHanded(InventoryItem draggedItem)
     {
-        if (draggedItem.item is Weapon weapon && (
-            weapon.weaponType == Weapon.WeaponType.Bow || 
-            weapon.weaponType == Weapon.WeaponType.GreatHammer || 
-            weapon.weaponType == Weapon.WeaponType.GreatSword
-            ))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return draggedItem.item is Bow || draggedItem.item is GreatHammer || draggedItem.item is GreatSword;
     }
     private bool DraggedItemIsSecondary(InventoryItem draggedItem)
     {
@@ -143,20 +132,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
     private bool isWithTwoHandEquipped()
     {
-        if (InventoryManager.Instance.equippedWeapon != null &&
-           InventoryManager.Instance.equippedWeapon is Weapon weapon &&(
-           weapon.weaponType == Weapon.WeaponType.Bow || 
-           weapon.weaponType == Weapon.WeaponType.GreatHammer || 
-           weapon.weaponType == Weapon.WeaponType.GreatSword
-           ))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        var equippedWeapon = InventoryManager.Instance.equippedWeapon;
+        return equippedWeapon is Bow || equippedWeapon is GreatHammer || equippedWeapon is GreatSword;
     }
+
     private bool IsWithSecondaryEquipped()
     {
         if (InventoryManager.Instance.equippedSecondary != null && 
@@ -237,13 +216,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
         else if (IsWithSecondaryEquipped())
         {
-            if (existingItem.item is Weapon weapon &&
-                (weapon.weaponType == Weapon.WeaponType.Bow || weapon.weaponType == Weapon.WeaponType.GreatHammer || weapon.weaponType == Weapon.WeaponType.GreatSword))
+            if (existingItem.item is Bow || existingItem.item is GreatHammer || existingItem.item is GreatSword)
             {
                 ReturnItemToPreviousParent(draggedItem);
                 yield break;
             }
         }
+
         else if (isWithTwoHandEquipped())
         {
             if (existingItem.item is Secondary secondary)

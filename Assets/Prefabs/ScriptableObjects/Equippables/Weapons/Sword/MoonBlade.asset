@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
-  m_Name: MoonSword
+  m_Script: {fileID: 11500000, guid: be5783be416de3041830dd9e0c6f6edc, type: 3}
+  m_Name: MoonBlade
   m_EditorClassIdentifier: 
-  itemName: Moon Sword
-  icon: {fileID: 1297948324, guid: b08a6dde74082024bbaeadb779b2525e, type: 3}
-  description: A sword make under the light of the full Moon
-  weaponType: 1
-  damage: 5
+  itemName: Moon Blade
+  icon: {fileID: -366564839, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
+  description: Insert
+  damage: 6
   weaponPrefab: {fileID: 9068228260865486026, guid: 9f901107d54894f45afdcafbc1cb5e88, type: 3}
-  resourceCost: 4
-  projectile: {fileID: 0}
+  resourceCost: 6
+  weaponSkill: {fileID: 0}

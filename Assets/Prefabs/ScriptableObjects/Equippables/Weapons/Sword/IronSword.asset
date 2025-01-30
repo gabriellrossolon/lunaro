@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
+  m_Script: {fileID: 11500000, guid: be5783be416de3041830dd9e0c6f6edc, type: 3}
   m_Name: IronSword
   m_EditorClassIdentifier: 
   itemName: Iron Sword
-  icon: {fileID: 1661308057, guid: b08a6dde74082024bbaeadb779b2525e, type: 3}
-  description: A simple iron sword, what did you expect?
-  weaponType: 1
-  damage: 3
+  icon: {fileID: -729794739, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
+  description: Insert
+  damage: 4
   weaponPrefab: {fileID: 1628803343814672665, guid: 85b2eb9c72721a94da9c15e5e66a812b, type: 3}
-  resourceCost: 3
-  projectile: {fileID: 0}
+  resourceCost: 5
+  weaponSkill: {fileID: 0}

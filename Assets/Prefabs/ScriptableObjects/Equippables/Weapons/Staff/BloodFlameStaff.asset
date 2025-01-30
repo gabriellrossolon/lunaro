@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
+  m_Script: {fileID: 11500000, guid: ee413875e32260946a35b9d321b4af89, type: 3}
   m_Name: BloodFlameStaff
   m_EditorClassIdentifier: 
-  itemName: BloodFlame Staff
-  icon: {fileID: 1876436306, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
-  description: A staff capable of conjuring BloodFlame
-  weaponType: 2
-  damage: 7
+  itemName: Bloodflame Staff
+  icon: {fileID: 0}
+  description: Insert
+  damage: 10
   weaponPrefab: {fileID: 5116089301490242297, guid: 78e8aada1bde4ac4693323542a63864d, type: 3}
-  resourceCost: 15
-  projectile: {fileID: 1794803540568141391, guid: cc37c57f7e464514f8c6e9d41b6c5c4d, type: 3}
+  resourceCost: 14
   weaponSkill: {fileID: 11400000, guid: d07a62c869066674394d6dda38f7d0fc, type: 2}
+  projectile: {fileID: 1794803540568141391, guid: cc37c57f7e464514f8c6e9d41b6c5c4d, type: 3}

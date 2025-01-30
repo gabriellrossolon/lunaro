@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ca50c1bace8064ca197130c41e3c9c, type: 3}
-  m_Name: ReliquaryDemonSword
+  m_Script: {fileID: 11500000, guid: be5783be416de3041830dd9e0c6f6edc, type: 3}
+  m_Name: KingOfTheVoid
   m_EditorClassIdentifier: 
-  itemName: Reliquary Demon Sword
-  icon: {fileID: 24482631, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
-  description: A legendary sword once belonging to a demon
-  weaponType: 1
-  damage: 20
+  itemName: King of the Void
+  icon: {fileID: -786975371, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
+  description: Insert
+  damage: 10
   weaponPrefab: {fileID: 8788400204022882399, guid: 401ca0c11538eda4eb811002cb06601b, type: 3}
-  resourceCost: 5
-  projectile: {fileID: 0}
-  beam: {fileID: 0}
+  resourceCost: 8
+  weaponSkill: {fileID: 0}

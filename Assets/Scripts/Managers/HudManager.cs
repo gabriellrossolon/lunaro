@@ -211,29 +211,29 @@ public class HudManager : MonoBehaviour
             itemDmg.text = "Damage  " + weapon.damage.ToString();
 
             string resourceText = weapon.resourceCost.ToString();
-            switch (weapon.weaponType)
+            switch (weapon)
             {
-                case Weapon.WeaponType.Sword:
+                case Sword sword:
                     itemType.text = "Sword";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
-                case Weapon.WeaponType.Staff:
+                case Staff staff:
                     itemType.text = "Staff";
                     itemResourceCost.text = resourceText + " Mana to Cast";
                     break;
-                case Weapon.WeaponType.Hammer:
+                case Hammer hammer:
                     itemType.text = "Hammer";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
-                case Weapon.WeaponType.Bow:
+                case Bow bow:
                     itemType.text = "Bow (2Hand)";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
-                case Weapon.WeaponType.GreatHammer:
+                case GreatHammer greatHammer:
                     itemType.text = "Great Hammer (2Hand)";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
-                case Weapon.WeaponType.GreatSword:
+                case GreatSword greatSword:
                     itemType.text = "Great Sword (2Hand)";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
