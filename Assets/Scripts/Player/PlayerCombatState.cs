@@ -35,7 +35,7 @@ public class PlayerCombatState : IState
     public void OnEnter() 
     {
         _handsPOV.SetActive(true);
-        InventoryManager.Instance.EquipWeapon();
+        //InventoryManager.Instance.EquipWeapon();
     }
     public void OnExit() 
     {
