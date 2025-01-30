@@ -245,39 +245,33 @@ public class HudManager : MonoBehaviour
         }
         else if (item is Secondary secondary)
         {
-            itemDmg.text = null;
             string resourceText = null;
+            itemDmg.text = null;
 
-            switch (secondary.secondaryType)
+            switch (secondary)
             {
-                case Secondary.SecondaryType.Shield:
+                case Shield shield:
                     itemType.text = "Shield";
-                    resourceText = secondary.blockResourceCost.ToString();
+                    resourceText = shield.blockResourceCost.ToString();
                     itemResourceCost.text = resourceText + " Stamina to Block";
-
-                    itemDmg.text = "Block Percent " + "100%";
                     break;
-                case Secondary.SecondaryType.Orb:
+                case Orb orb:
                     itemType.text = "Magical Orb";
-                    resourceText = secondary.spell.spellResourceCost.ToString();
+                    resourceText = orb.spell.spellResourceCost.ToString();
                     itemResourceCost.text = resourceText + " Mana to Cast Spell";
-
-                    itemDmg.text = "Spell Damage " + secondary.spell.spellDamage.ToString();
                     break;
-                case Secondary.SecondaryType.Book:
+                case Book book:
                     itemType.text = "Magical Book";
-                    resourceText = secondary.spell.spellResourceCost.ToString();
+                    resourceText = book.spell.spellResourceCost.ToString();
                     itemResourceCost.text = resourceText + " Mana to Cast Spell";
-
-                    itemDmg.text = "Spell Damage " + secondary.spell.spellDamage.ToString();
                     break;
                 default:
                     itemType.text = "Unknown Secondary";
-                    resourceText = null;
                     itemResourceCost.text = null;
                     break;
             }
         }
+
         else if (item is Potion potion)
         {
             itemType.text = "Potion";

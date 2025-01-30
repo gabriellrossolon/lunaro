@@ -28,4 +28,5 @@ public class LevelBehavior : MonoBehaviour
     {
         return experienceToUp * Mathf.Pow(1.1f, level - 1);
     }
+
 }

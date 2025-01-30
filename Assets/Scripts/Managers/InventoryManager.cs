@@ -263,7 +263,7 @@ public class InventoryManager : MonoBehaviour
     }
     private void ResetSecondaryBehavior()
     {
-        secondaryBehavior.secondaryType = Secondary.SecondaryType.Empty;
+        secondaryBehavior.SetSecondaryType(null);
     }
 
     //SETUP DAS ARMAS E SECUNDARIOS
@@ -332,27 +332,36 @@ public class InventoryManager : MonoBehaviour
     private void InstantiateAndSetupSecondary()
     {
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
-        
-        secondaryBehavior.SetSecondaryType(equippedSecondary.secondaryType);
+        secondaryBehavior.SetSecondaryType(equippedSecondary);
 
-        if(lastInstantiatedSecondary.TryGetComponent<ShieldBehavior>(out var shieldBehavior))
+        if (lastInstantiatedSecondary.TryGetComponent<ShieldBehavior>(out var shieldBehavior))
         {
-            shieldBehavior.blockedAttackSound = equippedSecondary.blockSound;
-            secondaryBehavior.resourceCost = equippedSecondary.blockResourceCost; //Se for escudo, o custo de recurso vem da propria Scriptable de Secondary
+            if (equippedSecondary is Shield shield)
+            {
+                secondaryBehavior.resourceCost = shield.blockResourceCost;
+                shieldBehavior.blockedAttackSound = shield.blockSound;
+            }
         }
         else if (lastInstantiatedSecondary.TryGetComponent<MagicBookBehavior>(out var magicBookBehavior))
         {
-            magicBookBehavior.skillPrefab = equippedSecondary.spell.spellPrefab;
-            magicBookBehavior.damage = equippedSecondary.spell.spellDamage;
-            secondaryBehavior.resourceCost = equippedSecondary.spell.spellResourceCost; //Se for orb/book, o custo vem da Scriptable da Spell
+            if (equippedSecondary is Book magicBook)
+            {
+                magicBookBehavior.skillPrefab = magicBook.spell.spellPrefab;
+                magicBookBehavior.damage = magicBook.spell.spellDamage;
+                secondaryBehavior.resourceCost = magicBook.spell.spellResourceCost;
+            }
         }
         else if (lastInstantiatedSecondary.TryGetComponent<MagicOrbBehavior>(out var magicOrbBehavior))
         {
-            magicOrbBehavior.skillPrefab = equippedSecondary.spell.spellPrefab;
-            magicOrbBehavior.damage = equippedSecondary.spell.spellDamage;
-            secondaryBehavior.resourceCost = equippedSecondary.spell.spellResourceCost; //Se for orb/book, o custo vem da Scriptable da Spell
+            if (equippedSecondary is Orb magicOrb)
+            {
+                magicOrbBehavior.skillPrefab = magicOrb.spell.spellPrefab;
+                magicOrbBehavior.damage = magicOrb.spell.spellDamage;
+                secondaryBehavior.resourceCost = magicOrb.spell.spellResourceCost;
+            }
         }
     }
+
 
     //GERADORES DOS PREFABS DE SLOT NO JOGO
     public void GenerateInventorySlots()

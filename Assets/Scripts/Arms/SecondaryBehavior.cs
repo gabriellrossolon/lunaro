@@ -1,5 +1,6 @@
 using UnityEngine;
 using static Secondary;
+using static SecondaryBehavior;
 
 public class SecondaryBehavior : MonoBehaviour
 {
@@ -22,6 +23,13 @@ public class SecondaryBehavior : MonoBehaviour
     public bool skillInput = false;
     private bool canUseSkill = true;
 
+    public enum SecondaryType
+    {
+        Empty,
+        Shield,
+        Orb,
+        Book
+    }
     public SecondaryType secondaryType;
 
     private void Start()
@@ -78,9 +86,8 @@ public class SecondaryBehavior : MonoBehaviour
         {
             magicOrbBeh.CallSkillProjectilePrefab();
         }
-        if(secondaryType == SecondaryType.Book)
+        else if (secondaryType == SecondaryType.Book)
         {
-
         }
     }
 
@@ -100,25 +107,31 @@ public class SecondaryBehavior : MonoBehaviour
     }
 
     //Controll Weapon Type
-    public void SetSecondaryType(SecondaryType type)
+    public void SetSecondaryType(Secondary secondary)
     {
-        secondaryType = type;
-
         shieldBeh = null;
         magicOrbBeh = null;
         magicBookBeh = null;
 
-        switch (secondaryType)
+        if (secondary == null)
         {
-            case SecondaryType.Shield:
-                shieldBeh = GetComponentInChildren<ShieldBehavior>();
-                break;
-            case SecondaryType.Orb:
-                magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
-                break;
-            case SecondaryType.Book:
-                magicBookBeh = GetComponentInChildren<MagicBookBehavior>();
-                break;
+            secondaryType = SecondaryType.Empty;
+        }
+        else if (secondary is Shield)
+        {
+            secondaryType = SecondaryType.Shield;
+            shieldBeh = GetComponentInChildren<ShieldBehavior>();
+        }
+        else if (secondary is Orb)
+        {
+            secondaryType = SecondaryType.Orb;
+            magicOrbBeh = GetComponentInChildren<MagicOrbBehavior>();
+        }
+        else if (secondary is Book)
+        {
+            secondaryType = SecondaryType.Book;
+            magicBookBeh = GetComponentInChildren<MagicBookBehavior>();
         }
     }
+
 }

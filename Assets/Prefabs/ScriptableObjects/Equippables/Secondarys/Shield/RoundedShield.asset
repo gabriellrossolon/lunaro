@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6d7e46e5a79d3441b5bc419683c0d28, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d83e4d6c44ffc842a502d9b63b5f183, type: 3}
   m_Name: RoundedShield
   m_EditorClassIdentifier: 
   itemName: Rounded Shield
   icon: {fileID: -505148176, guid: 9f6d308ef9b04ef4faf9d181c173aa8c, type: 3}
-  description: A common shield for soldier
-  secondaryType: 1
+  description: Insert
   secondaryPrefab: {fileID: 1711389755412164921, guid: 1fbcb72887204964cb654a8ef60b3a26, type: 3}
   blockSound: {fileID: 8300000, guid: ab6517d576acf764099920a06bc33b57, type: 3}
-  blockResourceCost: 25
-  spell: {fileID: 0}
+  blockResourceCost: 30
