@@ -60,6 +60,14 @@ public class TeleportManager : MonoBehaviour
         StartCoroutine(LoadSceneWithLoading("Arena"));
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
     }
+    public void GoToDungeonRooms()
+    {
+        HudManager.Instance.OpenTeleportPage();
+        transition.GetComponent<Animator>().SetTrigger("start");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        StartCoroutine(LoadSceneWithLoading("DungeonRooms"));
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
+    }
 
     private IEnumerator LoadSceneWithLoading(string sceneName)
     {

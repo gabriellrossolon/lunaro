@@ -20,6 +20,7 @@ MonoBehaviour:
     - 08e3b1032228efc4a93c545a21b25f26
     - bbf6369fc830d9244a8c0cf16d54e4a7
     - b386b355307562f4b8c98d91182564e1
+    - 3862bf0b95351b148804a033f237d047
     values:
     - goDatas_byGlobalId:
         keys:
@@ -334,6 +335,14 @@ MonoBehaviour:
           iconNameOrGuid: PreMatSphere
           isIconRecursive: 1
           isColorRecursive: 0
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-3862bf0b95351b148804a033f237d047-1027873245-0
+        values:
+        - colorIndex: 0
+          iconNameOrGuid: ReflectionProbe Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
   bookmarks:
   - _go: {fileID: 0}
     globalId:
@@ -349,5 +358,6 @@ MonoBehaviour:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/DungeonA.unity
   - Assets/Scenes/DungeonB.unity
+  - Assets/Scenes/DungeonRooms.unity
   - Assets/Scenes/SpawnScene.unity
   - Assets/Scenes/Arena.unity

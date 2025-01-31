@@ -3735,7 +3735,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2047248030}
         m_TargetAssemblyTypeName: TeleportManager, Assembly-CSharp
-        m_MethodName: GoToArena
+        m_MethodName: GoToDungeonRooms
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12397,7 +12397,7 @@ GameObject:
   - component: {fileID: 595195673}
   - component: {fileID: 595195672}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: DashSliderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26442,7 +26442,7 @@ GameObject:
   - component: {fileID: 1182448521}
   - component: {fileID: 1182448520}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SkillSliderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26487,7 +26487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 941a962331171f14396d51a91e182e9a, type: 3}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27176,7 +27176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -12.5, y: 12.5}
+  m_AnchoredPosition: {x: -20, y: 20}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1211050880
@@ -32596,8 +32596,14 @@ MonoBehaviour:
   playerLevel: {fileID: 431158602}
   playerExperience: {fileID: 1435338145}
   dashCooldownSlider: {fileID: 1738213289}
+  dashImage: {fileID: 1512499255}
+  dashSliderImage: {fileID: 595195672}
   skillCooldownSlider: {fileID: 765368826}
+  skillImage: {fileID: 1587100927}
+  skillSliderImage: {fileID: 1182448520}
   magicCooldownSlider: {fileID: 1189487343}
+  magicImage: {fileID: 1998816662}
+  magicSliderImage: {fileID: 1594915948}
   openedStash: 0
   hpSlider: {fileID: 1807361609}
   hpLateSlider: {fileID: 195395827}
@@ -36804,7 +36810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 941a962331171f14396d51a91e182e9a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36946,7 +36952,7 @@ GameObject:
   - component: {fileID: 1594915949}
   - component: {fileID: 1594915948}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: MagicSliderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36991,7 +36997,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 941a962331171f14396d51a91e182e9a, type: 3}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -43116,6 +43122,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 139299753921836576, guid: 0abc23069a3cf9f42829c9e02c3272e1, type: 3}
   m_PrefabInstance: {fileID: 1743349408}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1744611946
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.3529093
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.7376928
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.279039
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825125969, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218551302825227377, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
+      propertyPath: m_Name
+      value: Demons_LP
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 97be6194801464926b2c78020bf4eb32, type: 3}
 --- !u!1 &1745281632
 GameObject:
   m_ObjectHideFlags: 0
@@ -45779,8 +45842,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -15, y: 15}
-  m_SizeDelta: {x: 58.3669, y: 58.3669}
+  m_AnchoredPosition: {x: -20, y: 20}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1834210548
 MonoBehaviour:
@@ -49945,7 +50008,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 941a962331171f14396d51a91e182e9a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -51008,7 +51071,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: arena
+  m_text: Dark Chambers
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c50b1085c7a54a04ba367fb63e6244ec, type: 2}
   m_sharedMaterial: {fileID: -5733650684857329365, guid: c50b1085c7a54a04ba367fb63e6244ec, type: 2}
@@ -54364,3 +54427,4 @@ SceneRoots:
   - {fileID: 2047248031}
   - {fileID: 1843203523}
   - {fileID: 815638314}
+  - {fileID: 1744611946}

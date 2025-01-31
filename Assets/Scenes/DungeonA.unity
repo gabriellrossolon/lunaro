@@ -3667,6 +3667,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5614299067267252863, guid: 3581c583b0eafd44a9e7e3d62facc0a6, type: 3}
   m_PrefabInstance: {fileID: 43275113}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &43284123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 43284124}
+  m_Layer: 0
+  m_Name: DungeonOne
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &43284124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43284123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -36.047237, y: -62.28917, z: -74.92725}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &43430002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40129,7 +40160,6 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1146926080}
   - {fileID: 974646706}
   - {fileID: 1028034388}
   m_Father: {fileID: 0}
@@ -75893,11 +75923,11 @@ Transform:
   m_GameObject: {fileID: 1146926077}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.73, z: 0.538}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1, y: -2.595, z: 0.807}
+  m_LocalScale: {x: 1.5000005, y: 1.5, z: 1.5000005}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 573492832}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &1147493725
 PrefabInstance:
@@ -139928,8 +139958,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1188250011}
+  - {fileID: 1146926080}
   - {fileID: 573492832}
   - {fileID: 79036388}
   - {fileID: 757801944}
   - {fileID: 1689478260}
   - {fileID: 2101477976}
+  - {fileID: 43284124}

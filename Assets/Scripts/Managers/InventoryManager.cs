@@ -261,10 +261,14 @@ public class InventoryManager : MonoBehaviour
     private void ResetWeaponBehavior()
     {
         rightWeaponBehavior.SetWeaponType(null);
+        HudManager.Instance.skillImage.enabled = false;
+        HudManager.Instance.skillSliderImage.enabled = false;
     }
     private void ResetSecondaryBehavior()
     {
         secondaryBehavior.SetSecondaryType(null);
+        HudManager.Instance.magicImage.enabled = false;
+        HudManager.Instance.magicSliderImage.enabled = false;
     }
 
     //SETUP DAS ARMAS E SECUNDARIOS
@@ -274,6 +278,9 @@ public class InventoryManager : MonoBehaviour
         rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
         rightWeaponBehavior.SetWeaponType(equippedWeapon);
+
+        HudManager.Instance.skillImage.enabled = false;
+        HudManager.Instance.skillSliderImage.enabled = false;
 
         if (lastInstantiatedWeapon.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {
@@ -294,19 +301,39 @@ public class InventoryManager : MonoBehaviour
         else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {
             staffBehavior.beamPrefab = equippedWeapon.weaponSkill.skillPrefab;
+            staffBehavior.damage = equippedWeapon.damage;
+
             if (equippedWeapon is Staff staff)
             {
                 staffBehavior.staffProjectilePrefab = staff.projectile;
+
+                if (staff.weaponSkill != null)
+                {
+                    HudManager.Instance.skillImage.enabled = true;
+                    HudManager.Instance.skillSliderImage.enabled = true;
+
+                    HudManager.Instance.skillImage.sprite = staff.weaponSkill.skillIcon;
+                    HudManager.Instance.skillSliderImage.sprite = staff.weaponSkill.skillIcon;
+                }
             }
-            staffBehavior.damage = equippedWeapon.damage;
         }
         else if (lastInstantiatedWeapon.TryGetComponent<BowBehavior>(out var bowBehavior))
         {
+            bowBehavior.damage = equippedWeapon.damage;
+
             if (equippedWeapon is Bow bow)
             {
                 bowBehavior.bowProjectilePrefab = bow.projectile;
+
+                if (bow.weaponSkill != null)
+                {
+                    HudManager.Instance.skillImage.enabled = true;
+                    HudManager.Instance.skillSliderImage.enabled = true;
+
+                    HudManager.Instance.skillImage.sprite = bow.weaponSkill.skillIcon;
+                    HudManager.Instance.skillSliderImage.sprite = bow.weaponSkill.skillIcon;
+                }
             }
-            bowBehavior.damage = equippedWeapon.damage;
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatHammerBehavior>(out var greatHammerBehavior))
         {
@@ -314,7 +341,14 @@ public class InventoryManager : MonoBehaviour
             greatHammerBehavior.damage = equippedWeapon.damage;
             if (equippedWeapon is GreatHammer greatHammer)
             {
-                // Lógica do GreatHammer, se necessário
+                if (greatHammer.weaponSkill != null)
+                {
+                    HudManager.Instance.skillImage.enabled = true;
+                    HudManager.Instance.skillSliderImage.enabled = true;
+
+                    HudManager.Instance.skillImage.sprite = greatHammer.weaponSkill.skillIcon;
+                    HudManager.Instance.skillSliderImage.sprite = greatHammer.weaponSkill.skillIcon;
+                }
             }
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
@@ -323,7 +357,14 @@ public class InventoryManager : MonoBehaviour
             greatSwordBehavior.damage = equippedWeapon.damage;
             if (equippedWeapon is GreatSword greatSword)
             {
-                // Lógica do GreatSword, se necessário
+                if (greatSword.weaponSkill != null)
+                {
+                    HudManager.Instance.skillImage.enabled = true;
+                    HudManager.Instance.skillSliderImage.enabled = true;
+
+                    HudManager.Instance.skillImage.sprite = greatSword.weaponSkill.skillIcon;
+                    HudManager.Instance.skillSliderImage.sprite = greatSword.weaponSkill.skillIcon;
+                }
             }
         }
     }
@@ -333,7 +374,11 @@ public class InventoryManager : MonoBehaviour
     private void InstantiateAndSetupSecondary()
     {
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
+
         secondaryBehavior.SetSecondaryType(equippedSecondary);
+
+        HudManager.Instance.magicImage.enabled = false;
+        HudManager.Instance.magicSliderImage.enabled = false;
 
         if (lastInstantiatedSecondary.TryGetComponent<ShieldBehavior>(out var shieldBehavior))
         {
@@ -350,6 +395,15 @@ public class InventoryManager : MonoBehaviour
                 magicBookBehavior.skillPrefab = magicBook.spell.spellPrefab;
                 magicBookBehavior.damage = magicBook.spell.spellDamage;
                 secondaryBehavior.resourceCost = magicBook.spell.spellResourceCost;
+
+                if(magicBook.spell != null)
+                {
+                    HudManager.Instance.magicImage.enabled = true;
+                    HudManager.Instance.magicSliderImage.enabled = true;
+
+                    HudManager.Instance.magicImage.sprite = magicBook.spell.spellIcon;
+                    HudManager.Instance.magicSliderImage.sprite = magicBook.spell.spellIcon;
+                }
             }
         }
         else if (lastInstantiatedSecondary.TryGetComponent<MagicOrbBehavior>(out var magicOrbBehavior))
@@ -359,6 +413,15 @@ public class InventoryManager : MonoBehaviour
                 magicOrbBehavior.skillPrefab = magicOrb.spell.spellPrefab;
                 magicOrbBehavior.damage = magicOrb.spell.spellDamage;
                 secondaryBehavior.resourceCost = magicOrb.spell.spellResourceCost;
+
+                if(magicOrb.spell != null)
+                {
+                    HudManager.Instance.magicImage.enabled = true;
+                    HudManager.Instance.magicSliderImage.enabled = true;
+
+                    HudManager.Instance.magicImage.sprite = magicOrb.spell.spellIcon;
+                    HudManager.Instance.magicSliderImage.sprite = magicOrb.spell.spellIcon;
+                }
             }
         }
     }

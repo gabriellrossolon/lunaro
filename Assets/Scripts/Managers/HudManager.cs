@@ -55,10 +55,18 @@ public class HudManager : MonoBehaviour
     public TextMeshProUGUI playerLevel;
     public Slider playerExperience;
 
-    [Header("Cooldown References")]
+    [Header("Hotbar References")]
     public Slider dashCooldownSlider;
+    public Image dashImage;
+    public Image dashSliderImage;
+
     public Slider skillCooldownSlider;
+    public Image skillImage;
+    public Image skillSliderImage;
+
     public Slider magicCooldownSlider;
+    public Image magicImage;
+    public Image magicSliderImage;
 
     [Header("Controllers")]
     private bool openedInventory = false;
@@ -89,6 +97,11 @@ public class HudManager : MonoBehaviour
 
         UpdateHUDLevel();
         UpdateHUDStats();
+
+        skillImage.enabled = false;
+        skillSliderImage.enabled = false;
+        magicImage.enabled = false;
+        magicSliderImage.enabled = false;
     }
 
     private void Update()
