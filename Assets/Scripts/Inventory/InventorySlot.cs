@@ -86,8 +86,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         switch (slotType)
         {
             case SlotType.Inventory:
-                return true;
-
             case SlotType.Stash:
                 return true;
 
@@ -98,25 +96,22 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 return draggedItem.item is Secondary;
 
             case SlotType.Ring:
+                return draggedItem.item is Ring;
+
             case SlotType.Necklace:
+                return draggedItem.item is Necklace;
+
             case SlotType.Amulet:
-                if (draggedItem.item is Jewel jewel)
-                {
-                    return (slotType == SlotType.Ring && jewel.jewelType == Jewel.JewelType.Ring) ||
-                           (slotType == SlotType.Necklace && jewel.jewelType == Jewel.JewelType.Necklace) ||
-                           (slotType == SlotType.Amulet && jewel.jewelType == Jewel.JewelType.Amulet);
-                }
-                return false;
+                return draggedItem.item is Amulet;
 
             case SlotType.Potion:
                 return draggedItem.item is Potion;
 
             case SlotType.Nothing:
-                return false;
-
             default:
                 return false;
         }
+
     }
 
     private bool DraggedItemIsTwoHanded(InventoryItem draggedItem)
@@ -269,7 +264,18 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     private void EquipJewel(Jewel jewel)
     {
-        InventoryManager.Instance.EquipJewelFromInventory(jewel, jewel.jewelType);
+        switch (jewel)
+        {
+            case Ring:
+                InventoryManager.Instance.EquipJewelFromInventory(jewel, "Ring");
+                break;
+            case Necklace:
+                InventoryManager.Instance.EquipJewelFromInventory(jewel, "Necklace");
+                break;
+            case Amulet:
+                InventoryManager.Instance.EquipJewelFromInventory(jewel, "Amulet");
+                break;
+        }
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
     }
 
@@ -323,15 +329,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     break;
 
                 case SlotType.Ring:
-                    InventoryManager.Instance.EquipJewelFromInventory(null, Jewel.JewelType.Ring);
+                    InventoryManager.Instance.EquipJewelFromInventory(null, "Ring");
                     break;
 
                 case SlotType.Necklace:
-                    InventoryManager.Instance.EquipJewelFromInventory(null, Jewel.JewelType.Necklace);
+                    InventoryManager.Instance.EquipJewelFromInventory(null, "Necklace");
                     break;
 
                 case SlotType.Amulet:
-                    InventoryManager.Instance.EquipJewelFromInventory(null, Jewel.JewelType.Amulet);
+                    InventoryManager.Instance.EquipJewelFromInventory(null, "Amulet");
                     break;
 
                 case SlotType.Potion:
@@ -383,7 +389,4 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             Debug.LogWarning($"Índice {slotIndex} fora dos limites da lista de stash (deve ser 1 ou maior).");
         }
     }
-
 }
-
-

@@ -113,27 +113,27 @@ public class InventoryManager : MonoBehaviour
         equippedSecondary = secondary;
         EquipSecondary();
     }
-    public void EquipJewelFromInventory(Jewel jewel, Jewel.JewelType jewelType)
+    public void EquipJewelFromInventory(Jewel jewel, string jewelType)
     {
         if (jewel == null)
         {
             switch (jewelType)
             {
-                case Jewel.JewelType.Ring:
+                case "Ring":
                     RemoveJewelFunction(lastRingEquipped);
-                    equippedRing = null; 
-                    lastRingEquipped = null; 
+                    equippedRing = null;
+                    lastRingEquipped = null;
                     break;
 
-                case Jewel.JewelType.Necklace:
+                case "Necklace":
                     RemoveJewelFunction(lastNecklaceEquipped);
-                    equippedNecklace = null; 
-                    lastNecklaceEquipped = null; 
+                    equippedNecklace = null;
+                    lastNecklaceEquipped = null;
                     break;
 
-                case Jewel.JewelType.Amulet:
+                case "Amulet":
                     RemoveJewelFunction(lastAmuletEquipped);
-                    equippedAmulet = null; 
+                    equippedAmulet = null;
                     lastAmuletEquipped = null;
                     break;
 
@@ -143,24 +143,24 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            switch (jewel.jewelType)
+            switch (jewelType)
             {
-                case Jewel.JewelType.Ring:
+                case "Ring":
                     if (lastRingEquipped != null) { RemoveJewelFunction(lastRingEquipped); }
                     equippedRing = jewel;
-                    lastRingEquipped = jewel; 
+                    lastRingEquipped = jewel;
                     break;
 
-                case Jewel.JewelType.Necklace:
+                case "Necklace":
                     if (lastNecklaceEquipped != null) { RemoveJewelFunction(lastNecklaceEquipped); }
                     equippedNecklace = jewel;
-                    lastNecklaceEquipped = jewel; 
+                    lastNecklaceEquipped = jewel;
                     break;
 
-                case Jewel.JewelType.Amulet:
+                case "Amulet":
                     if (lastAmuletEquipped != null) { RemoveJewelFunction(lastAmuletEquipped); }
                     equippedAmulet = jewel;
-                    lastAmuletEquipped = jewel; 
+                    lastAmuletEquipped = jewel;
                     break;
 
                 default:
@@ -170,6 +170,7 @@ public class InventoryManager : MonoBehaviour
             AddJewelFunction(jewel);
         }
     }
+
     public void EquipPotionFromInventory(Potion potion)
     {
         equippedPotion = potion;

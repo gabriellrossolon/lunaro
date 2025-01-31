@@ -283,22 +283,24 @@ public class HudManager : MonoBehaviour
             itemDmg.text = null;
             itemResourceCost.text = null;
 
-            switch (jewel.jewelType)
+            if (jewel is Ring)
             {
-                case Jewel.JewelType.Ring:
-                    itemType.text = "Ring";
-                    break;
-                case Jewel.JewelType.Necklace:
-                    itemType.text = "Necklace";
-                    break;
-                case Jewel.JewelType.Amulet:
-                    itemType.text = "Amulet";
-                    break;
-                default:
-                    itemType.text = "Unknown Jewel";
-                    break;
+                itemType.text = "Ring";
+            }
+            else if (jewel is Necklace)
+            {
+                itemType.text = "Necklace";
+            }
+            else if (jewel is Amulet)
+            {
+                itemType.text = "Amulet";
+            }
+            else
+            {
+                itemType.text = "Unknown Jewel";
             }
         }
+
         else
         {
             itemType.text = "Unknown Item";
