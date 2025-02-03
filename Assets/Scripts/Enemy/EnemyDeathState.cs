@@ -15,7 +15,7 @@ public class EnemyDeathState : IState
     private readonly EnemyFSM _enemyFSM;
 
     private float _dissolveTimer = 5f;
-    private float _delayTimer = 0.5f;
+    private float _delayTimer = 1.5f;
     private List<Material> _materials;
     private bool _hasStartedDissolving = false;
 

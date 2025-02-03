@@ -37,6 +37,11 @@ namespace InfinityPBR
             return _blendShapesManager;
         }
 
+        private void Start()
+        {
+            StartTransitionToPreset("Random");
+        }
+
         public void StartTransitionToPreset(BlendShapePreset preset)
         {
             SetToAndFromValues(preset); // save the current value and the "to" value on this preset

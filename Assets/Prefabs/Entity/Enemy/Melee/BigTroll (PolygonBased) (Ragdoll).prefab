@@ -3067,7 +3067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 15
+  detectionRange: 10
   patrolRadius: 10
   attackRange: 5
   patrolSpeed: 1.5
@@ -3092,7 +3092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d538ce91cb43993488666bfca37cca84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gruntPitchRange: {x: 0.6, y: 1}
+  gruntPitchRange: {x: 0.3, y: 0.6}
   attackImpactFx: {fileID: 4021103657954561961, guid: 60f6ac539c1a6b14e8024805f6a6b364, type: 3}
   attackSound: {fileID: 8300000, guid: c9ca3cfc6467d8c47a3eb82c84051b3b, type: 3}
   attackImpactSound: {fileID: 8300000, guid: b06429d3a8d36984b850dc68c6444eac, type: 3}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyEffects : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class EnemyEffects : MonoBehaviour
         if (enemyGrunt != null) { StartCoroutine(PlayEnemyGruntRandomly()); }
     }
 
-    private System.Collections.IEnumerator PlayEnemyGruntRandomly()
+    private IEnumerator PlayEnemyGruntRandomly()
     {
         while (true)
         {
@@ -41,7 +42,7 @@ public class EnemyEffects : MonoBehaviour
 
             _enemySoundSource.pitch = Random.Range(gruntPitchRange.x, gruntPitchRange.y);
             _enemySoundSource.PlayOneShot(enemyGrunt);
-            yield return new WaitForSeconds(enemyGrunt.length);
+            yield return new WaitForSeconds(enemyGrunt.length * 3);
 
             _enemySoundSource.pitch = _originalPitch;
         }

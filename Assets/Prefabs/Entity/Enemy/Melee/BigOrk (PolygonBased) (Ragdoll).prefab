@@ -99,7 +99,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.301, y: -2.134, z: -1.445}
-  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4293951159776766232}
@@ -143,12 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 15
+  detectionRange: 10
   patrolRadius: 10
-  attackRange: 4
-  patrolSpeed: 1
-  chaseSpeed: 1
-  retreatSpeed: 1.5
+  attackRange: 3.8
+  patrolSpeed: 1.3
+  chaseSpeed: 1.3
+  retreatSpeed: 1.3
   retreatDistance: {x: 2, y: 3}
   attackDamage: 10
   maxHp: 40
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d538ce91cb43993488666bfca37cca84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gruntPitchRange: {x: 0.6, y: 1}
+  gruntPitchRange: {x: 0.7, y: 1}
   attackImpactFx: {fileID: 4021103657954561961, guid: 60f6ac539c1a6b14e8024805f6a6b364, type: 3}
   attackSound: {fileID: 8300000, guid: c9ca3cfc6467d8c47a3eb82c84051b3b, type: 3}
   attackImpactSound: {fileID: 8300000, guid: b06429d3a8d36984b850dc68c6444eac, type: 3}

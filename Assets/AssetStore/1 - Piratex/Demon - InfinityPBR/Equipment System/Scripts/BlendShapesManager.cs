@@ -51,7 +51,7 @@ namespace InfinityPBR
 
             return values;
         }
-        
+
         public void SetRandomShapeValue(BlendShapeValue value)
         {
             value.value = Random.Range(value.limitMin, value.limitMax);

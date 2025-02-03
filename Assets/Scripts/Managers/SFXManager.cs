@@ -47,6 +47,11 @@ public class SFXManager : MonoBehaviour
             ambientSource.clip = arenaAmbientSound;
             musicSource.clip = arenaMusicSound;
         }
+        else if (scene.name == "DungeonRooms")
+        {
+            ambientSource.clip = dungeonAmbientSound;
+            musicSource.clip = dungeonMusicSound;
+        }
 
         ambientSource.Play();
         musicSource.Play();
