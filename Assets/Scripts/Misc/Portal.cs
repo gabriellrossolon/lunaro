@@ -10,7 +10,8 @@ public class Portal : MonoBehaviour
         None,
         HUB,
         DarkChambers,
-        FrozenRuins
+        FrozenRuins,
+        HollowbarkDephts
     }
 
     public PortalType portalType;
@@ -58,6 +59,9 @@ public class Portal : MonoBehaviour
                 break;
             case PortalType.FrozenRuins:
                 sceneName = "FrozenRuins";
+                break;
+            case PortalType.HollowbarkDephts:
+                sceneName = "HollowbarkDephts";
                 break;
         }
 
