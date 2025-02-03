@@ -32,25 +32,15 @@ public class SFXManager : MonoBehaviour
             ambientSource.clip = HUBAmbientSound;
             musicSource.clip = HUBMusicSound;
         }
-        else if (scene.name == "DungeonA")
+        else if (scene.name == "DarkChambers")
         {
-            ambientSource.clip = dungeonAmbientSound;
-            musicSource.clip = dungeonMusicSound;
+            ambientSource.clip = darkChambersAmbientSound;
+            musicSource.clip = darkChambersMusicSound; 
         }
-        else if (scene.name == "DungeonB")
+        else if (scene.name == "FrozenRuins")
         {
-            ambientSource.clip = glacialAmbientSound;
-            musicSource.clip = glacialMusicSound;
-        }
-        else if (scene.name == "Arena")
-        {
-            ambientSource.clip = arenaAmbientSound;
-            musicSource.clip = arenaMusicSound;
-        }
-        else if (scene.name == "DungeonRooms")
-        {
-            ambientSource.clip = dungeonAmbientSound;
-            musicSource.clip = dungeonMusicSound;
+            ambientSource.clip = frozenRuinsAmbientSound;
+            musicSource.clip = frozenRuinsAmbientSound;
         }
 
         ambientSource.Play();
@@ -60,16 +50,14 @@ public class SFXManager : MonoBehaviour
     [Header("Ambient Sounds")]
     public AudioSource ambientSource;
     public AudioClip HUBAmbientSound;
-    public AudioClip dungeonAmbientSound;
-    public AudioClip glacialAmbientSound;
-    public AudioClip arenaAmbientSound;
+    public AudioClip darkChambersAmbientSound;
+    public AudioClip frozenRuinsAmbientSound;
 
     [Header("Scene Music")]
     public AudioSource musicSource;
     public AudioClip HUBMusicSound;
-    public AudioClip dungeonMusicSound;
-    public AudioClip glacialMusicSound;
-    public AudioClip arenaMusicSound;
+    public AudioClip darkChambersMusicSound;
+    public AudioClip frozenRuinsMusicSound;
 
     [Header("Player Foot SFX")]
     public AudioSource playerFootSource;

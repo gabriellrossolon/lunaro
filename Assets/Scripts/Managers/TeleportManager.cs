@@ -27,21 +27,21 @@ public class TeleportManager : MonoBehaviour
         transition = GameObject.FindWithTag("Transition");
         player = GameObject.FindWithTag("Player");
     }
+    public void GoToHUB()
+    {
+        HudManager.Instance.OpenTeleportPage();
+        transition.GetComponent<Animator>().SetTrigger("start");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        StartCoroutine(LoadSceneWithLoading("HUB"));
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
+    }
 
     public void GoToDarkChambers()
     {
         HudManager.Instance.OpenTeleportPage();
         transition.GetComponent<Animator>().SetTrigger("start");
         SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("DungeonA"));
-        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
-    }
-    public void GoToFrozenValley()
-    {
-        HudManager.Instance.OpenTeleportPage();
-        transition.GetComponent<Animator>().SetTrigger("start");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("DungeonB"));
+        StartCoroutine(LoadSceneWithLoading("DarkChambers"));
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
     }
 
@@ -51,22 +51,6 @@ public class TeleportManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(LoadSceneWithLoading("MainMenu"));
         GameManager.Instance.PauseGame();
-    }
-    public void GoToArena()
-    {
-        HudManager.Instance.OpenTeleportPage();
-        transition.GetComponent<Animator>().SetTrigger("start");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("Arena"));
-        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
-    }
-    public void GoToDungeonRooms()
-    {
-        HudManager.Instance.OpenTeleportPage();
-        transition.GetComponent<Animator>().SetTrigger("start");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("DungeonRooms"));
-        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
     }
 
     private IEnumerator LoadSceneWithLoading(string sceneName)

@@ -9,9 +9,8 @@ public class Portal : MonoBehaviour
     {
         None,
         HUB,
-        DungeonA,
-        DungeonB,
-        Spawn
+        DarkChambers,
+        FrozenRuins
     }
 
     public PortalType portalType;
@@ -53,18 +52,12 @@ public class Portal : MonoBehaviour
         {
             case PortalType.HUB:
                 sceneName = "HUB";
+                break;  
+            case PortalType.DarkChambers:
+                sceneName = "DarkChambers";
                 break;
-
-            case PortalType.DungeonA:
-                sceneName = "DungeonA";
-                break;
-
-            case PortalType.DungeonB:
-                sceneName = "DungeonB";
-                break;
-
-            case PortalType.Spawn:
-                sceneName = "SpawnScene";
+            case PortalType.FrozenRuins:
+                sceneName = "FrozenRuins";
                 break;
         }
 
