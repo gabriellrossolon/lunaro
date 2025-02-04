@@ -42,6 +42,16 @@ public class SFXManager : MonoBehaviour
             ambientSource.clip = frozenRuinsAmbientSound;
             musicSource.clip = frozenRuinsAmbientSound;
         }
+        else if (scene.name == "HollowbarkDephts")
+        {
+            ambientSource.clip = hollowbarkDephtsAmbientSound;
+            musicSource.clip = hollowbarkDephtsAmbientSound;
+        }
+        else if (scene.name == "ForsakenHamlet")
+        {
+            ambientSource.clip = forsakenHamletAmbientSound;
+            musicSource.clip = forsakenHamletAmbientSound;
+        }
 
         ambientSource.Play();
         musicSource.Play();
@@ -52,12 +62,16 @@ public class SFXManager : MonoBehaviour
     public AudioClip HUBAmbientSound;
     public AudioClip darkChambersAmbientSound;
     public AudioClip frozenRuinsAmbientSound;
+    public AudioClip hollowbarkDephtsAmbientSound;
+    public AudioClip forsakenHamletAmbientSound;
 
     [Header("Scene Music")]
     public AudioSource musicSource;
     public AudioClip HUBMusicSound;
     public AudioClip darkChambersMusicSound;
     public AudioClip frozenRuinsMusicSound;
+    public AudioClip hollowbarkDephtsMusictSound;
+    public AudioClip forsakenHamletMusicSound;
 
     [Header("Player Foot SFX")]
     public AudioSource playerFootSource;
