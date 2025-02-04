@@ -1,14 +1,19 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyWeaponBehavior : MonoBehaviour
 {
     public enum WeaponType { Empty, Sword, Staff}
     public WeaponType weaponType;
 
+    [SerializeField] private bool alreadyTriggered = false;
+
     private Collider _coll;
     [HideInInspector] public EnemyEffects _enemEffects;
     [HideInInspector] public EnemyStats _enemyStats;
     [HideInInspector] public AudioSource _enemySoundSource;
+
+
 
     [Header("Only if Melee")]
     public bool colliderEnabled = false;
@@ -34,12 +39,6 @@ public class EnemyWeaponBehavior : MonoBehaviour
         damage = _enemyStats.attackDamage;
     }
 
-    private void Update()
-    {
-
-    }
-
-
     //Comportamentos caso a arma seja Melee
     public void CallCollider()
     {
@@ -50,6 +49,7 @@ public class EnemyWeaponBehavior : MonoBehaviour
 
         if (colliderEnabled == false)
             attackBlockedByPlayer = false;
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -62,12 +62,22 @@ public class EnemyWeaponBehavior : MonoBehaviour
         }
         else if (!attackBlockedByPlayer && other.gameObject.CompareTag("Player"))
         {
+            if (alreadyTriggered) return;
+            alreadyTriggered = true;
+
             _enemySoundSource.PlayOneShot(_enemEffects.attackImpactSound);
             PlayerManager.Instance.DoDamage(damage);
             Instantiate(_enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
+
+            StartCoroutine(ResetTrigger());
         }
     }
 
+    private IEnumerator ResetTrigger()
+    {
+        yield return new WaitForSeconds(0.5f);
+        alreadyTriggered = false;
+    }
 
     //Comportamentos caso a arma seja ranged (solte um projectile)
     public void CallProjectile()
