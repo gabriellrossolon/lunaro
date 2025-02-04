@@ -104,6 +104,7 @@ MonoBehaviour:
   damage: 0
   colliderEnabled: 0
   weaponColl: {fileID: 0}
+  weaponSkillPrefab: {fileID: 0}
 --- !u!65 &6647281884270059465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,8 +124,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 2.5554166, z: 0.5}
-  m_Center: {x: 0.00000006474714, y: 0.93392706, z: -0.050514672}
+  m_Size: {x: 0.5, y: 2.5, z: 0.5}
+  m_Center: {x: 0.00000006474714, y: 1, z: -0.050514672}
 --- !u!1 &3630650421512883365
 GameObject:
   m_ObjectHideFlags: 0
