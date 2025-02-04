@@ -79,6 +79,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip stepStoneSound;
     public AudioClip stepSandSound;
     public AudioClip stepWoodSound;
+    public AudioClip stepSnowSound;
     public AudioClip defaultStepSound;
 
     [Header("Player Movement SFX")]
@@ -120,6 +121,7 @@ public class SFXManager : MonoBehaviour
     public LayerMask stoneLayer;
     public LayerMask sandLayer;
     public LayerMask woodLayer;
+    public LayerMask snowLayer;
     public void UpdateStepSound(Vector3 playerPosition)
     {
         RaycastHit hit;
@@ -134,6 +136,8 @@ public class SFXManager : MonoBehaviour
                 actualStepSound = stepSandSound;
             else if ((woodLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
                 actualStepSound = stepWoodSound;
+            else if ((snowLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
+                actualStepSound = stepSnowSound;
             else
                 actualStepSound = defaultStepSound;
         }

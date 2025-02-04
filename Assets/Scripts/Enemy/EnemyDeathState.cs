@@ -13,6 +13,7 @@ public class EnemyDeathState : IState
     private readonly NavMeshAgent _agent;
     private readonly EnemyEffects _enemyEffects;
     private readonly EnemyFSM _enemyFSM;
+    private readonly EnemyManager _enemyManager;
 
     private float _dissolveTimer = 5f;
     private float _delayTimer = 1.5f;
@@ -23,7 +24,7 @@ public class EnemyDeathState : IState
     public EnemyDeathState(StateMachine fsm, Animator animator,
         Transform transform, Transform playerTransform,
         EnemyStats enemyStats, NavMeshAgent agent, EnemyEffects enemyEffects,
-        EnemyFSM enemyFSM)
+        EnemyFSM enemyFSM, EnemyManager enemyManager)
     {
         _fsm = fsm;
         _animator = animator;
@@ -33,6 +34,7 @@ public class EnemyDeathState : IState
         _agent = agent;
         _enemyEffects = enemyEffects;
         _enemyFSM = enemyFSM;
+        _enemyManager = enemyManager;
 
         InitializeMaterials();
     }
@@ -43,7 +45,7 @@ public class EnemyDeathState : IState
         DisableComponents();
         _animator.SetTrigger("death");
         PlayerManager.Instance.playerStatus.ControlGold(_enemyStats.goldCarryed);
-        _enemyFSM.DropXp();
+        _enemyManager.DropXp();
     }
 
     public void OnExit() { }

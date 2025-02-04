@@ -14,6 +14,7 @@ public class EnemyFSM : MonoBehaviour
     private EnemyEffects _enemyEffects;
     private AudioSource _enemySoundSource;
     private EnemyFSM _enemyFSM;
+    private EnemyManager _enemyManager;
 
     public StateMachine FSM => _fsm;
 
@@ -34,6 +35,7 @@ public class EnemyFSM : MonoBehaviour
         _enemyEffects = GetComponent<EnemyEffects>();
         _enemySoundSource = GetComponent<AudioSource>();
         _enemyFSM = this;
+        _enemyManager = GetComponent<EnemyManager>();
 
         _fsm = new();
         _fsm.AddState("Idle", new EnemyIdleState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent));
@@ -41,7 +43,7 @@ public class EnemyFSM : MonoBehaviour
         _fsm.AddState("Chase", new EnemyChaseState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
         _fsm.AddState("Attack", new EnemyAttackState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator, _enemyEffects, _enemySoundSource));
         _fsm.AddState("Retreat", new EnemyRetreatState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
-        _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects, _enemyFSM));
+        _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects, _enemyFSM, _enemyManager));
 
         _fsm.SetInitialState("Patrol");
     }
@@ -64,6 +66,15 @@ public class EnemyFSM : MonoBehaviour
     }
 
     //Commons
+    
+
+    public void Retreat()
+    {
+        _agent.isStopped = false;
+        if (_enemyStats.currentHp > 0)
+            _fsm.SetState("Retreat");
+    }
+
     public void DoDamage(float damage)
     {
         _enemyStats.currentHp -= damage;
@@ -78,41 +89,6 @@ public class EnemyFSM : MonoBehaviour
         if (_fsm.CurrentState is EnemyIdleState || _fsm.CurrentState is EnemyPatrolState)
             _fsm.SetState("Chase");
 
-    }
-
-    public void Retreat()
-    {
-        _agent.isStopped = false;
-        if (_enemyStats.currentHp > 0)
-            _fsm.SetState("Retreat");
-    }
-
-    public void ActiveWeaponCollider()
-    {
-        _enemyWeaponBehavior.CallCollider();
-    }
-
-    public void ReableBlockedAttack()
-    {
-        EnemyWeaponBehavior[] weaponBehaviors = GetComponentsInChildren<EnemyWeaponBehavior>();
-
-        foreach (var weaponBehavior in weaponBehaviors)
-        {
-            weaponBehavior.attackBlockedByPlayer = false;
-        }
-    }
-
-    public void CallProjectile()
-    {
-        _enemyWeaponBehavior.CallProjectile();
-    }
-
-    public void DropXp()
-    {
-        for (int i = 0; i < _enemyStats.xpCarryed; i++)
-        {
-            GameObject xpOrb = Instantiate(_enemyEffects.xpOrb, transform.position, Quaternion.identity);
-        }
     }
 }
 
