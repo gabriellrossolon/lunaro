@@ -45,6 +45,7 @@ public class PlayerCombatState : IState
     public void OnTick()
     {
         Attack();
+        AttackCharging();
         Block();
         Skill();
         CombatMovement();
@@ -61,7 +62,22 @@ public class PlayerCombatState : IState
                 _weaponBehavior.attack = true;
             }
 
-            _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
+            _inputHandler.attackInput = false;
+        }
+    }
+
+    private void AttackCharging()
+    {
+        if (_weaponBehavior != null)
+        {
+            if (_inputHandler.attackChargingInput && !TempParent.Instance.isHoldingAnything)
+            {
+                _weaponBehavior.attackCharging = true;
+            }
+            else
+            {
+                _weaponBehavior.attackCharging = false;
+            }
         }
     }
 
@@ -72,12 +88,12 @@ public class PlayerCombatState : IState
             if (_inputHandler.blockInput && !TempParent.Instance.isHoldingAnything)
             {
                 _secondaryBehavior.blockInput = true;
-                _weaponBehavior.chargedAttack = true;
+                _weaponBehavior.leftBtnInput = true;
             }
             else
             {
                 _secondaryBehavior.blockInput = false;
-                _weaponBehavior.chargedAttack = false;
+                _weaponBehavior.leftBtnInput = false;
             }
         } 
     }
@@ -117,7 +133,7 @@ public class PlayerCombatState : IState
         if (_inputHandler.jumpInput && _controller.isGrounded)
             _fsm.SetState("Jump");
 
-        if (_inputHandler.dashInput && _cooldownController.CanUseDash() && _inputHandler.moveInput != Vector2.zero && !_weaponBehavior.chargedAttack)
+        if (_inputHandler.dashInput && _cooldownController.CanUseDash() && _inputHandler.moveInput != Vector2.zero && !_weaponBehavior.leftBtnInput)
             _fsm.SetState("Dash");
     }
 }

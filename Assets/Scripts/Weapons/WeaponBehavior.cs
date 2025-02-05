@@ -9,7 +9,6 @@ public class WeaponBehavior : MonoBehaviour
     [SerializeField] private Animator leftHandAnim;
     public Animator armBonesAnim;
     private Animator weaponAnim;
-    private CameraBobbing cameraBobbing;
     [SerializeField] private GameObject leftHandGrip;
     [SerializeField] private GameObject holdingObjectL;
     [SerializeField] private GameObject holdingObjectR;
@@ -24,7 +23,8 @@ public class WeaponBehavior : MonoBehaviour
 
     [Header("Controllers")]
     public bool attack;
-    public bool chargedAttack;
+    public bool attackCharging;
+    public bool leftBtnInput;
     public bool dashAttack;
     public bool jumpAttack;
     public bool canAttack = true;
@@ -48,7 +48,6 @@ public class WeaponBehavior : MonoBehaviour
     private void Awake()
     {
         weaponAnim = GetComponent<Animator>();
-        cameraBobbing = GetComponentInParent<CameraBobbing>();
     }
 
     private void Start()
@@ -86,15 +85,19 @@ public class WeaponBehavior : MonoBehaviour
                     break;
 
                 case WeaponType.Staff:
-                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
-                    break;
-
-                case WeaponType.Bow:
-                    bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
+                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, leftBtnInput, weaponAnim, leftHandAnim);
                     break;
             }
 
             attack = false;
+        }
+
+        switch (weaponType)
+        {
+            case WeaponType.Bow:
+                bowBeh.ChargingBowAttack(canAttack, resourceCost, weaponAnim);
+                bowBeh.attackCharging = attackCharging;
+                break;
         }
 
         if (dashAttack) // Dash attack
@@ -118,11 +121,7 @@ public class WeaponBehavior : MonoBehaviour
                     break;
 
                 case WeaponType.Staff: // Staff has no Dash Attack
-                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
-                    break;
-
-                case WeaponType.Bow: // Bow has no Dash Attack
-                    bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
+                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, leftBtnInput, weaponAnim, leftHandAnim);
                     break;
             }
             dashAttack = false;
@@ -149,11 +148,7 @@ public class WeaponBehavior : MonoBehaviour
                     break;
 
                 case WeaponType.Staff: // Staff has no jumpAttack
-                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, chargedAttack, weaponAnim, leftHandAnim);
-                    break;
-
-                case WeaponType.Bow: // Bow has no Jump Attack
-                    bowBeh.ExecuteBowAttack(canAttack, resourceCost, weaponAnim);
+                    staffBeh.ExecuteStaffAttack(canAttack, resourceCost, leftBtnInput, weaponAnim, leftHandAnim);
                     break;
             }
             jumpAttack = false;
@@ -178,19 +173,19 @@ public class WeaponBehavior : MonoBehaviour
         switch (weaponType)
         {
             case WeaponType.GreatHammer:
-                greatHammerBeh.UseEarthquake(chargedAttack, resourceCost, canAttack, weaponAnim);
+                greatHammerBeh.UseEarthquake(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
             case WeaponType.GreatSword:
-                greatSwordBeh.UseCircularCut(chargedAttack, resourceCost, canAttack, weaponAnim);
+                greatSwordBeh.UseCircularCut(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
             case WeaponType.Staff:
-                staffBeh.UseMagicBeam(chargedAttack, resourceCost, weaponAnim);
+                staffBeh.UseMagicBeam(leftBtnInput, resourceCost, weaponAnim);
                 break;
 
             case WeaponType.Bow:
-                bowBeh.UseConcentration(chargedAttack);
+                bowBeh.UseConcentration(leftBtnInput);
                 break;
         }
     }

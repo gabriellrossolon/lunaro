@@ -5,6 +5,12 @@ public class BowBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
 
+    public bool attackCharging;
+    private float chargeTime;
+    private const float maxChargeTime = 2f;
+    private const float minSpeed = 3f;
+    private const float maxSpeed = 50f;
+
     public float damage;
     public GameObject projectileExit;
 
@@ -17,13 +23,27 @@ public class BowBehavior : MonoBehaviour
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }
 
-    //Common Attacks
-    public void ExecuteBowAttack(bool canAttack, float resourceCost, Animator weaponAnim)
+    private void Update()
     {
-        if (canAttack && playerStatus.currentMana >= resourceCost)
+        if (attackCharging)
         {
-            weaponAnim.SetTrigger("bowAttack");
-            GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetTrigger("attack");
+            chargeTime += Time.deltaTime;
+            chargeTime = Mathf.Clamp(chargeTime, 0f, maxChargeTime);
+        }
+
+    }
+    //Common Attacks
+    public void ChargingBowAttack(bool canAttack, float resourceCost, Animator weaponAnim)
+    {
+        if (canAttack && playerStatus.currentMana >= resourceCost && attackCharging)
+        {
+            weaponAnim.SetBool("bowAttackCast", true);
+            GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetBool("AttackStart", true);
+        }
+        else if (!attackCharging)
+        {
+            weaponAnim.SetBool("bowAttackCast", false);
+            GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetBool("AttackStart", false);
         }
     }
 
@@ -68,7 +88,12 @@ public class BowBehavior : MonoBehaviour
         projectileScript.projectileDamage = damage;
         projectileScript.SetDirection(Camera.main.transform.forward);
 
+        float speedMultiplier = Mathf.Lerp(minSpeed, maxSpeed, chargeTime / maxChargeTime);
+        projectileScript.speed = speedMultiplier;
+
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.bowSwooshSound);
+
+        chargeTime = 0f; // Reset charge time after firing
     }
 }

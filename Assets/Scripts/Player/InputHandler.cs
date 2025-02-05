@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour
     [HideInInspector] public bool sprintInput;
     [HideInInspector] public bool jumpInput;
     [HideInInspector] public bool attackInput;
+    [HideInInspector] public bool attackChargingInput;
     [HideInInspector] public bool blockInput;
     [HideInInspector] public bool dashInput;
     [HideInInspector] public bool skillInput;
@@ -35,6 +36,12 @@ public class InputHandler : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
             attackInput = true;
+    }
+
+    public void OnAttackCharged(InputAction.CallbackContext context)
+    {
+        float value = context.ReadValue<float>();
+        attackChargingInput = value > 0.1f;
     }
 
     public void OnBlock(InputAction.CallbackContext context)

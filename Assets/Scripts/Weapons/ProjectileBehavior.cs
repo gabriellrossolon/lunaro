@@ -34,6 +34,15 @@ public class ProjectileBehavior : MonoBehaviour
 
         Destroy(gameObject, 5f); 
     }
+
+    private void Update()
+    {
+        if (rb.linearVelocity.magnitude > 0.1f) // Garante que só rotaciona se estiver em movimento
+        {
+            transform.rotation = Quaternion.LookRotation(rb.linearVelocity.normalized);
+        }
+    }
+
     public void SetDirection(Vector3 lookDirection)
     {
         direction = lookDirection.normalized;
