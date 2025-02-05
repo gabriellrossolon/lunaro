@@ -13,8 +13,6 @@ public class EnemyWeaponBehavior : MonoBehaviour
     [HideInInspector] public EnemyStats _enemyStats;
     [HideInInspector] public AudioSource _enemySoundSource;
 
-
-
     [Header("Only if Melee")]
     public bool colliderEnabled = false;
 

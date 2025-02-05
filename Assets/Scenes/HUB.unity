@@ -11324,7 +11324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500498816}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21198,7 +21198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 907483634}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25673,7 +25673,8 @@ MonoBehaviour:
   speedCurve: 0
   travelLimit: {x: 0, y: 0, z: 0}
   bobLimit: {x: 0.005, y: 0.02, z: 0.01}
-  bobExaggeration: 4
+  bobExaggeration: 5
+  bobExaggerationSprintMultiplier: 2
   multiplier: {x: 0, y: 0, z: 0}
 --- !u!4 &1088755311 stripped
 Transform:
@@ -34381,7 +34382,8 @@ MonoBehaviour:
   speedCurve: 0
   travelLimit: {x: 0, y: 0, z: 0}
   bobLimit: {x: 0.005, y: 0.02, z: 0.01}
-  bobExaggeration: 4
+  bobExaggeration: 5
+  bobExaggerationSprintMultiplier: 2
   multiplier: {x: 0, y: 0, z: 0}
 --- !u!4 &1457189855 stripped
 Transform:
@@ -41356,6 +41358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691266851}
+  - component: {fileID: 1691266852}
   m_Layer: 6
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -41379,6 +41382,22 @@ Transform:
   - {fileID: 1827293317}
   m_Father: {fileID: 815638314}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1691266852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691266850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46cce966cdb5744b8f20229b086afd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobbingSpeed: 3
+  bobbingAmount: 0.2
+  sprintBobbingMultiplier: 1.5
+  smoothFactor: 0.2
 --- !u!1001 &1692985911
 PrefabInstance:
   m_ObjectHideFlags: 0

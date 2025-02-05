@@ -9,6 +9,7 @@ public class WeaponBehavior : MonoBehaviour
     [SerializeField] private Animator leftHandAnim;
     public Animator armBonesAnim;
     private Animator weaponAnim;
+    private CameraBobbing cameraBobbing;
     [SerializeField] private GameObject leftHandGrip;
     [SerializeField] private GameObject holdingObjectL;
     [SerializeField] private GameObject holdingObjectR;
@@ -47,6 +48,7 @@ public class WeaponBehavior : MonoBehaviour
     private void Awake()
     {
         weaponAnim = GetComponent<Animator>();
+        cameraBobbing = GetComponentInParent<CameraBobbing>();
     }
 
     private void Start()
