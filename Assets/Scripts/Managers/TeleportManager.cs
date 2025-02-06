@@ -29,7 +29,9 @@ public class TeleportManager : MonoBehaviour
     }
     public void GoToHUB()
     {
-        HudManager.Instance.OpenTeleportPage();
+        if(HudManager.Instance.teleportsPage.activeSelf)
+            HudManager.Instance.OpenTeleportPage();
+
         transition.GetComponent<Animator>().SetTrigger("start");
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(LoadSceneWithLoading("HUB"));

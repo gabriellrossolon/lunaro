@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using System.Collections;
 
 public class HudManager : MonoBehaviour
 {
@@ -21,26 +22,30 @@ public class HudManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    [Header("Misc References")]
-    public GameObject inventory;
+    [Header("Scripts/Components References")]
     public CinemachineVirtualCamera virtualCamera;
     public PlayerInput playerInput;
-    public GameObject warnBtn;
+    private PlayerStatus playerStatus;
+    private LevelBehavior levelBehavior;
     public GameObject globalVolume;
+    public GameObject canvasObj;
+
+    [Header("Misc References")]
+    public GameObject warnBtn;
     public Texture2D cursorPointer;
     public Texture2D cursorClicker;
     public GameObject teleportsPage;
-    public TextMeshProUGUI potionCount;
-    public GameObject canvasObj;
+    public GameObject deathScreen;
+
+    [Header("Inventory")]
+    public GameObject inventory;
+    public GameObject stash;
+    public TextMeshProUGUI playerGoldText;
+
+    [Header("Esc | Options")]
     public GameObject pauseUI;
     public GameObject optionsUI;
-    public GameObject stash;
     public Toggle fullScreenCheckbox;
-    public TextMeshProUGUI playerGoldText;
-    public GameObject shortcuts;
-    [HideInInspector] public Animator shortcutsAnim;
-    private PlayerStatus playerStatus;
-    private LevelBehavior levelBehavior;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -56,14 +61,16 @@ public class HudManager : MonoBehaviour
     public Slider playerExperience;
 
     [Header("Hotbar References")]
+    public TextMeshProUGUI potionCount;
+    public GameObject shortcuts;
+    [HideInInspector] public Animator shortcutsAnim;
+
     public Slider dashCooldownSlider;
     public Image dashImage;
     public Image dashSliderImage;
-
     public Slider skillCooldownSlider;
     public Image skillImage;
     public Image skillSliderImage;
-
     public Slider magicCooldownSlider;
     public Image magicImage;
     public Image magicSliderImage;
@@ -74,6 +81,7 @@ public class HudManager : MonoBehaviour
     private bool openedOptionsUI = false;
     [HideInInspector] public bool openedStash = false;
     private bool isFullScreen = true;
+    private bool openedTeleportPage = false;
 
     [Header("Player Status")]
     public Slider hpSlider;
@@ -82,12 +90,11 @@ public class HudManager : MonoBehaviour
     public Slider staminaSlider;
     public Slider manaSlider;
 
+    [Header("Transitions Effects")]
     private Color _targetVignetteColor = Color.black;
     private float _targetSmoothness = 0.1f;
     private float _transitionDuration = 0.5f;
     private float _transitionTime = 0f;
-
-    private bool openedTeleportPage = false;
 
     private void Start()
     {
@@ -355,6 +362,81 @@ public class HudManager : MonoBehaviour
             }
         }
     }
+
+    public void ChangeToDeathUI()
+    {
+        Volume volume = globalVolume.GetComponent<Volume>();
+
+        if (volume != null && volume.profile != null)
+        {
+            if (volume.profile.TryGet<ColorAdjustments>(out ColorAdjustments colorAdjustments))
+            {
+                if (volume.profile.TryGet<Vignette>(out Vignette vignette))
+                {
+                    StartCoroutine(FadeEffects(colorAdjustments, vignette, -100f, 1f, 3f));
+                }
+            }
+        }
+    }
+
+    private IEnumerator FadeEffects(ColorAdjustments colorAdjustments, Vignette vignette, float targetSaturation, float targetVignette, float duration)
+    {
+        var pov = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
+        pov.m_HorizontalAxis.m_MaxSpeed = 0;
+        pov.m_VerticalAxis.m_MaxSpeed = 0;
+
+        float startSaturation = colorAdjustments.saturation.value;
+        float startVignette = vignette.intensity.value;
+        float startAimValue = pov.m_VerticalAxis.Value;
+        float targetAimValue = -80f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            colorAdjustments.saturation.value = Mathf.Lerp(startSaturation, targetSaturation, t);
+            vignette.intensity.value = Mathf.Lerp(startVignette, targetVignette, t);
+            pov.m_VerticalAxis.Value = Mathf.Lerp(startAimValue, targetAimValue, t);
+
+            yield return null;
+        }
+        deathScreen.SetActive(true);
+
+        colorAdjustments.saturation.value = targetSaturation;
+        vignette.intensity.value = targetVignette;
+        pov.m_VerticalAxis.Value = targetAimValue;
+    }
+
+
+    public void ChangeToLiveUI()
+    {
+        Volume volume = globalVolume.GetComponent<Volume>();
+
+        if (volume != null && volume.profile != null)
+        {
+            if (volume.profile.TryGet<ColorAdjustments>(out ColorAdjustments colorAdjustments))
+            {
+                colorAdjustments.saturation.value = 0f;
+            }
+
+            if (volume.profile.TryGet<Vignette>(out Vignette vignette))
+            {
+                vignette.intensity.value = 0.45f; 
+            }
+        }
+
+        deathScreen.SetActive(false);
+
+        var pov = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
+        pov.m_VerticalAxis.Value = 0f;
+        pov.m_HorizontalAxis.m_MaxSpeed = 2f;
+        pov.m_VerticalAxis.m_MaxSpeed = 2f;
+    }
+
+
+
 
     //ELEMENTOS AVULSOS
     public void SetCursor(Texture2D cursor)

@@ -757,6 +757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  alreadyTriggered: 0
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
@@ -784,7 +785,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.1947818, y: 2.0998554, z: 0.19478552}
+  m_Size: {x: 0.3, y: 3, z: 0.3}
   m_Center: {x: 0.0000006072225, y: -0.00000041723254, z: 0.00000095367426}
 --- !u!1 &2658841199631812662
 GameObject:

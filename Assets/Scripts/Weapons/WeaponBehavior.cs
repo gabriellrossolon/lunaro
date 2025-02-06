@@ -92,7 +92,7 @@ public class WeaponBehavior : MonoBehaviour
             attack = false;
         }
 
-        switch (weaponType)
+        switch (weaponType) //Somente bow funciona com Input diferente, o botão precisa ser pressionado e solto para atacar
         {
             case WeaponType.Bow:
                 bowBeh.ChargingBowAttack(canAttack, resourceCost, weaponAnim);
@@ -187,7 +187,15 @@ public class WeaponBehavior : MonoBehaviour
             case WeaponType.Bow:
                 bowBeh.UseConcentration(leftBtnInput);
                 break;
-        }
+        }   
+    }
+
+    public bool ChargingAnySkill()
+    {
+        if (weaponAnim.GetBool("ChargingAttack"))
+            return true;
+        else 
+            return false;
     }
 
     public void CanAttack()//Controlada pela propria animação

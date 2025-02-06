@@ -6,6 +6,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerStatus playerStatus;
     public CinemachineVirtualCamera cinemachineCam;
     public static PlayerManager Instance;
+    private PlayerFSM fsm;
+    public bool playerIsDeath = false;
 
     private void Awake()
     {
@@ -19,6 +21,7 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         playerStatus = GetComponent<PlayerStatus>();
+        fsm = GetComponent<PlayerFSM>();
     }
 
     private void CallStep()
@@ -29,9 +32,24 @@ public class PlayerManager : MonoBehaviour
 
     public void DoDamage(float damage)
     {
-        playerStatus.currentHp -= damage;
-        HudManager.Instance.ChangeVignetteColorToRed();
-        GetComponent<PlayerFSM>()._handsPOV.GetComponent<Animator>().SetTrigger("damage");
+        if (!playerIsDeath)
+        {
+            playerStatus.currentHp -= damage;
+            HudManager.Instance.ChangeVignetteColorToRed();
+            GetComponent<PlayerFSM>()._handsPOV.GetComponent<Animator>().SetTrigger("damage");
+
+            if (playerStatus.currentHp <= 0)
+            {
+                fsm.FSM.SetState("Death");
+            }
+        }
+    }
+
+    public void Ressurect()
+    {
+        playerIsDeath = false;
+        TeleportManager.Instance.GoToHUB();
+        playerStatus.currentHp = playerStatus.maxHp;
     }
 }
 

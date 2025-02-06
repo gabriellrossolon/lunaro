@@ -3330,7 +3330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 10
   patrolRadius: 10
-  attackRange: 5
+  attackRange: 5.5
   patrolSpeed: 1
   chaseSpeed: 1
   retreatSpeed: 1
@@ -4454,6 +4454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  alreadyTriggered: 0
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}

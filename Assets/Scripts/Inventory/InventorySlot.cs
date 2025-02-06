@@ -111,9 +111,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             default:
                 return false;
         }
-
     }
-
     private bool DraggedItemIsTwoHanded(InventoryItem draggedItem)
     {
         return draggedItem.item is Bow || draggedItem.item is GreatHammer || draggedItem.item is GreatSword;
@@ -209,15 +207,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 yield break;
             }
         }
-        else if (IsWithSecondaryEquipped())
-        {
-            if (existingItem.item is Bow || existingItem.item is GreatHammer || existingItem.item is GreatSword)
-            {
-                ReturnItemToPreviousParent(draggedItem);
-                yield break;
-            }
-        }
-
         else if (isWithTwoHandEquipped())
         {
             if (existingItem.item is Secondary secondary)
@@ -226,7 +215,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 yield break;
             }
         }
-
+        else if (IsWithSecondaryEquipped())
+        {
+            if (existingItem.item is Bow || existingItem.item is GreatHammer || existingItem.item is GreatSword)
+            {
+                ReturnItemToPreviousParent(draggedItem);
+                yield break;
+            }
+        }
+        
         Transform draggedPreviousParent = draggedItem.previousParent;
         Transform existingPreviousParent = existingItem.previousParent;
 

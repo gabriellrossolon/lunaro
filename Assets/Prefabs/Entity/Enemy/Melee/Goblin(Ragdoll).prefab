@@ -46,7 +46,7 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 0.8
+  m_Pitch: 1.2676215
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -428,7 +428,7 @@ MonoBehaviour:
   patrolRadius: 10
   attackRange: 2.7
   patrolSpeed: 1
-  chaseSpeed: 4
+  chaseSpeed: 3
   retreatSpeed: 2.5
   retreatDistance: {x: 1.5, y: 2.5}
   attackDamage: 2
@@ -1467,6 +1467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  alreadyTriggered: 0
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}

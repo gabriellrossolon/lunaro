@@ -114,6 +114,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip chestOpeningSound;
     public AudioClip xpCollectSound;
     public AudioClip levelUpSound;
+    public AudioClip deathSound;
 
     // Layers for detection
     [Header("Layer Mapping")]

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 133347283e115d147a5fcce7f47a538f, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: aa87107d0c3535c4983a4edb2d0e9f7b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -261,10 +261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 316584248655254243, guid: aba53863524b01f488ace38996fd39b0, type: 3}
-  - {fileID: 1254168819101911002, guid: 91371604643a86047bfe3a19ef85a969, type: 3}
-  - {fileID: 543756452206612275, guid: 2dac27706b68e2448bbad6d6f5335283, type: 3}
-  - {fileID: 316584248655254243, guid: aba53863524b01f488ace38996fd39b0, type: 3}
+  - {fileID: 5675172640510554418, guid: 440cf264eaa77504da46fef759815192, type: 3}
+  - {fileID: 5409667168386587620, guid: 170682f45258b694d932e21957c02a92, type: 3}
+  - {fileID: 5409667168386587620, guid: 170682f45258b694d932e21957c02a92, type: 3}
   numberOfEnemiesToSpawn: 12
   continousSpawner: 0
 --- !u!1001 &1357666154
@@ -352,7 +351,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.9354579, b: 0.759434, a: 1}
+  m_Color: {r: 0.48718402, g: 0.50660664, b: 0.6415094, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -396,8 +395,8 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6163
-  m_UseColorTemperature: 0
+  m_ColorTemperature: 9599
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1

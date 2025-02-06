@@ -179,7 +179,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 301f9a4d37be59148a801c1c8b1a86b6, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 8463fb26181a5c7468d292624c2d7f74, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -347,7 +347,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UpLayer
+  m_Name: AttackLayer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -8967309773036291409}
@@ -482,7 +482,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: UpLayer
+    m_Name: AttackLayer
     m_StateMachine: {fileID: -1135673195909085515}
     m_Mask: {fileID: 0}
     m_Motions: []

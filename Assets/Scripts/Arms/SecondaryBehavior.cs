@@ -1,6 +1,4 @@
 using UnityEngine;
-using static Secondary;
-using static SecondaryBehavior;
 
 public class SecondaryBehavior : MonoBehaviour
 {
@@ -79,6 +77,13 @@ public class SecondaryBehavior : MonoBehaviour
         armBonesAnim.SetBool("isWithBook", secondaryType == SecondaryType.Book);
     }
 
+    public bool IsBlockingAnything()
+    {
+        if (secondaryAnim.GetBool("isBlocking"))
+            return true;
+        else
+            return false;
+    }
 
     public void CallProjectileInLeft()
     {
