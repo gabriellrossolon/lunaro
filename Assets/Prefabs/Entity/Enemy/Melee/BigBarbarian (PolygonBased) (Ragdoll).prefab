@@ -199,6 +199,8 @@ Transform:
   m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3722598040437174162}
+  - {fileID: 2644365176125988803}
   - {fileID: 6684285509868552068}
   - {fileID: 8351013588679832618}
   - {fileID: 1803218890335700112}
@@ -211,8 +213,6 @@ Transform:
   - {fileID: 9193032323528121219}
   - {fileID: 7203612589874145228}
   - {fileID: 682098806818538125}
-  - {fileID: 3722598040437174162}
-  - {fileID: 2644365176125988803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2999171862906557768
@@ -270,12 +270,12 @@ MonoBehaviour:
   _gruntSourceSource: {fileID: 4583383786446895825}
   _stepSoundSource: {fileID: 5343659555216666663}
   gruntPitchRange: {x: 0.8, y: 1.2}
-  stepPitchRange: {x: 0, y: 0}
+  stepPitchRange: {x: 1, y: 1}
   attackImpactFx: {fileID: 4021103657954561961, guid: 60f6ac539c1a6b14e8024805f6a6b364, type: 3}
   attackSound: {fileID: 8300000, guid: c9ca3cfc6467d8c47a3eb82c84051b3b, type: 3}
   attackImpactSound: {fileID: 8300000, guid: b06429d3a8d36984b850dc68c6444eac, type: 3}
   enemyGrunt: {fileID: 8300000, guid: ad3a3154b446fdb4c8599e4599c35dce, type: 3}
-  enemyStep: {fileID: 0}
+  enemyStep: {fileID: 8300000, guid: b2f25c9bce4b3464b8dbc2cb7116e58d, type: 3}
   xpOrb: {fileID: 3338034077606413047, guid: 06a4b2a93674c6647873404ebdaf42c7, type: 3}
   attackTakenSound: {fileID: 8300000, guid: 049af9b7b2c2143449d180d41f4df9c5, type: 3}
   attackTakenParticle: {fileID: 6600992782611876899, guid: 6f315d0b88f296b489a8c91cfa4999b2, type: 3}
@@ -1885,6 +1885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  alreadyTriggered: 0
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}

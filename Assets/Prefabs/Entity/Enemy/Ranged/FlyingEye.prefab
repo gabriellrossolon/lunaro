@@ -554,6 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  alreadyTriggered: 0
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
@@ -1688,7 +1689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 15
+  detectionRange: 20
   patrolRadius: 10
   attackRange: 15
   patrolSpeed: 2

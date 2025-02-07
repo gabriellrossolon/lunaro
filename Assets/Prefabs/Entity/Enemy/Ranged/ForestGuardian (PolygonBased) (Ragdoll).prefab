@@ -2341,7 +2341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 15
+  detectionRange: 20
   patrolRadius: 10
   attackRange: 15
   patrolSpeed: 2
@@ -2366,8 +2366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d538ce91cb43993488666bfca37cca84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gruntSourceSource: {fileID: 630025510809910577, guid: 2dac27706b68e2448bbad6d6f5335283, type: 3}
-  _stepSoundSource: {fileID: 7337004415931530239, guid: 2dac27706b68e2448bbad6d6f5335283, type: 3}
+  _gruntSourceSource: {fileID: 8603188607605220357}
+  _stepSoundSource: {fileID: 2920200986744085688}
   gruntPitchRange: {x: 0.7, y: 0.9}
   stepPitchRange: {x: 0, y: 0}
   attackImpactFx: {fileID: 7646703945970319018, guid: 8111759eca9b71a4888324940f5dad98, type: 3}
@@ -2409,7 +2409,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.75
-  m_BaseOffset: 0
+  m_BaseOffset: -0.01
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &3702235945913496315
@@ -2481,8 +2481,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2999998, y: 2.438703, z: 1.2}
-  m_Center: {x: 0.0030154919, y: 1.2193515, z: 0.041292768}
+  m_Size: {x: 1.2999998, y: 2.4105191, z: 1.2}
+  m_Center: {x: 0.0030154919, y: 1.2334434, z: 0.041292768}
 --- !u!95 &3999723816928296193
 Animator:
   serializedVersion: 7

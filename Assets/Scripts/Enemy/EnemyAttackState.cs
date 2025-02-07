@@ -33,9 +33,7 @@ public class EnemyAttackState : IState
 
         string[] attacks = { "attack1", "attack2", "attack3" };
         int randomAttack = Random.Range(0, attacks.Length);
-        _animator.SetTrigger(attacks[randomAttack]);
-
-        _enemySoundSource.PlayOneShot(_enemyEffects.attackSound);
+        _animator.SetTrigger(attacks[randomAttack]);  
     }
 
     public void OnExit() 

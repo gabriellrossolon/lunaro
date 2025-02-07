@@ -1969,10 +1969,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d538ce91cb43993488666bfca37cca84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gruntSourceSource: {fileID: 918250697844262995, guid: 91371604643a86047bfe3a19ef85a969, type: 3}
-  _stepSoundSource: {fileID: 8771610539245556071, guid: 91371604643a86047bfe3a19ef85a969, type: 3}
+  _gruntSourceSource: {fileID: 5359733835768274042}
+  _stepSoundSource: {fileID: 6896566619213295275}
   gruntPitchRange: {x: 1.2, y: 1.4}
-  stepPitchRange: {x: 0, y: 0}
+  stepPitchRange: {x: 1, y: 1}
   attackImpactFx: {fileID: 4021103657954561961, guid: a26e2f7716c99d4479f0ec4e9eec4f4c, type: 3}
   attackSound: {fileID: 8300000, guid: 8f4145a2be3c6094ca4a14d28f6230e4, type: 3}
   attackImpactSound: {fileID: 8300000, guid: 049af9b7b2c2143449d180d41f4df9c5, type: 3}
@@ -2096,7 +2096,7 @@ Animator:
   m_GameObject: {fileID: 5409667168386587620}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: be73df03abf02284486d1afabcf5d4fe, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5b2d2d1c7a5de404ca56b661aaafb70e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 67cd767b5b22af34eb6020866188f295, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3059,8 +3059,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.1, y: 2, z: 0.3}
-  m_Center: {x: 3.1935454e-11, y: 0.44735262, z: -0.0002765358}
+  m_Size: {x: 0.1, y: 1.7641732, z: 0.3}
+  m_Center: {x: 0.00000020307286, y: 0.6659243, z: -0.00027515824}
 --- !u!1 &6622567515048406225
 GameObject:
   m_ObjectHideFlags: 0

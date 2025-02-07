@@ -20,6 +20,12 @@ public class EnemyManager : MonoBehaviour
         _enemyWeaponBehavior.CallCollider();
     }
 
+    public void AttackSwoosh()
+    {
+        _audioSource.PlayOneShot(_enemyEffects.attackSound);
+    }
+
+
     public void ReableBlockedAttack()
     {
         EnemyWeaponBehavior[] weaponBehaviors = GetComponentsInChildren<EnemyWeaponBehavior>();

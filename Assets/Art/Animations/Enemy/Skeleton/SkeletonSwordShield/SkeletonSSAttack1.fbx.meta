@@ -58,6 +58,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.35901314
+        functionName: AttackSwoosh
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.4675895
         functionName: ActiveWeaponCollider
         data: 
@@ -72,7 +79,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8289963
+      - time: 0.91578877
         functionName: Retreat
         data: 
         objectReferenceParameter: {instanceID: 0}

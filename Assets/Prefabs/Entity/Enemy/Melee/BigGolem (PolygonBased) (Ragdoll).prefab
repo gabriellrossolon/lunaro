@@ -845,7 +845,7 @@ MonoBehaviour:
   _gruntSourceSource: {fileID: 9167533319309040273}
   _stepSoundSource: {fileID: 5244881736363077594}
   gruntPitchRange: {x: 0.2, y: 0.5}
-  stepPitchRange: {x: 0.6, y: 0.8}
+  stepPitchRange: {x: 0.4, y: 0.5}
   attackImpactFx: {fileID: 4021103657954561961, guid: 60f6ac539c1a6b14e8024805f6a6b364, type: 3}
   attackSound: {fileID: 8300000, guid: c9ca3cfc6467d8c47a3eb82c84051b3b, type: 3}
   attackImpactSound: {fileID: 8300000, guid: b06429d3a8d36984b850dc68c6444eac, type: 3}
@@ -2132,6 +2132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  alreadyTriggered: 0
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
@@ -2159,8 +2160,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 2, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5000001, y: 1.678544, z: 1.5}
+  m_Center: {x: -0.000000028829083, y: 0.16072711, z: -0.000000041397204}
 --- !u!1 &3637473396425957170
 GameObject:
   m_ObjectHideFlags: 0
