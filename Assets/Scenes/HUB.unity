@@ -5572,6 +5572,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 270a094cf4c93ba4ea2f8ec2f4f0f348, type: 3}
+--- !u!1001 &248786332
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.7391453
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.6507463
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4006996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.976721
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.2145137
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 24.774
+      objectReference: {fileID: 0}
+    - target: {fileID: 3138055200996323231, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409667168386587620, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_Name
+      value: DarkElf (PolygonBased) (Ragdoll)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628973945305189994, guid: 170682f45258b694d932e21957c02a92, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 67cd767b5b22af34eb6020866188f295, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 170682f45258b694d932e21957c02a92, type: 3}
 --- !u!4 &251548470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5596479668781928320, guid: 0372034f18ea7bd40976494bb5f16f6d, type: 3}
@@ -56254,3 +56315,4 @@ SceneRoots:
   - {fileID: 2047248031}
   - {fileID: 1843203523}
   - {fileID: 815638314}
+  - {fileID: 248786332}
