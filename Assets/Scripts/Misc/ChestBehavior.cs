@@ -10,6 +10,7 @@ public class ChestBehavior : MonoBehaviour
     private GameObject player;
     private Collider chestCollider;
     public float maxDistance;
+    private AudioSource chestSoundSource;
 
     public List<ItemBase> chestItems = new List<ItemBase>();
 
@@ -26,6 +27,7 @@ public class ChestBehavior : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         chestCollider = GetComponent<Collider>();
+        chestSoundSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -50,6 +52,8 @@ public class ChestBehavior : MonoBehaviour
         {
             GameObject newDropBag = Instantiate(dropBag, dropPoint.transform.position, Quaternion.identity);
             DroppedItem droppedItem = newDropBag.GetComponent<DroppedItem>();
+
+            chestSoundSource.PlayOneShot(SFXManager.Instance.dropSound);
 
             if (droppedItem != null)
                 droppedItem.item = item;

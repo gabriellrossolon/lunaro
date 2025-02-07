@@ -8,6 +8,7 @@ public class ItemDatabase : MonoBehaviour
     public List<ItemBase> commonItems = new List<ItemBase>();
     public List<ItemBase> uncommonItems = new List<ItemBase>();
     public List<ItemBase> rareItems = new List<ItemBase>();
+    public List<ItemBase> epicItems = new List<ItemBase>();
     public List<ItemBase> legendaryItems = new List<ItemBase>();
 
     void Awake()
@@ -32,6 +33,8 @@ public class ItemDatabase : MonoBehaviour
                 return uncommonItems;
             case Rarity.Rare:
                 return rareItems;
+            case Rarity.Epic:
+                return epicItems;
             case Rarity.Legendary:
                 return legendaryItems;
             default:
@@ -45,5 +48,6 @@ public enum Rarity
     Common,
     Uncommon,
     Rare,
+    Epic,
     Legendary
 }

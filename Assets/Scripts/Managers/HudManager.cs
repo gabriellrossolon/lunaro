@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
+using System.Resources;
 
 public class HudManager : MonoBehaviour
 {
@@ -300,7 +301,22 @@ public class HudManager : MonoBehaviour
         }
         else if (item is Jewel jewel)
         {
-            itemDmg.text = null;
+            string statModified = jewel.statToModify.ToString();
+            string effectAdded()
+            {
+                if (jewel.effectType is Jewel.EffectType.IncreaseBase)
+                    return "Base";
+                else if (jewel.effectType is Jewel.EffectType.IncreaseRegeneration)
+                    return "Regeneration";
+                else if (jewel.effectType is Jewel.EffectType.IncreasePercent)
+                    return "Percent";
+                else return null;
+            }
+            string valueChanged = jewel.valueToAdd.ToString();
+
+            itemDmg.text = "Add " + valueChanged + " to " + statModified + " " + effectAdded();
+
+            //itemDmg.text = null;
             itemResourceCost.text = null;
 
             if (jewel is Ring)

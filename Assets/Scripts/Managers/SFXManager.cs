@@ -115,6 +115,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip xpCollectSound;
     public AudioClip levelUpSound;
     public AudioClip deathSound;
+    public AudioClip dropSound;
 
     // Layers for detection
     [Header("Layer Mapping")]
