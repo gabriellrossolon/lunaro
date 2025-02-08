@@ -9,7 +9,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     public SlotType slotType;
 
     public int slotIndex;
-    private int stashIndexStartAt = 33;
+    private int stashIndexStartAt = 49;
 
     private void Update()
     {

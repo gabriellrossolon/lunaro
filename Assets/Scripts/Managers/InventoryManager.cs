@@ -7,6 +7,8 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
 
+    private int stashIndexStartAt = 49;
+
     [Header("Player References")]
     public GameObject handsPOV;
     public GameObject rightHandHolder;
@@ -41,7 +43,7 @@ public class InventoryManager : MonoBehaviour
     public int potionsCount = 3;
     public int maxPotionsCount = 3;
     private float potionRegenerationTimer = 0f;
-    [SerializeField] private float potionRegenerationCooldown = 60f; 
+    [SerializeField] private float potionRegenerationCooldown = 60f;
 
     private GameObject lastInstantiatedWeapon;
     private GameObject lastInstantiatedSecondary;
@@ -483,7 +485,7 @@ public class InventoryManager : MonoBehaviour
             InventorySlot slot = slotObject.GetComponent<InventorySlot>();
             if (slot != null)
             {
-                slot.slotIndex = i + 33; 
+                slot.slotIndex = i + stashIndexStartAt; 
                 slot.slotType = InventorySlot.SlotType.Stash;
             }
 
