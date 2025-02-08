@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static ItemBase;
 using static Potion;
 
 public class InventoryManager : MonoBehaviour
@@ -447,30 +448,49 @@ public class InventoryManager : MonoBehaviour
                 slot.slotIndex = i; 
             }
 
+            //if (inventoryItems[i] != null) //Função Chamada caso seja o InventoryItem antigo
+            //{
+            //    GameObject inventoryItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
+
+            //    InventoryItem inventoryItem = inventoryItemObject.GetComponent<InventoryItem>();
+            //    if (inventoryItem != null)
+            //    {
+            //        inventoryItem.item = inventoryItems[i];
+
+            //        Image inventoryItemImage = inventoryItem.GetComponentInChildren<Image>();
+
+            //        var iconField = inventoryItems[i].GetType().GetField("icon");
+            //        if (iconField != null)
+            //        {
+            //            Sprite icon = iconField.GetValue(inventoryItems[i]) as Sprite;
+            //            if (inventoryItemImage != null && icon != null)
+            //            {
+            //                inventoryItemImage.sprite = icon; 
+            //            }
+            //        }
+            //    }
+            //}
+
             if (inventoryItems[i] != null)
             {
-                GameObject inventoryItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
-
-                InventoryItem inventoryItem = inventoryItemObject.GetComponent<InventoryItem>();
+                var inventoryItem = Instantiate(inventoryItemPrefab, slotObject.transform).GetComponent<InventoryItem>();
                 if (inventoryItem != null)
                 {
                     inventoryItem.item = inventoryItems[i];
+                    var icon = inventoryItems[i].GetType().GetField("icon")?.GetValue(inventoryItems[i]) as Sprite;
+                    var inventoryItemImage = inventoryItem.transform.Find("Icon")?.GetComponent<Image>();
 
-                    Image inventoryItemImage = inventoryItem.GetComponent<Image>();
+                    if (inventoryItemImage != null && icon != null)
+                        inventoryItemImage.sprite = icon;
 
-                    var iconField = inventoryItems[i].GetType().GetField("icon");
-                    if (iconField != null)
-                    {
-                        Sprite icon = iconField.GetValue(inventoryItems[i]) as Sprite;
-                        if (inventoryItemImage != null && icon != null)
-                        {
-                            inventoryItemImage.sprite = icon; 
-                        }
-                    }
+                    var backgrounds = inventoryItem.transform.Find("Backgrounds");
+                    if (backgrounds != null)
+                        SetRarityColor(inventoryItem.item.itemRarity, backgrounds);
                 }
             }
         }
     }
+
     public void GenerateStashSlots()
     {
         foreach (Transform child in stashGrid)
@@ -489,30 +509,68 @@ public class InventoryManager : MonoBehaviour
                 slot.slotType = InventorySlot.SlotType.Stash;
             }
 
+            //if (stashItems[i] != null) //Função antiga
+            //{
+            //    GameObject stashItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
+
+            //    InventoryItem stashItem = stashItemObject.GetComponent<InventoryItem>();
+            //    if (stashItem != null)
+            //    {
+            //        stashItem.item = stashItems[i];
+
+            //        Image stashItemImage = stashItem.GetComponent<Image>();
+
+            //        var iconField = stashItems[i].GetType().GetField("icon");
+            //        if (iconField != null)
+            //        {
+            //            Sprite icon = iconField.GetValue(stashItems[i]) as Sprite;
+            //            if (stashItemImage != null && icon != null)
+            //            {
+            //                stashItemImage.sprite = icon; 
+            //            }
+            //        }
+            //    }
+            //}
+
             if (stashItems[i] != null)
             {
-                GameObject stashItemObject = Instantiate(inventoryItemPrefab, slotObject.transform);
-
-                InventoryItem stashItem = stashItemObject.GetComponent<InventoryItem>();
+                var stashItem = Instantiate(inventoryItemPrefab, slotObject.transform).GetComponent<InventoryItem>();
                 if (stashItem != null)
                 {
                     stashItem.item = stashItems[i];
+                    var icon = stashItems[i].GetType().GetField("icon")?.GetValue(stashItems[i]) as Sprite;
+                    var stashItemImage = stashItem.transform.Find("Icon")?.GetComponent<Image>();
 
-                    Image stashItemImage = stashItem.GetComponent<Image>();
+                    if (stashItemImage != null && icon != null)
+                        stashItemImage.sprite = icon;
 
-                    var iconField = stashItems[i].GetType().GetField("icon");
-                    if (iconField != null)
-                    {
-                        Sprite icon = iconField.GetValue(stashItems[i]) as Sprite;
-                        if (stashItemImage != null && icon != null)
-                        {
-                            stashItemImage.sprite = icon; 
-                        }
-                    }
+                    var backgrounds = stashItem.transform.Find("Backgrounds");
+                    if (backgrounds != null)
+                        SetRarityColor(stashItem.item.itemRarity, backgrounds);
                 }
             }
         }
     }
+
+    private void SetRarityColor(ItemRarity rarity, Transform backgrounds)
+    {
+        Color rarityColor = Color.white;
+        switch (rarity)
+        {
+            case ItemRarity.Uncommon: rarityColor = Color.green; break;
+            case ItemRarity.Rare: rarityColor = Color.blue; break;
+            case ItemRarity.Epic: rarityColor = Color.magenta; break;
+            case ItemRarity.Legendary: rarityColor = Color.yellow; break;
+        }
+
+        var backgroundImages = backgrounds.GetComponentsInChildren<Image>();
+        foreach (var bgImage in backgroundImages)
+        {
+            Color originalColor = bgImage.color;
+            bgImage.color = new Color(rarityColor.r, rarityColor.g, rarityColor.b, originalColor.a); // Mantém a opacidade original
+        }
+    }
+
 
     //AVULSOS
     public void PotionControll()
