@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
-using System.Resources;
 
 public class HudManager : MonoBehaviour
 {
@@ -40,6 +39,8 @@ public class HudManager : MonoBehaviour
 
     [Header("Inventory")]
     public GameObject inventory;
+    public GameObject inventoruSlots;
+    public GameObject inventoryEquips;
     public GameObject stash;
     public TextMeshProUGUI playerGoldText;
 
@@ -116,8 +117,11 @@ public class HudManager : MonoBehaviour
     {
         UpdateCursorState();
 
-        if(Input.GetKeyDown(KeyCode.B))
-            OpenInventory();
+        if (!openedStash) //So pode abrir/fechar inventário se o Stash nao estiver aberto
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+                OpenInventory();
+        }
 
         HideCanvas();
         SmoothVignetteTransition();
@@ -190,6 +194,18 @@ public class HudManager : MonoBehaviour
         stash.SetActive(openedStash);
 
         itemShow.SetActive(false);
+
+        if (!openedInventory)
+        {
+            OpenInventory();
+            inventoryEquips.SetActive(false);
+        }
+        else if (!openedStash)
+        {
+            OpenInventory();
+            inventoryEquips.SetActive(true);
+        }
+            
     }
 
     public void OpenTeleportPage()
