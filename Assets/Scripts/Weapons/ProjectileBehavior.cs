@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class ProjectileBehavior : MonoBehaviour
 {
     private PlayerStatus playerStatus;
@@ -30,7 +30,7 @@ public class ProjectileBehavior : MonoBehaviour
         if (projectileType == ProjectileType.Magic)
             LaunchProjectileWithoutGravity();
         else if (projectileType == ProjectileType.Arrow || projectileType == ProjectileType.Bolide)
-            LaunchProjectileWithGravity();
+            StartCoroutine(LaunchProjectileWithGravity());
 
         Destroy(gameObject, 5f); 
     }
@@ -53,10 +53,11 @@ public class ProjectileBehavior : MonoBehaviour
         rb.useGravity = false;
         rb.linearVelocity = direction * speed;
     }
-    private void LaunchProjectileWithGravity()
+    private IEnumerator LaunchProjectileWithGravity()
     {
-        rb.useGravity = true;
         rb.AddForce(direction * speed, ForceMode.VelocityChange);
+        yield return new WaitForSeconds(0.5f);
+        rb.useGravity = true;
     }
 
 

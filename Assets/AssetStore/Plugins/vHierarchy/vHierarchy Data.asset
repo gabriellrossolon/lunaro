@@ -86,8 +86,11 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-884565a1064a0ba46b055648cdec622d-1827293316-0
         - globalObjectIdString: GlobalObjectId_V1-2-884565a1064a0ba46b055648cdec622d-697712024-0
         - globalObjectIdString: GlobalObjectId_V1-2-884565a1064a0ba46b055648cdec622d-665498957-0
+        - globalObjectIdString: GlobalObjectId_V1-2-884565a1064a0ba46b055648cdec622d-928578230-0
+        - globalObjectIdString: GlobalObjectId_V1-2-884565a1064a0ba46b055648cdec622d-530253428-0
+        - globalObjectIdString: GlobalObjectId_V1-2-884565a1064a0ba46b055648cdec622d-625231239-0
         values:
-        - colorIndex: 2
+        - colorIndex: 8
           iconNameOrGuid: AvatarMask On Icon
           isIconRecursive: 1
           isColorRecursive: 1
@@ -209,6 +212,18 @@ MonoBehaviour:
           isColorRecursive: 0
         - colorIndex: 0
           iconNameOrGuid: ReflectionProbe Icon
+          isIconRecursive: 1
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Settings Icon
+          isIconRecursive: 1
+          isColorRecursive: 0
+        - colorIndex: 2
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 1
+        - colorIndex: 0
+          iconNameOrGuid: AudioSource Icon
           isIconRecursive: 1
           isColorRecursive: 0
         - colorIndex: 0
@@ -386,10 +401,7 @@ MonoBehaviour:
           iconNameOrGuid: AudioSource Icon
           isIconRecursive: 1
           isColorRecursive: 0
-  bookmarks:
-  - _go: {fileID: 0}
-    globalId:
-      globalObjectIdString: GlobalObjectId_V1-2-884565a1064a0ba46b055648cdec622d-1953639777-0
+  bookmarks: []
   bookmarkedScenePaths:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/HUB.unity

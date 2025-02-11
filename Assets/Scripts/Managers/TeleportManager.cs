@@ -57,11 +57,13 @@ public class TeleportManager : MonoBehaviour
 
     private IEnumerator LoadSceneWithLoading(string sceneName)
     {
+        SaveManager.Instance.SaveGame();
+
         if (loadingScreen != null)
             loadingScreen.SetActive(true);
 
         float elapsedTime = 0f; 
-        float fakeProgress = 0f;
+        float fakeProgress = 0f; 
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;

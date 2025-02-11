@@ -46,17 +46,27 @@ public class VolumeManager : MonoBehaviour
         AudioListener.volume = masterVolumeValue;
         musicVolumeMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolumeValue, 0.0001f)) * 20);
         effectsVolumeMixer.SetFloat("EffectsVolume", Mathf.Log10(Mathf.Max(effectsVolumeValue, 0.0001f)) * 20);
-
-        ES3AutoSaveMgr.Current.Save();
     }
 
     private void Start()
     {
+        // Verifica se há dados salvos antes de carregar
+        if (ES3.KeyExists("masterVolume"))
+            masterVolumeValue = ES3.Load<float>("masterVolume");
+
+        if (ES3.KeyExists("musicVolume"))
+            musicVolumeValue = ES3.Load<float>("musicVolume");
+
+        if (ES3.KeyExists("effectsVolume"))
+            effectsVolumeValue = ES3.Load<float>("effectsVolume");
+
+        if (ES3.KeyExists("isFullScreen"))
+            isFullScreen = ES3.Load<bool>("isFullScreen");
+
+        // Aplica os valores carregados
         AudioListener.volume = masterVolumeValue;
         musicVolumeMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolumeValue, 0.0001f)) * 20);
         effectsVolumeMixer.SetFloat("EffectsVolume", Mathf.Log10(Mathf.Max(effectsVolumeValue, 0.0001f)) * 20);
-
-        ES3AutoSaveMgr.Current.Save();
     }
 
     private void OnDestroy()
@@ -105,17 +115,20 @@ public class VolumeManager : MonoBehaviour
     {
         masterVolumeValue = value;
         AudioListener.volume = masterVolumeValue;
+        ES3.Save("masterVolume", masterVolumeValue);
     }
 
     public void OnMusicVolumeChanged(float value)
     {
         musicVolumeValue = value;
         musicVolumeMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolumeValue, 0.0001f)) * 20);
+        ES3.Save("musicVolume", musicVolumeValue);
     }
 
     public void OnEffectsVolumeChanged(float value)
     {
         effectsVolumeValue = value;
         effectsVolumeMixer.SetFloat("EffectsVolume", Mathf.Log10(Mathf.Max(effectsVolumeValue, 0.0001f)) * 20);
+        ES3.Save("effectsVolume", effectsVolumeValue);
     }
 }

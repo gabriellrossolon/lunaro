@@ -49,7 +49,7 @@ public class MenuManager : MonoBehaviour
 
     public void GoToHUBFromMenu()
     {
-        if(transition != null)
+        if (transition != null)
             transition.GetComponent<Animator>().SetTrigger("start");
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -134,6 +134,7 @@ public class MenuManager : MonoBehaviour
             Screen.SetResolution(1280, 720, false);
 
         VolumeManager.Instance.isFullScreen = isFullScreen;
+        ES3.Save("isFullScreen", isFullScreen);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

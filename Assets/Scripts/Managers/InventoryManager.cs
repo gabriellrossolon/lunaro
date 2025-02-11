@@ -39,8 +39,17 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Jewel equippedNecklace;
     [SerializeField] private Jewel equippedRing;
     [SerializeField] private Jewel equippedAmulet;
+    [SerializeField] public Potion equippedPotion;
 
-    public Potion equippedPotion;
+    [Header("Equippament Slots")]
+    [SerializeField] private GameObject weaponSlot;
+    [SerializeField] private GameObject secondarySlot;
+    [SerializeField] private GameObject neckSlot;
+    [SerializeField] private GameObject ringSlot;
+    [SerializeField] private GameObject amuletSlot;
+    [SerializeField] private GameObject potionSlot;
+
+    [Header("Potion Controller")]
     public int potionsCount = 3;
     public int maxPotionsCount = 3;
     private float potionRegenerationTimer = 0f;
@@ -70,7 +79,40 @@ public class InventoryManager : MonoBehaviour
         _inputHandler = PlayerManager.Instance.GetComponent<InputHandler>();
         GenerateInventorySlots();
         GenerateStashSlots();
+
+        InstantiateEquippedItem(equippedWeapon, weaponSlot);
+        InstantiateEquippedItem(equippedSecondary, secondarySlot);
+
+        InstantiateEquippedItem(equippedNecklace, neckSlot);
+        InstantiateEquippedItem(equippedRing, ringSlot);
+        InstantiateEquippedItem(equippedAmulet, amuletSlot);
+
+        InstantiateEquippedItem(equippedPotion, potionSlot);
     }
+
+    private void InstantiateEquippedItem(ItemBase item, GameObject slot)
+    {
+        if (item != null && slot != null)
+        {
+            var instantiatedItem = Instantiate(inventoryItemPrefab, slot.transform).GetComponent<InventoryItem>();
+
+            if (instantiatedItem != null)
+            {
+                instantiatedItem.item = item;
+
+                var icon = item.GetType().GetField("icon")?.GetValue(item) as Sprite;
+                var inventoryItemImage = instantiatedItem.transform.Find("Icon")?.GetComponent<Image>();
+
+                if (inventoryItemImage != null && icon != null)
+                    inventoryItemImage.sprite = icon;
+
+                var backgrounds = instantiatedItem.transform.Find("Backgrounds");
+                if (backgrounds != null)
+                    SetRarityColor(instantiatedItem.item.itemRarity, backgrounds);
+            }
+        }
+    }
+
 
     private void Update()
     {

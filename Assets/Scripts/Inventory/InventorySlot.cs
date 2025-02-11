@@ -1,6 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
@@ -9,20 +10,34 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public int slotIndex;
     private int stashIndexStartAt = 49;
-
     private void Update()
     {
-        UpdateItemIndex();
+        UpdateItemIndex();  
+    }
+
+    private void Start()
+    {
+        StartCoroutine(LateStart(0.1f));
+    }
+
+    private IEnumerator LateStart(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (slotType != SlotType.Inventory || slotType != SlotType.Stash || slotType != SlotType.Nothing)
+        {
+            EquipItemIfNeeded(GetComponentInChildren<InventoryItem>());
+        }
     }
 
     private void OnTransformChildrenChanged()
     {
-        if (slotType != SlotType.Inventory || slotType != SlotType.Nothing)
+        if (slotType != SlotType.Inventory || slotType != SlotType.Stash || slotType != SlotType.Nothing)
         {
             EquipItemIfNeeded(GetComponentInChildren<InventoryItem>());
         }
         HandleEmptyEquipSlot();
     }
+
 
     public void OnDrop(PointerEventData eventData)
     {
