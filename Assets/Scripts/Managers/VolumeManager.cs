@@ -46,6 +46,17 @@ public class VolumeManager : MonoBehaviour
         AudioListener.volume = masterVolumeValue;
         musicVolumeMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolumeValue, 0.0001f)) * 20);
         effectsVolumeMixer.SetFloat("EffectsVolume", Mathf.Log10(Mathf.Max(effectsVolumeValue, 0.0001f)) * 20);
+
+        ES3AutoSaveMgr.Current.Save();
+    }
+
+    private void Start()
+    {
+        AudioListener.volume = masterVolumeValue;
+        musicVolumeMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(musicVolumeValue, 0.0001f)) * 20);
+        effectsVolumeMixer.SetFloat("EffectsVolume", Mathf.Log10(Mathf.Max(effectsVolumeValue, 0.0001f)) * 20);
+
+        ES3AutoSaveMgr.Current.Save();
     }
 
     private void OnDestroy()
