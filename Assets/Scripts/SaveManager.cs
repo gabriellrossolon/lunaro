@@ -28,3 +28,4 @@ public class SaveManager : MonoBehaviour
         ES3AutoSaveMgr.Current.Save();
     }
 }
+
