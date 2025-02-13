@@ -5,11 +5,15 @@ public class DungeonSpawner : MonoBehaviour
 {
     [Header("Configurações de Spawn")]
     public List<GameObject> enemyPrefabs;
-    public int numberOfEnemiesToSpawn = 5;
 
     private List<Transform> spawnPoints = new List<Transform>();
     private List<GameObject> activeEnemies = new List<GameObject>();
 
+    [Header("Especific Number Spawner")]
+    [SerializeField] private bool specificNumberSpawner;
+    public int numberOfEnemiesToSpawn = 0;
+
+    [Header("Continuous Spawner")]
     [SerializeField] private bool continousSpawner;
 
     void Start()
@@ -40,24 +44,40 @@ public class DungeonSpawner : MonoBehaviour
         if (enemyPrefabs.Count == 0 || spawnPoints.Count == 0)
             return;
 
-        HashSet<int> usedSpawnPoints = new HashSet<int>();
         activeEnemies.Clear();
 
-        for (int i = 0; i < numberOfEnemiesToSpawn; i++)
+        if (specificNumberSpawner)
         {
-            GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-            int randomSpawnIndex;
+            // Spawn a specific number of enemies at random spawn points
+            HashSet<int> usedSpawnPoints = new HashSet<int>();
 
-            do
+            for (int i = 0; i < numberOfEnemiesToSpawn; i++)
             {
-                randomSpawnIndex = Random.Range(0, spawnPoints.Count);
-            } while (usedSpawnPoints.Contains(randomSpawnIndex) && usedSpawnPoints.Count < spawnPoints.Count);
+                GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+                int randomSpawnIndex;
 
-            usedSpawnPoints.Add(randomSpawnIndex);
-            Transform spawnPoint = spawnPoints[randomSpawnIndex];
+                // Ensure we don't reuse the same spawn point
+                do
+                {
+                    randomSpawnIndex = Random.Range(0, spawnPoints.Count);
+                } while (usedSpawnPoints.Contains(randomSpawnIndex) && usedSpawnPoints.Count < spawnPoints.Count);
 
-            GameObject spawnedEnemy = Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
-            activeEnemies.Add(spawnedEnemy);
+                usedSpawnPoints.Add(randomSpawnIndex);
+                Transform spawnPoint = spawnPoints[randomSpawnIndex];
+
+                GameObject spawnedEnemy = Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
+                activeEnemies.Add(spawnedEnemy);
+            }
+        }
+        else
+        {
+            // Spawn one enemy per spawn point
+            foreach (var spawnPoint in spawnPoints)
+            {
+                GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+                GameObject spawnedEnemy = Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
+                activeEnemies.Add(spawnedEnemy);
+            }
         }
     }
 
@@ -66,5 +86,5 @@ public class DungeonSpawner : MonoBehaviour
         activeEnemies.RemoveAll(enemy => enemy == null);
         return activeEnemies.Count == 0;
     }
-
 }
+

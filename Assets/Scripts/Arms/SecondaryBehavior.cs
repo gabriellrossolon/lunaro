@@ -53,7 +53,7 @@ public class SecondaryBehavior : MonoBehaviour
                     break;
 
                 case SecondaryType.Book:
-                    magicBookBeh.UseBookSkill();
+                    magicBookBeh.UseBookSkill(canUseSkill, resourceCost, secondaryAnim);
                     break;
             }
 
@@ -93,6 +93,7 @@ public class SecondaryBehavior : MonoBehaviour
         }
         else if (secondaryType == SecondaryType.Book)
         {
+            magicBookBeh.CallSkillProjectilePrefab();
         }
     }
 
