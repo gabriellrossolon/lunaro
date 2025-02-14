@@ -47,7 +47,7 @@ public class PlayerCombatState : IState
         Attack();
         AttackCharging();
         Block();
-        Skill();
+        Spell();
         CombatMovement();
         StateChange();
     }
@@ -98,15 +98,15 @@ public class PlayerCombatState : IState
         } 
     }
 
-    private void Skill()
+    private void Spell()
     {
         if(_secondaryBehavior != null)
         {
-            if(_inputHandler.skillInput && !TempParent.Instance.isHoldingAnything)
+            if(_inputHandler.spellInput && !TempParent.Instance.isHoldingAnything)
             {
-                _secondaryBehavior.skillInput = true;
+                _secondaryBehavior.spellInput = true;
             }
-            _inputHandler.skillInput = false;
+            _inputHandler.spellInput = false;
         }
     }
 

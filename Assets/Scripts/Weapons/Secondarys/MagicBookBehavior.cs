@@ -19,26 +19,37 @@ public class MagicBookBehavior : MonoBehaviour
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }
 
-    public void UseBookSkill(bool canUseSkill, float resourceCost, Animator secondaryAnim)
+    public void UseBookSpell(bool canUseSkill, float resourceCost, Animator secondaryAnim)
     {
         if (!cooldownController.CanUseMagic()) return;
 
 
         if (canUseSkill && playerStatus.currentMana >= resourceCost)
         {
-            secondaryAnim.SetTrigger("orbAttack");
+            secondaryAnim.SetTrigger("bookAttack");
             cooldownController.StartMagicCooldown();
         }
     }
 
-    public void CallSkillProjectilePrefab()
+    public void CallSkillPrefab(string skillName)
     {
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
 
-        GameObject newProjectile = Instantiate(skillPrefab, exitPoint.transform.position, Camera.main.transform.rotation);
-        //ProjectileBehavior projectileScript = newProjectile.GetComponent<ProjectileBehavior>();
-        //projectileScript.projectileDamage = damage;
-        //projectileScript.SetDirection(Camera.main.transform.forward);
+        if (skillName == "Slit")
+        {
+            GameObject newSkillPrefab = Instantiate(skillPrefab, transform.position - new Vector3(0, 1.2f, 0), Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0));
+
+            SlitBehavior slitBeh = newSkillPrefab.GetComponent<SlitBehavior>();
+            slitBeh.slitDamage = damage;
+        }
+        else if (skillName == "OutraSkill")
+        {
+            // Implementação para outra habilidade
+        }
+        else
+        {
+            Debug.LogWarning("Habilidade não reconhecida: " + skillName);
+        }
     }
 }

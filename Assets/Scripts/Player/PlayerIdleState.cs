@@ -44,7 +44,7 @@ public class PlayerIdleState : IState
         if (Input.GetKeyDown(KeyCode.R) && !_handsPOV.activeSelf)
             _fsm.SetState("Combat");
 
-        if (_inputHandler.attackInput || _inputHandler.blockInput)
+        if (_inputHandler.attackInput || _inputHandler.spellInput || _inputHandler.blockInput)
             _fsm.SetState("Combat");
 
         if (!_controller.isGrounded)

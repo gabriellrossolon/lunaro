@@ -18,7 +18,7 @@ public class SecondaryBehavior : MonoBehaviour
     [Header("Controllers")]
     public bool blockInput = false;
     public bool blocking = false;
-    public bool skillInput = false;
+    public bool spellInput = false;
     private bool canUseSkill = true;
 
     public enum SecondaryType
@@ -44,20 +44,20 @@ public class SecondaryBehavior : MonoBehaviour
 
     private void ChooseAction()
     {
-        if (skillInput)
+        if (spellInput)
         {
             switch (secondaryType)
             {
                 case SecondaryType.Orb:
-                    magicOrbBeh.UseOrbSkill(canUseSkill, resourceCost, secondaryAnim);
+                    magicOrbBeh.UseOrbSpell(canUseSkill, resourceCost, secondaryAnim);
                     break;
 
                 case SecondaryType.Book:
-                    magicBookBeh.UseBookSkill(canUseSkill, resourceCost, secondaryAnim);
+                    magicBookBeh.UseBookSpell(canUseSkill, resourceCost, secondaryAnim);
                     break;
             }
 
-            skillInput = false;
+            spellInput = false;
         }
 
         switch (secondaryType) //Esse deve sempre estar sendo verificado
@@ -85,15 +85,15 @@ public class SecondaryBehavior : MonoBehaviour
             return false;
     }
 
-    public void CallProjectileInLeft()
+    public void CallSkillInLeft()
     {
         if (secondaryType == SecondaryType.Orb)
         {
-            magicOrbBeh.CallSkillProjectilePrefab();
+            magicOrbBeh.CallSkillPrefab("Bolide");
         }
         else if (secondaryType == SecondaryType.Book)
         {
-            magicBookBeh.CallSkillProjectilePrefab();
+            magicBookBeh.CallSkillPrefab("Slit");
         }
     }
 

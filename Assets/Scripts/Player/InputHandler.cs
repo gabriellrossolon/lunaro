@@ -11,7 +11,7 @@ public class InputHandler : MonoBehaviour
     [HideInInspector] public bool attackChargingInput;
     [HideInInspector] public bool blockInput;
     [HideInInspector] public bool dashInput;
-    [HideInInspector] public bool skillInput;
+    [HideInInspector] public bool spellInput;
     [HideInInspector] public bool potionInput;
 
 
@@ -54,10 +54,10 @@ public class InputHandler : MonoBehaviour
         float value = context.ReadValue<float>();
         dashInput = value > 0.1f;
     }
-    public void OnSkill(InputAction.CallbackContext context)
+    public void OnSpell(InputAction.CallbackContext context)
     {
         float value = context.ReadValue<float>();
-        skillInput = value > 0.1f;
+        spellInput = value > 0.1f;
     }
     public void OnPotion(InputAction.CallbackContext context)
     {
