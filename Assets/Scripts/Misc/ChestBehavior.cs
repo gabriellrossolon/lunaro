@@ -18,9 +18,10 @@ public class ChestBehavior : MonoBehaviour
     public bool randomItems = false;
     public int chestCapacity = 3;
 
-    [Range(0, 100)] public float commonChance = 50f;
-    [Range(0, 100)] public float uncommonChance = 30f;
+    [Range(0, 100)] public float commonChance = 45f;
+    [Range(0, 100)] public float uncommonChance = 25f;
     [Range(0, 100)] public float rareChance = 15f;
+    [Range(0, 100)] public float epicChance = 10f;
     [Range(0, 100)] public float legendaryChance = 5f;
 
     private void Awake()
@@ -105,7 +106,7 @@ public class ChestBehavior : MonoBehaviour
 
             while (attempts < maxAttempts)
             {
-                Rarity chosenRarity = GetRandomRarity();
+                ItemBase.ItemRarity chosenRarity = GetRandomRarity();
                 List<ItemBase> itemsByRarity = ItemDatabase.Instance.GetItemsByRarity(chosenRarity);
 
                 if (itemsByRarity != null && itemsByRarity.Count > 0)
@@ -115,22 +116,24 @@ public class ChestBehavior : MonoBehaviour
                     if (!chestItems.Contains(randomItem))
                     {
                         chestItems.Add(randomItem);
-                        break; 
+                        break;
                     }
                 }
 
-                attempts++; 
+                attempts++;
             }
         }
     }
 
-    private Rarity GetRandomRarity()
+
+    private ItemBase.ItemRarity GetRandomRarity()
     {
         float roll = Random.Range(0f, 100f);
 
-        if (roll <= commonChance) return Rarity.Common;
-        if (roll <= commonChance + uncommonChance) return Rarity.Uncommon;
-        if (roll <= commonChance + uncommonChance + rareChance) return Rarity.Rare;
-        return Rarity.Legendary;
+        if (roll <= commonChance) return ItemBase.ItemRarity.Common;
+        if (roll <= commonChance + uncommonChance) return ItemBase.ItemRarity.Uncommon;
+        if (roll <= commonChance + uncommonChance + rareChance) return ItemBase.ItemRarity.Rare;
+        if (roll <= commonChance + uncommonChance + rareChance + epicChance) return ItemBase.ItemRarity.Epic;
+        return ItemBase.ItemRarity.Legendary;
     }
 }

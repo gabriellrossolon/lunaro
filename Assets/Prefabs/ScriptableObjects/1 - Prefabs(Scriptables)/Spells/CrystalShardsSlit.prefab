@@ -14,9 +14,7 @@ GameObject:
   - component: {fileID: 2166699458329295478}
   - component: {fileID: -578665769378768449}
   - component: {fileID: 5786003767615534894}
-  - component: {fileID: 5272261382064001472}
-  - component: {fileID: 8635295194977003325}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CrystalShardsSlit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3704,7 +3702,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
     type: 1
     collisionMode: 0
@@ -3880,14 +3878,14 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 1
+    radiusScale: 0.01
     collidesWith:
       serializedVersion: 2
       m_Bits: 4294967295
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -3932,32 +3930,32 @@ ParticleSystem:
       emitProbability: 1
     - serializedVersion: 3
       emitter: {fileID: 141816629050053144}
-      type: 2
+      type: 1
       properties: 4
       emitProbability: 1
     - serializedVersion: 3
       emitter: {fileID: 2282019920129078931}
-      type: 2
+      type: 1
       properties: 4
       emitProbability: 1
     - serializedVersion: 3
       emitter: {fileID: 461035972714943076}
-      type: 2
+      type: 1
       properties: 4
       emitProbability: 1
     - serializedVersion: 3
       emitter: {fileID: 8056254314396231815}
-      type: 2
+      type: 1
       properties: 4
       emitProbability: 1
     - serializedVersion: 3
       emitter: {fileID: 8739355581536566761}
-      type: 2
+      type: 1
       properties: 4
       emitProbability: 1
     - serializedVersion: 3
       emitter: {fileID: 1130059736653792587}
-      type: 2
+      type: 1
       properties: 4
       emitProbability: 1
   LightsModule:
@@ -5271,48 +5269,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &5272261382064001472
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747266831830034502}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.579519, z: 10.345336}
-  m_Center: {x: 0, y: 0.28975952, z: 4.672668}
---- !u!65 &8635295194977003325
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747266831830034502}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.5, y: 2.6431632, z: 2.5}
-  m_Center: {x: 0, y: 0.8215816, z: 9}
 --- !u!1 &749381128595141887
 GameObject:
   m_ObjectHideFlags: 0
@@ -5324,7 +5280,7 @@ GameObject:
   - component: {fileID: 6966257309707524683}
   - component: {fileID: 9221687059575368713}
   - component: {fileID: 3430567655276643105}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Embers_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9966,7 +9922,7 @@ GameObject:
   - component: {fileID: 8664912781157171325}
   - component: {fileID: 1130059736653792587}
   - component: {fileID: 6711163462893578797}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Debris_End_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14878,7 +14834,7 @@ GameObject:
   - component: {fileID: 3230879899653344015}
   - component: {fileID: 7111060711656562395}
   - component: {fileID: 1255990245479505064}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Dust_End_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19529,7 +19485,7 @@ GameObject:
   - component: {fileID: 3502659917317921052}
   - component: {fileID: 8056254314396231815}
   - component: {fileID: 1921421273251646215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Blast_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24432,7 +24388,7 @@ GameObject:
   - component: {fileID: 680986868551632532}
   - component: {fileID: 3645106721439653673}
   - component: {fileID: 3486892680159167381}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Embers_Trail_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29074,7 +29030,7 @@ GameObject:
   - component: {fileID: 2749444364836704173}
   - component: {fileID: 8651363486550935234}
   - component: {fileID: 1725403497525256162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Smaller_Trail_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34023,7 +33979,7 @@ GameObject:
   - component: {fileID: 7108031037860274081}
   - component: {fileID: 5659066977980170883}
   - component: {fileID: 3648575965573769376}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Debris_End_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38935,7 +38891,7 @@ GameObject:
   - component: {fileID: 1724513149082662912}
   - component: {fileID: 141816629050053144}
   - component: {fileID: 7482100835432298515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Explosion_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43891,7 +43847,7 @@ GameObject:
   - component: {fileID: 4562339558579598649}
   - component: {fileID: 5465059100812514064}
   - component: {fileID: 3919724515975980006}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Dust_End_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48542,7 +48498,7 @@ GameObject:
   - component: {fileID: 8269961141849232392}
   - component: {fileID: 2093269675465712120}
   - component: {fileID: 3874752084064482713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Debris_End_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53454,7 +53410,7 @@ GameObject:
   - component: {fileID: 3105085077669023547}
   - component: {fileID: 8739355581536566761}
   - component: {fileID: 4288745145214620512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Smaller_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58406,7 +58362,7 @@ GameObject:
   - component: {fileID: 417945081839616746}
   - component: {fileID: 4181431424466559094}
   - component: {fileID: 1181388655669070093}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Embers_End_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63048,7 +63004,7 @@ GameObject:
   - component: {fileID: 270061902376121117}
   - component: {fileID: 1307844713292909157}
   - component: {fileID: 2120039418591337077}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Embers_End_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67690,7 +67646,7 @@ GameObject:
   - component: {fileID: 4216409368221785688}
   - component: {fileID: 2282019920129078931}
   - component: {fileID: 8215631922441262706}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Dust_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72341,7 +72297,7 @@ GameObject:
   - component: {fileID: 5697450209782740040}
   - component: {fileID: 6020840434135371458}
   - component: {fileID: 6476628076595692779}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Debris_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77253,7 +77209,7 @@ GameObject:
   - component: {fileID: 4187420443218859649}
   - component: {fileID: 9159663908265162526}
   - component: {fileID: 3889667467658131220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Dust_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81904,7 +81860,7 @@ GameObject:
   - component: {fileID: 5545302144895348959}
   - component: {fileID: 3276268530117391538}
   - component: {fileID: 5519624312859693141}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Dust_Trail_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86555,7 +86511,7 @@ GameObject:
   - component: {fileID: 5413172512619515062}
   - component: {fileID: 5987450440465997630}
   - component: {fileID: 6235641543968188777}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Blast_Trail_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91458,7 +91414,7 @@ GameObject:
   - component: {fileID: 8223254608432709513}
   - component: {fileID: 461035972714943076}
   - component: {fileID: 4769331755361582030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FX_ShardMagic_Embers_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

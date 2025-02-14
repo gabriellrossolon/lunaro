@@ -323,6 +323,7 @@ public class InventoryManager : MonoBehaviour
         rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
         rightWeaponBehavior.SetWeaponType(equippedWeapon);
+        rightWeaponBehavior.skillType = null;
 
         HudManager.Instance.skillImage.enabled = false;
         HudManager.Instance.skillSliderImage.enabled = false;
@@ -359,6 +360,8 @@ public class InventoryManager : MonoBehaviour
 
                     HudManager.Instance.skillImage.sprite = staff.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = staff.weaponSkill.skillIcon;
+
+                    rightWeaponBehavior.skillType = staff.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -377,6 +380,8 @@ public class InventoryManager : MonoBehaviour
 
                     HudManager.Instance.skillImage.sprite = bow.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = bow.weaponSkill.skillIcon;
+
+                    rightWeaponBehavior.skillType = bow.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -393,6 +398,8 @@ public class InventoryManager : MonoBehaviour
 
                     HudManager.Instance.skillImage.sprite = greatHammer.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = greatHammer.weaponSkill.skillIcon;
+
+                    rightWeaponBehavior.skillType = greatHammer.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -409,6 +416,8 @@ public class InventoryManager : MonoBehaviour
 
                     HudManager.Instance.skillImage.sprite = greatSword.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = greatSword.weaponSkill.skillIcon;
+
+                    rightWeaponBehavior.skillType = greatSword.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -421,6 +430,7 @@ public class InventoryManager : MonoBehaviour
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
 
         secondaryBehavior.SetSecondaryType(equippedSecondary);
+        secondaryBehavior.spellType = null; //Apenas reseta o spellType se nao tiver nenhum quando instancia um Secondary
 
         HudManager.Instance.magicImage.enabled = false;
         HudManager.Instance.magicSliderImage.enabled = false;
@@ -440,8 +450,9 @@ public class InventoryManager : MonoBehaviour
                 magicBookBehavior.skillPrefab = magicBook.spell.spellPrefab;
                 magicBookBehavior.damage = magicBook.spell.spellDamage;
                 secondaryBehavior.resourceCost = magicBook.spell.spellResourceCost;
+                secondaryBehavior.spellType = magicBook.spell.spellType.ToString();
 
-                if(magicBook.spell != null)
+                if (magicBook.spell != null)
                 {
                     HudManager.Instance.magicImage.enabled = true;
                     HudManager.Instance.magicSliderImage.enabled = true;
@@ -458,8 +469,9 @@ public class InventoryManager : MonoBehaviour
                 magicOrbBehavior.skillPrefab = magicOrb.spell.spellPrefab;
                 magicOrbBehavior.damage = magicOrb.spell.spellDamage;
                 secondaryBehavior.resourceCost = magicOrb.spell.spellResourceCost;
+                secondaryBehavior.spellType = magicOrb.spell.spellType.ToString();
 
-                if(magicOrb.spell != null)
+                if (magicOrb.spell != null)
                 {
                     HudManager.Instance.magicImage.enabled = true;
                     HudManager.Instance.magicSliderImage.enabled = true;

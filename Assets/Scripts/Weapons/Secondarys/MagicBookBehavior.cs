@@ -43,10 +43,6 @@ public class MagicBookBehavior : MonoBehaviour
             SlitBehavior slitBeh = newSkillPrefab.GetComponent<SlitBehavior>();
             slitBeh.slitDamage = damage;
         }
-        else if (skillName == "OutraSkill")
-        {
-            // Implementação para outra habilidade
-        }
         else
         {
             Debug.LogWarning("Habilidade não reconhecida: " + skillName);

@@ -12,6 +12,9 @@ public class SecondaryBehavior : MonoBehaviour
     private MagicOrbBehavior magicOrbBeh;
     private MagicBookBehavior magicBookBeh;
 
+    [Header("Spell Type Equipped")]
+    public string spellType;
+
     [Header("Use Resource Cost (Stamina/Mana")]
     [HideInInspector] public float resourceCost;
 
@@ -89,11 +92,11 @@ public class SecondaryBehavior : MonoBehaviour
     {
         if (secondaryType == SecondaryType.Orb)
         {
-            magicOrbBeh.CallSkillPrefab("Bolide");
+            magicOrbBeh.CallSkillPrefab(spellType);
         }
         else if (secondaryType == SecondaryType.Book)
         {
-            magicBookBeh.CallSkillPrefab("Slit");
+            magicBookBeh.CallSkillPrefab(spellType);
         }
     }
 

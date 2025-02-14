@@ -21,6 +21,9 @@ public class WeaponBehavior : MonoBehaviour
     private StaffBehavior staffBeh;
     private BowBehavior bowBeh;
 
+    [Header("Skill Equipped")]
+    public string skillType;
+
     [Header("Controllers")]
     public bool attack;
     public bool attackCharging;
@@ -215,9 +218,9 @@ public class WeaponBehavior : MonoBehaviour
         }
     }
 
-    public void CallSpecialHability(string specialHabilityName) //Chamado pela animação
+    public void CallSpecialHability() //Chamado pela animação
     {
-        switch (specialHabilityName)
+        switch (skillType)
         {
             case "Earthquake":
                 greatHammerBeh.CallEarthquakePrefab();
@@ -232,7 +235,7 @@ public class WeaponBehavior : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning("Habilidade não reconhecida: " + specialHabilityName);
+                Debug.LogWarning("Habilidade não reconhecida: " + skillType);
                 break;
         }
     }//Chama a habilidade especial pela animação

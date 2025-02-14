@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ItemDatabase : MonoBehaviour
 {
@@ -11,7 +11,9 @@ public class ItemDatabase : MonoBehaviour
     public List<ItemBase> epicItems = new List<ItemBase>();
     public List<ItemBase> legendaryItems = new List<ItemBase>();
 
-    void Awake()
+    public List<ItemBase> allItems = new List<ItemBase>(); // Lista contendo todos os itens
+
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -21,33 +23,57 @@ public class ItemDatabase : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        OrganizeItemsByRarity();
     }
 
-    public List<ItemBase> GetItemsByRarity(Rarity rarity)
+    private void OrganizeItemsByRarity()
+    {
+        commonItems.Clear();
+        uncommonItems.Clear();
+        rareItems.Clear();
+        epicItems.Clear();
+        legendaryItems.Clear();
+
+        foreach (var item in allItems)
+        {
+            switch (item.itemRarity)
+            {
+                case ItemBase.ItemRarity.Common:
+                    commonItems.Add(item);
+                    break;
+                case ItemBase.ItemRarity.Uncommon:
+                    uncommonItems.Add(item);
+                    break;
+                case ItemBase.ItemRarity.Rare:
+                    rareItems.Add(item);
+                    break;
+                case ItemBase.ItemRarity.Epic:
+                    epicItems.Add(item);
+                    break;
+                case ItemBase.ItemRarity.Legendary:
+                    legendaryItems.Add(item);
+                    break;
+            }
+        }
+    }
+
+    public List<ItemBase> GetItemsByRarity(ItemBase.ItemRarity rarity)
     {
         switch (rarity)
         {
-            case Rarity.Common:
+            case ItemBase.ItemRarity.Common:
                 return commonItems;
-            case Rarity.Uncommon:
+            case ItemBase.ItemRarity.Uncommon:
                 return uncommonItems;
-            case Rarity.Rare:
+            case ItemBase.ItemRarity.Rare:
                 return rareItems;
-            case Rarity.Epic:
+            case ItemBase.ItemRarity.Epic:
                 return epicItems;
-            case Rarity.Legendary:
+            case ItemBase.ItemRarity.Legendary:
                 return legendaryItems;
             default:
                 return null;
         }
     }
-}
-
-public enum Rarity
-{
-    Common,
-    Uncommon,
-    Rare,
-    Epic,
-    Legendary
 }

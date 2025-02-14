@@ -3,33 +3,40 @@ using UnityEngine;
 public class SlitBehavior : MonoBehaviour
 {
     public float slitDamage;
-
     private PlayerStatus playerStatus;
-    private void Start()
+
+    private void Awake()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnParticleCollision(GameObject other)
     {
         if (other.CompareTag("Enemy"))
         {
-            var enemyFSM = other.GetComponent<EnemyFSM>();
-            var enemyAnim = other.GetComponent<Animator>();
-            var enemyFX = other.GetComponent<EnemyEffects>();
-
-            if (enemyAnim != null)
-                enemyAnim.SetTrigger("hurt");
-
-            if (enemyFSM != null)
-                enemyFSM.DoDamage(slitDamage + playerStatus.damage);
-
-            if (enemyFX != null)
-            {
-                GameObject collParticle = Instantiate(enemyFX.attackTakenParticle, transform.position, transform.rotation);
-                PlayParticleSound(collParticle, enemyFX.attackTakenSound);
-            }
+            HandleEnemyCollision(other);
         }
+    }
+
+    private void HandleEnemyCollision(GameObject enemy)
+    {
+        var enemyFSM = enemy.GetComponent<EnemyFSM>();
+        var enemyAnim = enemy.GetComponent<Animator>();
+        var enemyFX = enemy.GetComponent<EnemyEffects>();
+
+        if (enemyAnim != null)
+            enemyAnim.SetTrigger("hurt");
+
+        if (enemyFSM != null)
+            enemyFSM.DoDamage(slitDamage + playerStatus.damage);
+
+        if (enemyFX != null)
+        {
+            GameObject collParticle = Instantiate(enemyFX.attackTakenParticle, enemy.transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            PlayParticleSound(collParticle, enemyFX.attackTakenSound);
+        }
+
+        GameManager.Instance.TriggerSlowMotion();
     }
 
     private void PlayParticleSound(GameObject particle, AudioClip sound)

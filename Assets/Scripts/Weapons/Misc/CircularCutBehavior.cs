@@ -26,7 +26,7 @@ public class CircularCutBehavior : MonoBehaviour
 
             if (enemyFX != null)
             {
-                GameObject collParticle = Instantiate(enemyFX.attackTakenParticle, transform.position, transform.rotation);
+                GameObject collParticle = Instantiate(enemyFX.attackTakenParticle, other.transform.position + Vector3.up * 0.5f, transform.rotation);
                 PlayParticleSound(collParticle, enemyFX.attackTakenSound);
             }
         }

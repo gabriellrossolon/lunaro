@@ -320,7 +320,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 7, z: 10}
+  m_LocalScale: {x: 11.768, y: 8.2376, z: 11.768}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1019093820394929645}
@@ -340,8 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b122215f7c827b849a404d86a3aed738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staffProjectilePrefab: {fileID: 0}
   damage: 0
   projectileExit: {fileID: 2570510458538397788}
+  beamPrefab: {fileID: 0}
 --- !u!1 &1437046393993196114
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +540,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2570510458538397788}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1851411, y: 0.23747711, z: -0.046160854, w: 0.95246875}
+  m_LocalRotation: {x: -0.45980096, y: 0.2984576, z: 0.1516679, w: 0.822498}
   m_LocalPosition: {x: 0, y: 0.0833, z: 0}
   m_LocalScale: {x: 0.07083201, y: 0.09139613, z: 0.07657513}
   m_ConstrainProportionsScale: 0

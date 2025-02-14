@@ -44,6 +44,12 @@ public class MagicOrbBehavior : MonoBehaviour
             projectileScript.projectileDamage = damage;
             projectileScript.SetDirection(Camera.main.transform.forward);
         }
+        else if (skillName == "MagicMissile")
+        {
+            GameObject newProjectile = Instantiate(skillPrefab, exitPoint.transform.position, Camera.main.transform.rotation);
+            MagicMissileBehavior magicMissileBeh = newProjectile.GetComponent<MagicMissileBehavior>();
+            magicMissileBeh.damage = damage;
+        }
     }
 
 }

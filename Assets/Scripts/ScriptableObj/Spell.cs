@@ -8,4 +8,14 @@ public class Spell : ScriptableObject
     public float spellDamage;
     public GameObject spellPrefab;
     public float spellResourceCost;
+
+    public enum SpellType
+    {
+        None,
+        Bolide,
+        MagicMissile,
+        Slit
+    }
+
+    public SpellType spellType;
 }
