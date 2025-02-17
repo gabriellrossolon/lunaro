@@ -9,6 +9,7 @@ public class StaffBehavior : MonoBehaviour
 
     public float damage;
     public GameObject projectileExit;
+    private int attackSequence = 1;
 
     public GameObject beamPrefab;
     private GameObject currentBeam;
@@ -24,7 +25,24 @@ public class StaffBehavior : MonoBehaviour
     {
         if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
         {
-            weaponAnim.SetTrigger("staffAttack");
+            switch (attackSequence)
+            {
+                case 1:
+                    weaponAnim.SetTrigger("staffAttack1");
+                    attackSequence++;
+                    break;
+                case 2:
+                    weaponAnim.SetTrigger("staffAttack2");
+                    attackSequence++;
+                    break;
+                case 3:
+                    weaponAnim.SetTrigger("staffAttack3");
+                    attackSequence = 1;
+                    break;
+                default:
+                    attackSequence = 1;
+                    break;
+            }
             string retreatTrigger = "retreat" + Random.Range(1, 4);
             leftHandAnim.SetTrigger(retreatTrigger);
         }

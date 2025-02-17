@@ -138,6 +138,13 @@ public class PlayerStatus : MonoBehaviour
             canRegenStamina = true;
         }
     }
+
+    public void DrainStaminaPerSecond(float value)
+    {
+        if (currentStamina > 0)
+            currentStamina -= value * Time.deltaTime; // Diminui 1 de stamina por segundo
+    }
+
     public void SubtractMana(float value)
     {
         if (currentMana >= value)
