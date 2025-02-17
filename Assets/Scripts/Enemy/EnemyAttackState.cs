@@ -32,8 +32,7 @@ public class EnemyAttackState : IState
         _agent.isStopped = true;
 
         string[] attacks = { "attack1", "attack2", "attack3" };
-        int randomAttack = Random.Range(0, attacks.Length);
-        _animator.SetTrigger(attacks[randomAttack]);  
+        _animator.SetTrigger(attacks[_enemyStats.SelectedAttack]);  // Usar o valor sorteado armazenado no enemyStats
     }
 
     public void OnExit() 

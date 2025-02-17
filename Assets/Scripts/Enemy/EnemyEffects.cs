@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyEffects : MonoBehaviour
 {
+    private EnemyStats enemyStats;
+
     private AudioSource _enemySoundSource;
     [SerializeField] private AudioSource _gruntSourceSource;
     [SerializeField] private AudioSource _stepSoundSource;
@@ -12,6 +14,7 @@ public class EnemyEffects : MonoBehaviour
 
     [Header("VFX")]
     public GameObject attackImpactFx;
+   
     
     [Header("SFX")]
     private float _originalPitch;
@@ -27,8 +30,14 @@ public class EnemyEffects : MonoBehaviour
     public AudioClip attackTakenSound;
     public GameObject attackTakenParticle;
 
+    [Header("Special Hability")]
+    public GameObject specialFx;
+    public GameObject specialExitPoint;
+
     private void Start()
     {
+        enemyStats = GetComponent<EnemyStats>();
+
         _enemySoundSource = GetComponent<AudioSource>();
 
         if(_enemySoundSource != null)
@@ -54,6 +63,13 @@ public class EnemyEffects : MonoBehaviour
         if (enemyStep == null) return;
 
         _stepSoundSource.pitch = Random.Range(stepPitchRange.x, stepPitchRange.y);
+        _stepSoundSource.PlayOneShot(enemyStep);
+    }
+
+    public void CallSpecialAttack()
+    {
+        GameObject specialPrefab = Instantiate(specialFx, specialExitPoint.transform.position, Quaternion.identity);
+        specialPrefab.GetComponent<EnemyExplosionBehavior>().explosionDamage = enemyStats.attackDamage;
         _stepSoundSource.PlayOneShot(enemyStep);
     }
 }

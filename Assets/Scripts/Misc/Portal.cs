@@ -12,7 +12,8 @@ public class Portal : MonoBehaviour
         DarkChambers,
         FrozenRuins,
         HollowbarkDephts,
-        ForsakenHamlet
+        ForsakenHamlet,
+        TestScene
     }
 
     public PortalType portalType;
@@ -66,6 +67,9 @@ public class Portal : MonoBehaviour
                 break;
             case PortalType.ForsakenHamlet:
                 sceneName = "ForsakenHamlet";
+                break;
+            case PortalType.TestScene:
+                sceneName = "TestScene";
                 break;
         }
 

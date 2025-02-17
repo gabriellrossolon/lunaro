@@ -11,7 +11,7 @@ public class EnemyChaseState : IState
     private readonly Animator _animator;
 
     public EnemyChaseState(StateMachine fsm, NavMeshAgent agent,
-        Transform transform, Transform playerTransform, 
+        Transform transform, Transform playerTransform,
         EnemyStats enemyStats, Animator animator)
     {
         _fsm = fsm;
@@ -26,9 +26,21 @@ public class EnemyChaseState : IState
     {
         _agent.speed = _enemyStats.chaseSpeed;
         _animator.SetBool("isChase", true);
+
+        int randomAttack = Random.Range(0, 3);
+        _enemyStats.SelectedAttack = randomAttack;
+
+        _enemyStats.attackRange = randomAttack switch
+        {
+            0 => _enemyStats.attackOneRange,
+            1 => _enemyStats.attackTwoRange,
+            2 => _enemyStats.attackThreeRange,
+            _ => _enemyStats.attackRange
+        };
     }
 
-    public void OnExit() 
+
+    public void OnExit()
     {
         _animator.SetBool("isChase", false);
     }
@@ -48,7 +60,7 @@ public class EnemyChaseState : IState
         _agent.SetDestination(_playerTransform.position);
     }
 
-    private void StateChange() 
+    private void StateChange()
     {
         if (Vector3.Distance(_transform.position, _playerTransform.position) > (_enemyStats.detectionRange * 3))
             _fsm.SetState("Patrol");

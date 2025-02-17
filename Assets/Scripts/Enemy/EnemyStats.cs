@@ -4,7 +4,13 @@ public class EnemyStats : MonoBehaviour
 {
     public float detectionRange;
     public float patrolRadius;
+
+    [Header("Attacks Range")]
     public float attackRange;
+    public float attackOneRange;
+    public float attackTwoRange;
+    public float attackThreeRange;
+    public int SelectedAttack { get; set; }
 
     public float patrolSpeed;
     public float chaseSpeed;

@@ -176,7 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 20
   patrolRadius: 10
-  attackRange: 12
+  attackRange: 0
+  attackOneRange: 12
+  attackTwoRange: 12
+  attackThreeRange: 12
   patrolSpeed: 2
   chaseSpeed: 2
   retreatSpeed: 2
@@ -211,6 +214,8 @@ MonoBehaviour:
   xpOrb: {fileID: 3338034077606413047, guid: 06a4b2a93674c6647873404ebdaf42c7, type: 3}
   attackTakenSound: {fileID: 8300000, guid: d72dfd91f1f25a54ea816562eeb7dc82, type: 3}
   attackTakenParticle: {fileID: 7646703945970319018, guid: ce6d2768f510a094d8c72198e3c946e8, type: 3}
+  specialFx: {fileID: 0}
+  specialExitPoint: {fileID: 0}
 --- !u!114 &5293144444327876585
 MonoBehaviour:
   m_ObjectHideFlags: 0
