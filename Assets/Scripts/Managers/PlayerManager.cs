@@ -24,8 +24,15 @@ public class PlayerManager : MonoBehaviour
         fsm = GetComponent<PlayerFSM>();
     }
 
+    private float lastFootstepTime = 0f; 
+    private float minStepInterval = 0.2f;
     private void CallStep()
     {
+        if (Time.time - lastFootstepTime < minStepInterval)
+            return;
+
+        lastFootstepTime = Time.time; 
+
         SFXManager.Instance.playerFootSource.pitch = Random.Range(0.6f, 0.8f);
         SFXManager.Instance.playerFootSource.PlayOneShot(SFXManager.Instance.actualStepSound);
     }

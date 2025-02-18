@@ -63,7 +63,7 @@ public class PlayerFSM : MonoBehaviour
         _fsm.FixedTick();
     }
 
-    private bool wasSprinting = false;
+    public bool wasSprinting = false;
     private void SpeedController()
     {
         float targetSpeed = 0f;
@@ -83,7 +83,7 @@ public class PlayerFSM : MonoBehaviour
         {
             _animator.SetBool("isMoving", true);
 
-            if (_inputHandler.sprintInput)
+            if (_inputHandler.sprintInput && _playerStatus.currentStamina > 0f)
             {
                 targetSpeed = _playerStatus.runSpeed;
                 _playerStatus.DrainStaminaPerSecond(10f);

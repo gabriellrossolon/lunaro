@@ -5,6 +5,7 @@ public class AnimationHandler : MonoBehaviour
 {
     private Animator _animator;
     private InputHandler _handler;
+    private PlayerFSM _fsm;
 
     private float velocityZ;
     private float velocityX;
@@ -19,6 +20,7 @@ public class AnimationHandler : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _handler = GetComponent<InputHandler>();
+        _fsm = GetComponent<PlayerFSM>();
     }
 
     private void Start()
@@ -34,11 +36,18 @@ public class AnimationHandler : MonoBehaviour
 
     private void MovementAnimationController()
     {
-        bool forwardPressed = Keyboard.current.wKey.isPressed;
-        bool backwardPressed = Keyboard.current.sKey.isPressed;
-        bool leftPressed = Keyboard.current.aKey.isPressed;
-        bool rightPressed = Keyboard.current.dKey.isPressed;
-        bool runPressed = Keyboard.current.shiftKey.isPressed;
+        //bool forwardPressed = Keyboard.current.wKey.isPressed;
+        //bool backwardPressed = Keyboard.current.sKey.isPressed;
+        //bool leftPressed = Keyboard.current.aKey.isPressed;
+        //bool rightPressed = Keyboard.current.dKey.isPressed;
+        //bool runPressed = Keyboard.current.shiftKey.isPressed;
+
+        bool forwardPressed = _handler.moveInput.y > 0;  
+        bool backwardPressed = _handler.moveInput.y < 0; 
+        bool leftPressed = _handler.moveInput.x < 0;      
+        bool rightPressed = _handler.moveInput.x > 0;    
+        bool runPressed = _fsm.wasSprinting;          
+
 
         float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
 

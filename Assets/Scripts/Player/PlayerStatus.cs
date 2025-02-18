@@ -64,10 +64,14 @@ public class PlayerStatus : MonoBehaviour
     public void ControlBaseStamina(float value)
     {
         maxStamina += value;
+        if (currentStamina < 0)
+            currentStamina = 0;
     }
     public void ControlBaseMana(float value)
     {
         maxMana += value;
+        if(currentMana < 0)
+            currentMana = 0;
     }
 
     public void ControlBaseHealthRegeneration(float value)
@@ -118,6 +122,19 @@ public class PlayerStatus : MonoBehaviour
 
         if (currentStamina > maxStamina)
             currentStamina = maxStamina;
+
+        if (currentStamina < 0 && canRegenStamina)
+        {
+            canRegenStamina = false;
+            StartCoroutine(ReenableStaminaRegen());
+            return;
+        }
+    }
+
+    private IEnumerator ReenableStaminaRegen()
+    {
+        yield return new WaitForSeconds(3f); 
+        canRegenStamina = true;
     }
 
     private void ManaRegen()
