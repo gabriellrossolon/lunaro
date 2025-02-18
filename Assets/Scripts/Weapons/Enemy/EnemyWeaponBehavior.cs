@@ -60,8 +60,8 @@ public class EnemyWeaponBehavior : MonoBehaviour
         }
         else if (!attackBlockedByPlayer && other.gameObject.CompareTag("Player"))
         {
-            if (alreadyTriggered) return;
-            alreadyTriggered = true;
+            //if (alreadyTriggered) return;
+            //alreadyTriggered = true;
 
             _enemySoundSource.PlayOneShot(_enemEffects.attackImpactSound);
             PlayerManager.Instance.DoDamage(damage);
