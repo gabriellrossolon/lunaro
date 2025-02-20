@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 6481052225539762542}
   - component: {fileID: 3038591827738121929}
   m_Layer: 0
-  m_Name: SlimeX
+  m_Name: SlimeX (Green)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1113,6 +1113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 2
   alreadyTriggered: 0
+  _coll: {fileID: 0}
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}

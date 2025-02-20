@@ -8,7 +8,7 @@ public class EnemyWeaponBehavior : MonoBehaviour
 
     [SerializeField] private bool alreadyTriggered = false;
 
-    private Collider _coll;
+    [SerializeField] private Collider _coll;
     [HideInInspector] public EnemyEffects _enemEffects;
     [HideInInspector] public EnemyStats _enemyStats;
     [HideInInspector] public AudioSource _enemySoundSource;
@@ -43,11 +43,18 @@ public class EnemyWeaponBehavior : MonoBehaviour
         colliderEnabled = !colliderEnabled;
 
         if (_coll != null)
+        {
             _coll.enabled = colliderEnabled;
+            Debug.Log("Collider habilitado");
+        }
+        else
+        {
+            Debug.Log("Collider não existe");
+        }
+
 
         if (colliderEnabled == false)
             attackBlockedByPlayer = false;
-
     }
     private void OnTriggerEnter(Collider other)
     {

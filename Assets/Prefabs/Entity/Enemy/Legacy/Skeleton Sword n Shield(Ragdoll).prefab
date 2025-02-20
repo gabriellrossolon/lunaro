@@ -900,7 +900,7 @@ MonoBehaviour:
   detectionRange: 10
   patrolRadius: 10
   attackRange: 0
-  attackOneRange: 2.4
+  attackOneRange: 2.2
   attackTwoRange: 2.4
   attackThreeRange: 2.4
   patrolSpeed: 2
@@ -933,7 +933,7 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 8f4145a2be3c6094ca4a14d28f6230e4, type: 3}
   attackImpactSound: {fileID: 8300000, guid: 049af9b7b2c2143449d180d41f4df9c5, type: 3}
   enemyGrunt: {fileID: 8300000, guid: b5ce0953edbc0104d8d3fa14451bc2da, type: 3}
-  enemyStep: {fileID: 0}
+  enemyStep: {fileID: 8300000, guid: 37af765c94863fc41b3d2cca2c2bd45b, type: 3}
   xpOrb: {fileID: 3338034077606413047, guid: 06a4b2a93674c6647873404ebdaf42c7, type: 3}
   attackTakenSound: {fileID: 8300000, guid: cc06e058b3940a040bf85e106192cdf4, type: 3}
   attackTakenParticle: {fileID: 4021103657954561961, guid: 1e326ae8280591843b03538deef8b5ea, type: 3}
@@ -1057,7 +1057,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: cd38db6faeb9df24282eef23da9ddd5c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -2311,6 +2311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   alreadyTriggered: 0
+  _coll: {fileID: 0}
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
@@ -3567,6 +3568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   alreadyTriggered: 0
+  _coll: {fileID: 0}
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
