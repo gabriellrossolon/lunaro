@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 7aff81453a72b6941a491fa228dc6db5
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: bf06e1163b7721043a67e3d145cb070d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: e63053483704e794d84843ccb2e9bbc1, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: "DEGRAD\xCA-02"
+    second: {fileID: 2800000, guid: b3f2bb1744c27434f84d86905ed0a3dc, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: SLIME-GREEN(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cube
+      parentName: SLIME-GREEN(Clone)
+      position: {x: -0, y: 0.9961786, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Armature
+      parentName: SLIME-GREEN(Clone)
+      position: {x: -0, y: 0.03035537, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Bone
+      parentName: Armature
+      position: {x: 0.00064234884, y: -0.0008260441, z: 0.0010211928}
+      rotation: {x: 0.055513382, y: 0.70492446, z: -0.7049242, w: 0.05551255}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: Bone_end
+      parentName: Bone
+      position: {x: -0, y: 0.0046893335, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.001
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0.0046893335}
+      rotation: {x: 0.7071068, y: -0.00000022086827, z: -0.000000010939382, w: 0.7071068}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+    - name: Bone.002
+      parentName: Bone.001
+      position: {x: -0, y: 0.0033344596, z: 0}
+      rotation: {x: -0.023957044, y: -9.882655e-10, z: -0.000000049387708, w: 0.99971306}
+      scale: {x: 0.9999998, y: 1.0000001, z: 1.0000001}
+    - name: Bone.003
+      parentName: Bone.002
+      position: {x: -1.3969838e-11, y: 0.003802315, z: -2.0547304e-10}
+      rotation: {x: 0.000683587, y: 6.606692e-11, z: 0.000000034354642, w: 0.99999976}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000002}
+    - name: Bone.004
+      parentName: Bone.003
+      position: {x: 1.3038516e-10, y: 0.004494029, z: -4.5867635e-10}
+      rotation: {x: 0.023273647, y: 0.0000000020281017, z: 0.00000000678924, w: 0.9997292}
+      scale: {x: 1.0000002, y: 0.99999964, z: 0.99999976}
+    - name: Bone.004_end
+      parentName: Bone.004
+      position: {x: -0, y: 0.0028867875, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cube.001
+      parentName: SLIME-GREEN(Clone)
+      position: {x: 0.7991729, y: 1.7029315, z: 0.08350311}
+      rotation: {x: -0.6445568, y: -0.18665557, z: 0.2593444, w: 0.69458383}
+      scale: {x: 100, y: 99.99999, z: 100}
+    - name: Sphere
+      parentName: SLIME-GREEN(Clone)
+      position: {x: -0.48662776, y: 0.88743424, z: 0.30452484}
+      rotation: {x: -0.30342463, y: -0.05014353, z: -0.015991984, w: 0.95140076}
+      scale: {x: 21.764793, y: 21.764793, z: 21.764793}
+    - name: Sphere.001
+      parentName: SLIME-GREEN(Clone)
+      position: {x: 0.52592766, y: 0.99643177, z: 0.29705763}
+      rotation: {x: 0.02943651, y: 0.16739316, z: 0.704731, w: 0.68881583}
+      scale: {x: 21.764793, y: 21.764793, z: 21.764795}
+    - name: Cube.002
+      parentName: SLIME-GREEN(Clone)
+      position: {x: 0.000000023245102, y: 0.5186866, z: 0.000000007748367}
+      rotation: {x: -0.6235158, y: -0.33350888, z: 0.33350882, w: 0.6235157}
+      scale: {x: 99.99999, y: 100, z: 99.99999}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -246,11 +246,11 @@ MonoBehaviour:
   patrolRadius: 10
   attackRange: 0
   attackOneRange: 3.5
-  attackTwoRange: 3.5
-  attackThreeRange: 3.5
+  attackTwoRange: 5
+  attackThreeRange: 3.3
   patrolSpeed: 1.5
-  chaseSpeed: 1.5
-  retreatSpeed: 1.5
+  chaseSpeed: 2
+  retreatSpeed: 2
   retreatDistance: {x: 2, y: 3}
   attackDamage: 8
   maxHp: 50
@@ -402,7 +402,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 91a4e44f06cfd964a80b93624b7b2f75, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1918,8 +1918,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 1.6801695, z: 0.7}
-  m_Center: {x: 0.020257805, y: 0.4925472, z: 0.07405366}
+  m_Size: {x: 0.5, y: 1.8406641, z: 1.0091549}
+  m_Center: {x: 0.02025895, y: 0.5727953, z: 0.024097508}
 --- !u!1 &3418791552674557769
 GameObject:
   m_ObjectHideFlags: 0

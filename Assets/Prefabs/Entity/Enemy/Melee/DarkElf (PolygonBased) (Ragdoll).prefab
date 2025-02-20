@@ -1948,8 +1948,8 @@ MonoBehaviour:
   patrolRadius: 10
   attackRange: 0
   attackOneRange: 2.7
-  attackTwoRange: 2.7
-  attackThreeRange: 2.7
+  attackTwoRange: 3.5
+  attackThreeRange: 3
   patrolSpeed: 1
   chaseSpeed: 3
   retreatSpeed: 2.5
@@ -2104,7 +2104,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 67cd767b5b22af34eb6020866188f295, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0

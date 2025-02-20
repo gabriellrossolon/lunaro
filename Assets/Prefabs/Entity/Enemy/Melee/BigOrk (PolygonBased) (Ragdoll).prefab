@@ -149,9 +149,9 @@ MonoBehaviour:
   detectionRange: 10
   patrolRadius: 10
   attackRange: 0
-  attackOneRange: 3.8
-  attackTwoRange: 3.8
-  attackThreeRange: 3.8
+  attackOneRange: 3.6
+  attackTwoRange: 4.5
+  attackThreeRange: 3.6
   patrolSpeed: 1.3
   chaseSpeed: 1.3
   retreatSpeed: 1.3
@@ -306,7 +306,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 7af799d49aea2f44b9e146c5851eca10, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0

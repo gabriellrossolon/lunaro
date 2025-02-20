@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             PauseGame();
+        Screenshot();
     }
 
     public void TriggerSlowMotion(float duration = 0.1f, float targetTimeScale = 0.3f)
@@ -82,22 +83,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = gamePaused ? 0f : 1f;
     }
 
+    private void Screenshot()
+    {
+        if (Input.GetKey(KeyCode.F3))
+            ScreenCapture.CaptureScreenshot("screenshot.png");
+    }
+
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        DestroyDuplicateEventSystems();
-        DestroyDuplicateCameras();
+        DestroyDuplicateObjects();
     }
 
-    private void DestroyDuplicateEventSystems()
+    private void DestroyDuplicateObjects()
     {
-        if (mainEventSystem == null)
-            return;
-
-        EventSystem[] eventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
-
-        if (eventSystems.Length > 1)
+        if (mainEventSystem != null)
         {
+            EventSystem[] eventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
             foreach (EventSystem eventSystem in eventSystems)
             {
                 if (eventSystem != mainEventSystem)
@@ -106,17 +108,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-    }
 
-    private void DestroyDuplicateCameras()
-    {
-        if (mainCamera == null)
-            return;
-
-        Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
-
-        if (cameras.Length > 1)
+        if (mainCamera != null)
         {
+            Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
             foreach (Camera camera in cameras)
             {
                 if (camera != mainCamera)
@@ -126,5 +121,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 }
 
