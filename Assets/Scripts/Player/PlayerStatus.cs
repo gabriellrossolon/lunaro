@@ -133,7 +133,7 @@ public class PlayerStatus : MonoBehaviour
 
     private IEnumerator ReenableStaminaRegen()
     {
-        yield return new WaitForSeconds(3f); 
+        yield return new WaitForSeconds(1.5f); 
         canRegenStamina = true;
     }
 

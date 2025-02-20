@@ -5,7 +5,7 @@ public class MagicMissileBehavior : MonoBehaviour
     public float damage;
     private PlayerStatus playerStatus;
 
-    private void Awake()
+    private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }

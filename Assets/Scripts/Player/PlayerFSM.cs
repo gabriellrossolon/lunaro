@@ -86,7 +86,7 @@ public class PlayerFSM : MonoBehaviour
             if (_inputHandler.sprintInput && _playerStatus.currentStamina > 0f)
             {
                 targetSpeed = _playerStatus.runSpeed;
-                _playerStatus.DrainStaminaPerSecond(10f);
+                _playerStatus.DrainStaminaPerSecond(5f);
                 _playerStatus.canRegenStamina = false;
                 wasSprinting = true;
             }

@@ -5,7 +5,7 @@ public class SlitBehavior : MonoBehaviour
     public float slitDamage;
     private PlayerStatus playerStatus;
 
-    private void Awake()
+    private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }
