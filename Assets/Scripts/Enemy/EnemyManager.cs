@@ -25,7 +25,6 @@ public class EnemyManager : MonoBehaviour
         _audioSource.PlayOneShot(_enemyEffects.attackSound);
     }
 
-
     public void ReableBlockedAttack()
     {
         EnemyWeaponBehavior[] weaponBehaviors = GetComponentsInChildren<EnemyWeaponBehavior>();

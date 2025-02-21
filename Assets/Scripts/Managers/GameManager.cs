@@ -86,7 +86,14 @@ public class GameManager : MonoBehaviour
     private void Screenshot()
     {
         if (Input.GetKey(KeyCode.F3))
-            ScreenCapture.CaptureScreenshot("screenshot.png");
+        {
+            string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures);
+            string fileName = "screenshot_" + System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png";
+            string fullPath = System.IO.Path.Combine(folderPath, fileName);
+
+            ScreenCapture.CaptureScreenshot(fullPath);
+            Debug.Log("Screenshot salva em: " + fullPath);
+        }
     }
 
 

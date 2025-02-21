@@ -259,7 +259,7 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 3864539016518106293}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: -1}
+  m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   m_SwingAxis: {x: 0, y: -1, z: 0}
@@ -842,7 +842,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -40
+    limit: -19.05892
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -853,7 +853,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 25
+    limit: 16.886444
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -2714,18 +2714,18 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -20
+    limit: -10.417693
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 20
+    limit: 30.89953
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 10
+    limit: 7.8964014
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -2908,18 +2908,18 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: -4.808846
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 10
+    limit: 42.99597
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 50
+    limit: 21.15216
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -3037,6 +3037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   alreadyTriggered: 0
+  _coll: {fileID: 0}
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
@@ -3787,7 +3788,7 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 8246423767162163319}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
+  m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   m_SwingAxis: {x: 0, y: 0, z: 1}
@@ -3795,18 +3796,18 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: 6.945684
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 10
+    limit: 62.215263
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 50
+    limit: 26.58816
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -4255,7 +4256,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -20
+    limit: -12.926316
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -4449,7 +4450,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -20
+    limit: -4.9146214
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:

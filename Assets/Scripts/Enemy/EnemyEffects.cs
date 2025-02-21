@@ -8,6 +8,7 @@ public class EnemyEffects : MonoBehaviour
     private AudioSource _enemySoundSource;
     [SerializeField] private AudioSource _gruntSourceSource;
     [SerializeField] private AudioSource _stepSoundSource;
+    [SerializeField] private AudioSource _specialsSoundSource;
 
     public Vector2 gruntPitchRange;
     public Vector2 stepPitchRange;
@@ -33,6 +34,7 @@ public class EnemyEffects : MonoBehaviour
     [Header("Special Hability")]
     public GameObject specialFx;
     public GameObject specialExitPoint;
+    public AudioClip specialSfx;
 
     private void Start()
     {
@@ -70,6 +72,6 @@ public class EnemyEffects : MonoBehaviour
     {
         GameObject specialPrefab = Instantiate(specialFx, specialExitPoint.transform.position, Quaternion.identity);
         specialPrefab.GetComponent<EnemyExplosionBehavior>().explosionDamage = enemyStats.attackDamage;
-        _stepSoundSource.PlayOneShot(enemyStep);
+        _specialsSoundSource.PlayOneShot(specialSfx);
     }
 }

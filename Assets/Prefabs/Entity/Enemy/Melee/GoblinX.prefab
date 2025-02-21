@@ -831,7 +831,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -20
+    limit: -5.379207
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -2933,6 +2933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   alreadyTriggered: 0
+  _coll: {fileID: 0}
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
@@ -5173,7 +5174,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -20
+    limit: -7.3684406
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:

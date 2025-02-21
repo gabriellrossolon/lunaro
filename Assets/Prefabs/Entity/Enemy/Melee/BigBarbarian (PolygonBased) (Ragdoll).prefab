@@ -610,18 +610,18 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -20
+    limit: -9.994224
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 20
+    limit: 34.37485
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 10
+    limit: 12.6451845
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -1262,18 +1262,18 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -40
+    limit: -38.575413
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 25
+    limit: -8.137451
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 25
+    limit: 14.919829
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -1891,6 +1891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   alreadyTriggered: 0
+  _coll: {fileID: 0}
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}
@@ -2524,7 +2525,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 0
+    limit: 3
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -3325,7 +3326,7 @@ CharacterJoint:
   m_ConnectedBody: {fileID: 5888152201896883648}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
+  m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   m_SwingAxis: {x: 0, y: 0, z: 1}
