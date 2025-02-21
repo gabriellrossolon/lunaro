@@ -117,23 +117,16 @@ public class PlayerStatus : MonoBehaviour
 
     private void StaminaRegen()
     {
-        if (canRegenStamina && currentStamina < maxStamina)
-            currentStamina += staminaRegenRate * Time.deltaTime;
-
-        if (currentStamina > maxStamina)
-            currentStamina = maxStamina;
-
-        if (currentStamina < 0 && canRegenStamina)
+        if (canRegenStamina)
         {
-            canRegenStamina = false;
-            StartCoroutine(ReenableStaminaRegen());
-            return;
+            currentStamina += staminaRegenRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
         }
     }
 
     private IEnumerator ReenableStaminaRegen()
     {
-        yield return new WaitForSeconds(1.5f); 
+        yield return new WaitForSeconds(1.5f);
         canRegenStamina = true;
     }
 

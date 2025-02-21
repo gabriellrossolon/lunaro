@@ -45,8 +45,8 @@ public class AnimationHandler : MonoBehaviour
         bool forwardPressed = _handler.moveInput.y > 0;  
         bool backwardPressed = _handler.moveInput.y < 0; 
         bool leftPressed = _handler.moveInput.x < 0;      
-        bool rightPressed = _handler.moveInput.x > 0;    
-        bool runPressed = _fsm.wasSprinting;          
+        bool rightPressed = _handler.moveInput.x > 0;
+        bool runPressed = _handler.sprintInput;        
 
 
         float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;

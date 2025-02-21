@@ -63,43 +63,24 @@ public class PlayerFSM : MonoBehaviour
         _fsm.FixedTick();
     }
 
-    public bool wasSprinting = false;
+    public bool wasSprinting;
     private void SpeedController()
     {
         float targetSpeed = 0f;
 
-        if (_inputHandler.moveInput == Vector2.zero) //Se estiver se mechendo
+        if (_inputHandler.moveInput == Vector2.zero)
         {
             targetSpeed = 0;
             _animator.SetBool("isMoving", false);
-
-            if (wasSprinting)
-            {
-                _playerStatus.canRegenStamina = true;
-                wasSprinting = false;
-            }
         }
-        else if(_inputHandler.moveInput != Vector2.zero) //Se não estiver se mechendo
+        else if (_inputHandler.moveInput != Vector2.zero)
         {
             _animator.SetBool("isMoving", true);
 
-            if (_inputHandler.sprintInput && _playerStatus.currentStamina > 0f)
-            {
+            if (_inputHandler.sprintInput)
                 targetSpeed = _playerStatus.runSpeed;
-                _playerStatus.DrainStaminaPerSecond(5f);
-                _playerStatus.canRegenStamina = false;
-                wasSprinting = true;
-            }
             else
-            {
                 targetSpeed = _playerStatus.walkSpeed;
-
-                if (wasSprinting)
-                {
-                    _playerStatus.canRegenStamina = true;
-                    wasSprinting = false;
-                }
-            }
         }
 
         if (TempParent.Instance.isHoldingAnything || _weaponBehavior.ChargingAnySkill() || _secondaryBehavior.IsBlockingAnything())
@@ -108,6 +89,8 @@ public class PlayerFSM : MonoBehaviour
         _playerActualSpeed = targetSpeed;
         _playerStatus.actualSpeed = _playerActualSpeed;
     }
+
+
 
 
     private void UpdateCurrentState()
