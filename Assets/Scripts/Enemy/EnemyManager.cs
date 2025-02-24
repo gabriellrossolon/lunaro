@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -7,12 +9,50 @@ public class EnemyManager : MonoBehaviour
     private EnemyWeaponBehavior _enemyWeaponBehavior;
     private AudioSource _audioSource;
 
+    [SerializeField] private string _enemyName;
+    [SerializeField] private GameObject _enemyInfos;
+    private Slider _enemyHpSlider;
+    private TextMeshProUGUI _enemyNameTxt;
     private void Awake()
     {
         _enemyStats = GetComponent<EnemyStats>();
         _enemyEffects = GetComponent<EnemyEffects>();
         _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();
         _audioSource = GetComponent<AudioSource>();
+
+        _enemyHpSlider = GetComponentInChildren<Slider>();
+        _enemyNameTxt = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+    private void Start()
+    {
+        _enemyNameTxt.text = _enemyName;
+        _enemyHpSlider.maxValue = _enemyStats.maxHp;
+
+        if(_enemyInfos != null)
+            _enemyInfos.SetActive(false);
+    }
+
+    private void Update()
+    {
+        _enemyHpSlider.value = _enemyStats.currentHp;
+
+        if (PlayerManager.Instance != null && _enemyInfos != null)
+        {
+            float distance = Vector3.Distance(PlayerManager.Instance.transform.position, transform.position);
+            if (distance <= 15f)
+            {
+                _enemyInfos.SetActive(true);
+                Vector3 direction = PlayerManager.Instance.transform.position - _enemyInfos.transform.position;
+                direction.y = 0;
+
+                _enemyInfos.transform.rotation = Quaternion.LookRotation(direction);
+            }
+            else
+            {
+                _enemyInfos.SetActive(false);
+            }
+        }
     }
 
     public void ActiveWeaponCollider()

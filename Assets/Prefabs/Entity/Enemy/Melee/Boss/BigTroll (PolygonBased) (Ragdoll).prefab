@@ -3358,6 +3358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gruntSourceSource: {fileID: 5067136725175159651}
   _stepSoundSource: {fileID: 8461040957874450827}
+  _specialsSoundSource: {fileID: 0}
   gruntPitchRange: {x: 0.3, y: 0.6}
   stepPitchRange: {x: 0.6, y: 0.8}
   attackImpactFx: {fileID: 4021103657954561961, guid: 60f6ac539c1a6b14e8024805f6a6b364, type: 3}
@@ -3370,6 +3371,7 @@ MonoBehaviour:
   attackTakenParticle: {fileID: 6964785338863600271, guid: 06bb36996cca8b4428815aa64be21780, type: 3}
   specialFx: {fileID: 0}
   specialExitPoint: {fileID: 0}
+  specialSfx: {fileID: 0}
 --- !u!114 &2562492207318277756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3382,6 +3384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017e85c50d5344c45b2c67f02ed1a620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyName: 
+  enemyInfos: {fileID: 0}
 --- !u!195 &3395441094219204598
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4460,6 +4464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   alreadyTriggered: 0
+  _coll: {fileID: 0}
   _enemEffects: {fileID: 0}
   _enemyStats: {fileID: 0}
   _enemySoundSource: {fileID: 0}

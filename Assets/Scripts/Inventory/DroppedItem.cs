@@ -12,6 +12,9 @@ public class DroppedItem : MonoBehaviour
     private ParticleSystem[] particles;
     private Light itemLight;
 
+    [SerializeField] private AudioClip droppedSound;
+    private AudioSource dropSoundSource;
+
     public float throwForce = 5f;
     public float throwRadius = 2f;
     public float throwHeight = 2f; 
@@ -21,10 +24,15 @@ public class DroppedItem : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         particles = GetComponentsInChildren<ParticleSystem>();
         itemLight = GetComponentInChildren<Light>();
+        dropSoundSource = GetComponent<AudioSource>();  
     }
 
     private void Start()
     {
+        dropSoundSource.clip = droppedSound;
+        dropSoundSource.loop = true; 
+        dropSoundSource.Play();
+
         player = PlayerManager.Instance.gameObject;
 
         if (rb != null)

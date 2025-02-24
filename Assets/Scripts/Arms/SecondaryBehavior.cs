@@ -6,6 +6,7 @@ public class SecondaryBehavior : MonoBehaviour
     private PlayerStatus playerStatus;
     [HideInInspector] public Animator secondaryAnim;
     public Animator armBonesAnim;
+    [SerializeField] private Animator leftHandAnim;
 
     [Header("Secondary Scripts")]
     private ShieldBehavior shieldBeh;
@@ -78,6 +79,8 @@ public class SecondaryBehavior : MonoBehaviour
         armBonesAnim.SetBool("isWithOrb", secondaryType == SecondaryType.Orb);
         armBonesAnim.SetBool("isWithShield", secondaryType == SecondaryType.Shield);
         armBonesAnim.SetBool("isWithBook", secondaryType == SecondaryType.Book);
+
+        secondaryAnim.SetBool("holdingBook", secondaryType == SecondaryType.Book);
     }
 
     public bool IsBlockingAnything()
