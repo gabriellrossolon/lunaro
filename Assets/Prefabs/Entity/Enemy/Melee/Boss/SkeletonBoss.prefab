@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8657657520977698306}
   m_Layer: 5
-  m_Name: EnemyHpBar
+  m_Name: EnemyBossInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -410,8 +410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 10
-  patrolRadius: 10
+  detectionRange: 20
+  patrolRadius: 20
   attackRange: 0
   attackOneRange: 4.5
   attackTwoRange: 4.5
@@ -466,9 +466,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017e85c50d5344c45b2c67f02ed1a620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBoss: 0
   _enemyName: Sku & Ull
   _enemyInfos: {fileID: 0}
+  _enemyBossInfos: {fileID: 324340241314443786}
 --- !u!195 &4877215582708065825
 NavMeshAgent:
   m_ObjectHideFlags: 0

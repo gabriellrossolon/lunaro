@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 20
+  detectionRange: 25
   patrolRadius: 10
   attackRange: 0
   attackOneRange: 12
@@ -689,6 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyName: Green Slime
   _enemyInfos: {fileID: 6734380127916984360}
+  _enemyBossInfos: {fileID: 0}
 --- !u!195 &6165068654383789198
 NavMeshAgent:
   m_ObjectHideFlags: 0

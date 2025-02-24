@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 10
+  detectionRange: 15
   patrolRadius: 10
   attackRange: 0
   attackOneRange: 2.2
@@ -697,6 +697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyName: Warrior Skeleton
   _enemyInfos: {fileID: 6565349856945622222}
+  _enemyBossInfos: {fileID: 0}
 --- !u!195 &8568475479682275010
 NavMeshAgent:
   m_ObjectHideFlags: 0

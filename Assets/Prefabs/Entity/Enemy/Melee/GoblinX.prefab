@@ -5401,7 +5401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4252f4dced2ddc40b9da16855156712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 10
+  detectionRange: 15
   patrolRadius: 10
   attackRange: 0
   attackOneRange: 2.3
@@ -5459,6 +5459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyName: Green Goblin
   _enemyInfos: {fileID: 722048054179526138}
+  _enemyBossInfos: {fileID: 0}
 --- !u!195 &4156417638385585537
 NavMeshAgent:
   m_ObjectHideFlags: 0

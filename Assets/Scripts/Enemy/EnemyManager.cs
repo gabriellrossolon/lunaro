@@ -11,6 +11,7 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private string _enemyName;
     [SerializeField] private GameObject _enemyInfos;
+    [SerializeField] private GameObject _enemyBossInfos;
     private Slider _enemyHpSlider;
     private TextMeshProUGUI _enemyNameTxt;
     private void Awake()
@@ -26,16 +27,21 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        _enemyNameTxt.text = _enemyName;
-        _enemyHpSlider.maxValue = _enemyStats.maxHp;
+        if(_enemyNameTxt != null)
+            _enemyNameTxt.text = _enemyName;
 
-        if(_enemyInfos != null)
+        if(_enemyHpSlider != null)
+            _enemyHpSlider.maxValue = _enemyStats.maxHp;
+
+        if (_enemyInfos != null)
             _enemyInfos.SetActive(false);
     }
 
     private void Update()
     {
-        _enemyHpSlider.value = _enemyStats.currentHp;
+        if(_enemyHpSlider != null)
+            _enemyHpSlider.value = _enemyStats.currentHp;
+
 
         if (PlayerManager.Instance != null && _enemyInfos != null)
         {
@@ -51,6 +57,19 @@ public class EnemyManager : MonoBehaviour
             else
             {
                 _enemyInfos.SetActive(false);
+            }
+        }
+
+        if(PlayerManager.Instance != null && _enemyBossInfos != null)
+        {
+            float distance = Vector3.Distance(PlayerManager.Instance.transform.position, transform.position);
+            if (distance <= 50f)
+            {
+                _enemyBossInfos.SetActive(true);
+            }
+            else
+            {
+                _enemyBossInfos.SetActive(false);
             }
         }
     }
