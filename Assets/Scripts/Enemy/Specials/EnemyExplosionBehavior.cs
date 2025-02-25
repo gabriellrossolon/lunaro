@@ -12,7 +12,7 @@ public class EnemyExplosionBehavior : MonoBehaviour
         coll = GetComponent<Collider>();
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
 
-        Destroy(coll, 2f);
+        Destroy(coll, 0.5f);
     }
 
     private void OnTriggerEnter(Collider other)
