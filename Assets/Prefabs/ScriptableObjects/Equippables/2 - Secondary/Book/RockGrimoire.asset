@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0c3f985c00c9542a29c872100ac321, type: 3}
+  m_Name: RockGrimoire
+  m_EditorClassIdentifier: 
+  itemName: Rock Grimoire
+  icon: {fileID: 21300000, guid: f05671e788985bc45b6841bf1386fecf, type: 3}
+  description: Insert
+  itemRarity: 3
+  secondaryPrefab: {fileID: 7843102391990716318, guid: 90ff02310f4d73241a69e96feabe8196, type: 3}
+  spell: {fileID: 11400000, guid: cd2faccd2e500924fa5fd3b02815ee5f, type: 2}
