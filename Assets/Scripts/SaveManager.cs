@@ -20,12 +20,22 @@ public class SaveManager : MonoBehaviour
         {
             SaveGame();
         }
+        if (Input.GetKeyDown(KeyCode.F9)) // Correção aqui
+        {
+            DeleteSave();
+        }
     }
 
     public void SaveGame()
     {
         Debug.Log("Salvando...");
         ES3AutoSaveMgr.Current.Save();
+    }
+
+    public void DeleteSave()
+    {
+        ES3.DeleteFile();
+        Debug.Log("Save apagado!");
     }
 }
 

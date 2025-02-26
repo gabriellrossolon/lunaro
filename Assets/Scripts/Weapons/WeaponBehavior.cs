@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.VFX;
 
 public class WeaponBehavior : MonoBehaviour
 {
@@ -18,6 +16,7 @@ public class WeaponBehavior : MonoBehaviour
     private HammerBehavior hammerBeh;
     private GreatSwordBehavior greatSwordBeh;
     private GreatHammerBehavior greatHammerBeh;
+    private GreatAxeBehavior greatAxeBeh;
     private StaffBehavior staffBeh;
     private BowBehavior bowBeh;
 
@@ -43,6 +42,7 @@ public class WeaponBehavior : MonoBehaviour
         Hammer,
         GreatSword,
         GreatHammer,
+        GreatAxe,
         Staff,
         Bow
     }
@@ -87,6 +87,10 @@ public class WeaponBehavior : MonoBehaviour
                     greatHammerBeh.ExecuteGreatHammerAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
+                case WeaponType.GreatAxe:
+                    greatAxeBeh.ExecuteGreatAxeAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
                 case WeaponType.Staff:
                     staffBeh.ExecuteStaffAttack(canAttack, resourceCost, leftBtnInput, weaponAnim, leftHandAnim);
                     break;
@@ -123,6 +127,10 @@ public class WeaponBehavior : MonoBehaviour
                     greatHammerBeh.ExecuteGreatHammerDashAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
+                case WeaponType.GreatAxe:
+                    greatAxeBeh.ExecuteGreatAxeDashAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
                 case WeaponType.Staff: // Staff has no Dash Attack
                     staffBeh.ExecuteStaffAttack(canAttack, resourceCost, leftBtnInput, weaponAnim, leftHandAnim);
                     break;
@@ -150,6 +158,10 @@ public class WeaponBehavior : MonoBehaviour
                     greatHammerBeh.ExecuteGreatHammerJumpAttack(canAttack, resourceCost, weaponAnim);
                     break;
 
+                case WeaponType.GreatAxe:
+                    greatAxeBeh.ExecuteGreatAxeJumpAttack(canAttack, resourceCost, weaponAnim);
+                    break;
+
                 case WeaponType.Staff: // Staff has no jumpAttack
                     staffBeh.ExecuteStaffAttack(canAttack, resourceCost, leftBtnInput, weaponAnim, leftHandAnim);
                     break;
@@ -161,13 +173,14 @@ public class WeaponBehavior : MonoBehaviour
     // Hand Animations Control
     public void ControlHandsAnimations()
     {
+        //Controla jeito que a mão fica caso esteja com arco
         leftHandAnim.SetBool("holdingBow", weaponType == WeaponType.Bow);
         weaponAnim.SetBool("BowHanded", weaponType == WeaponType.Bow);
-
-        weaponAnim.SetBool("TwoHanded", (weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatSword));
-        leftHandAnim.SetBool("TwoHanded", (weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatSword));
-
         armBonesAnim.SetBool("isWithBow", weaponType == WeaponType.Bow);
+
+        //Controla jeito que a mão fica caso esteja com arma 2Handed
+        weaponAnim.SetBool("TwoHanded", (weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatAxe));
+        leftHandAnim.SetBool("TwoHanded", (weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatAxe));
     }
 
     // Special Attack Control
@@ -253,6 +266,7 @@ public class WeaponBehavior : MonoBehaviour
         HammerBehavior hammerBehavior = GetComponentInChildren<HammerBehavior>();
         GreatHammerBehavior greatHammerBehavior = GetComponentInChildren<GreatHammerBehavior>();
         GreatSwordBehavior greatSwordBehavior = GetComponentInChildren<GreatSwordBehavior>();
+        GreatAxeBehavior greatAxeBehavior = GetComponentInChildren<GreatAxeBehavior>();
 
         if (swordBehavior != null)
             swordBehavior.colliderEnabled = !swordBehavior.colliderEnabled;
@@ -265,6 +279,9 @@ public class WeaponBehavior : MonoBehaviour
 
         if (greatSwordBehavior != null)
             greatSwordBehavior.colliderEnabled = !greatSwordBehavior.colliderEnabled;
+
+        if (greatAxeBehavior != null)
+            greatAxeBehavior.colliderEnabled = !greatAxeBehavior.colliderEnabled;
     }//Ativa o Colisor da Arma pela propria animação
 
     // Mana and Stamina Consumption
@@ -285,6 +302,7 @@ public class WeaponBehavior : MonoBehaviour
         hammerBeh = null;
         greatSwordBeh = null;
         greatHammerBeh = null;
+        greatAxeBeh = null;
         staffBeh = null;
         bowBeh = null;
 
@@ -312,6 +330,11 @@ public class WeaponBehavior : MonoBehaviour
             weaponType = WeaponType.GreatHammer;
             greatHammerBeh = GetComponentInChildren<GreatHammerBehavior>();
         }
+        else if (weapon is GreatAxe)
+        {
+            weaponType = WeaponType.GreatAxe;
+            greatAxeBeh = GetComponentInChildren<GreatAxeBehavior>();
+        }
         else if (weapon is Staff)
         {
             weaponType = WeaponType.Staff;
@@ -329,13 +352,13 @@ public class WeaponBehavior : MonoBehaviour
     // Hand Animation Update for Two Handed Weapons
     private void UpdateHandAnimation()
     {
-        if (weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatHammer)
+        if (weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatAxe)
         {
-            Invoke("UpdateLeftGripToHandR", 0.2f);  // Removing "nameof"
+            Invoke("UpdateLeftGripToHandR", 0.2f);
         }
         else
         {
-            CancelInvoke("UpdateLeftGripToHandR");  // Removing "nameof"
+            CancelInvoke("UpdateLeftGripToHandR"); 
             leftHandGrip.transform.SetParent(holdingObjectL.transform);
         }
     }

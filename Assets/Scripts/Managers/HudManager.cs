@@ -263,15 +263,19 @@ public class HudManager : MonoBehaviour
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
                 case Bow bow:
-                    itemType.text = "Bow (2Hand)";
+                    itemType.text = "Bow";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
                 case GreatHammer greatHammer:
-                    itemType.text = "Great Hammer (2Hand)";
+                    itemType.text = "Great Hammer";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
                 case GreatSword greatSword:
-                    itemType.text = "Great Sword (2Hand)";
+                    itemType.text = "Great Sword";
+                    itemResourceCost.text = resourceText + " Stamina to Attack";
+                    break;
+                case GreatAxe greatAxe:
+                    itemType.text = "Great Axe";
                     itemResourceCost.text = resourceText + " Stamina to Attack";
                     break;
                 default:

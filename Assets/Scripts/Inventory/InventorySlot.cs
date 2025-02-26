@@ -128,7 +128,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
     private bool DraggedItemIsTwoHanded(InventoryItem draggedItem)
     {
-        return draggedItem.item is Bow || draggedItem.item is GreatHammer || draggedItem.item is GreatSword;
+        return draggedItem.item is Bow || draggedItem.item is GreatHammer || draggedItem.item is GreatSword || draggedItem.item is GreatAxe;
     }
     private bool DraggedItemIsSecondary(InventoryItem draggedItem)
     {
@@ -140,7 +140,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private bool isWithTwoHandEquipped()
     {
         var equippedWeapon = InventoryManager.Instance.equippedWeapon;
-        return equippedWeapon is Bow || equippedWeapon is GreatHammer || equippedWeapon is GreatSword;
+        return equippedWeapon is Bow || equippedWeapon is GreatHammer || equippedWeapon is GreatSword || equippedWeapon is GreatAxe;
     }
 
     private bool IsWithSecondaryEquipped()
@@ -231,7 +231,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
         else if (IsWithSecondaryEquipped())
         {
-            if (existingItem.item is Bow || existingItem.item is GreatHammer || existingItem.item is GreatSword)
+            if (existingItem.item is Bow || existingItem.item is GreatHammer || existingItem.item is GreatSword || existingItem.item is GreatAxe)
             {
                 ReturnItemToPreviousParent(draggedItem);
                 yield break;

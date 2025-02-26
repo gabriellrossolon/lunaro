@@ -93,7 +93,7 @@ public class GreatHammerBehavior : MonoBehaviour
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
 
-        GameObject currentEarthquake = Instantiate(weaponSkillPrefab, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
+        GameObject currentEarthquake = Instantiate(weaponSkillPrefab, transform.position - new Vector3(0, 1.2f, 0), Quaternion.identity);
 
         var explosionBeh = currentEarthquake.GetComponent<ExplosionBehavior>();
 

@@ -421,6 +421,24 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
+        else if (lastInstantiatedWeapon.TryGetComponent<GreatAxeBehavior>(out var greatAxeBehavior))
+        {
+            greatAxeBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+            greatAxeBehavior.damage = equippedWeapon.damage;
+            if (equippedWeapon is GreatAxe greatAxe)
+            {
+                if (greatAxe.weaponSkill != null)
+                {
+                    HudManager.Instance.skillImage.enabled = true;
+                    HudManager.Instance.skillSliderImage.enabled = true;
+
+                    HudManager.Instance.skillImage.sprite = greatAxe.weaponSkill.skillIcon;
+                    HudManager.Instance.skillSliderImage.sprite = greatAxe.weaponSkill.skillIcon;
+
+                    rightWeaponBehavior.skillType = greatAxe.weaponSkill.skillType.ToString();
+                }
+            }
+        }
     }
 
 
