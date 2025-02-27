@@ -196,6 +196,10 @@ public class WeaponBehavior : MonoBehaviour
                 greatSwordBeh.UseCircularCut(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
+            case WeaponType.GreatAxe:
+                greatAxeBeh.UseFissure(leftBtnInput, resourceCost, canAttack, weaponAnim);
+                break;
+
             case WeaponType.Staff:
                 staffBeh.UseMagicBeam(leftBtnInput, resourceCost, weaponAnim);
                 break;
@@ -231,7 +235,7 @@ public class WeaponBehavior : MonoBehaviour
         }
     }
 
-    public void CallSpecialHability() //Chamado pela animação
+    public void CallSpecialHability() //Chama a habilidade especial pela animação
     {
         switch (skillType)
         {
@@ -247,20 +251,26 @@ public class WeaponBehavior : MonoBehaviour
                 greatSwordBeh.CallCircularCutPrefab();
                 break;
 
+            case "Fissure":
+                greatAxeBeh.CallFissurePrefab();
+                break;
+
             default:
                 Debug.LogWarning("Habilidade não reconhecida: " + skillType);
                 break;
         }
-    }//Chama a habilidade especial pela animação
-    public void CallTrail()
+    }
+
+    public void CallTrail() //Chama o Trail pela Propria animação
     {
-        TrailRenderer trailRend = GetComponentInChildren<TrailRenderer>();
         emittingTrail = !emittingTrail;
 
+        TrailRenderer trailRend = GetComponentInChildren<TrailRenderer>();
         if (trailRend != null)
             trailRend.emitting = emittingTrail;
-    }//Chama o Trail pela Propria animação
-    public void ActiveCollider()
+    }
+
+    public void ActiveCollider() //Ativa o Colisor da Arma pela propria animação
     {
         SwordBehavior swordBehavior = GetComponentInChildren<SwordBehavior>();
         HammerBehavior hammerBehavior = GetComponentInChildren<HammerBehavior>();
@@ -282,7 +292,7 @@ public class WeaponBehavior : MonoBehaviour
 
         if (greatAxeBehavior != null)
             greatAxeBehavior.colliderEnabled = !greatAxeBehavior.colliderEnabled;
-    }//Ativa o Colisor da Arma pela propria animação
+    }
 
     // Mana and Stamina Consumption
     public void ConsumeMana() // Typically called by animation

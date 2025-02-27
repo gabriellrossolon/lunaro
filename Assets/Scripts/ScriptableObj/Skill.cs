@@ -11,7 +11,8 @@ public class Skill: ScriptableObject
         None,
         Earthquake,
         MagicBeam,
-        CircularCut
+        CircularCut,
+        Fissure
     }
 
     public SkillType skillType;

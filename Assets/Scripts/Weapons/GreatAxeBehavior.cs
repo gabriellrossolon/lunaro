@@ -76,6 +76,29 @@ public class GreatAxeBehavior : MonoBehaviour
         }
     }
 
+    public void UseFissure(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
+    {
+        if (!cooldownController.CanUseSkill()) return;
+
+        if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
+        {
+            weaponAnim.SetTrigger("greatAxeSpecial");
+            cooldownController.StartSkillCooldown();
+        }
+        chargedAttack = false;
+    }
+    public void CallFissurePrefab() //Quem instancia o Earthquake (Especial do GreatHammer) é a propria animation;
+    {
+        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
+        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
+
+        GameObject currentFissure = Instantiate(weaponSkillPrefab, transform.position - new Vector3(0, 0, 0), Quaternion.identity);
+
+        var fissureBeh = currentFissure.GetComponent<FissureBehavior>();
+
+        fissureBeh.fissureDamage = damage;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))

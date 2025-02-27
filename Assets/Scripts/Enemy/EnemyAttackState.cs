@@ -44,7 +44,7 @@ public class EnemyAttackState : IState
 
     public void OnTick()
     {
-        LookAtPlayer();
+        //LookAtPlayer();
         StateChange();
     }
 
