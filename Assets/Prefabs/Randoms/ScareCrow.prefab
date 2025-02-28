@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: -4827117324522907177}
   - component: {fileID: 4177399412207199613}
   - component: {fileID: 1414124859772035815}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ScareCrow
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1124,8 +1124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyName: Training Dummy
+  isBoss: 0
   _enemyInfos: {fileID: 6194056726629983334}
-  _enemyBossInfos: {fileID: 0}
 --- !u!114 &72488353186794948
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -348,6 +348,7 @@ public class InventoryManager : MonoBehaviour
         {
             staffBehavior.beamPrefab = equippedWeapon.weaponSkill.skillPrefab;
             staffBehavior.damage = equippedWeapon.damage;
+            staffBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
 
             if (equippedWeapon is Staff staff)
             {
@@ -389,6 +390,7 @@ public class InventoryManager : MonoBehaviour
         {
             greatHammerBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
             greatHammerBehavior.damage = equippedWeapon.damage;
+            greatHammerBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
             if (equippedWeapon is GreatHammer greatHammer)
             {
                 if (greatHammer.weaponSkill != null)
@@ -407,6 +409,7 @@ public class InventoryManager : MonoBehaviour
         {
             greatSwordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
             greatSwordBehavior.damage = equippedWeapon.damage;
+            greatSwordBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
             if (equippedWeapon is GreatSword greatSword)
             {
                 if (greatSword.weaponSkill != null)
@@ -425,6 +428,7 @@ public class InventoryManager : MonoBehaviour
         {
             greatAxeBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
             greatAxeBehavior.damage = equippedWeapon.damage;
+            greatAxeBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
             if (equippedWeapon is GreatAxe greatAxe)
             {
                 if (greatAxe.weaponSkill != null)

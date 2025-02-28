@@ -14,6 +14,7 @@ public class GreatHammerBehavior : MonoBehaviour
     private int attackSequence = 1;
 
     public GameObject weaponSkillPrefab;
+    public float skillDamageMultiplier;
 
     private void Awake()
     {
@@ -51,9 +52,6 @@ public class GreatHammerBehavior : MonoBehaviour
                     attackSequence = 1;
                     break;
             }
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
     public void ExecuteGreatHammerDashAttack(bool canAttack, float resourceCost, Animator weaponAnim)
@@ -61,8 +59,6 @@ public class GreatHammerBehavior : MonoBehaviour
         if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
             weaponAnim.SetTrigger("greatHammerDashAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -71,8 +67,6 @@ public class GreatHammerBehavior : MonoBehaviour
         if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
             weaponAnim.SetTrigger("greatHammerJumpAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -97,7 +91,7 @@ public class GreatHammerBehavior : MonoBehaviour
 
         var explosionBeh = currentEarthquake.GetComponent<ExplosionBehavior>();
 
-        explosionBeh.explosionDamage = damage;
+        explosionBeh.explosionDamage = damage * skillDamageMultiplier;
     }
 
 
@@ -115,8 +109,6 @@ public class GreatHammerBehavior : MonoBehaviour
             if (enemyFX != null)
             {
                 Instantiate(enemyFX.attackTakenParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity, other.transform);
-                SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-                SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
             }
 
             if (enemyFSM != null)

@@ -14,6 +14,7 @@ public class GreatAxeBehavior : MonoBehaviour
     private int attackSequence = 1;
 
     public GameObject weaponSkillPrefab;
+    public float skillDamageMultiplier;
 
     private void Awake()
     {
@@ -51,9 +52,6 @@ public class GreatAxeBehavior : MonoBehaviour
                     attackSequence = 1;
                     break;
             }
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
     public void ExecuteGreatAxeDashAttack(bool canAttack, float resourceCost, Animator weaponAnim)
@@ -61,8 +59,6 @@ public class GreatAxeBehavior : MonoBehaviour
         if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
             weaponAnim.SetTrigger("greatAxeDashAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -71,8 +67,6 @@ public class GreatAxeBehavior : MonoBehaviour
         if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
             weaponAnim.SetTrigger("greatAxeJumpAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -87,22 +81,30 @@ public class GreatAxeBehavior : MonoBehaviour
         }
         chargedAttack = false;
     }
-    public void CallFissurePrefab() //Quem instancia o Earthquake (Especial do GreatHammer) é a propria animation;
+    public void CallFissurePrefab()
     {
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
 
+        Vector3 playerPosition = PlayerManager.Instance.transform.position;
+
+        Vector3 forwardDirection = Camera.main.transform.forward;
+        forwardDirection.y = 0; // Remove inclinação da câmera para manter no plano horizontal
+        forwardDirection.Normalize();
+
+        Vector3 spawnPosition = playerPosition + forwardDirection * 1.5f;
+        spawnPosition.y = playerPosition.y - 0.7f; // Mantém altura fixa relativa ao jogador
+
         GameObject currentFissure = Instantiate(
-        weaponSkillPrefab,
-        transform.position + transform.forward * 1f - new Vector3(0, 0.7f, 0),
-        Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0)
+            weaponSkillPrefab,
+            spawnPosition,
+            Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0)
         );
 
-
         var fissureBeh = currentFissure.GetComponent<FissureBehavior>();
-
-        fissureBeh.fissureDamage = damage;
+        fissureBeh.fissureDamage = damage * skillDamageMultiplier;
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

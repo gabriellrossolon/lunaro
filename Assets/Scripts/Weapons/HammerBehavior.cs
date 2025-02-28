@@ -49,9 +49,6 @@ public class HammerBehavior : MonoBehaviour
             }
             string retreatTrigger = "retreat" + Random.Range(1, 4);
             leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -75,9 +72,6 @@ public class HammerBehavior : MonoBehaviour
             }
             string retreatTrigger = "retreat" + Random.Range(1, 4);
             leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -101,9 +95,6 @@ public class HammerBehavior : MonoBehaviour
             }
             string retreatTrigger = "retreat" + Random.Range(1, 4);
             leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 

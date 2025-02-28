@@ -11,6 +11,7 @@ public class GreatSwordBehavior : MonoBehaviour
     [HideInInspector] public Collider weaponColl;
 
     public GameObject weaponSkillPrefab;
+    public float skillDamageMultiplier;
 
     private int attackSequence = 1;
 
@@ -49,9 +50,6 @@ public class GreatSwordBehavior : MonoBehaviour
                     attackSequence = 1;
                     break;
             }
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -60,8 +58,6 @@ public class GreatSwordBehavior : MonoBehaviour
         if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
             weaponAnim.SetTrigger("greatSwordDashAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -70,8 +66,6 @@ public class GreatSwordBehavior : MonoBehaviour
         if (canAttack && playerStatus.currentStamina >= resourceCost)
         {
             weaponAnim.SetTrigger("greatSwordJumpAttack");
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.5f, 0.7f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -97,7 +91,7 @@ public class GreatSwordBehavior : MonoBehaviour
 
         GameObject currentCircularCut = Instantiate(weaponSkillPrefab, playerPos, Camera.main.transform.rotation);
         var cutBeh = currentCircularCut.GetComponent<CircularCutBehavior>();
-        cutBeh.circularCutDamage = damage;
+        cutBeh.circularCutDamage = damage * skillDamageMultiplier;
     }
 
     private void OnTriggerEnter(Collider other)

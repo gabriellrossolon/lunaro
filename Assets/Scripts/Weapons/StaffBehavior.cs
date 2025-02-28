@@ -15,6 +15,8 @@ public class StaffBehavior : MonoBehaviour
     private GameObject currentBeam;
     private bool usingBeam;
 
+    public float skillDamageMultiplier;
+
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
@@ -94,7 +96,7 @@ public class StaffBehavior : MonoBehaviour
             var beamBeh = currentBeam.GetComponent<BeamBehavior>();
             var staffBeh = GetComponentInChildren<StaffBehavior>();
 
-            beamBeh.damage = staffBeh.damage;
+            beamBeh.damage = staffBeh.damage * skillDamageMultiplier;
 
             VisualEffect projectileEffect = currentBeam.GetComponentInChildren<VisualEffect>();
             if (projectileEffect != null)

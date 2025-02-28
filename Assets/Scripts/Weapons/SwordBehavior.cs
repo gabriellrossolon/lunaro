@@ -56,9 +56,6 @@ public class SwordBehavior : MonoBehaviour
             }
             string retreatTrigger = "retreat" + Random.Range(1, 4);
             leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -90,9 +87,6 @@ public class SwordBehavior : MonoBehaviour
             }
             string retreatTrigger = "retreat" + Random.Range(1, 4);
             leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 
@@ -124,9 +118,6 @@ public class SwordBehavior : MonoBehaviour
             }
             string retreatTrigger = "retreat" + Random.Range(1, 4);
             leftHandAnim.SetTrigger(retreatTrigger);
-
-            SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
-            SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
         }
     }
 

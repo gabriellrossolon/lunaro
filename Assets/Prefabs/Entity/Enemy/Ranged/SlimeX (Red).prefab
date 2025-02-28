@@ -1304,7 +1304,7 @@ GameObject:
   - component: {fileID: 1892759328694645725}
   - component: {fileID: 1984028006072905542}
   - component: {fileID: 1724602477642966443}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SlimeX (Red)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1415,8 +1415,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyName: Red Slime
+  isBoss: 0
   _enemyInfos: {fileID: 1843271276240711867}
-  _enemyBossInfos: {fileID: 0}
 --- !u!195 &7383851595674091897
 NavMeshAgent:
   m_ObjectHideFlags: 0

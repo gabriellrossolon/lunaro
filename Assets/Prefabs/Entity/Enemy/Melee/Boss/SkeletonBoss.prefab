@@ -1655,7 +1655,7 @@ GameObject:
   - component: {fileID: 4815242774977870468}
   - component: {fileID: 1772030372716171020}
   - component: {fileID: 1951615157031786521}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SkeletonBoss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1838,7 +1838,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.75
   m_Height: 4.5613065
   m_Direction: 1
   m_Center: {x: 0, y: 1.7806513, z: 0}
@@ -1856,7 +1856,7 @@ BoxCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 951
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1

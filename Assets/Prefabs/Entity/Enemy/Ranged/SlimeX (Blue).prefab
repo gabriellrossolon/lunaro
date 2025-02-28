@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 1556058393713805112}
   - component: {fileID: 6466436036389943226}
   - component: {fileID: 3158189151426006089}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SlimeX (Blue)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -513,8 +513,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyName: Blue Slime
+  isBoss: 0
   _enemyInfos: {fileID: 104278771581724336}
-  _enemyBossInfos: {fileID: 0}
 --- !u!195 &7829003417420694260
 NavMeshAgent:
   m_ObjectHideFlags: 0

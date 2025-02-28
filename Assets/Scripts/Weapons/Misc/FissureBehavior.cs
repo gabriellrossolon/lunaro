@@ -16,6 +16,8 @@ public class FissureBehavior : MonoBehaviour
         {
             HandleEnemyCollision(other);
         }
+
+        Debug.Log("Colidiu com: " + other.name);
     }
 
     private void HandleEnemyCollision(GameObject enemy)

@@ -270,6 +270,14 @@ public class WeaponBehavior : MonoBehaviour
             trailRend.emitting = emittingTrail;
     }
 
+    public void CallSwoosh(float pitch)
+    {
+        float minPitch = pitch - 0.1f;
+        float maxPitch = pitch + 0.1f;
+        SFXManager.Instance.playerAttacksSource.pitch = Random.Range(minPitch, maxPitch);
+        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.attackSwooshSound);
+    }
+
     public void ActiveCollider() //Ativa o Colisor da Arma pela propria animação
     {
         SwordBehavior swordBehavior = GetComponentInChildren<SwordBehavior>();

@@ -6,6 +6,11 @@ public class Skill: ScriptableObject
     public string skillName;
     public Sprite skillIcon;
     public GameObject skillPrefab;
+
+    public SkillType skillType;
+
+    [Header ("Below 1f the Skill deal Less Damage")]
+    public float damageMultiplier = 1f;
     public enum SkillType
     {
         None,
@@ -14,6 +19,4 @@ public class Skill: ScriptableObject
         CircularCut,
         Fissure
     }
-
-    public SkillType skillType;
 }
