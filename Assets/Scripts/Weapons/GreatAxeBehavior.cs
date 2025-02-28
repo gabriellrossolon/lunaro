@@ -92,7 +92,12 @@ public class GreatAxeBehavior : MonoBehaviour
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
 
-        GameObject currentFissure = Instantiate(weaponSkillPrefab, transform.position - new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject currentFissure = Instantiate(
+        weaponSkillPrefab,
+        transform.position + transform.forward * 1f - new Vector3(0, 0.7f, 0),
+        Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0)
+        );
+
 
         var fissureBeh = currentFissure.GetComponent<FissureBehavior>();
 
