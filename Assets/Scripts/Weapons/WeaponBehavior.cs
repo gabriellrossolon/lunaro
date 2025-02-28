@@ -186,8 +186,12 @@ public class WeaponBehavior : MonoBehaviour
     // Special Attack Control
     public void ControlSpecialAttacks()
     {
-        switch (weaponType)
+        switch (weaponType) //Esse case controla a chamada da Animação que chama o event CallSpecialHability
         {
+            case WeaponType.Sword: 
+                swordBeh.ActiveAirCutAura(leftBtnInput, resourceCost, canAttack, weaponAnim);
+                break;
+
             case WeaponType.GreatHammer:
                 greatHammerBeh.UseEarthquake(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
@@ -239,6 +243,10 @@ public class WeaponBehavior : MonoBehaviour
     {
         switch (skillType)
         {
+            case "AirCut":
+                swordBeh.CallAirCutPrefab();
+                break;
+
             case "Earthquake":
                 greatHammerBeh.CallEarthquakePrefab();
                 break;

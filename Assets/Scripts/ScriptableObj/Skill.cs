@@ -17,6 +17,7 @@ public class Skill: ScriptableObject
         Earthquake,
         MagicBeam,
         CircularCut,
-        Fissure
+        Fissure,
+        AirCut
     }
 }

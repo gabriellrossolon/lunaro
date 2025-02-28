@@ -330,10 +330,19 @@ public class InventoryManager : MonoBehaviour
 
         if (lastInstantiatedWeapon.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {
+            swordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
             swordBehavior.damage = equippedWeapon.damage;
+            swordBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+
             if (equippedWeapon is Sword sword)
             {
-                // Lógica do Sword, se necessário
+                HudManager.Instance.skillImage.enabled = true;
+                HudManager.Instance.skillSliderImage.enabled = true;
+
+                HudManager.Instance.skillImage.sprite = sword.weaponSkill.skillIcon;
+                HudManager.Instance.skillSliderImage.sprite = sword.weaponSkill.skillIcon;
+
+                rightWeaponBehavior.skillType = sword.weaponSkill.skillType.ToString();
             }
         }
         else if (lastInstantiatedWeapon.TryGetComponent<HammerBehavior>(out var hammerBehavior))
