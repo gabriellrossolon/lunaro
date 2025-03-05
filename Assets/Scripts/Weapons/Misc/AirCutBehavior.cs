@@ -19,11 +19,9 @@ public class AirCutBehavior : MonoBehaviour
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        LaunchProjectile();
 
-
-        LaunchProjectileWithoutGravity();
-
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 2f);
     }
 
     public void SetDirection(Vector3 lookDirection)
@@ -31,7 +29,7 @@ public class AirCutBehavior : MonoBehaviour
         direction = lookDirection.normalized;
     }
 
-    private void LaunchProjectileWithoutGravity()
+    private void LaunchProjectile()
     {
         rb.useGravity = false;
         rb.linearVelocity = direction * speed;

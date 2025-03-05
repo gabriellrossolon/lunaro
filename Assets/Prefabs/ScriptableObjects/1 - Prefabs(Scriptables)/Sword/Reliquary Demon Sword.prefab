@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2172875409444248284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2068372693079372517}
+  m_Layer: 7
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2068372693079372517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2172875409444248284}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: -0.0002, y: 0.0263, z: 0.0028}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 235049359697015466}
+  - {fileID: 1417846651978278437}
+  m_Father: {fileID: 4146283918882891232}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!1 &2616483924493168784
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 2616483924493168784}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.093}
+  m_LocalPosition: {x: 0.008, y: -0.02, z: -0.015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -133,7 +166,7 @@ GameObject:
   - component: {fileID: 3557677437850104936}
   - component: {fileID: 6855559429317461654}
   m_Layer: 7
-  m_Name: EmptyMesh 1(Clone)
+  m_Name: InternalMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,10 +182,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.01, y: 1.01, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4146283918882891232}
+  m_Father: {fileID: 2068372693079372517}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3557677437850104936
 MeshFilter:
@@ -207,7 +240,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8788400204022882399
+--- !u!1 &5720586162905878473
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,53 +248,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4146283918882891232}
-  - component: {fileID: 6236518027214881100}
-  - component: {fileID: 210538218676608060}
-  - component: {fileID: -2782260459267673331}
-  - component: {fileID: -2409835607574866881}
+  - component: {fileID: 1417846651978278437}
+  - component: {fileID: 2182277345162246670}
+  - component: {fileID: 4124855140710639551}
   m_Layer: 7
-  m_Name: Reliquary Demon Sword
+  m_Name: ExternalMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4146283918882891232
+--- !u!4 &1417846651978278437
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8788400204022882399}
+  m_GameObject: {fileID: 5720586162905878473}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.013426367, y: 0.7289973, z: 0.6823915, w: 0.052197427}
-  m_LocalPosition: {x: 0.0092, y: 0.1443, z: -0.0085}
-  m_LocalScale: {x: 1.4, y: 0.8, z: 0.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8298721412144016938}
-  - {fileID: 235049359697015466}
-  - {fileID: 4252439276114496951}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -85.086, y: 137.581, z: 37.095}
---- !u!33 &6236518027214881100
+  m_Children: []
+  m_Father: {fileID: 2068372693079372517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2182277345162246670
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8788400204022882399}
-  m_Mesh: {fileID: 4300000, guid: 87c89672279f6744ba8d8fa60272f037, type: 2}
---- !u!23 &210538218676608060
+  m_GameObject: {fileID: 5720586162905878473}
+  m_Mesh: {fileID: 4300000, guid: 8b856c8ebe397f64093b57cc71ff1460, type: 2}
+--- !u!23 &4124855140710639551
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8788400204022882399}
+  m_GameObject: {fileID: 5720586162905878473}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -298,6 +326,42 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8788400204022882399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4146283918882891232}
+  - component: {fileID: -2782260459267673331}
+  - component: {fileID: -2409835607574866881}
+  m_Layer: 7
+  m_Name: Reliquary Demon Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4146283918882891232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788400204022882399}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0055, y: 0.1398, z: -0}
+  m_LocalScale: {x: 1.4, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2068372693079372517}
+  - {fileID: 8298721412144016938}
+  - {fileID: 4252439276114496951}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-2782260459267673331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,9 +374,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c663ad6395df6ba4189fe61eda8966a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 10
   colliderEnabled: 0
-  weaponColl: {fileID: 0}
+  weaponColl: {fileID: -2409835607574866881}
+  weaponSkillPrefab: {fileID: 0}
+  skillDamageMultiplier: 0
 --- !u!65 &-2409835607574866881
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -332,8 +398,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.15336025, y: 0.39794478, z: 1.7006875}
-  m_Center: {x: 0.042259417, y: 0.0066309045, z: 0.8076703}
+  m_Size: {x: 0.20978849, y: 2.006642, z: 0.40004015}
+  m_Center: {x: -0.0031897905, y: 0.9593673, z: -0.0030874587}
 --- !u!1 &9088993733196620947
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +426,7 @@ Transform:
   m_GameObject: {fileID: 9088993733196620947}
   serializedVersion: 2
   m_LocalRotation: {x: 0.44944865, y: -0.50918144, z: -0.58010834, w: 0.4496715}
-  m_LocalPosition: {x: -0.008, y: 0.007, z: 0.657}
+  m_LocalPosition: {x: 0.055, y: 0.721, z: -0.001}
   m_LocalScale: {x: 0.85155827, y: 0.8723188, z: 0.50889885}
   m_ConstrainProportionsScale: 0
   m_Children: []
