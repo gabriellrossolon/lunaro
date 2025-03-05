@@ -61,7 +61,6 @@ public class GreatHammerBehavior : MonoBehaviour
             weaponAnim.SetTrigger("greatHammerDashAttack");
         }
     }
-
     public void ExecuteGreatHammerJumpAttack(bool canAttack, float resourceCost, Animator weaponAnim)
     {
         if (canAttack && playerStatus.currentStamina >= resourceCost)
@@ -71,17 +70,32 @@ public class GreatHammerBehavior : MonoBehaviour
     }
 
     //Special Attacks
-    public void UseEarthquake(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
+    public void UseGreatHammerSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill()) return;
-
-        if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
+        if (!cooldownController.CanUseSkill() || !chargedAttack || playerStatus.currentStamina < resourceCost || !canAttack) return;
+        if (InventoryManager.Instance.equippedWeapon.weaponSkill == null)
         {
-            weaponAnim.SetTrigger("greatHammerSpecial");
-            cooldownController.StartSkillCooldown();
+            Debug.Log("Arma não possui Skill");
+            return;
         }
+
+        var skillType = InventoryManager.Instance.equippedWeapon.weaponSkill.skillType;
+
+        switch (skillType)
+        {
+            case Skill.SkillType.None:
+                Debug.Log("A arma possui uma Skill, porém a Skill não possui um tipo");
+                break;
+
+            case Skill.SkillType.Earthquake:
+                weaponAnim.SetTrigger("greatHammerSpecial");
+                break;
+        }
+
+        cooldownController.StartSkillCooldown();
         chargedAttack = false;
     }
+
     public void CallEarthquakePrefab() //Quem instancia o Earthquake (Especial do GreatHammer) é a propria animation;
     {
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);

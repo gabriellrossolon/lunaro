@@ -330,12 +330,18 @@ public class InventoryManager : MonoBehaviour
 
         if (lastInstantiatedWeapon.TryGetComponent<SwordBehavior>(out var swordBehavior))
         {
-            swordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+            if (equippedWeapon.weaponSkill != null)
+            {
+                swordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+                swordBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+            }
+
             swordBehavior.damage = equippedWeapon.damage;
-            swordBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
 
             if (equippedWeapon is Sword sword)
             {
+                if (equippedWeapon.weaponSkill == null) return;
+
                 HudManager.Instance.skillImage.enabled = true;
                 HudManager.Instance.skillSliderImage.enabled = true;
 
@@ -355,9 +361,13 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<StaffBehavior>(out var staffBehavior))
         {
-            staffBehavior.beamPrefab = equippedWeapon.weaponSkill.skillPrefab;
+            if (equippedWeapon.weaponSkill != null)
+            {
+                staffBehavior.beamPrefab = equippedWeapon.weaponSkill.skillPrefab;
+                staffBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+            }
+
             staffBehavior.damage = equippedWeapon.damage;
-            staffBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
 
             if (equippedWeapon is Staff staff)
             {
@@ -365,6 +375,8 @@ public class InventoryManager : MonoBehaviour
 
                 if (staff.weaponSkill != null)
                 {
+                    if (equippedWeapon.weaponSkill == null) return;
+
                     HudManager.Instance.skillImage.enabled = true;
                     HudManager.Instance.skillSliderImage.enabled = true;
 
@@ -385,6 +397,8 @@ public class InventoryManager : MonoBehaviour
 
                 if (bow.weaponSkill != null)
                 {
+                    if (equippedWeapon.weaponSkill == null) return;
+
                     HudManager.Instance.skillImage.enabled = true;
                     HudManager.Instance.skillSliderImage.enabled = true;
 
@@ -397,13 +411,20 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatHammerBehavior>(out var greatHammerBehavior))
         {
-            greatHammerBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+            if (equippedWeapon.weaponSkill != null)
+            {
+                greatHammerBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+                greatHammerBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+            }
+
             greatHammerBehavior.damage = equippedWeapon.damage;
-            greatHammerBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+            
             if (equippedWeapon is GreatHammer greatHammer)
             {
                 if (greatHammer.weaponSkill != null)
                 {
+                    if (equippedWeapon.weaponSkill == null) return;
+
                     HudManager.Instance.skillImage.enabled = true;
                     HudManager.Instance.skillSliderImage.enabled = true;
 
@@ -416,13 +437,20 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatSwordBehavior>(out var greatSwordBehavior))
         {
-            greatSwordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+            if(equippedWeapon.weaponSkill != null)
+            {
+                greatSwordBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+                greatSwordBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+            }
+
             greatSwordBehavior.damage = equippedWeapon.damage;
-            greatSwordBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+           
             if (equippedWeapon is GreatSword greatSword)
             {
                 if (greatSword.weaponSkill != null)
                 {
+                    if (equippedWeapon.weaponSkill == null) return;
+
                     HudManager.Instance.skillImage.enabled = true;
                     HudManager.Instance.skillSliderImage.enabled = true;
 
@@ -435,13 +463,20 @@ public class InventoryManager : MonoBehaviour
         }
         else if (lastInstantiatedWeapon.TryGetComponent<GreatAxeBehavior>(out var greatAxeBehavior))
         {
-            greatAxeBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+            if (equippedWeapon.weaponSkill != null)
+            {
+                greatAxeBehavior.weaponSkillPrefab = equippedWeapon.weaponSkill.skillPrefab;
+                greatAxeBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+            }
+
             greatAxeBehavior.damage = equippedWeapon.damage;
-            greatAxeBehavior.skillDamageMultiplier = equippedWeapon.weaponSkill.damageMultiplier;
+
             if (equippedWeapon is GreatAxe greatAxe)
             {
                 if (greatAxe.weaponSkill != null)
                 {
+                    if (equippedWeapon.weaponSkill == null) return;
+
                     HudManager.Instance.skillImage.enabled = true;
                     HudManager.Instance.skillSliderImage.enabled = true;
 

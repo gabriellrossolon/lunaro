@@ -70,17 +70,32 @@ public class GreatAxeBehavior : MonoBehaviour
         }
     }
 
-    public void UseFissure(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
+    public void UseGreatAxeSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill()) return;
-
-        if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
+        if (!cooldownController.CanUseSkill() || !chargedAttack || playerStatus.currentStamina < resourceCost || !canAttack) return;
+        if (InventoryManager.Instance.equippedWeapon.weaponSkill == null)
         {
-            weaponAnim.SetTrigger("greatAxeSpecial");
-            cooldownController.StartSkillCooldown();
+            Debug.Log("Arma não possui Skill");
+            return;
         }
+
+        var skillType = InventoryManager.Instance.equippedWeapon.weaponSkill.skillType;
+
+        switch (skillType)
+        {
+            case Skill.SkillType.None:
+                Debug.Log("A arma possui uma Skill, porém a Skill não possui um tipo");
+                break;
+
+            case Skill.SkillType.Fissure:
+                weaponAnim.SetTrigger("greatAxeSpecial");
+                cooldownController.StartSkillCooldown();
+                break;
+        }
+
         chargedAttack = false;
     }
+
     public void CallFissurePrefab()
     {
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);

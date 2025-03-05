@@ -70,19 +70,34 @@ public class GreatSwordBehavior : MonoBehaviour
     }
 
     //Special Habilities
-    public void UseCircularCut(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
+    public void UseGreatSwordSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill()) return;
-
-        if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
+        if (!cooldownController.CanUseSkill() || !chargedAttack || playerStatus.currentStamina < resourceCost || !canAttack) return;
+        if (InventoryManager.Instance.equippedWeapon.weaponSkill == null)
         {
-            weaponAnim.SetTrigger("greatSwordSpecial");
-            cooldownController.StartSkillCooldown();
+            Debug.Log("Arma não possui Skill");
+            return;
         }
+
+        var skillType = InventoryManager.Instance.equippedWeapon.weaponSkill.skillType;
+
+        switch (skillType)
+        {
+            case Skill.SkillType.None:
+                Debug.Log("A arma possui uma Skill, porém a Skill não possui um tipo");
+                break;
+
+            case Skill.SkillType.CircularCut:
+                weaponAnim.SetTrigger("greatSwordSpecial");
+                break;
+        }
+
+        cooldownController.StartSkillCooldown();
         chargedAttack = false;
     }
 
-    public void CallCircularCutPrefab() //Quem instancia o CircularCut (Especial do GreatHammer) é a propria animation;
+
+    public void CallCircularCutPrefab() //Quem instancia o CircularCut é a propria animation;
     {
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.circularCutSound);

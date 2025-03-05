@@ -16,7 +16,6 @@ public class SwordBehavior : MonoBehaviour
     private int attackSequence = 1;
 
     private GameObject activedPowerAura;
-    private bool hasActivatedPower = false;
 
 
     private void Awake()
@@ -24,7 +23,9 @@ public class SwordBehavior : MonoBehaviour
         weaponColl = GetComponent<Collider>();
         cooldownController = GetComponentInParent<CooldownController>();
 
-        activedPowerAura = transform.Find("ActivedPowerAura").gameObject;
+        GameObject swordAura = transform.Find("ActivedPowerAura")?.gameObject;
+        if (swordAura != null)
+            activedPowerAura = swordAura;
     }
 
     private void Start()
@@ -132,21 +133,35 @@ public class SwordBehavior : MonoBehaviour
         }
     }
 
-    public void ActiveAirCutAura(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
+    public void UseSwordSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill()) return;
-
-        if (chargedAttack && playerStatus.currentStamina >= resourceCost && canAttack) //A propria animação controla se canAttack ou não
+        if (!cooldownController.CanUseSkill() || !chargedAttack || playerStatus.currentStamina < resourceCost || !canAttack) return;
+        if (InventoryManager.Instance.equippedWeapon.weaponSkill == null)
         {
-            weaponAnim.SetTrigger("swordSpecial");
-
-            activedPowerAura.gameObject.SetActive(!activedPowerAura.gameObject.activeSelf);
-
-            cooldownController.StartSkillCooldown();
+            Debug.Log("Arma não possui Skill");
+            return;
         }
+
+        var skillType = InventoryManager.Instance.equippedWeapon.weaponSkill.skillType;
+
+        switch (skillType)
+        {
+            case Skill.SkillType.None:
+                Debug.Log("A arma possui uma Skill, porém a Skill não possui um tipo");
+                break;
+
+            case Skill.SkillType.AirCut:
+                weaponAnim.SetTrigger("swordSpecial");
+
+                activedPowerAura.gameObject.SetActive(!activedPowerAura.gameObject.activeSelf);
+
+                cooldownController.StartSkillCooldown();
+                break;
+        }
+
         chargedAttack = false;
     }
-    //weaponAnim.SetTrigger("swordSpecial");
+
 
     public void CallAirCutPrefab() 
     {

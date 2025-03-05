@@ -65,7 +65,7 @@ public class WeaponBehavior : MonoBehaviour
         ControlSpecialAttacks();
     }
 
-    public void ChooseAttack()
+    private void ChooseAttack()
     {
         if (attack) // Normal attack
         {
@@ -171,7 +171,7 @@ public class WeaponBehavior : MonoBehaviour
     }
 
     // Hand Animations Control
-    public void ControlHandsAnimations()
+    private void ControlHandsAnimations()
     {
         //Controla jeito que a mão fica caso esteja com arco
         leftHandAnim.SetBool("holdingBow", weaponType == WeaponType.Bow);
@@ -184,24 +184,24 @@ public class WeaponBehavior : MonoBehaviour
     }
 
     // Special Attack Control
-    public void ControlSpecialAttacks()
+    private void ControlSpecialAttacks()
     {
         switch (weaponType) //Esse case controla a chamada da Animação que chama o event CallSpecialHability
         {
             case WeaponType.Sword: 
-                swordBeh.ActiveAirCutAura(leftBtnInput, resourceCost, canAttack, weaponAnim);
+                swordBeh.UseSwordSkill(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
             case WeaponType.GreatHammer:
-                greatHammerBeh.UseEarthquake(leftBtnInput, resourceCost, canAttack, weaponAnim);
+                greatHammerBeh.UseGreatHammerSkill(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
             case WeaponType.GreatSword:
-                greatSwordBeh.UseCircularCut(leftBtnInput, resourceCost, canAttack, weaponAnim);
+                greatSwordBeh.UseGreatSwordSkill(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
             case WeaponType.GreatAxe:
-                greatAxeBeh.UseFissure(leftBtnInput, resourceCost, canAttack, weaponAnim);
+                greatAxeBeh.UseGreatAxeSkill(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
             case WeaponType.Staff:
