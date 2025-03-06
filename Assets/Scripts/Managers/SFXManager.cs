@@ -86,18 +86,21 @@ public class SFXManager : MonoBehaviour
     public AudioSource playerMovementsSource;
     public AudioClip jumpSound;
     public AudioClip dashSound;
+    public AudioClip landingSound;
 
     [Header("Player Attacks SFX")]
     public AudioSource playerAttacksSource;
     public AudioClip attackSwooshSound;
     public AudioClip attackHeavySwooshSound;
     public AudioClip fleshImpactSound;
-    public AudioClip heavyImpactSound;
     public AudioClip magicCastSound;
     public AudioClip bowSwooshSound;
 
     [Header("Player Skills SFX")]
     public AudioClip circularCutSound;
+    public AudioClip activeSwordAura;
+    public AudioClip airCutInstanceSound;
+    public AudioClip heavyImpactSound;
 
     [Header("UI SFX")]
     public AudioSource UIMiscSource;

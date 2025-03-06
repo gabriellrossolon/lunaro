@@ -156,6 +156,8 @@ public class SwordBehavior : MonoBehaviour
                 weaponAnim.SetTrigger("swordSpecial");
 
                 activedPowerAura.gameObject.SetActive(!activedPowerAura.gameObject.activeSelf);
+                SFXManager.Instance.playerAttacksSource.pitch = Random.Range(2f, 2.1f);
+                SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.activeSwordAura);
 
                 cooldownController.StartSkillCooldown();
                 break;
@@ -168,11 +170,17 @@ public class SwordBehavior : MonoBehaviour
     public void CallAirCutPrefab() 
     {
         if (!activedPowerAura.activeSelf || activedPowerAura == null) return;
-        if (playerStatus.currentMana < weaponBehavior.resourceCost) return;
+        if (playerStatus.currentMana < weaponBehavior.resourceCost)
+        {
+            activedPowerAura.gameObject.SetActive(false);
+            return;
+        }
+            
+        weaponBehavior.ConsumeMana();
         weaponBehavior.ConsumeMana();
 
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
-        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.circularCutSound);
+        SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.airCutInstanceSound);
 
         GameObject newProjectile = Instantiate(weaponSkillPrefab, transform.position, transform.rotation);
 

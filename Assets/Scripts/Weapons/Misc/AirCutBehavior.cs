@@ -21,7 +21,7 @@ public class AirCutBehavior : MonoBehaviour
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         LaunchProjectile();
 
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 0.5f);
     }
 
     public void SetDirection(Vector3 lookDirection)
@@ -74,7 +74,7 @@ public class AirCutBehavior : MonoBehaviour
         GameObject collParticle;
 
         collParticle = Instantiate(collisionParticle, transform.position, transform.rotation);
-        PlayParticleSound(collParticle, projectileImpactSound);
+        //PlayParticleSound(collParticle, projectileImpactSound);
 
         Destroy(gameObject);
     }
