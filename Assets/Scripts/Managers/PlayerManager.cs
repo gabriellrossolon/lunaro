@@ -55,8 +55,33 @@ public class PlayerManager : MonoBehaviour
     public void Ressurect()
     {
         playerIsDeath = false;
-        TeleportManager.Instance.GoToHUB();
+        Checkpoint activeCheckpoint = null;
+
+        var allCheckpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+        foreach (var checkpoint in allCheckpoints)
+        {
+            if (checkpoint.GetComponent<Checkpoint>().checkpointActived)
+            {
+                activeCheckpoint = checkpoint.GetComponent<Checkpoint>();
+                break;
+            }
+        }
+
+        var enemySpawner = GameObject.FindWithTag("EnemySpawner");
+        if(enemySpawner != null)
+            enemySpawner.GetComponent<DungeonSpawner>().SpawnEnemies();
+
+        if (activeCheckpoint != null)
+        {
+            transform.position = activeCheckpoint.transform.position;
+        }
+        else
+        {
+            TeleportManager.Instance.GoToHUB();
+        }
+
         playerStatus.currentHp = playerStatus.maxHp;
     }
+
 }
 
