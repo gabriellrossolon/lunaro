@@ -28,8 +28,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (PlayerManager.Instance.inputHandler.pauseInput)
+        {
             PauseGame();
+            PlayerManager.Instance.inputHandler.pauseInput = false;
+        }
         Screenshot();
     }
 

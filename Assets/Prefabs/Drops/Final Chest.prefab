@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3424190734803503033}
   - component: {fileID: 855450378457524273}
   - component: {fileID: 4374820098230533075}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Stone Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1414680628230556743}
   - component: {fileID: 4092362158461410829}
   - component: {fileID: 8632954439149776344}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Stone Chest.Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 4387779740381521896}
   - component: {fileID: 5304924135615691753}
   - component: {fileID: -6509274189171421865}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Final Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6129f91ebd2e4469e92618c4d024e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropBag: {fileID: 3473008286833546067, guid: e2bc8e8ae48593e4e91af5086ee9cf1c, type: 3}
+  dropBag: {fileID: 2527188983466975061, guid: 8a231833f7c7bb44a9e235f7e493635b, type: 3}
   dropPoint: {fileID: 6660605572353434444}
   maxDistance: 3
   chestItems: []
@@ -296,6 +296,7 @@ MonoBehaviour:
   commonChance: 0
   uncommonChance: 35
   rareChance: 40
+  epicChance: 10
   legendaryChance: 25
 --- !u!95 &5304924135615691753
 Animator:
@@ -427,7 +428,7 @@ GameObject:
   - component: {fileID: 938249313287680274}
   - component: {fileID: 2361412506207009854}
   - component: {fileID: 7432887175434115798}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: DropPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

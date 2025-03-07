@@ -3,10 +3,14 @@ using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public PlayerStatus playerStatus;
-    public CinemachineVirtualCamera cinemachineCam;
     public static PlayerManager Instance;
+
+    [Header ("References")]
+    public PlayerStatus playerStatus;
     private PlayerFSM fsm;
+    public InputHandler inputHandler;
+
+    public CinemachineVirtualCamera cinemachineCam;
     public bool playerIsDeath = false;
 
     private void Awake()
@@ -22,6 +26,7 @@ public class PlayerManager : MonoBehaviour
 
         playerStatus = GetComponent<PlayerStatus>();
         fsm = GetComponent<PlayerFSM>();
+        inputHandler = GetComponent<InputHandler>();
     }
 
     private float lastFootstepTime = 0f; 

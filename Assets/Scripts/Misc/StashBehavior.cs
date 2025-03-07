@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class StashBehavior : MonoBehaviour
+public class StashBehavior : MonoBehaviour, IInteractable
 {
     private Animator animator;
     private GameObject player;
@@ -17,26 +15,20 @@ public class StashBehavior : MonoBehaviour
     {
         player = PlayerManager.Instance.gameObject;
     }
+
     private void Update()
     {
         animator.SetBool("Opened", HudManager.Instance.openedStash);
     }
 
-    public void OpenStash()
-    {
-        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
-        HudManager.Instance.OpenStashUI();
-    }
-
-    private void OnMouseOver()
+    public void Interact()
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance <= maxDistance)
         {
             HudManager.Instance.warnBtn.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
-                OpenStash();
+            OpenStash();
         }
         else
         {
@@ -45,10 +37,10 @@ public class StashBehavior : MonoBehaviour
         }
     }
 
-    private void OnMouseExit()
+    public void OpenStash()
     {
-        HudManager.Instance.warnBtn.SetActive(false);
-        HudManager.Instance.itemShow.SetActive(false);
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
+        HudManager.Instance.OpenStashUI();
     }
 }
 

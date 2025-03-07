@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public class Checkpoint : MonoBehaviour, IInteractable
 {
     public bool checkpointActived = false;
     [SerializeField] private bool checkpointDiscovered = false;
@@ -28,40 +28,13 @@ public class Checkpoint : MonoBehaviour
         fireFx.SetActive(checkpointActived);
     }
 
-    private void OnMouseOver()
-    {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distance <= maxDistance)
-        {
-            HudManager.Instance.warnBtn.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
-                ActiveCheckPoint();
-        }
-        else
-        {
-            HudManager.Instance.warnBtn.SetActive(false);
-            HudManager.Instance.itemShow.SetActive(false);
-        }
-    }
-
-    private void OnMouseExit()
-    {
-        HudManager.Instance.warnBtn.SetActive(false);
-        HudManager.Instance.itemShow.SetActive(false);
-    }
-
-    private void ActiveCheckPoint()
+    public void Interact()
     {
         checkpointDiscovered = true;
         checkpointActived = true;
 
-        //if (checkCollider != null)
-        //    checkCollider.enabled = false;
-
         soundSource.PlayOneShot(checkpointActiveSound);
 
-        // Desativa o checkpoint anterior
         var allCheckpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
         foreach (var checkpoint in allCheckpoints)
         {

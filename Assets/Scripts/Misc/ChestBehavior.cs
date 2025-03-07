@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestBehavior : MonoBehaviour
+public class ChestBehavior : MonoBehaviour, IInteractable
 {
     private Animator animator;
     public GameObject dropBag;
@@ -39,6 +39,22 @@ public class ChestBehavior : MonoBehaviour
             GenerateRandomItems();
     }
 
+    public void Interact()
+    {
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance <= maxDistance)
+        {
+            HudManager.Instance.warnBtn.SetActive(true);
+            OpenChest();
+        }
+        else
+        {
+            HudManager.Instance.warnBtn.SetActive(false);
+            HudManager.Instance.itemShow.SetActive(false);
+        }
+    }
+
     public void OpenChest()
     {
         animator.SetTrigger("Open");
@@ -70,23 +86,6 @@ public class ChestBehavior : MonoBehaviour
         enabled = false;
         if (chestCollider != null)
             chestCollider.enabled = false;
-    }
-
-    private void OnMouseOver()
-    {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distance <= maxDistance)
-        {
-            HudManager.Instance.warnBtn.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
-                OpenChest();
-        }
-        else
-        {
-            HudManager.Instance.warnBtn.SetActive(false);
-            HudManager.Instance.itemShow.SetActive(false);
-        }
     }
 
     private void OnMouseExit()
@@ -124,7 +123,6 @@ public class ChestBehavior : MonoBehaviour
             }
         }
     }
-
 
     private ItemBase.ItemRarity GetRandomRarity()
     {

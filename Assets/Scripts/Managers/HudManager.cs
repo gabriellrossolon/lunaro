@@ -119,8 +119,11 @@ public class HudManager : MonoBehaviour
 
         if (!openedStash) //So pode abrir/fechar inventário se o Stash nao estiver aberto
         {
-            if (Input.GetKeyDown(KeyCode.B))
+            if (PlayerManager.Instance.inputHandler.inventoryInput)
+            {
                 OpenInventory();
+                PlayerManager.Instance.inputHandler.inventoryInput = false;
+            }
         }
 
         HideCanvas();
@@ -146,14 +149,14 @@ public class HudManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
             virtualCamera.enabled = false;
-            playerInput.enabled = false;
+            PlayerManager.Instance.inputHandler.lockAction = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             virtualCamera.enabled = true;
-            playerInput.enabled = true;
+            PlayerManager.Instance.inputHandler.lockAction = false;
         }
     }
 

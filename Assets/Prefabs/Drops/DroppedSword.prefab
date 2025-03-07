@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4044977704399149643}
   - component: {fileID: 8407088430921901269}
   - component: {fileID: 956040643024199239}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: DroppedSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 3a407f94b03a53a4eb69a56aff53657d, type: 2}
   maxDistance: 4
+  droppedSound: {fileID: 0}
   throwForce: 0
   throwRadius: 0
   throwHeight: 0
@@ -83,7 +84,7 @@ GameObject:
   - component: {fileID: 5724823040480853686}
   - component: {fileID: 8666254162059043948}
   - component: {fileID: 4913115953236427344}
-  m_Layer: 7
+  m_Layer: 16
   m_Name: IronSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}

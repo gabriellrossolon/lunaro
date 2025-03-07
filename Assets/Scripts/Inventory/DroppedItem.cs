@@ -1,8 +1,7 @@
 using UnityEngine;
 using static ItemBase;
-using static UnityEngine.ParticleSystem;
 
-public class DroppedItem : MonoBehaviour
+public class DroppedItem : MonoBehaviour, IInteractable
 {
     public ItemBase item;
     public float maxDistance = 2f;
@@ -17,20 +16,20 @@ public class DroppedItem : MonoBehaviour
 
     public float throwForce = 5f;
     public float throwRadius = 2f;
-    public float throwHeight = 2f; 
+    public float throwHeight = 2f;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         particles = GetComponentsInChildren<ParticleSystem>();
         itemLight = GetComponentInChildren<Light>();
-        dropSoundSource = GetComponent<AudioSource>();  
+        dropSoundSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
         dropSoundSource.clip = droppedSound;
-        dropSoundSource.loop = true; 
+        dropSoundSource.loop = true;
         dropSoundSource.Play();
 
         player = PlayerManager.Instance.gameObject;
@@ -50,7 +49,7 @@ public class DroppedItem : MonoBehaviour
         UpdateVisuals();
     }
 
-    private void OnMouseOver()
+    public void Interact()
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
@@ -59,26 +58,17 @@ public class DroppedItem : MonoBehaviour
             HudManager.Instance.RefreshItemShow(item);
             HudManager.Instance.itemShow.SetActive(true);
             HudManager.Instance.warnBtn.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.itemPickupSound);
-                player.GetComponentInChildren<SecondaryBehavior>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
+            SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.itemPickupSound);
+            player.GetComponentInChildren<SecondaryBehavior>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
 
-                InventoryManager.Instance.AddItem(item);
-                Destroy(gameObject, 0.2f);
-            }
+            InventoryManager.Instance.AddItem(item);
+            Destroy(gameObject, 0.2f);
         }
         else
         {
             HudManager.Instance.warnBtn.SetActive(false);
             HudManager.Instance.itemShow.SetActive(false);
         }
-    }
-
-    private void OnMouseExit()
-    {
-        HudManager.Instance.warnBtn.SetActive(false);
-        HudManager.Instance.itemShow.SetActive(false);
     }
 
     private void OnDestroy()
@@ -122,7 +112,3 @@ public class DroppedItem : MonoBehaviour
         }
     }
 }
-
-
-
-

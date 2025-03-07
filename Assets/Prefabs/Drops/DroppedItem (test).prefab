@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 915343017328421176}
   - component: {fileID: 5097642407467754340}
   - component: {fileID: 5379862919691914198}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: DroppedItem (test)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 72ad547eba7c42d42a8c216987ce411b, type: 2}
   maxDistance: 4
+  droppedSound: {fileID: 0}
   throwForce: 0
   throwRadius: 0
   throwHeight: 0
@@ -143,6 +144,18 @@ PrefabInstance:
     - target: {fileID: 5938915021365397287, guid: e8340949ff7e333448e8f5bf56f29e08, type: 3}
       propertyPath: m_Name
       value: Staff_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938915021365397287, guid: e8340949ff7e333448e8f5bf56f29e08, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070556659717566987, guid: e8340949ff7e333448e8f5bf56f29e08, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668115574205318045, guid: e8340949ff7e333448e8f5bf56f29e08, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
