@@ -30,6 +30,7 @@ public class EnemyEffects : MonoBehaviour
     [Header("Takenned Attacks")]
     public AudioClip attackTakenSound;
     public GameObject attackTakenParticle;
+    public GameObject deathParticle;
 
     [Header("Special Hability")]
     public GameObject specialFx;
@@ -73,5 +74,12 @@ public class EnemyEffects : MonoBehaviour
         GameObject specialPrefab = Instantiate(specialFx, specialExitPoint.transform.position, Quaternion.identity);
         specialPrefab.GetComponent<EnemyExplosionBehavior>().explosionDamage = enemyStats.attackDamage;
         _specialsSoundSource.PlayOneShot(specialSfx);
+    }
+
+    public void CallDeathParticle()
+    {
+        if(deathParticle == null) return;
+
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
     }
 }

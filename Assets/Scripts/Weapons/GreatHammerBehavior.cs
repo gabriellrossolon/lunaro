@@ -123,6 +123,8 @@ public class GreatHammerBehavior : MonoBehaviour
             if (enemyFX != null)
             {
                 Instantiate(enemyFX.attackTakenParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity, other.transform);
+                SFXManager.Instance.playerAttacksSource.pitch = Random.Range(0.7f, 1f);
+                SFXManager.Instance.playerAttacksSource.PlayOneShot(enemyFX.attackTakenSound);
             }
 
             if (enemyFSM != null)

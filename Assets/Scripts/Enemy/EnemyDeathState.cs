@@ -46,6 +46,8 @@ public class EnemyDeathState : IState
         _animator.SetTrigger("death");
         PlayerManager.Instance.playerStatus.ControlGold(_enemyStats.goldCarryed);
         _enemyManager.DropXp();
+
+        _enemyEffects.CallDeathParticle();
     }
 
     public void OnExit() { }

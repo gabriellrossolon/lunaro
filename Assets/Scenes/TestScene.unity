@@ -685,6 +685,63 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1001 &1698491252
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 50.68743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 47.978355
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.59401876
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.8044512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -107.115
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036259420660785972, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_Name
+      value: Bonfire (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
 --- !u!1 &1701198001
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +883,63 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: b87cb796bfcccc345a7075437cd8a5cf, type: 2}
+--- !u!1001 &1810531416
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 45.47138
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 53.097744
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.015630823
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99987787
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 178.209
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729696417108850484, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036259420660785972, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
+      propertyPath: m_Name
+      value: Bonfire
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 578144c83099fc74aa49662a8e1eba70, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -834,3 +948,5 @@ SceneRoots:
   - {fileID: 352146992}
   - {fileID: 1026536567}
   - {fileID: 735560763}
+  - {fileID: 1810531416}
+  - {fileID: 1698491252}

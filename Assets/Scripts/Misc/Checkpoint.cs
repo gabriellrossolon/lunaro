@@ -10,6 +10,9 @@ public class Checkpoint : MonoBehaviour
     private AudioSource soundSource;
     private AudioClip checkpointActiveSound;
 
+    [SerializeField] private GameObject fireFx;
+    [SerializeField] private GameObject swordObj;
+
     public float maxDistance = 2f;
 
     private void Start()
@@ -17,6 +20,12 @@ public class Checkpoint : MonoBehaviour
         player = PlayerManager.Instance.gameObject;
         checkCollider = GetComponent<Collider>();
         soundSource = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        swordObj.SetActive(checkpointDiscovered);
+        fireFx.SetActive(checkpointActived);
     }
 
     private void OnMouseOver()
@@ -47,8 +56,8 @@ public class Checkpoint : MonoBehaviour
         checkpointDiscovered = true;
         checkpointActived = true;
 
-        if (checkCollider != null)
-            checkCollider.enabled = false;
+        //if (checkCollider != null)
+        //    checkCollider.enabled = false;
 
         soundSource.PlayOneShot(checkpointActiveSound);
 
