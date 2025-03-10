@@ -5,9 +5,12 @@ public class CircularCutBehavior : MonoBehaviour
     public float circularCutDamage;
 
     private PlayerStatus playerStatus;
+    private Collider coll;
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        coll = GetComponent<Collider>();
+        Destroy(coll, 0.5f);
     }
 
     private void OnTriggerEnter(Collider other)

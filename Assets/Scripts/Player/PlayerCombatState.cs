@@ -115,6 +115,7 @@ public class PlayerCombatState : IState
         Vector2 input = _inputHandler.moveInput;
         Vector3 move = new Vector3(input.x, 0, input.y);
         move = _playerTransform.TransformDirection(move);
+
         if (_controller.enabled)
         {
             _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed);

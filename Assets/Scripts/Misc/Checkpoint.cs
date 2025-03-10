@@ -8,7 +8,7 @@ public class Checkpoint : MonoBehaviour, IInteractable
     private GameObject player;
     private Collider checkCollider;
     private AudioSource soundSource;
-    private AudioClip checkpointActiveSound;
+    [SerializeField] private AudioClip checkpointActiveSound;
 
     [SerializeField] private GameObject fireFx;
     [SerializeField] private GameObject swordObj;

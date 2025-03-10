@@ -5,9 +5,12 @@ public class ExplosionBehavior : MonoBehaviour
     public float explosionDamage; //O dano vem ProjectileBehavior, que vem da SecondaryBehavior
 
     private PlayerStatus playerStatus;
+    private Collider coll;
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        coll =  GetComponent<Collider>();
+        Destroy(coll, 0.5f);
     }
 
     private void OnTriggerEnter(Collider other)

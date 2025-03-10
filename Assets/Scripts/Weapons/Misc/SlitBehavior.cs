@@ -4,10 +4,12 @@ public class SlitBehavior : MonoBehaviour
 {
     public float slitDamage;
     private PlayerStatus playerStatus;
+    private Collider coll;
 
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        coll = GetComponent<Collider>();
     }
 
     void OnParticleCollision(GameObject other)

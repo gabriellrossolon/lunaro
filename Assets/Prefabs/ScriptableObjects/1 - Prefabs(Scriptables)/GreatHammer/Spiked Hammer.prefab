@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 3172730611114640496}
   - component: {fileID: -5568400353834997586}
   - component: {fileID: 4800073423563940464}
-  - component: {fileID: 549486716972340510}
-  - component: {fileID: 8040717196359473334}
   m_Layer: 7
   m_Name: Spiked Hammer
   m_TagString: Untagged
@@ -28,14 +26,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3890035790538932897}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0030860298, y: 0.64544475, z: -0.0008554978, w: 0.7638002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.02, y: -0.225, z: -0.003}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6403466086380381593}
   - {fileID: 5773850150132252998}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -0.207, y: 80.399, z: -0.303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-5568400353834997586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,6 +52,7 @@ MonoBehaviour:
   weaponColl: {fileID: 0}
   collisionParticle: {fileID: 0}
   weaponSkillPrefab: {fileID: 0}
+  skillDamageMultiplier: 0
 --- !u!65 &4800073423563940464
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68,27 +68,60 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 8.013193, y: 6.3562827, z: 3.9663138}
-  m_Center: {x: -0.036034983, y: 5.9012365, z: 0.079451196}
---- !u!33 &549486716972340510
+  m_Size: {x: 3.58, y: 10.610495, z: 8.625327}
+  m_Center: {x: 0, y: 8.375574, z: 0.120888546}
+--- !u!1 &6077334881935860384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6403466086380381593}
+  - component: {fileID: 7922634665767244028}
+  - component: {fileID: 2295522652350443967}
+  m_Layer: 7
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6403466086380381593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077334881935860384}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3172730611114640496}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!33 &7922634665767244028
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3890035790538932897}
+  m_GameObject: {fileID: 6077334881935860384}
   m_Mesh: {fileID: 4300000, guid: fbf90c1509d48aa4bad8c8e1c27c5855, type: 3}
---- !u!23 &8040717196359473334
+--- !u!23 &2295522652350443967
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3890035790538932897}
+  m_GameObject: {fileID: 6077334881935860384}
   m_Enabled: 1
   m_CastShadows: 2
   m_ReceiveShadows: 1

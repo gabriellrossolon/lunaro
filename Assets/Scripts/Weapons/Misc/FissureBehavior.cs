@@ -4,10 +4,13 @@ public class FissureBehavior : MonoBehaviour
 {
     public float fissureDamage;
     private PlayerStatus playerStatus;
+    private Collider coll;
 
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
+        coll = GetComponent<Collider>();
+        Destroy(coll, 0.5f);
     }
 
     void OnParticleCollision(GameObject other)

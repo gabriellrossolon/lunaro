@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3012626381273785226
+--- !u!1 &2079369042961422429
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1886117430656195650}
-  - component: {fileID: 4360122719073642410}
-  - component: {fileID: 7746343261124806233}
-  - component: {fileID: 245810846032912682}
-  - component: {fileID: 831598186413136121}
+  - component: {fileID: 8400609060438492785}
+  - component: {fileID: 7455945842453545407}
+  - component: {fileID: 6346181189395972502}
   m_Layer: 7
-  m_Name: Dragon GreatSword
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1886117430656195650
+--- !u!4 &8400609060438492785
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3012626381273785226}
+  m_GameObject: {fileID: 2079369042961422429}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000014901159, y: 0.6746388, z: -0.0000000074505797, w: 0.73814803}
-  m_LocalPosition: {x: 0.0115, y: -0.0462, z: -0.0109}
-  m_LocalScale: {x: 0.38336316, y: 0.38336316, z: 0.38336316}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1526702229377646753}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 84.852, z: 0}
---- !u!33 &4360122719073642410
+  m_Children: []
+  m_Father: {fileID: 1886117430656195650}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!33 &7455945842453545407
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3012626381273785226}
+  m_GameObject: {fileID: 2079369042961422429}
   m_Mesh: {fileID: -8592685088367404466, guid: b2e5052c2f356c14692d8e60f29d1029, type: 3}
---- !u!23 &7746343261124806233
+--- !u!23 &6346181189395972502
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3012626381273785226}
+  m_GameObject: {fileID: 2079369042961422429}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -89,6 +86,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3012626381273785226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1886117430656195650}
+  - component: {fileID: 245810846032912682}
+  - component: {fileID: 831598186413136121}
+  m_Layer: 7
+  m_Name: Dragon GreatSword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1886117430656195650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3012626381273785226}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0115, y: -0.0462, z: -0.0109}
+  m_LocalScale: {x: 0.38336316, y: 0.38336316, z: 0.38336316}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8400609060438492785}
+  - {fileID: 1526702229377646753}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &245810846032912682
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,6 +158,7 @@ MonoBehaviour:
   colliderEnabled: 0
   weaponColl: {fileID: 0}
   weaponSkillPrefab: {fileID: 0}
+  skillDamageMultiplier: 0
 --- !u!1 &3922483155020435883
 GameObject:
   m_ObjectHideFlags: 0
