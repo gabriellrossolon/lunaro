@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     public ItemBase item;
     private CanvasGroup canvasGroup;
@@ -12,11 +12,24 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [HideInInspector] public Transform previousParent;
     private Canvas originalCanvas;
 
-    void Awake()
+    [SerializeField] private GameObject itemOptions;
+    private float clickTimeThreshold = 0.2f;
+    private float clickStartTime;
+    private bool isDragging = false;
+    private Transform optionsOriginalParent;
+
+    private void Awake()
     {
         InitializeComponents();
         previousParent = transform.parent;
         originalCanvas = GetComponentInParent<Canvas>();
+    }
+
+    private void Update()
+    {
+        if (itemOptions.activeSelf)
+            if(!HudManager.Instance.openedInventory)
+                itemOptions.SetActive(false);
     }
 
     private void InitializeComponents()
@@ -28,6 +41,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        isDragging = true;
+
+        if (itemOptions != null && itemOptions.activeSelf)
+            ReturnItemOptionsToOriginalParent();
+
         StoreOriginalPosition();
         SetDraggableState();
         BringToTop();
@@ -54,7 +72,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void MoveItemToTopCanvas()
     {
-        transform.SetParent(originalCanvas.transform, true); //Tira o objeto como filho do Slot assim que começa a mexer ele.
+        transform.SetParent(originalCanvas.transform, true);
         rectTransform.position = Input.mousePosition;
     }
 
@@ -87,8 +105,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private bool ShouldReturnItem(PointerEventData eventData)
     {
-        return eventData.pointerEnter == null || 
-            eventData.pointerEnter.GetComponent<InventorySlot>() == null || 
+        return eventData.pointerEnter == null ||
+            eventData.pointerEnter.GetComponent<InventorySlot>() == null ||
             eventData.pointerEnter.transform == previousParent;
     }
 
@@ -102,19 +120,54 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         HudManager.Instance.RefreshItemShow(item);
         HudManager.Instance.itemShow.SetActive(true);
-
-        Vector3 mousePosition = eventData.position; 
-        HudManager.Instance.itemShow.transform.position = mousePosition;
-
+        HudManager.Instance.itemShow.transform.position = eventData.position;
         HudManager.Instance.SetCursor(HudManager.Instance.cursorClicker);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         HudManager.Instance.itemShow.SetActive(false);
-
         HudManager.Instance.SetCursor(HudManager.Instance.cursorPointer);
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        clickStartTime = Time.time;
+        isDragging = false;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        float clickDuration = Time.time - clickStartTime;
+
+        if (clickDuration <= clickTimeThreshold && !isDragging)
+            ToggleItemOptions();
+    }
+
+    private void ToggleItemOptions()
+    {
+        if (itemOptions == null) return;
+
+        bool isActive = itemOptions.activeSelf;
+        itemOptions.SetActive(!isActive);
+
+        if (!isActive)
+        {
+            optionsOriginalParent = itemOptions.transform.parent;
+            itemOptions.transform.SetParent(originalCanvas.transform, true);
+        }
+        else
+        {
+            ReturnItemOptionsToOriginalParent();
+        }
+    }
+
+    private void ReturnItemOptionsToOriginalParent()
+    {
+        if (itemOptions != null && optionsOriginalParent != null)
+        {
+            itemOptions.transform.SetParent(optionsOriginalParent, true);
+            itemOptions.SetActive(false);
+        }
+    }
 }
-
-

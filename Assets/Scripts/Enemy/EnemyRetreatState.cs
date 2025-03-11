@@ -65,7 +65,7 @@ public class EnemyRetreatState : IState
 
     private void StateChange()
     {
-        if (_retreatTimer >= _randomRetreatTime)
+        if (_retreatTimer >= _randomRetreatTime || (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance))
         {
             _agent.SetDestination(_playerTransform.position);
             _fsm.SetState("Chase");

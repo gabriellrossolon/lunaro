@@ -3057,9 +3057,9 @@ MonoBehaviour:
   attackTwoRange: 15
   attackThreeRange: 15
   patrolSpeed: 2
-  chaseSpeed: 2
-  retreatSpeed: 2
-  retreatDistance: {x: 2, y: 4}
+  chaseSpeed: 2.5
+  retreatSpeed: 2.5
+  retreatDistance: {x: 0, y: 1}
   attackDamage: 6
   maxHp: 15
   currentHp: 0
@@ -3121,10 +3121,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.4
   m_Speed: 2
-  m_Acceleration: 8
+  m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

@@ -30,6 +30,7 @@ public class EnemyAttackState : IState
     public void OnEnter()
     {
         _agent.isStopped = true;
+        _agent.velocity = Vector3.zero;
 
         string[] attacks = { "attack1", "attack2", "attack3" };
         _animator.SetTrigger(attacks[_enemyStats.SelectedAttack]);  // Usar o valor sorteado armazenado no enemyStats

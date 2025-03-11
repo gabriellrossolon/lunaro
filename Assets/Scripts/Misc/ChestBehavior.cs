@@ -57,6 +57,9 @@ public class ChestBehavior : MonoBehaviour, IInteractable
 
     public void OpenChest()
     {
+        if (chestCollider != null)
+            chestCollider.enabled = false;
+
         animator.SetTrigger("Open");
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
         StartCoroutine(InstantiateItemsWithDelay());
@@ -84,8 +87,6 @@ public class ChestBehavior : MonoBehaviour, IInteractable
     private void DisableChestBehavior()
     {
         enabled = false;
-        if (chestCollider != null)
-            chestCollider.enabled = false;
     }
 
     private void OnMouseExit()

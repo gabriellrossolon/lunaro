@@ -78,10 +78,10 @@ public class HudManager : MonoBehaviour
     public Image magicSliderImage;
 
     [Header("Controllers")]
-    private bool openedInventory = false;
+    public bool openedInventory = false;
+    public bool openedStash = false;
     private bool hidedCanvas = false;
     private bool openedOptionsUI = false;
-    [HideInInspector] public bool openedStash = false;
     private bool isFullScreen = true;
     private bool openedTeleportPage = false;
 
@@ -191,10 +191,10 @@ public class HudManager : MonoBehaviour
         itemShow.SetActive(false);
     }
 
-    public void OpenStashUI()
+    public IEnumerator OpenStashUI()
     {
         openedStash = !openedStash;
-        stash.SetActive(openedStash);
+        stash.GetComponent<Animator>().SetBool("openedStash", openedStash);
 
         itemShow.SetActive(false);
 
@@ -206,6 +206,7 @@ public class HudManager : MonoBehaviour
         else if (!openedStash)
         {
             OpenInventory();
+            yield return new WaitForSeconds(0.5f);
             inventoryEquips.SetActive(true);
         }
             

@@ -40,7 +40,7 @@ public class StashBehavior : MonoBehaviour, IInteractable
     public void OpenStash()
     {
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
-        HudManager.Instance.OpenStashUI();
+        StartCoroutine(HudManager.Instance.OpenStashUI());
     }
 }
 

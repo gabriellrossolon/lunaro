@@ -5006,7 +5006,7 @@ Transform:
   m_GameObject: {fileID: 7366571023169708312}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.542, y: -1.8517516, z: 4.146}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5047,19 +5047,19 @@ MonoBehaviour:
   detectionRange: 15
   patrolRadius: 10
   attackRange: 0
-  attackOneRange: 2.3
-  attackTwoRange: 2.5
+  attackOneRange: 2.2
+  attackTwoRange: 2.2
   attackThreeRange: 6
   patrolSpeed: 1
-  chaseSpeed: 3
-  retreatSpeed: 3
-  retreatDistance: {x: 1.5, y: 2}
+  chaseSpeed: 4
+  retreatSpeed: 4
+  retreatDistance: {x: 0, y: 1}
   attackDamage: 3
-  maxHp: 22
-  currentHp: 30
+  maxHp: 30
+  currentHp: 0
   goldCarryed: 1
   goldRange: {x: 1, y: 3}
-  xpCarryed: 3
+  xpCarryed: 4
 --- !u!114 &8389488412036365528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5115,7 +5115,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 2
-  m_Acceleration: 8
+  m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 360
   m_StoppingDistance: 0
