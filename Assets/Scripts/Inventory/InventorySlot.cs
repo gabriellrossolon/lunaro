@@ -198,7 +198,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
-    private IEnumerator SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
+    public IEnumerator SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
     {
         if (!IsItemCompatibleWithSlot(draggedItem))
         {

@@ -191,7 +191,13 @@ public class HudManager : MonoBehaviour
         itemShow.SetActive(false);
     }
 
-    public IEnumerator OpenStashUI()
+    public void OpenStashUI()
+    {
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
+        StartCoroutine(OpenStashUICoroutine());
+    }
+
+    public IEnumerator OpenStashUICoroutine()
     {
         openedStash = !openedStash;
         stash.GetComponent<Animator>().SetBool("openedStash", openedStash);

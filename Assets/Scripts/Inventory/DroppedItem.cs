@@ -14,6 +14,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip droppedSound;
     private AudioSource dropSoundSource;
 
+    public bool canThrow = true;
     public float throwForce = 5f;
     public float throwRadius = 2f;
     public float throwHeight = 2f;
@@ -34,7 +35,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
 
         player = PlayerManager.Instance.gameObject;
 
-        if (rb != null)
+        if (rb != null && canThrow)
         {
             Vector3 randomDirection = new Vector3(Random.Range(-throwRadius, throwRadius), Random.Range(throwHeight * 0.5f, throwHeight), Random.Range(0f, throwRadius));
             rb.AddForce(randomDirection.normalized * throwForce, ForceMode.Impulse);
@@ -62,7 +63,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
             player.GetComponentInChildren<SecondaryBehavior>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
 
             InventoryManager.Instance.AddItem(item);
-            Destroy(gameObject, 0.2f);
+            Destroy(gameObject);
         }
         else
         {

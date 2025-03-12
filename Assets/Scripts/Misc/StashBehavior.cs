@@ -28,19 +28,13 @@ public class StashBehavior : MonoBehaviour, IInteractable
         if (distance <= maxDistance)
         {
             HudManager.Instance.warnBtn.SetActive(true);
-            OpenStash();
+            HudManager.Instance.OpenStashUI();
         }
         else
         {
             HudManager.Instance.warnBtn.SetActive(false);
             HudManager.Instance.itemShow.SetActive(false);
         }
-    }
-
-    public void OpenStash()
-    {
-        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
-        StartCoroutine(HudManager.Instance.OpenStashUI());
     }
 }
 

@@ -12,7 +12,7 @@ public class WeaponBehavior : MonoBehaviour
     [SerializeField] private GameObject holdingObjectR;
 
     [Header("Weapon Scripts")]
-    private SwordBehavior swordBeh;
+    [SerializeField] private SwordBehavior swordBeh;
     private HammerBehavior hammerBeh;
     private GreatSwordBehavior greatSwordBeh;
     private GreatHammerBehavior greatHammerBeh;
@@ -188,7 +188,8 @@ public class WeaponBehavior : MonoBehaviour
     {
         switch (weaponType) //Esse case controla a chamada da Animação que chama o event CallSpecialHability
         {
-            case WeaponType.Sword: 
+            case WeaponType.Sword:
+                if (swordBeh == null) Debug.Log("Sword Behavior nao encontrado");
                 swordBeh.UseSwordSkill(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 

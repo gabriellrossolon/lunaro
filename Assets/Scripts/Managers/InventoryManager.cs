@@ -42,12 +42,12 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] public Potion equippedPotion;
 
     [Header("Equippament Slots")]
-    [SerializeField] private GameObject weaponSlot;
-    [SerializeField] private GameObject secondarySlot;
-    [SerializeField] private GameObject neckSlot;
-    [SerializeField] private GameObject ringSlot;
-    [SerializeField] private GameObject amuletSlot;
-    [SerializeField] private GameObject potionSlot;
+    public GameObject weaponSlot;
+    public GameObject secondarySlot;
+    public GameObject neckSlot;
+    public GameObject ringSlot;
+    public GameObject amuletSlot;
+    public GameObject potionSlot;
 
     [Header("Potion Controller")]
     public int potionsCount = 3;
@@ -322,6 +322,7 @@ public class InventoryManager : MonoBehaviour
         lastInstantiatedWeapon = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
         rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
+        Debug.Log(equippedWeapon);
         rightWeaponBehavior.SetWeaponType(equippedWeapon);
         rightWeaponBehavior.skillType = null;
 
