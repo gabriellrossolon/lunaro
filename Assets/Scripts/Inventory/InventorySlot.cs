@@ -1,6 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
@@ -14,14 +15,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         UpdateItemIndex();  
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
-        StartCoroutine(LateStart(0.1f));
-    }
-
-    private IEnumerator LateStart(float time)
-    {
-        yield return new WaitForSeconds(time);
+        yield return null;
         if (slotType != SlotType.Inventory || slotType != SlotType.Stash || slotType != SlotType.Nothing)
         {
             EquipItemIfNeeded(GetComponentInChildren<InventoryItem>());
@@ -67,16 +63,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             if (IsWithSecondaryEquipped() && slotType == SlotType.Weapon)
             {
-                ReturnItemToPreviousParent(draggedItem);
-                return;
+                UnequipHandsItem(InventoryManager.Instance.secondarySlot.transform.GetChild(0).GetComponent<InventoryItem>());
             }
         }
         else if (DraggedItemIsSecondary(draggedItem))
         {
             if (isWithTwoHandEquipped() && slotType == SlotType.Secondary)
             {
-                ReturnItemToPreviousParent(draggedItem);
-                return;
+                UnequipHandsItem(InventoryManager.Instance.weaponSlot.transform.GetChild(0).GetComponent<InventoryItem>());
             }
         }
 
@@ -91,6 +85,32 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
 
     // VERIFICAÇÕES SE O ITEM PODE OU NÃO ENTRAR NO SLOT
+    private bool IsDraggedItemEqualsToExisting(InventoryItem draggedItem, InventoryItem existingItem)
+    {
+        if (draggedItem == null || existingItem == null) return false;
+
+        if (draggedItem.item is Weapon)
+            return existingItem.item is Weapon;
+
+        if (draggedItem.item is Secondary)
+            return existingItem.item is Secondary;
+
+        if (draggedItem.item is Potion)
+            return existingItem.item is Potion;
+
+        if (draggedItem.item is Necklace)
+            return existingItem.item is Necklace;
+
+        if (draggedItem.item is Ring)
+            return existingItem.item is Ring;
+
+        if (draggedItem.item is Amulet)
+            return existingItem.item is Amulet;
+
+        return false;
+    }
+
+
     private bool IsItemCompatibleWithSlot(InventoryItem draggedItem)
     {
         if (draggedItem == null || draggedItem.item == null)
@@ -199,6 +219,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public IEnumerator SwapItems(InventoryItem draggedItem, InventoryItem existingItem)
     {
+        if(!IsDraggedItemEqualsToExisting(draggedItem, existingItem))
+        {
+            ReturnItemToPreviousParent(draggedItem);
+            yield break;
+        }
+
         if (!IsItemCompatibleWithSlot(draggedItem))
         {
             ReturnItemToPreviousParent(draggedItem);
@@ -208,32 +234,30 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             if (IsWithSecondaryEquipped() && slotType == SlotType.Weapon)
             {
-                ReturnItemToPreviousParent(draggedItem);
-                yield break;
+                yield return null;
+                UnequipHandsItem(InventoryManager.Instance.secondarySlot.transform.GetChild(0).GetComponent<InventoryItem>());
             }
         }
         else if (DraggedItemIsSecondary(draggedItem))
         {
             if (isWithTwoHandEquipped() && slotType == SlotType.Secondary)
             {
-                ReturnItemToPreviousParent(draggedItem);
-                yield break;
+                yield return null;
+                UnequipHandsItem(InventoryManager.Instance.weaponSlot.transform.GetChild(0).GetComponent<InventoryItem>());
             }
         }
         else if (isWithTwoHandEquipped())
         {
             if (existingItem.item is Secondary secondary)
             {
-                ReturnItemToPreviousParent(draggedItem);
-                yield break;
+                UnequipHandsItem(InventoryManager.Instance.weaponSlot.transform.GetChild(0).GetComponent<InventoryItem>());
             }
         }
         else if (IsWithSecondaryEquipped())
         {
             if (existingItem.item is Bow || existingItem.item is GreatHammer || existingItem.item is GreatSword || existingItem.item is GreatAxe)
             {
-                ReturnItemToPreviousParent(draggedItem);
-                yield break;
+                UnequipHandsItem(InventoryManager.Instance.secondarySlot.transform.GetChild(0).GetComponent<InventoryItem>());
             }
         }
         
@@ -243,11 +267,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         existingItem.transform.SetParent(draggedPreviousParent);
         existingItem.transform.localPosition = Vector3.zero;
 
-        yield return new WaitForSeconds(0.05f); //Pequeno delay para que não ocorra a troca de ambos no mesmo Frame
+        yield return null; 
 
         draggedItem.transform.SetParent(transform);
         draggedItem.transform.localPosition = Vector3.zero;
-        
+
+        yield return null;
 
         draggedItem.previousParent = transform;
         existingItem.previousParent = draggedPreviousParent;
@@ -293,6 +318,18 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         InventoryManager.Instance.EquipPotionFromInventory(potion);
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.inventoryEquipSound);
+    }
+
+    private void UnequipHandsItem(InventoryItem reference)
+    {
+        List<InventorySlot> inventorySlots = new List<InventorySlot>(FindObjectsOfType<InventorySlot>());
+        int nullIndex = InventoryManager.Instance.inventoryItems.FindIndex(item => item == null);
+
+        InventorySlot emptySlot = inventorySlots.Find(s => s.slotIndex == nullIndex);
+
+        InventoryItem invItem = reference;
+        invItem.transform.SetParent(emptySlot.transform);
+        invItem.rectTransform.localPosition = Vector3.zero;
     }
 
     private void RefreshHandsPOV()

@@ -322,7 +322,6 @@ public class InventoryManager : MonoBehaviour
         lastInstantiatedWeapon = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
         rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
-        Debug.Log(equippedWeapon);
         rightWeaponBehavior.SetWeaponType(equippedWeapon);
         rightWeaponBehavior.skillType = null;
 

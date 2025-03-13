@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using NUnit.Framework;
 using System.Collections.Generic;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
@@ -17,7 +16,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     [Header("Canvas References")]
     private CanvasGroup canvasGroup;
-    private RectTransform rectTransform;
+    [HideInInspector] public RectTransform rectTransform;
     private Vector3 originalPosition;
     [HideInInspector] public Transform previousParent;
     private Canvas originalCanvas;
@@ -166,7 +165,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (itemOptions == null) return;
 
-        BehaviorForEquippeds();
+        ButtonBehaviorForEquippeds();
 
         bool isActive = itemOptions.activeSelf;
         itemOptions.SetActive(!isActive);
@@ -213,45 +212,47 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void CallItemEquip()
     {
-        ReturnItemOptionsToOriginalParent();
-        BehaviorForEquippeds();
-        InventorySlot invSlot = GetComponentInParent<InventorySlot>();
-
-        if(invSlot.slotType != InventorySlot.SlotType.Inventory &&
-            invSlot.slotType != InventorySlot.SlotType.Stash &&
-            invSlot.slotType != InventorySlot.SlotType.Nothing)
-        {
-            CallItemUnequip();
-            return;
-        }
-
-        switch (item)
-        {
-            case Weapon weapon:
-                if (InventoryManager.Instance.weaponSlot.transform.childCount > 0)
-                {
-                    var existingItem = InventoryManager.Instance.weaponSlot.transform.GetChild(0).GetComponent<InventoryItem>();
-
-                    existingItem.transform.SetParent(invSlot.transform);
-                    existingItem.rectTransform.localPosition = Vector3.zero;
-
-                    Invoke("MoveWeaponToSlot", 0.01f);
-                }
-                else
-                {
-                    MoveWeaponToSlot();
-                }
-                break;
-
-            default:
-                Debug.Log("Item desconhecido");
-                break;
-        }
+        StartCoroutine(ItemEquip());
     }
 
-    private void MoveWeaponToSlot()
+    private IEnumerator ItemEquip()
     {
-        transform.SetParent(InventoryManager.Instance.weaponSlot.transform);
+        ReturnItemOptionsToOriginalParent();
+        ButtonBehaviorForEquippeds();
+
+        InventorySlot invSlot = GetComponentInParent<InventorySlot>();
+
+        if (invSlot.slotType is not (InventorySlot.SlotType.Inventory or InventorySlot.SlotType.Stash or InventorySlot.SlotType.Nothing))
+        {
+            CallItemUnequip();
+            yield break;
+        }
+
+        Transform targetSlot = item switch
+        {
+            Weapon => InventoryManager.Instance.weaponSlot.transform,
+            Secondary => InventoryManager.Instance.secondarySlot.transform,
+            Jewel jewel when jewel is Ring => InventoryManager.Instance.ringSlot.transform,
+            Jewel jewel when jewel is Necklace => InventoryManager.Instance.neckSlot.transform,
+            Jewel jewel when jewel is Amulet => InventoryManager.Instance.amuletSlot.transform,
+            Potion => InventoryManager.Instance.potionSlot.transform,
+            _ => null
+        };
+
+        if (item is Weapon && ItemIsTwoHanded() && IsWithSecondaryEquipped())
+            UnequipHandsItem(InventoryManager.Instance.secondarySlot.transform.GetChild(0).GetComponent<InventoryItem>());
+        else if (item is Secondary && isWithTwoHandEquipped())
+            UnequipHandsItem(InventoryManager.Instance.weaponSlot.transform.GetChild(0).GetComponent<InventoryItem>());
+
+        if (targetSlot != null && targetSlot.childCount > 0)
+        {
+            var existingItem = targetSlot.GetChild(0).GetComponent<InventoryItem>();
+            existingItem.transform.SetParent(invSlot.transform);
+            existingItem.rectTransform.localPosition = Vector3.zero;
+        }
+
+        yield return null;
+        transform.SetParent(targetSlot);
         rectTransform.localPosition = Vector3.zero;
     }
 
@@ -274,7 +275,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
 
-    private void BehaviorForEquippeds()
+    private void ButtonBehaviorForEquippeds()
     {
         InventorySlot invSlot = GetComponentInParent<InventorySlot>();
 
@@ -290,5 +291,42 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             dropBtn.SetActive(false);
             equipBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Unequip";
         }
+    }
+
+    private bool ItemIsTwoHanded()
+    {
+        return item is Bow || item is GreatHammer || item is GreatSword || item is GreatAxe;
+    }
+    private bool ItemIsSecondary()
+    {
+        if (item is Secondary secondary)
+            return true;
+        else
+            return false;
+    }
+    private bool isWithTwoHandEquipped()
+    {
+        var equippedWeapon = InventoryManager.Instance.equippedWeapon;
+        return equippedWeapon is Bow || equippedWeapon is GreatHammer || equippedWeapon is GreatSword || equippedWeapon is GreatAxe;
+    }
+    private bool IsWithSecondaryEquipped()
+    {
+        if (InventoryManager.Instance.equippedSecondary != null &&
+            InventoryManager.Instance.equippedSecondary is Secondary secondary)
+            return true;
+        else
+            return false;
+    }
+
+    private void UnequipHandsItem(InventoryItem reference)
+    {
+        List<InventorySlot> inventorySlots = new List<InventorySlot>(FindObjectsOfType<InventorySlot>());
+        int nullIndex = InventoryManager.Instance.inventoryItems.FindIndex(item => item == null);
+
+        InventorySlot emptySlot = inventorySlots.Find(s => s.slotIndex == nullIndex);
+
+        InventoryItem invItem = reference;
+        invItem.transform.SetParent(emptySlot.transform);
+        invItem.rectTransform.localPosition = Vector3.zero;
     }
 }
