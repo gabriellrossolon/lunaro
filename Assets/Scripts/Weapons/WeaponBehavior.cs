@@ -179,8 +179,8 @@ public class WeaponBehavior : MonoBehaviour
         armBonesAnim.SetBool("isWithBow", weaponType == WeaponType.Bow);
 
         //Controla jeito que a mão fica caso esteja com arma 2Handed
-        weaponAnim.SetBool("TwoHanded", (weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatAxe));
-        leftHandAnim.SetBool("TwoHanded", (weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatAxe));
+        weaponAnim.SetBool("TwoHanded", (IsTwoHandWeapon()));
+        leftHandAnim.SetBool("TwoHanded", (IsTwoHandWeapon()));
     }
 
     // Special Attack Control
@@ -189,7 +189,6 @@ public class WeaponBehavior : MonoBehaviour
         switch (weaponType) //Esse case controla a chamada da Animação que chama o event CallSpecialHability
         {
             case WeaponType.Sword:
-                if (swordBeh == null) Debug.Log("Sword Behavior nao encontrado");
                 swordBeh.UseSwordSkill(leftBtnInput, resourceCost, canAttack, weaponAnim);
                 break;
 
@@ -376,10 +375,17 @@ public class WeaponBehavior : MonoBehaviour
         UpdateHandAnimation();
     }
 
+    private bool IsTwoHandWeapon()
+    {
+        if (weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatAxe)
+            return true;
+        else return false;
+    }
+
     // Hand Animation Update for Two Handed Weapons
     private void UpdateHandAnimation()
     {
-        if (weaponType == WeaponType.GreatSword || weaponType == WeaponType.GreatHammer || weaponType == WeaponType.GreatAxe)
+        if (IsTwoHandWeapon())
         {
             Invoke("UpdateLeftGripToHandR", 0.2f);
         }

@@ -30,6 +30,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private float clickStartTime;
     private Transform optionsOriginalParent;
 
+    [Header("Double Click Behavior")]
+    private float lastClickTime = 0f;
+    private const float doubleClickThreshold = 0.3f;
+    private int clickCount = 0;
 
     private void Awake()
     {
@@ -132,7 +136,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     //Funções de Pointer (Mouse) no Item do Slot;
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         HudManager.Instance.RefreshItemShow(item);
@@ -151,11 +154,27 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         clickStartTime = Time.time;
         isDragging = false;
+
+
+        float clickTime = Time.time;
+        if (clickTime - lastClickTime <= doubleClickThreshold)
+            clickCount++;
+        else
+            clickCount = 1;
+
+        lastClickTime = clickTime;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         float clickDuration = Time.time - clickStartTime;
+
+        if (clickCount == 2)
+        {
+            CallItemEquip();
+            clickCount = 0;
+            return;
+        }
 
         if (clickDuration <= clickTimeThreshold && !isDragging)
             ToggleItemOptions();
@@ -258,7 +277,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void CallItemUnequip()
     {
-        List<InventorySlot> inventorySlots = new List<InventorySlot>(FindObjectsOfType<InventorySlot>());
+        var inventorySlots = InventoryManager.Instance.inventorySlots;
         int nullIndex = InventoryManager.Instance.inventoryItems.FindIndex(item => item == null);
 
         if (nullIndex == -1)

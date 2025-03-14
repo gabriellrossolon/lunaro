@@ -33,6 +33,9 @@ public class InventoryManager : MonoBehaviour
     [Header("Stash")]
     public List<ItemBase> stashItems = new List<ItemBase>();
 
+    [Header("All Inventory Slots (Inventory/Equips and Stash")]
+    public List<InventorySlot> inventorySlots = new List<InventorySlot>();
+
     [Header("Equipped Items")]
     [SerializeField] public Weapon equippedWeapon;
     [SerializeField] public Secondary equippedSecondary;
@@ -77,8 +80,10 @@ public class InventoryManager : MonoBehaviour
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         _inputHandler = PlayerManager.Instance.GetComponent<InputHandler>();
+
         GenerateInventorySlots();
         GenerateStashSlots();
+        inventorySlots = new List<InventorySlot>(FindObjectsOfType<InventorySlot>());
 
         InstantiateEquippedItem(equippedWeapon, weaponSlot);
         InstantiateEquippedItem(equippedSecondary, secondarySlot);

@@ -267,12 +267,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         existingItem.transform.SetParent(draggedPreviousParent);
         existingItem.transform.localPosition = Vector3.zero;
 
-        yield return null; 
 
         draggedItem.transform.SetParent(transform);
         draggedItem.transform.localPosition = Vector3.zero;
 
-        yield return null;
 
         draggedItem.previousParent = transform;
         existingItem.previousParent = draggedPreviousParent;
@@ -322,7 +320,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     private void UnequipHandsItem(InventoryItem reference)
     {
-        List<InventorySlot> inventorySlots = new List<InventorySlot>(FindObjectsOfType<InventorySlot>());
+        var inventorySlots = InventoryManager.Instance.inventorySlots;
         int nullIndex = InventoryManager.Instance.inventoryItems.FindIndex(item => item == null);
 
         InventorySlot emptySlot = inventorySlots.Find(s => s.slotIndex == nullIndex);
