@@ -4,6 +4,7 @@ public class PlayerInteractions : MonoBehaviour
 {
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float maxDistance = 2f;
+    [SerializeField] private float outlineMaxDistance = 5f;
 
     private Transform cameraTransform;
     private bool isInteractingWithItem;
@@ -16,6 +17,7 @@ public class PlayerInteractions : MonoBehaviour
     private void Update()
     {
         CheckForInteractions();
+        DetectOutlineObjects();
     }
 
     private void CheckForInteractions()
@@ -58,4 +60,21 @@ public class PlayerInteractions : MonoBehaviour
             }
         }
     }
+
+    private void DetectOutlineObjects()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(cameraTransform.position, outlineMaxDistance, interactableLayer);
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            Outline[] outlines = hitCollider.GetComponentsInChildren<Outline>(true); // Pega os outlines no próprio objeto e nos filhos
+
+            foreach (Outline outline in outlines)
+            {
+                float distance = Vector3.Distance(cameraTransform.position, hitCollider.transform.position);
+                outline.enabled = distance <= outlineMaxDistance;
+            }
+        }
+    }
+
 }

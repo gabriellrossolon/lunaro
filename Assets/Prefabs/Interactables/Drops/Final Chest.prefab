@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3424190734803503033}
   - component: {fileID: 855450378457524273}
   - component: {fileID: 4374820098230533075}
+  - component: {fileID: 6604099644781259361}
   m_Layer: 0
   m_Name: Stone Chest
   m_TagString: Untagged
@@ -108,6 +109,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.977421, y: 0.65441436, z: 0.92261565}
   m_Center: {x: -0.00012081863, y: -0.23863861, z: -0.000113889575}
+--- !u!114 &6604099644781259361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273124371143004524}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.40000004, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2716841788833342225
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +139,7 @@ GameObject:
   - component: {fileID: 1414680628230556743}
   - component: {fileID: 4092362158461410829}
   - component: {fileID: 8632954439149776344}
+  - component: {fileID: 5946545149500301535}
   m_Layer: 0
   m_Name: Stone Chest.Roof
   m_TagString: Untagged
@@ -216,6 +236,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.16769247, z: 0.8875656}
   m_Center: {x: -0.000000003576747, y: 0.019230187, z: 0.42142662}
+--- !u!114 &5946545149500301535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2716841788833342225}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.40000004, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6072591878076350683
 GameObject:
   m_ObjectHideFlags: 0

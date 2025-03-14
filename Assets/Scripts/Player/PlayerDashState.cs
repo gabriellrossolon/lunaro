@@ -36,7 +36,7 @@ public class PlayerDashState : IState
 
     public void OnEnter()
     {
-        _playerStatus.SubtractStamina(10f);
+        _playerStatus.SubtractStamina(_playerStatus.dashStaminaCost);
         SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.dashSound);
         _handsPOV.GetComponent<Animator>().SetTrigger("dash");
         StartDash();

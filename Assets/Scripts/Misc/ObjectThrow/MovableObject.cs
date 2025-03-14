@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovableObject : MonoBehaviour
+public class MovableObject : MonoBehaviour, IInteractable
 {
     public bool isHolding = false;
     public bool isThrown = false; // Flag para verificar se o objeto foi arremessado
@@ -37,39 +37,29 @@ public class MovableObject : MonoBehaviour
         }
     }
 
-    private void OnMouseOver()
+    public void Interact()
     {
         if (distance <= maxDistance)
         {
             if (!isHolding)
-                HudManager.Instance.warnBtn.SetActive(true);
-            else
-                HudManager.Instance.warnBtn.SetActive(false);
-
-            if (Input.GetKeyDown(KeyCode.E) && !isHolding)
             {
-                isHolding = true;
-                isThrown = false; // Resetar o estado de arremesso
-                rb.useGravity = false;
-                rb.detectCollisions = true;
-
-                this.transform.SetParent(tempParent.transform);
+                StartHolding();
             }
-            else if (Input.GetKeyDown(KeyCode.E) && isHolding)
+            else
             {
                 Drop();
             }
         }
-        else
-        {
-            HudManager.Instance.warnBtn.SetActive(false);
-        }
     }
 
-    private void OnMouseExit()
+    private void StartHolding()
     {
-        Drop();
-        HudManager.Instance.warnBtn.SetActive(false);
+        isHolding = true;
+        isThrown = false; // Resetar o estado de arremesso
+        rb.useGravity = false;
+        rb.detectCollisions = true;
+
+        this.transform.SetParent(tempParent.transform);
     }
 
     private void Hold()
@@ -82,7 +72,7 @@ public class MovableObject : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Arremessar com o botão esquerdo do mouse
         {
             isThrown = true;
             rb.AddForce(tempParent.transform.forward * throwForce);

@@ -11,6 +11,7 @@ public class PlayerStatus : MonoBehaviour
     public float jumpHeight;
     public float dashSpeed = 25f;
     public float dashDuration = 0.1f;
+    public float dashStaminaCost = 20f;
 
     [Header("Combat Stats")]
     public float damage;

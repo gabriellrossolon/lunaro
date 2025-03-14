@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 1355383840839381499}
   - component: {fileID: 8272995576575017047}
   - component: {fileID: 785004290427560883}
+  - component: {fileID: 2779321361608067386}
   m_Layer: 0
   m_Name: chest cover
   m_TagString: Untagged
@@ -311,6 +312,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2298886, y: 0.3, z: 0.85}
   m_Center: {x: 0.0026816726, y: 0.13721487, z: 0.4082575}
+--- !u!114 &2779321361608067386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296927704406573804}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.40000004, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3584548880886144778
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +549,7 @@ GameObject:
   - component: {fileID: 7690098845908966017}
   - component: {fileID: 2525032692363791301}
   - component: {fileID: 1413313319586223694}
+  - component: {fileID: 2406843584735706726}
   m_Layer: 0
   m_Name: 'chest '
   m_TagString: Untagged
@@ -627,3 +647,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.21, y: 0.23, z: 0.85779476}
   m_Center: {x: 0.002214402, y: -0.2, z: -0.011705518}
+--- !u!114 &2406843584735706726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7231269729176115350}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.40000004, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
