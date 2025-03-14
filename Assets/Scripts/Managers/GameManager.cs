@@ -74,10 +74,15 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        if (TeleportManager.Instance.loadingScreen.activeSelf && gamePaused == false) return;
+
         gamePaused = !gamePaused;
 
         HudManager.Instance.pauseUI.SetActive(gamePaused);
         Time.timeScale = gamePaused ? 0f : 1f;
+
+        if (HudManager.Instance.optionsUI.activeSelf)
+            HudManager.Instance.OpenOption();
     }
 
     public void TimeStop()

@@ -49,6 +49,7 @@ public class PlayerDashState : IState
     public void OnExit()
     {
         dashTimer = 0;
+        _inputHandler.dashInput = false;
     }
 
     public void OnTick()

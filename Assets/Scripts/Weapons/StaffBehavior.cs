@@ -119,6 +119,9 @@ public class StaffBehavior : MonoBehaviour
         projectileScript.projectileDamage = damage;
         projectileScript.SetDirection(Camera.main.transform.forward);
 
+        if(projectileScript.muzzleParticle != null)
+            Instantiate(projectileScript.muzzleParticle, projectileExit.transform.position, Quaternion.identity);
+
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.magicCastSound);
     }

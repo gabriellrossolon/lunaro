@@ -4,19 +4,20 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
-    [HideInInspector] public Vector2 moveInput;
-    [HideInInspector] public bool sprintInput;
-    [HideInInspector] public bool jumpInput;
-    [HideInInspector] public bool attackInput;
-    [HideInInspector] public bool attackChargingInput;
-    [HideInInspector] public bool blockInput;
-    [HideInInspector] public bool dashInput;
-    [HideInInspector] public bool spellInput;
-    [HideInInspector] public bool potionInput;
-    [HideInInspector] public bool inventoryInput;
-    [HideInInspector] public bool pauseInput;
-    [HideInInspector] public bool interactInput;
+    public Vector2 moveInput;
+    public bool sprintInput;
+    public bool jumpInput;
+    public bool attackInput;
+    public bool attackChargingInput;
+    public bool blockInput;
+    public bool dashInput;
+    public bool spellInput;
+    public bool potionInput;
+    public bool inventoryInput;
+    public bool pauseInput;
+    public bool interactInput;
 
+    [Header("Actions Locked?")]
     public bool lockAction = false;
 
     public void OnMove(InputAction.CallbackContext context)

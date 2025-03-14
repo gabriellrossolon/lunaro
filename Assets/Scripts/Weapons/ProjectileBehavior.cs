@@ -13,6 +13,7 @@ public class ProjectileBehavior : MonoBehaviour
     public float speed = 10f;
     public AudioClip projectileImpactSound;
     public GameObject collisionParticle;
+    public GameObject muzzleParticle;
 
     [Header("Only if Bolide")]
     public GameObject bolideExplosion;

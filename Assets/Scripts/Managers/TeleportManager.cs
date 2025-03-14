@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class TeleportManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class TeleportManager : MonoBehaviour
     private GameObject player;
 
     public GameObject loadingScreen; 
-    public UnityEngine.UI.Slider loadingBar;
+    public Slider loadingBar;
     public float minLoadingTime = 2f;
 
     private void Awake()
