@@ -8,11 +8,12 @@ public class EnemyManager : MonoBehaviour
     private EnemyEffects _enemyEffects;
     private EnemyWeaponBehavior _enemyWeaponBehavior;
     private AudioSource _audioSource;
+    private EnemyFSM _enemyFSM;
 
 
     [SerializeField] private string _enemyName;
     [SerializeField] private bool isBoss = false;
-    [SerializeField] private GameObject _enemyInfos;
+    public GameObject _enemyInfos;
     private Slider _enemyHpSlider;
     private TextMeshProUGUI _enemyNameTxt;
     private void Awake()
@@ -21,6 +22,7 @@ public class EnemyManager : MonoBehaviour
         _enemyEffects = GetComponent<EnemyEffects>();
         _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();
         _audioSource = GetComponent<AudioSource>();
+        _enemyFSM = GetComponent<EnemyFSM>();
 
         _enemyHpSlider = GetComponentInChildren<Slider>();
         _enemyNameTxt = GetComponentInChildren<TextMeshProUGUI>();
@@ -43,6 +45,8 @@ public class EnemyManager : MonoBehaviour
 
     private void ControlEnemyCanvas()
     {
+        if (_enemyFSM.FSM.CurrentState is EnemyDeathState) return;
+
         if (_enemyInfos != null)
             _enemyHpSlider.value = _enemyStats.currentHp;
 

@@ -78,6 +78,7 @@ public class HudManager : MonoBehaviour
     public Image magicSliderImage;
 
     [Header("Controllers")]
+    public bool hudIsOpen = false;
     public bool openedInventory = false;
     public bool openedStash = false;
     private bool hidedCanvas = false;
@@ -86,11 +87,15 @@ public class HudManager : MonoBehaviour
     private bool openedTeleportPage = false;
 
     [Header("Player Status")]
+    public GameObject statusBars;
     public Slider hpSlider;
     public Slider hpLateSlider;
+    public TextMeshProUGUI healthValueTxt;
     public float lateSliderSpeed = 0.5f;
     public Slider staminaSlider;
+    public TextMeshProUGUI staminaValueTxt;
     public Slider manaSlider;
+    public TextMeshProUGUI manaValueTxt;
 
     [Header("Transitions Effects")]
     private Color _targetVignetteColor = Color.black;
@@ -138,11 +143,11 @@ public class HudManager : MonoBehaviour
 
     private void UpdateCursorState()
     {
-        bool hudIsOpen = openedInventory || 
-            openedTeleportPage || 
-            GameManager.Instance.gamePaused || 
-            (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled || 
-            openedStash);
+        hudIsOpen = openedInventory ||
+        openedTeleportPage ||
+        GameManager.Instance.gamePaused ||
+        (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled ||
+        openedStash);
 
         if (hudIsOpen)
         {
@@ -172,6 +177,10 @@ public class HudManager : MonoBehaviour
         manaSlider.value = playerStatus.currentMana;
         if (hpLateSlider.value != playerStatus.currentHp)
             hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
+
+        healthValueTxt.text = $"{(int)playerStatus.currentHp} / {playerStatus.maxHp}";
+        staminaValueTxt.text = $"{(int)playerStatus.currentStamina} / {playerStatus.maxStamina}";
+        manaValueTxt.text = $"{(int)playerStatus.currentMana} / {playerStatus.maxMana}";
     }
 
     public void UpdateHUDLevel()
@@ -506,5 +515,25 @@ public class HudManager : MonoBehaviour
         }
 
         VolumeManager.Instance.isFullScreen = isFullScreen;
+    }
+
+    public void CloseAllWindows()
+    {
+        if (openedStash)
+            OpenStashUI();
+
+        if (openedInventory)
+            OpenInventory();
+    }
+
+    public void InsuficientResourceWarn(string resource)
+    {
+        Animator statusBarAnim = statusBars.GetComponent<Animator>();
+
+        if (resource == "mana")
+            statusBarAnim.SetTrigger("noMana");
+
+        if(resource == "stamina")
+            statusBarAnim.SetTrigger("noStamina");
     }
 }

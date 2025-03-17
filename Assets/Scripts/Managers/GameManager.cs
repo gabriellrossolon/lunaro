@@ -76,6 +76,13 @@ public class GameManager : MonoBehaviour
     {
         if (TeleportManager.Instance.loadingScreen.activeSelf && gamePaused == false) return;
 
+        if (HudManager.Instance.hudIsOpen && !gamePaused)
+        {
+            HudManager.Instance.CloseAllWindows();
+            return;
+        }
+        
+
         gamePaused = !gamePaused;
 
         HudManager.Instance.pauseUI.SetActive(gamePaused);

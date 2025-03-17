@@ -31,8 +31,13 @@ public class HammerBehavior : MonoBehaviour
 
     public void ExecuteHammerAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -54,8 +59,13 @@ public class HammerBehavior : MonoBehaviour
 
     public void ExecuteHammerDashAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -77,8 +87,13 @@ public class HammerBehavior : MonoBehaviour
 
     public void ExecuteHammerJumpAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -118,8 +133,6 @@ public class HammerBehavior : MonoBehaviour
 
             if (enemyFSM != null)
                 enemyFSM.DoDamage(damage + playerStatus.damage);
-
-            GameManager.Instance.TriggerSlowMotion();
         }
     }
 }

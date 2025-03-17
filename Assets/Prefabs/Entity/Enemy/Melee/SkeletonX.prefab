@@ -294,8 +294,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.29336447
-  m_Height: 1.1734579
+  m_Radius: 0.17
+  m_Height: 0.99
   m_Direction: 1
   m_Center: {x: 0, y: 0.58672893, z: 0}
 --- !u!54 &1218321183018463831
@@ -321,7 +321,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -344,7 +344,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -52.204514
+    limit: -6.2214036
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -362,7 +362,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -490,7 +490,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.15
-  m_Height: 1.4647242
+  m_Height: 1.24
   m_Direction: 1
   m_Center: {x: 0, y: 0.7323621, z: 0}
 --- !u!54 &1351315224246598835
@@ -516,7 +516,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -543,7 +543,7 @@ CharacterJoint:
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 0
+    limit: -86.54477
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -554,10 +554,10 @@ CharacterJoint:
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 3
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -627,6 +627,7 @@ MonoBehaviour:
   _currentState: 
   _previousState: 
   isRagdoll: 1
+  hasDeathAnim: 0
 --- !u!114 &4847631989937660417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,8 +966,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.17809197
-  m_Height: 0.7123679
+  m_Radius: 0.13
+  m_Height: 0.68
   m_Direction: 1
   m_Center: {x: 0, y: 0.35618395, z: 0}
 --- !u!54 &2703131934689048573
@@ -992,7 +993,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -1019,21 +1020,21 @@ CharacterJoint:
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 73.26114
+    limit: 8.539095
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 30.122631
+    limit: 3
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1495,8 +1496,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1779852
-  m_Height: 0.7119408
+  m_Radius: 0.13
+  m_Height: 0.68
   m_Direction: 1
   m_Center: {x: 0, y: 0.3559704, z: 0}
 --- !u!54 &8178286673609755685
@@ -1522,7 +1523,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -1545,25 +1546,25 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: 0.36369452
+    limit: -1.7371998
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 59.943283
+    limit: 4.0437036
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 34.80759
+    limit: 5.3497047
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1626,8 +1627,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.32059866
-  m_Height: 1.0686622
+  m_Radius: 0.11
+  m_Height: 0.98
   m_Direction: 1
   m_Center: {x: 0, y: 0.5343311, z: 0}
 --- !u!54 &8079935491959423768
@@ -1653,7 +1654,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -1680,21 +1681,21 @@ CharacterJoint:
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 11.987767
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 9.167247
+    limit: 6.8324385
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -2228,7 +2229,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.15
-  m_Height: 1.454206
+  m_Height: 1.24
   m_Direction: 1
   m_Center: {x: 0, y: 0.727103, z: 0}
 --- !u!54 &5320124070380833762
@@ -2254,7 +2255,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -2277,7 +2278,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -90
+    limit: -9.219936
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -2295,7 +2296,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -2576,8 +2577,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.45656458, y: 0.8877904, z: 0.4565642}
-  m_Center: {x: -0.22828232, y: 0.3481613, z: -0.04094225}
+  m_Size: {x: 0.6, y: 0.35, z: 0.45}
+  m_Center: {x: 0, y: 0.11, z: 0}
 --- !u!54 &6935933772394804217
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2601,7 +2602,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -3447,8 +3448,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.45656437, y: 0.88727635, z: 0.4565642}
-  m_Center: {x: 0.22828217, y: 0.17960456, z: -0.027632684}
+  m_Size: {x: 0.64, y: 0.52, z: 0.4565642}
+  m_Center: {x: 0, y: 0.42, z: 0.06}
 --- !u!54 &7449966692028165537
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3472,7 +3473,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -3495,11 +3496,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -13.839312
+    limit: -20.797136
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 27.117105
+    limit: -8.230795
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -3513,7 +3514,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -3614,8 +3615,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.32055825
-  m_Height: 1.0685275
+  m_Radius: 0.11
+  m_Height: 0.98
   m_Direction: 1
   m_Center: {x: 0, y: 0.53426373, z: 0}
 --- !u!54 &4754504160758346341
@@ -3641,7 +3642,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -3668,21 +3669,21 @@ CharacterJoint:
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 13.464233
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 9.904309
+    limit: 5.9963284
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -3839,7 +3840,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -3862,25 +3863,25 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -27.099262
+    limit: -12.298599
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 13.616499
+    limit: 1.373579
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 25
+    limit: 3.2655945
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -4071,8 +4072,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.29404107
-  m_Height: 1.1761643
+  m_Radius: 0.17
+  m_Height: 0.99
   m_Direction: 1
   m_Center: {x: 0, y: 0.58808213, z: 0}
 --- !u!54 &7930207796965975603
@@ -4098,7 +4099,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -4121,7 +4122,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -61.771297
+    limit: -10.366898
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -4139,7 +4140,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity

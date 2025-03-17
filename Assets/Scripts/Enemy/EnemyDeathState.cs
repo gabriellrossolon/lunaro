@@ -15,10 +15,13 @@ public class EnemyDeathState : IState
     private readonly EnemyFSM _enemyFSM;
     private readonly EnemyManager _enemyManager;
 
-    private float _dissolveTimer = 5f;
-    private float _delayTimer = 1.5f;
-    private List<Material> _materials;
-    private bool _hasStartedDissolving = false;
+    //private float _dissolveTimer = 5f;
+    //private float _delayTimer = 1.5f;
+    //private List<Material> _materials;
+    //private bool _hasStartedDissolving = false;
+
+    private float timer;
+    private float disableAnimTimer = 0.5f;
 
 
     public EnemyDeathState(StateMachine fsm, Animator animator,
@@ -36,12 +39,13 @@ public class EnemyDeathState : IState
         _enemyFSM = enemyFSM;
         _enemyManager = enemyManager;
 
-        InitializeMaterials();
+        //InitializeMaterials();
     }
 
     public void OnEnter()
     {
-        ClearAllForces();
+        _enemyManager._enemyInfos.SetActive(false);
+        SetupBonesForRagdoll();
         DisableComponents();
         _animator.SetTrigger("death");
         PlayerManager.Instance.playerStatus.ControlGold(_enemyStats.goldCarryed);
@@ -56,22 +60,34 @@ public class EnemyDeathState : IState
 
     public void OnTick()
     {
-        if (!_hasStartedDissolving)
+        timer += Time.deltaTime;
+        //if (!_hasStartedDissolving)
+        //{
+        //    HandleDelayBeforeDissolve();
+        //}
+        //else
+        //{
+        //    HandleDissolveEffect();
+        //}
+
+        if (_enemyFSM.isRagdoll && _enemyFSM.hasDeathAnim)
         {
-            HandleDelayBeforeDissolve();
+            if (timer >= disableAnimTimer)
+                _animator.enabled = false;
         }
-        else
+
+        if(_enemyFSM.isRagdoll && !_enemyFSM.hasDeathAnim)
         {
-            HandleDissolveEffect();
+            _animator.enabled = false;
         }
     }
 
-    private void InitializeMaterials()
-    {
-        SkinnedMeshRenderer[] skinnedMeshRenderers = _transform.GetComponentsInChildren<SkinnedMeshRenderer>();
+    //private void InitializeMaterials()
+    //{
+    //    SkinnedMeshRenderer[] skinnedMeshRenderers = _transform.GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        _materials = skinnedMeshRenderers.SelectMany(renderer => renderer.materials).ToList();
-    }
+    //    _materials = skinnedMeshRenderers.SelectMany(renderer => renderer.materials).ToList();
+    //}
 
     private void DisableComponents()
     {
@@ -87,10 +103,7 @@ public class EnemyDeathState : IState
         {
             if (component == _animator)
             {
-                if (_enemyFSM.isRagdoll)
-                {
-                    _animator.enabled = false;
-                }
+               
             }
             else if (component is Collider collider)
             {
@@ -103,39 +116,47 @@ public class EnemyDeathState : IState
         }
     }
 
-    private void HandleDelayBeforeDissolve()
+    //private void HandleDelayBeforeDissolve()
+    //{
+    //    _delayTimer -= Time.deltaTime;
+    //    if (_delayTimer <= 0)
+    //    {
+    //        _hasStartedDissolving = true;
+    //    }
+    //}
+
+    //private void HandleDissolveEffect()
+    //{
+    //    if (_materials != null && _materials.Count > 0)
+    //    {
+    //        _dissolveTimer -= Time.deltaTime;
+    //        float dissolveAmount = Mathf.Lerp(0, 1, 1 - (_dissolveTimer / 6f));
+
+    //        foreach (var material in _materials)
+    //        {
+    //            if (material.HasProperty("_DissolveAmount"))
+    //            {
+    //                material.SetFloat("_DissolveAmount", dissolveAmount);
+    //            }
+    //        }
+
+    //        if (dissolveAmount >= 1)
+    //        {
+    //            Object.Destroy(_transform.gameObject);
+    //        }
+    //    }
+    //}
+
+    void SetupBonesForRagdoll()
     {
-        _delayTimer -= Time.deltaTime;
-        if (_delayTimer <= 0)
+        Rigidbody[] rbs = _enemyFSM.GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody rb in rbs)
         {
-            _hasStartedDissolving = true;
+            rb.isKinematic = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
-    }
 
-    private void HandleDissolveEffect()
-    {
-        if (_materials != null && _materials.Count > 0)
-        {
-            _dissolveTimer -= Time.deltaTime;
-            float dissolveAmount = Mathf.Lerp(0, 1, 1 - (_dissolveTimer / 6f));
-
-            foreach (var material in _materials)
-            {
-                if (material.HasProperty("_DissolveAmount"))
-                {
-                    material.SetFloat("_DissolveAmount", dissolveAmount);
-                }
-            }
-
-            if (dissolveAmount >= 1)
-            {
-                Object.Destroy(_transform.gameObject);
-            }
-        }
-    }
-
-    void ClearAllForces()
-    {
         _agent.speed = 0;
         _agent.isStopped = true;
     }

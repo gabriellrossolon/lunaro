@@ -23,6 +23,7 @@ public class EnemyFSM : MonoBehaviour
     public string _previousState;
 
     public bool isRagdoll;
+    public bool hasDeathAnim;
 
     private void Awake()
     {
@@ -82,7 +83,7 @@ public class EnemyFSM : MonoBehaviour
         if (_enemyStats.currentHp <= 0)
         {
             _fsm.SetState("Death");
-            GameManager.Instance.TriggerSlowMotion(0.4f, 0.1f);
+            GameManager.Instance.TriggerSlowMotion(0.2f, 0.1f);
         }
 
 

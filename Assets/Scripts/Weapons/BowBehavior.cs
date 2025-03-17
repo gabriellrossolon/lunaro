@@ -35,8 +35,13 @@ public class BowBehavior : MonoBehaviour
     //Common Attacks
     public void ChargingBowAttack(bool canAttack, float resourceCost, Animator weaponAnim)
     {
-        if (canAttack && playerStatus.currentMana >= resourceCost && attackCharging)
+        if (canAttack && attackCharging)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             weaponAnim.SetBool("bowAttackCast", true);
             GetComponentInChildren<BowBehavior>().GetComponent<Animator>().SetBool("AttackStart", true);
         }

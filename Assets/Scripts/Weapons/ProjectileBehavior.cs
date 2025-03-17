@@ -93,8 +93,6 @@ public class ProjectileBehavior : MonoBehaviour
                 GameObject collParticle = Instantiate(enemyFX.attackTakenParticle, transform.position, transform.rotation);
                 PlayParticleSound(collParticle, enemyFX.attackTakenSound);
             }
-
-            GameManager.Instance.TriggerSlowMotion();
         }
     }
 

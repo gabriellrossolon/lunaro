@@ -45,7 +45,7 @@ public class PlayerDeathState : IState
 
     private void StateChange()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             _fsm.SetState("Idle");
         }

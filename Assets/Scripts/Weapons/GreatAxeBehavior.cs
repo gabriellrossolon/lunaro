@@ -36,8 +36,13 @@ public class GreatAxeBehavior : MonoBehaviour
 
     public void ExecuteGreatAxeAttack(bool canAttack, float resourceCost, Animator weaponAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -56,23 +61,38 @@ public class GreatAxeBehavior : MonoBehaviour
     }
     public void ExecuteGreatAxeDashAttack(bool canAttack, float resourceCost, Animator weaponAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             weaponAnim.SetTrigger("greatAxeDashAttack");
         }
     }
 
     public void ExecuteGreatAxeJumpAttack(bool canAttack, float resourceCost, Animator weaponAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             weaponAnim.SetTrigger("greatAxeJumpAttack");
         }
     }
 
     public void UseGreatAxeSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill() || !chargedAttack || playerStatus.currentStamina < resourceCost || !canAttack) return;
+        if (!cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
+        if (playerStatus.currentStamina < resourceCost)
+        {
+            HudManager.Instance.InsuficientResourceWarn("stamina");
+            return;
+        }
         if (InventoryManager.Instance.equippedWeapon.weaponSkill == null)
         {
             Debug.Log("Arma não possui Skill");
@@ -142,7 +162,7 @@ public class GreatAxeBehavior : MonoBehaviour
             if (enemyFSM != null)
                 enemyFSM.DoDamage(damage + playerStatus.damage);
 
-            GameManager.Instance.TriggerSlowMotion(0.1f, 0.2f);
+            //GameManager.Instance.TriggerSlowMotion(0.1f, 0.2f);
         }
     }
 }

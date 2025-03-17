@@ -59,6 +59,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Ressurect()
     {
+        Debug.Log("Ressucitou");
         playerIsDeath = false;
         Checkpoint activeCheckpoint = null;
 

@@ -44,8 +44,13 @@ public class SwordBehavior : MonoBehaviour
 
     public void ExecuteSwordAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -75,8 +80,13 @@ public class SwordBehavior : MonoBehaviour
 
     public void ExecuteSwordDashAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -106,8 +116,13 @@ public class SwordBehavior : MonoBehaviour
 
     public void ExecuteSwordJumpAttack(bool canAttack, float resourceCost, Animator weaponAnim, Animator leftHandAnim)
     {
-        if (canAttack && playerStatus.currentStamina >= resourceCost)
+        if (canAttack)
         {
+            if (playerStatus.currentStamina < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("stamina");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -137,7 +152,12 @@ public class SwordBehavior : MonoBehaviour
 
     public void UseSwordSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill() || !chargedAttack || playerStatus.currentStamina < resourceCost || !canAttack) return;
+        if (!cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
+        if (playerStatus.currentStamina < resourceCost)
+        {
+            HudManager.Instance.InsuficientResourceWarn("stamina");
+            return;
+        }
         if (InventoryManager.Instance.equippedWeapon.weaponSkill == null)
         {
             Debug.Log("Arma não possui Skill");
@@ -210,8 +230,6 @@ public class SwordBehavior : MonoBehaviour
 
             if (enemyFSM != null)
                 enemyFSM.DoDamage(damage + playerStatus.damage);
-
-            GameManager.Instance.TriggerSlowMotion();
         }
     }
 }

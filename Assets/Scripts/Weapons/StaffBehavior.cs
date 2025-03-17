@@ -25,8 +25,13 @@ public class StaffBehavior : MonoBehaviour
     //Common Attacks
     public void ExecuteStaffAttack(bool canAttack, float resourceCost, bool chargedAttack,Animator weaponAnim, Animator leftHandAnim)
     {
-        if (canAttack && playerStatus.currentMana >= resourceCost && !chargedAttack)
+        if (canAttack && !chargedAttack)
         {
+            if (playerStatus.currentMana < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("mana");
+                return;
+            }
             switch (attackSequence)
             {
                 case 1:
@@ -53,20 +58,36 @@ public class StaffBehavior : MonoBehaviour
     //Special Habilities
     public void UseMagicBeam(bool chargedAttack, float resourceCost, Animator weaponAnim)
     {
-        if (chargedAttack && playerStatus.currentMana >= resourceCost)
+        if (chargedAttack)
         {
-            if (!usingBeam) // Garante que a Coroutine não rode múltiplas vezes
+            if (playerStatus.currentMana < resourceCost)
+            {
+                if (usingBeam)
+                {
+                    usingBeam = false;
+                    weaponAnim.SetBool("ChargingAttack", false);
+                }
+                HudManager.Instance.InsuficientResourceWarn("mana");
+                return;
+            }
+
+            if (!usingBeam)
             {
                 usingBeam = true;
                 StartCoroutine(HandleChargingBeam(resourceCost));
             }
+
             weaponAnim.SetBool("ChargingAttack", true);
         }
         else
         {
-            usingBeam = false; // Isso faz a Coroutine parar no próximo loop
-            weaponAnim.SetBool("ChargingAttack", false);
+            if (usingBeam)
+            {
+                usingBeam = false;
+                weaponAnim.SetBool("ChargingAttack", false);
+            }
         }
+
     }
 
     private IEnumerator HandleChargingBeam(float resourceCost)

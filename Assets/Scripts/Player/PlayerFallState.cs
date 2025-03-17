@@ -12,10 +12,13 @@ public class PlayerFallState : IState
     private readonly WeaponBehavior _weaponBehavior;
 
     private float verticalVelocity;
+    private float fallTimer;
 
-    public PlayerFallState(StateMachine fsm, InputHandler inputHandler, 
-        CharacterController controller, Transform playerTransform, 
-        Transform cameraTransform, PlayerStatus playerStatus, 
+    private const float minFallTimeForDamage = 1f;
+
+    public PlayerFallState(StateMachine fsm, InputHandler inputHandler,
+        CharacterController controller, Transform playerTransform,
+        Transform cameraTransform, PlayerStatus playerStatus,
         Animator animator, WeaponBehavior weaponBehavior)
     {
         _fsm = fsm;
@@ -31,15 +34,20 @@ public class PlayerFallState : IState
     public void OnEnter()
     {
         verticalVelocity = 0;
+        fallTimer = 0f;
         _animator.SetBool("isFalling", true);
     }
+
     public void OnExit()
     {
         _animator.SetBool("isFalling", false);
     }
+
     public void OnFixedTick() { }
+
     public void OnTick()
     {
+        fallTimer += Time.deltaTime;
         PerformJumpAttack();
         MoveWhileFalling();
         Falling();
@@ -57,8 +65,8 @@ public class PlayerFallState : IState
     {
         Vector2 input = _inputHandler.moveInput;
         Vector3 move = new Vector3(input.x, 0, input.y);
-        move = _playerTransform.TransformDirection(move); // Faz com que a rotação do jogador seja a mesma da rotação da câmera
-        if(_controller.enabled) { _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed); }
+        move = _playerTransform.TransformDirection(move);
+        if (_controller.enabled) { _controller.Move(move * Time.deltaTime * _playerStatus.actualSpeed); }
     }
 
     private void PerformJumpAttack()
@@ -70,14 +78,33 @@ public class PlayerFallState : IState
                 _inputHandler.attackInput = false;
                 _weaponBehavior.jumpAttack = true;
             }
-
-            _inputHandler.attackInput = false; //Mantem o attackInput zerado, pra não guardar Inputs de ataque.
+            _inputHandler.attackInput = false;
         }
+    }
+
+    public float GetFallDuration()
+    {
+        return fallTimer;
+    }
+
+    private void ApplyFallDamage(float time)
+    {
+        if (time < minFallTimeForDamage) return;
+        float damagePercent = Mathf.Clamp01(time / 2f);
+        float damage = damagePercent * _playerStatus.maxHp;
+        PlayerManager.Instance.DoDamage(damage);
+        Debug.Log("Dano de queda: " + damage);
     }
 
     private void StateChange()
     {
         if (_controller.isGrounded)
+        {
+            float fallTime = GetFallDuration();
+            ApplyFallDamage(fallTime);
+        }
+
+        if (_controller.isGrounded && _fsm.CurrentState is not PlayerDeathState)
         {
             SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.landingSound);
             _fsm.SetState("Idle");

@@ -24,8 +24,13 @@ public class MagicBookBehavior : MonoBehaviour
         if (!cooldownController.CanUseMagic()) return;
 
 
-        if (canUseSkill && playerStatus.currentMana >= resourceCost)
+        if (canUseSkill)
         {
+            if (playerStatus.currentMana < resourceCost)
+            {
+                HudManager.Instance.InsuficientResourceWarn("mana");
+                return;
+            }
             secondaryAnim.SetTrigger("bookAttack");
             cooldownController.StartMagicCooldown();
         }
