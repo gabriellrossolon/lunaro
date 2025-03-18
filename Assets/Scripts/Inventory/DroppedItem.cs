@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using static ItemBase;
 
@@ -7,6 +8,8 @@ public class DroppedItem : MonoBehaviour, IInteractable
     public float maxDistance = 2f;
     private GameObject player;
     private Rigidbody rb;
+    [SerializeField] private GameObject dropInfos;
+    private TextMeshProUGUI dropName;
 
     private ParticleSystem[] particles;
     private Light itemLight;
@@ -43,11 +46,19 @@ public class DroppedItem : MonoBehaviour, IInteractable
             Vector3 randomRotation = new Vector3(0f, Random.Range(-1f, 1f), 0f); // Somente rotação no eixo Y
             rb.AddTorque(randomRotation, ForceMode.Impulse);
         }
+
+        if (dropInfos != null)
+        {
+            dropName = dropInfos.GetComponentInChildren<TextMeshProUGUI>();
+            dropName.text = item.itemName;
+            dropName.color = GetRarityColor(item.itemRarity);
+        }
     }
 
     private void Update()
     {
         UpdateVisuals();
+        ControlDropCanvas();
     }
 
     public void Interact()
@@ -110,6 +121,26 @@ public class DroppedItem : MonoBehaviour, IInteractable
             case ItemRarity.Epic: return new Color(0.6f, 0.1f, 0.6f);
             case ItemRarity.Legendary: return Color.yellow;
             default: return Color.gray;
+        }
+    }
+
+    private void ControlDropCanvas()
+    {
+        if (PlayerManager.Instance != null && dropInfos != null)
+        {
+            float distance = Vector3.Distance(PlayerManager.Instance.transform.position, transform.position);
+
+            if (distance <= 15f)
+            {
+                dropInfos.SetActive(true);
+                dropInfos.transform.position = transform.position + new Vector3(0, 1f, 0);
+                Vector3 lookDirection = PlayerManager.Instance.transform.position - dropInfos.transform.position;
+                dropInfos.transform.rotation = Quaternion.LookRotation(lookDirection);
+            }
+            else
+            {
+                dropInfos.SetActive(false);
+            }
         }
     }
 }

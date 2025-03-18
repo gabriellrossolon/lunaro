@@ -40,6 +40,7 @@ public class PlayerFSM : MonoBehaviour
         _fsm.AddState("Idle", new PlayerIdleState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV));
         _fsm.AddState("Move", new PlayerMoveState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController));
         _fsm.AddState("Jump", new PlayerJumpState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _cooldownController, _animator, _weaponBehavior));
+        _fsm.AddState("Slip", new PlayerSlipState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController));
         _fsm.AddState("Fall", new PlayerFallState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _animator, _weaponBehavior));
         _fsm.AddState("Combat", new PlayerCombatState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController, _weaponBehavior, _secondaryBehavior));
         _fsm.AddState("Dash", new PlayerDashState(_fsm, _inputHandler, _controller, _playerTransform, _cooldownController, _dashParticle, _animator, _handsPOV, _playerStatus, _weaponBehavior));
