@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FullScreenShaderGraph
+  m_Name: FullScreenShaderDamage
   m_Shader: {fileID: -6465566751694194690, guid: 7bc5ed74f5167194581e5751c485ae86, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -42,7 +42,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BreathFrequency: 3
-    - _BreathIntensity: 0.1
+    - _BreathIntensity: 0.7
     - _Fullscreen_AlphaBlendOperation: 0
     - _Fullscreen_BlendMode: 1
     - _Fullscreen_ColorBlendOperation: 0
