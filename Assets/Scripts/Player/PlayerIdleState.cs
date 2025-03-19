@@ -55,5 +55,15 @@ public class PlayerIdleState : IState
 
         if (_inputHandler.jumpInput && _controller.isGrounded)
             _fsm.SetState("Jump");
+
+        Debug.DrawRay(_playerTransform.position, Vector3.down * 1.5f, Color.red);
+        if (_controller.isGrounded && Physics.SphereCast(_playerTransform.position, 0.4f, Vector3.down, out RaycastHit hit, 1.5f))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("NonWalkable"))
+            {
+                _fsm.SetState("Slip");
+            }
+        }
+
     }
 }
