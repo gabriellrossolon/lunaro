@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "2ae8a539-8c44-4daf-acfd-1fddbfdc00ac",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Block",
                     "type": "Button",
                     "id": "b24f03ab-d594-4946-b406-6b331b218f87",
@@ -268,6 +277,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0716b2a3-7473-45a8-9425-4878dd780477",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

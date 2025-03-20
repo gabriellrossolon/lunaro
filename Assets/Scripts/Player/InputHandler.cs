@@ -9,6 +9,7 @@ public class InputHandler : MonoBehaviour
     public bool jumpInput;
     public bool attackInput;
     public bool attackChargingInput;
+    public bool leftClickIput;
     public bool blockInput;
     public bool dashInput;
     public bool spellInput;
@@ -59,6 +60,16 @@ public class InputHandler : MonoBehaviour
 
         float value = context.ReadValue<float>();
         attackChargingInput = value > 0.1f;
+    }
+
+    public void OnLeftPressed(InputAction.CallbackContext context)
+    {
+        if (lockAction) return;
+
+        if (context.phase == InputActionPhase.Started)
+        {
+            leftClickIput = true;
+        }
     }
 
     public void OnBlock(InputAction.CallbackContext context)

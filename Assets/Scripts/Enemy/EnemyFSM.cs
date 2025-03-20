@@ -78,6 +78,8 @@ public class EnemyFSM : MonoBehaviour
 
     public void DoDamage(float damage)
     {
+        if (_fsm.CurrentState is EnemyDeathState) return;
+
         _enemyStats.currentHp -= damage;
 
         if (_enemyStats.currentHp <= 0)

@@ -168,6 +168,6 @@ public class PlayerStatus : MonoBehaviour
     public void ControlGold(float value)
     {
         playerGold += value;
-        HudManager.Instance.shortcutsAnim.SetTrigger("enterGold");
+        HudManager.Instance.GoldNotification(value);
     }
 }

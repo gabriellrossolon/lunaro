@@ -63,24 +63,13 @@ public class DroppedItem : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+        HudManager.Instance.RefreshItemShow(item);
 
-        if (distance <= maxDistance)
-        {
-            HudManager.Instance.RefreshItemShow(item);
-            HudManager.Instance.itemShow.SetActive(true);
-            HudManager.Instance.warnBtn.SetActive(true);
-            SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.itemPickupSound);
-            player.GetComponentInChildren<SecondaryBehavior>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.itemPickupSound);
+        player.GetComponentInChildren<SecondaryBehavior>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
 
-            InventoryManager.Instance.AddItem(item);
-            Destroy(gameObject);
-        }
-        else
-        {
-            HudManager.Instance.warnBtn.SetActive(false);
-            HudManager.Instance.itemShow.SetActive(false);
-        }
+        InventoryManager.Instance.AddItem(item);
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

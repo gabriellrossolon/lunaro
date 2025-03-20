@@ -48,10 +48,11 @@ public class EnemyDeathState : IState
         SetupBonesForRagdoll();
         DisableComponents();
         _animator.SetTrigger("death");
-        PlayerManager.Instance.playerStatus.ControlGold(_enemyStats.goldCarryed);
         _enemyManager.DropXp();
 
         _enemyEffects.CallDeathParticle();
+
+        _enemyFSM.gameObject.layer = LayerMask.NameToLayer("Interactable");
     }
 
     public void OnExit() { }
@@ -93,7 +94,6 @@ public class EnemyDeathState : IState
     {
         foreach (var component in new Component[]
         {
-        _transform.GetComponent<CapsuleCollider>(),
         _transform.GetComponent<BoxCollider>(),
         _transform.GetComponent<Rigidbody>(),
         _agent,
@@ -112,6 +112,10 @@ public class EnemyDeathState : IState
             else if (component is Behaviour behaviour)
             {
                 behaviour.enabled = false;
+            }
+            else if (component is Rigidbody rb)
+            {
+                rb.isKinematic = true;
             }
         }
     }

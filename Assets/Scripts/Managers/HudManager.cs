@@ -64,8 +64,6 @@ public class HudManager : MonoBehaviour
 
     [Header("Hotbar References")]
     public TextMeshProUGUI potionCount;
-    public GameObject shortcuts;
-    [HideInInspector] public Animator shortcutsAnim;
 
     public Slider dashCooldownSlider;
     public Image dashImage;
@@ -103,11 +101,15 @@ public class HudManager : MonoBehaviour
     private float _transitionDuration = 0.5f;
     private float _transitionTime = 0f;
 
+    [Header("Notifications")]
+    [SerializeField] private GameObject notificationField;
+    [SerializeField] private GameObject goldNotification;
+
+
     private void Start()
     {
         playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         levelBehavior = PlayerManager.Instance.GetComponent<LevelBehavior>();
-        shortcutsAnim = shortcuts.GetComponent<Animator>();
 
         UpdateHUDLevel();
         UpdateHUDStats();
@@ -535,5 +537,12 @@ public class HudManager : MonoBehaviour
 
         if(resource == "stamina")
             statusBarAnim.SetTrigger("noStamina");
+    }
+
+    public void GoldNotification(float value)
+    {
+        var goldNotif = Instantiate(goldNotification, notificationField.transform.position, Quaternion.identity, notificationField.transform);
+        goldNotif.GetComponentInChildren<TextMeshProUGUI>().text = $"<color=#FFD700>Gold ({value})</color> <color=#FAF4F4>received</color>";
+        Destroy(goldNotif, 5f);
     }
 }

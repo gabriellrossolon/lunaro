@@ -23,18 +23,7 @@ public class StashBehavior : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distance <= maxDistance)
-        {
-            HudManager.Instance.warnBtn.SetActive(true);
-            HudManager.Instance.OpenStashUI();
-        }
-        else
-        {
-            HudManager.Instance.warnBtn.SetActive(false);
-            HudManager.Instance.itemShow.SetActive(false);
-        }
+        HudManager.Instance.OpenStashUI();
     }
 }
 

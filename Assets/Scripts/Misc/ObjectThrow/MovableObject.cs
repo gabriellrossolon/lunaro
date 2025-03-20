@@ -13,6 +13,7 @@ public class MovableObject : MonoBehaviour, IInteractable
     private TempParent tempParent;
     private Rigidbody rb;
     private GameObject player;
+    private InputHandler inputHandler;
     public GameObject collisionParticle;
     public GameObject destroyParticle;
     public AudioClip destroySound;
@@ -24,12 +25,11 @@ public class MovableObject : MonoBehaviour, IInteractable
         rb = GetComponent<Rigidbody>();
         tempParent = TempParent.Instance;
         player = PlayerManager.Instance.gameObject;
+        inputHandler = player.GetComponent<InputHandler>();
     }
 
     private void Update()
     {
-        distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
-
         if (isHolding)
         {
             Hold();
@@ -39,16 +39,13 @@ public class MovableObject : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (distance <= maxDistance)
+        if (!isHolding)
         {
-            if (!isHolding)
-            {
-                StartHolding();
-            }
-            else
-            {
-                Drop();
-            }
+            StartHolding();
+        }
+        else
+        {
+            Drop();
         }
     }
 
@@ -66,14 +63,16 @@ public class MovableObject : MonoBehaviour, IInteractable
     {
         distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
 
-        if (distance >= maxDistance)
-            Drop();
+        //if (distance >= maxDistance)
+        //    Drop();
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        if (Input.GetMouseButtonDown(0)) // Arremessar com o botão esquerdo do mouse
+        if (inputHandler.leftClickIput) // Arremessar com o botão esquerdo do mouse
         {
+            inputHandler.leftClickIput = false;
+            Debug.Log("Item arremesado");
             isThrown = true;
             rb.AddForce(tempParent.transform.forward * throwForce);
             SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.objectThrowSound);

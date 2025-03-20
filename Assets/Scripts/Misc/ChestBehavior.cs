@@ -45,20 +45,17 @@ public class ChestBehavior : MonoBehaviour, IInteractable
 
         if (distance <= maxDistance)
         {
-            HudManager.Instance.warnBtn.SetActive(true);
             OpenChest();
         }
         else
         {
-            HudManager.Instance.warnBtn.SetActive(false);
-            HudManager.Instance.itemShow.SetActive(false);
+
         }
     }
 
     public void OpenChest()
     {
-        if (chestCollider != null)
-            chestCollider.enabled = false;
+        DisableBehavior();
 
         animator.SetTrigger("Open");
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.chestOpeningSound);
@@ -80,13 +77,18 @@ public class ChestBehavior : MonoBehaviour, IInteractable
 
             yield return new WaitForSeconds(0.5f);
         }
-
-        DisableChestBehavior();
     }
 
-    private void DisableChestBehavior()
+    private void DisableBehavior()
     {
-        enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Default");
+
+        var outlines = GetComponentsInChildren<Outline>();
+        foreach(var outline in outlines)
+            outline.enabled = false;
+
+        if (chestCollider != null)
+            chestCollider.enabled = false;
     }
 
     private void OnMouseExit()
