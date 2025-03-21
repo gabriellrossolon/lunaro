@@ -781,6 +781,8 @@ GameObject:
   - component: {fileID: 6555944975268510026}
   - component: {fileID: 1408417776054671864}
   - component: {fileID: 6072792693491138476}
+  - component: {fileID: 498188645804697035}
+  - component: {fileID: 2839990180015443919}
   m_Layer: 0
   m_Name: Hips
   m_TagString: Untagged
@@ -854,6 +856,43 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &498188645804697035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228204047293685615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde0a508aa9a12f4bac8dd87468e6e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 2
+  gold: 0
+--- !u!136 &2839990180015443919
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228204047293685615}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 960
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1305222375409324988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,6 +2542,7 @@ MonoBehaviour:
   gruntPitchRange: {x: 1.2, y: 1.4}
   stepPitchRange: {x: 1, y: 1}
   attackImpactFx: {fileID: 4021103657954561961, guid: a26e2f7716c99d4479f0ec4e9eec4f4c, type: 3}
+  glowShader: {fileID: 2100000, guid: bf4ba61424d18df4ab54b3175e6f0cb8, type: 2}
   attackSound: {fileID: 8300000, guid: 8f4145a2be3c6094ca4a14d28f6230e4, type: 3}
   attackImpactSound: {fileID: 8300000, guid: 049af9b7b2c2143449d180d41f4df9c5, type: 3}
   enemyGrunt: {fileID: 8300000, guid: f0b4f5599cae7bd4786b42d2492b3d25, type: 3}

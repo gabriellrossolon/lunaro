@@ -52,7 +52,13 @@ public class EnemyDeathState : IState
 
         _enemyEffects.CallDeathParticle();
 
-        _enemyFSM.gameObject.layer = LayerMask.NameToLayer("Interactable");
+        var looteable = _enemyFSM.gameObject.GetComponentsInChildren<LooteableBehavior>(true);
+        foreach (var item in looteable)
+        {
+            item.gameObject.layer = LayerMask.NameToLayer("Interactable");
+        }
+
+        AddMaterialGlow();
     }
 
     public void OnExit() { }
@@ -94,6 +100,7 @@ public class EnemyDeathState : IState
     {
         foreach (var component in new Component[]
         {
+        _transform.GetComponent<CapsuleCollider>(),
         _transform.GetComponent<BoxCollider>(),
         _transform.GetComponent<Rigidbody>(),
         _agent,
@@ -163,5 +170,18 @@ public class EnemyDeathState : IState
 
         _agent.speed = 0;
         _agent.isStopped = true;
+    }
+
+    public void AddMaterialGlow()
+    {
+        SkinnedMeshRenderer[] skinnedMeshes = _enemyFSM.GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (var smr in skinnedMeshes)
+        {
+            Material[] materials = smr.materials;
+            Material[] newMaterials = new Material[materials.Length + 1];
+            materials.CopyTo(newMaterials, 0);
+            newMaterials[materials.Length] = _enemyEffects.glowShader;
+            smr.materials = newMaterials;
+        }
     }
 }

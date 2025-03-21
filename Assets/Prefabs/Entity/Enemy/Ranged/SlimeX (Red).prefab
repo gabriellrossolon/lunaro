@@ -1133,6 +1133,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5582351905849782181}
+  - component: {fileID: 2021841264975543534}
+  - component: {fileID: 849573375026304634}
   m_Layer: 0
   m_Name: Bone
   m_TagString: Untagged
@@ -1156,6 +1158,43 @@ Transform:
   - {fileID: 6209791488416811666}
   m_Father: {fileID: 1837975312238751036}
   m_LocalEulerAnglesHint: {x: 88.55964, y: 180, z: 180}
+--- !u!114 &2021841264975543534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619129019359833928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde0a508aa9a12f4bac8dd87468e6e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 2
+  gold: 0
+--- !u!136 &849573375026304634
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619129019359833928}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 960
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.012
+  m_Height: 0
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.005, z: 0}
 --- !u!1 &5639018412866574595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1385,7 @@ MonoBehaviour:
   _currentState: 
   _previousState: 
   isRagdoll: 0
+  hasDeathAnim: 0
 --- !u!114 &9198321504826799250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1392,6 +1432,7 @@ MonoBehaviour:
   gruntPitchRange: {x: 0.7, y: 0.9}
   stepPitchRange: {x: 0.5, y: 0.5}
   attackImpactFx: {fileID: 7646703945970319018, guid: 8111759eca9b71a4888324940f5dad98, type: 3}
+  glowShader: {fileID: 2100000, guid: bf4ba61424d18df4ab54b3175e6f0cb8, type: 2}
   attackSound: {fileID: 8300000, guid: 51da25898619527478a6d93d0c9ce785, type: 3}
   attackImpactSound: {fileID: 8300000, guid: b00828ee73bed3d4d8558b2ed957d2e3, type: 3}
   enemyGrunt: {fileID: 8300000, guid: b658ef0c77be7fa4b910cdb18d6a06f0, type: 3}

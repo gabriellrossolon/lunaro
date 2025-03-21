@@ -17,7 +17,7 @@ public class LooteableBehavior : MonoBehaviour, IInteractable
         player = PlayerManager.Instance.gameObject;
         playerStatus = player.GetComponent<PlayerStatus>();
 
-        if (GetComponent<EnemyStats>() is EnemyStats stats) //Caso o looteable em questão seja um Enemy
+        if (GetComponentInParent<EnemyStats>() is EnemyStats stats) //Caso o looteable em questão seja um Enemy
             gold = stats.goldCarryed;
     }
 

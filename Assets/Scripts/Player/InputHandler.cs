@@ -125,4 +125,9 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        interactInput = false;
+    }
+
 }

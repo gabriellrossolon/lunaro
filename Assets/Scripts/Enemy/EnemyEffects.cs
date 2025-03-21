@@ -15,7 +15,7 @@ public class EnemyEffects : MonoBehaviour
 
     [Header("VFX")]
     public GameObject attackImpactFx;
-   
+    public Material glowShader;
     
     [Header("SFX")]
     private float _originalPitch;
@@ -56,6 +56,7 @@ public class EnemyEffects : MonoBehaviour
             float randomInterval = Random.Range(4f, 10f);
             yield return new WaitForSeconds(randomInterval);
 
+            if (enemyStats.currentHp <= 0) yield break;
             _gruntSourceSource.pitch = Random.Range(gruntPitchRange.x, gruntPitchRange.y);
             _gruntSourceSource.PlayOneShot(enemyGrunt);
             yield return new WaitForSeconds(enemyGrunt.length * 3);
