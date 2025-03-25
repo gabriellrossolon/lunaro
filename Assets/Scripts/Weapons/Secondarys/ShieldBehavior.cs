@@ -8,6 +8,7 @@ public class ShieldBehavior : MonoBehaviour
 
     public AudioClip blockedAttackSound;
     public float resourceCost;
+    public int blockPercent;
 
     private void Awake()
     {

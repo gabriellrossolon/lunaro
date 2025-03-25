@@ -43,7 +43,7 @@ public class LooteableBehavior : MonoBehaviour, IInteractable
         if (GetComponentInParent<EnemyEffects>() is EnemyEffects enemyEffects)
             RemoveEnemyMaterialGlow(enemyEffects);
         else
-            RemoveObjectMaterialGlow();
+            DeactiveObjectGlow();
 
 
         enabled = false;
@@ -70,24 +70,13 @@ public class LooteableBehavior : MonoBehaviour, IInteractable
         }
     }
 
-    public void RemoveObjectMaterialGlow()
+    public void DeactiveObjectGlow()
     {
-        MeshRenderer[] skinnedMeshes = GetComponents<MeshRenderer>();
-
-        foreach (var mr in skinnedMeshes)
+        Transform glowMesh = transform.Find("GlowMesh");
+        if (glowMesh != null)
         {
-            Material[] materials = mr.materials;
-
-            Material[] newMaterials = new Material[materials.Length - 1];
-            for (int i = 0, j = 0; i < materials.Length; i++)
-            {
-                if (i != 1)
-                {
-                    newMaterials[j++] = materials[i];
-                }
-            }
-
-            mr.materials = newMaterials;
+            MeshRenderer meshRend = glowMesh.GetComponent<MeshRenderer>();
+            meshRend.gameObject.SetActive(false);
         }
     }
 }

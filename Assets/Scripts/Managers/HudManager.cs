@@ -316,6 +316,7 @@ public class HudManager : MonoBehaviour
                     itemType.text = "Shield";
                     resourceText = shield.blockResourceCost.ToString();
                     itemResourceCost.text = resourceText + " Stamina to Block";
+                    itemDmg.text = shield.blockPercentValue + "% Damage Blocked";
                     break;
                 case Orb orb:
                     itemType.text = "Magical Orb";

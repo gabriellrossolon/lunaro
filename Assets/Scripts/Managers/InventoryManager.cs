@@ -511,6 +511,7 @@ public class InventoryManager : MonoBehaviour
             if (equippedSecondary is Shield shield)
             {
                 secondaryBehavior.resourceCost = shield.blockResourceCost;
+                shieldBehavior.blockPercent = shield.blockPercentValue;
                 shieldBehavior.blockedAttackSound = shield.blockSound;
             }
         }

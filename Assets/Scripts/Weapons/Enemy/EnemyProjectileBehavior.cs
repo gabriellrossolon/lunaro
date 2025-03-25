@@ -32,6 +32,7 @@ public class EnemyProjectileBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       
         if (!attackBlockedByPlayer && other.gameObject.CompareTag("Shield"))
         {
             weaponBehavior._enemySoundSource.PlayOneShot(other.GetComponent<ShieldBehavior>().blockedAttackSound);
@@ -44,6 +45,13 @@ public class EnemyProjectileBehavior : MonoBehaviour
             weaponBehavior._enemySoundSource.PlayOneShot(weaponBehavior._enemEffects.attackImpactSound);
             PlayerManager.Instance.DoDamage(damage);
             Instantiate(weaponBehavior._enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
+        }
+
+        if (!other.gameObject.CompareTag("Player"))
+        {
+            Destroy(this);
+            weaponBehavior._enemySoundSource.PlayOneShot(weaponBehavior._enemEffects.attackImpactSound);
+            Instantiate(weaponBehavior._enemEffects.attackImpactFx, other.transform.position, Quaternion.identity);
         }
     }
 }

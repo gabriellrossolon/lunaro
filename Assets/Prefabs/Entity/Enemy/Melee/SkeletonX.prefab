@@ -644,12 +644,12 @@ MonoBehaviour:
   patrolRadius: 10
   attackRange: 0
   attackOneRange: 2.2
-  attackTwoRange: 2.4
+  attackTwoRange: 2.6
   attackThreeRange: 4.2
   patrolSpeed: 2
   chaseSpeed: 3
   retreatSpeed: 3
-  retreatDistance: {x: 0, y: 1}
+  retreatDistance: {x: 0.5, y: 1}
   attackDamage: 3
   maxHp: 12
   currentHp: 0
@@ -2622,6 +2622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 2
+  goldRange: {x: 0, y: 0}
   gold: 0
 --- !u!136 &2565698696954902527
 CapsuleCollider:
@@ -2759,7 +2760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8121888793195907342}
   - component: {fileID: 9085332898643728461}
-  - component: {fileID: 9046411128548977044}
+  - component: {fileID: 6869671113217586780}
   m_Layer: 0
   m_Name: KickCollider
   m_TagString: Untagged
@@ -2805,8 +2806,8 @@ MonoBehaviour:
   projectileExit: {fileID: 0}
   damage: 0
   attackBlockedByPlayer: 0
---- !u!135 &9046411128548977044
-SphereCollider:
+--- !u!65 &6869671113217586780
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2824,7 +2825,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 0.25
+  m_Size: {x: 0.2, y: 0.3, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4882009289214069000
 GameObject:
@@ -3129,8 +3130,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.40749842, y: 1.6470829, z: 0.08534314}
-  m_Center: {x: -0.0018704649, y: 0.23931688, z: 0.000000042353143}
+  m_Size: {x: 0.40749842, y: 1.9132268, z: 0.085343145}
+  m_Center: {x: -0.0018704897, y: 0.10624507, z: 0.000000041765905}
 --- !u!1 &6013058525302590428
 GameObject:
   m_ObjectHideFlags: 0

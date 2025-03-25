@@ -69,8 +69,24 @@ public class SecondaryBehavior : MonoBehaviour
             case SecondaryType.Shield:
                 shieldBeh.UseBlock(blocking, secondaryAnim);
 
-                blocking = blockInput && playerStatus.currentStamina >= resourceCost;
-                break;
+                if (blockInput)
+                {
+                    if (playerStatus.currentStamina < resourceCost)
+                    {
+                        HudManager.Instance.InsuficientResourceWarn("stamina");
+                        blocking = false;
+                        return;
+                    }
+                    else
+                    {
+                        blocking = true;
+                    }
+                }
+                else
+                {
+                    blocking = false;
+                }
+                    break;
         }
     }
 

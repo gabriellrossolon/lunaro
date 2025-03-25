@@ -4,6 +4,7 @@ public class WeaponBehavior : MonoBehaviour
 {
     [Header("References")]
     private PlayerStatus playerStatus;
+    [SerializeField] private SecondaryBehavior secBehav;
     [SerializeField] private Animator leftHandAnim;
     public Animator armBonesAnim;
     private Animator weaponAnim;
@@ -67,6 +68,12 @@ public class WeaponBehavior : MonoBehaviour
 
     private void ChooseAttack()
     {
+        if (secBehav.blocking)
+        {
+            attack = false;
+            return;
+        }
+
         if (attack) // Normal attack
         {
             switch (weaponType)
@@ -186,6 +193,8 @@ public class WeaponBehavior : MonoBehaviour
     // Special Attack Control
     private void ControlSpecialAttacks()
     {
+        if (secBehav.blocking) return;
+
         switch (weaponType) //Esse case controla a chamada da Animação que chama o event CallSpecialHability
         {
             case WeaponType.Sword:

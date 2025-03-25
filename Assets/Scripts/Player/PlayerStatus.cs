@@ -30,8 +30,10 @@ public class PlayerStatus : MonoBehaviour
     public bool canRegenHp = true;
     public float staminaRegenRate = 10f;
     public bool canRegenStamina = true;
+    [SerializeField] private float staminaRegenDelay = 0.5f;
     public float manaRegenRate = 10f;
     public bool canRegenMana = true;
+    [SerializeField] private float manaRegenDelay = 0.5f;
 
     [Header("Misc Stats")]
     public float playerGold;
@@ -107,6 +109,7 @@ public class PlayerStatus : MonoBehaviour
 
     //Funções que controlam as regenerações dos Status do jogador:
 
+    //Regens
     private void HpRegen()
     {
         if (canRegenHp && currentHp < maxHp)
@@ -115,7 +118,6 @@ public class PlayerStatus : MonoBehaviour
         if (currentHp > maxHp)
             currentHp = maxHp;
     }
-
     private void StaminaRegen()
     {
         if (canRegenStamina)
@@ -124,13 +126,6 @@ public class PlayerStatus : MonoBehaviour
             currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
         }
     }
-
-    private IEnumerator ReenableStaminaRegen()
-    {
-        yield return new WaitForSeconds(1.5f);
-        canRegenStamina = true;
-    }
-
     private void ManaRegen()
     {
         if (canRegenMana && currentMana < maxMana)
@@ -146,8 +141,15 @@ public class PlayerStatus : MonoBehaviour
         if (currentStamina >= value)
         {
             currentStamina -= value;
-            canRegenStamina = true;
+            canRegenStamina = false;
+            StartCoroutine(RegenStaminaDelay());
         }
+    }
+
+    private IEnumerator RegenStaminaDelay()
+    {
+        yield return new WaitForSeconds(staminaRegenDelay);
+        canRegenStamina = true;
     }
 
     public void DrainStaminaPerSecond(float value)
@@ -161,9 +163,18 @@ public class PlayerStatus : MonoBehaviour
         if (currentMana >= value)
         {
             currentMana -= value;
+            canRegenMana = false;
+            StartCoroutine(RegenManaDelay());
         }
     }
-   
+
+    private IEnumerator RegenManaDelay()
+    {
+        yield return new WaitForSeconds(manaRegenDelay);
+        canRegenMana = true;
+    }
+
+
     //Controle de Gold
     public void ControlGold(float value)
     {

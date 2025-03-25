@@ -6,7 +6,6 @@ public class MovableObject : MonoBehaviour, IInteractable
     public bool isThrown = false; // Flag para verificar se o objeto foi arremessado
 
     [SerializeField] private float throwForce = 600f;
-    [SerializeField] private float maxDistance = 3f;
     [SerializeField] private float damage = 2f;
     private float distance;
 
@@ -52,7 +51,7 @@ public class MovableObject : MonoBehaviour, IInteractable
     private void StartHolding()
     {
         isHolding = true;
-        isThrown = false; // Resetar o estado de arremesso
+        isThrown = false;
         rb.useGravity = false;
         rb.detectCollisions = true;
 
@@ -69,10 +68,8 @@ public class MovableObject : MonoBehaviour, IInteractable
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        if (inputHandler.leftClickIput) // Arremessar com o botão esquerdo do mouse
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            inputHandler.leftClickIput = false;
-            Debug.Log("Item arremesado");
             isThrown = true;
             rb.AddForce(tempParent.transform.forward * throwForce);
             SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.objectThrowSound);

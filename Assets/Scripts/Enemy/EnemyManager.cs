@@ -80,7 +80,8 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void ActiveWeaponCollider()
+
+    public void ActiveWeaponCollider() //Chamado pelo Animation
     {
         _enemyWeaponBehavior.CallCollider();
     }

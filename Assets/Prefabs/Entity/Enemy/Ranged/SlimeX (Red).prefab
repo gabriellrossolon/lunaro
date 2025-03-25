@@ -1171,6 +1171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 2
+  goldRange: {x: 0, y: 0}
   gold: 0
 --- !u!136 &849573375026304634
 CapsuleCollider:
@@ -1360,7 +1361,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.774709, y: -2.4635015, z: 33.052242}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6257771014975306420}

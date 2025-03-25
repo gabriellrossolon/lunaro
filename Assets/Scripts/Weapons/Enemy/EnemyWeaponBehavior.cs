@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-
 public class EnemyWeaponBehavior : MonoBehaviour
 {
     public enum WeaponType { Empty, Sword, Staff}
@@ -44,26 +43,32 @@ public class EnemyWeaponBehavior : MonoBehaviour
 
         if (_coll != null)
             _coll.enabled = colliderEnabled;
-
-        if (colliderEnabled == false)
-            attackBlockedByPlayer = false;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (!attackBlockedByPlayer && other.gameObject.CompareTag("Shield"))
         {
-            _enemySoundSource.PlayOneShot(other.GetComponent<ShieldBehavior>().blockedAttackSound);
-            Instantiate(_enemEffects.attackImpactFx, other.transform.position, Quaternion.identity);
-            other.GetComponent<ShieldBehavior>().ConsumeStamina();
+            _enemySoundSource.PlayOneShot(other.GetComponent<ShieldBehavior>().blockedAttackSound); //Toca o audio de bloqueio do escudo
+            Instantiate(_enemEffects.attackImpactFx, other.transform.position, Quaternion.identity); //Instancia a particula de colisão com o escudo
+            other.GetComponent<ShieldBehavior>().ConsumeStamina(); //Consome a Stamina do jogador (Stamina por bloquear)
             attackBlockedByPlayer = true; // Marca o ataque como bloqueado
         }
-        else if (!attackBlockedByPlayer && other.gameObject.CompareTag("Player"))
+        else if (other.gameObject.CompareTag("Player"))
         {
+            if (attackBlockedByPlayer)
+            {
+                PlayerManager.Instance.DoDamage(damage * (1f - (other.GetComponentInChildren<ShieldBehavior>().blockPercent / 100f)));
+                return;
+            }
+            else
+            {
+                PlayerManager.Instance.DoDamage(damage);
+            }
+
             if (alreadyTriggered) return;
             alreadyTriggered = true;
 
             _enemySoundSource.PlayOneShot(_enemEffects.attackImpactSound);
-            PlayerManager.Instance.DoDamage(damage);
             Instantiate(_enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
 
             StartCoroutine(ResetTrigger());

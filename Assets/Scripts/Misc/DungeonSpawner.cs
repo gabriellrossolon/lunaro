@@ -4,30 +4,16 @@ using UnityEngine;
 public class DungeonSpawner : MonoBehaviour
 {
     [Header("Configurações de Spawn")]
-    public List<GameObject> enemyPrefabs;
+    public List<GameObject> highChanceEnemies;
+    public List<GameObject> mediumChanceEnemies;
+    public List<GameObject> lowChanceEnemies;
 
     private List<Transform> spawnPoints = new List<Transform>();
-    private List<GameObject> activeEnemies = new List<GameObject>();
-
-    [Header("Especific Number Spawner")]
-    [SerializeField] private bool specificNumberSpawner;
-    public int numberOfEnemiesToSpawn = 0;
-
-    [Header("Continuous Spawner")]
-    [SerializeField] private bool continousSpawner;
 
     private void Start()
     {
         FindSpawnPoints();
         SpawnEnemies();
-    }
-
-    private void Update()
-    {
-        if (continousSpawner && AllEnemiesDestroyed())
-        {
-            SpawnEnemies();
-        }
     }
 
     private void FindSpawnPoints()
@@ -41,50 +27,46 @@ public class DungeonSpawner : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        if (enemyPrefabs.Count == 0 || spawnPoints.Count == 0)
+        if ((highChanceEnemies.Count == 0 && mediumChanceEnemies.Count == 0 && lowChanceEnemies.Count == 0) || spawnPoints.Count == 0)
             return;
 
-        activeEnemies.Clear();
-
-        if (specificNumberSpawner)
+        foreach (var spawnPoint in spawnPoints)
         {
-            // Spawn a specific number of enemies at random spawn points
-            HashSet<int> usedSpawnPoints = new HashSet<int>();
+            GameObject enemyToSpawn = ChooseEnemyByChance();
+            Instantiate(enemyToSpawn, spawnPoint.position, Quaternion.identity);
+        }
+    }
 
-            for (int i = 0; i < numberOfEnemiesToSpawn; i++)
-            {
-                GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-                int randomSpawnIndex;
+    private GameObject ChooseEnemyByChance()
+    {
+        List<List<GameObject>> validLists = new List<List<GameObject>>();
 
-                // Ensure we don't reuse the same spawn point
-                do
-                {
-                    randomSpawnIndex = Random.Range(0, spawnPoints.Count);
-                } while (usedSpawnPoints.Contains(randomSpawnIndex) && usedSpawnPoints.Count < spawnPoints.Count);
+        if (highChanceEnemies.Count > 0)
+            validLists.Add(highChanceEnemies);
+        if (mediumChanceEnemies.Count > 0)
+            validLists.Add(mediumChanceEnemies);
+        if (lowChanceEnemies.Count > 0)
+            validLists.Add(lowChanceEnemies);
 
-                usedSpawnPoints.Add(randomSpawnIndex);
-                Transform spawnPoint = spawnPoints[randomSpawnIndex];
+        if (validLists.Count == 0)
+            return null;
 
-                GameObject spawnedEnemy = Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
-                activeEnemies.Add(spawnedEnemy);
-            }
+        float randomChance = Random.Range(0f, 1f);
+        List<GameObject> selectedList;
+
+        if (randomChance < 0.50f && validLists.Contains(highChanceEnemies))
+        {
+            selectedList = highChanceEnemies;
+        }
+        else if (randomChance < 0.85f && validLists.Contains(mediumChanceEnemies))
+        {
+            selectedList = mediumChanceEnemies;
         }
         else
         {
-            // Spawn one enemy per spawn point
-            foreach (var spawnPoint in spawnPoints)
-            {
-                GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-                GameObject spawnedEnemy = Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
-                activeEnemies.Add(spawnedEnemy);
-            }
+            selectedList = lowChanceEnemies;
         }
-    }
 
-    private bool AllEnemiesDestroyed()
-    {
-        activeEnemies.RemoveAll(enemy => enemy == null);
-        return activeEnemies.Count == 0;
+        return selectedList[Random.Range(0, selectedList.Count)];
     }
 }
-

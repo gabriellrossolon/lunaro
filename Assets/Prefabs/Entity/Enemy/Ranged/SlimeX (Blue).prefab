@@ -419,7 +419,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.24778, y: -2.3523676, z: 12.039438}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1562765048039095893}
@@ -1115,6 +1115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 2
+  goldRange: {x: 0, y: 0}
   gold: 0
 --- !u!136 &2385040704207011621
 CapsuleCollider:
