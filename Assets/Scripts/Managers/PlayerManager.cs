@@ -47,13 +47,17 @@ public class PlayerManager : MonoBehaviour
         if (!playerIsDeath)
         {
             playerStatus.currentHp -= damage;
-            HudManager.Instance.ChangeVignetteColorToRed();
             GetComponent<PlayerFSM>()._handsPOV.GetComponent<Animator>().SetTrigger("damage");
 
             if (playerStatus.currentHp <= 0)
-            {
                 fsm.FSM.SetState("Death");
-            }
+
+            if (damage < 1)
+                return;
+            else if (damage <= 2)
+                HudManager.Instance.ChangeVignetteColorToRed(0.2f);
+            else
+                HudManager.Instance.ChangeVignetteColorToRed(0.6f); 
         }
     }
 

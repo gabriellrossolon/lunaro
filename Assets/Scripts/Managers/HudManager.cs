@@ -389,10 +389,10 @@ public class HudManager : MonoBehaviour
 
 
     //CONTROLE DA VIGNETTE (EFEITO AO LEVAR DANO)
-    public void ChangeVignetteColorToRed()
+    public void ChangeVignetteColorToRed(float targetSmoothness = 0.6f)
     {
         _targetVignetteColor = Color.red;
-        _targetSmoothness = 0.6f; 
+        _targetSmoothness = targetSmoothness; 
         _transitionTime = 0f;
     }
 
@@ -408,15 +408,20 @@ public class HudManager : MonoBehaviour
                 vignette.color.Override(Color.Lerp(vignette.color.value, _targetVignetteColor, _transitionTime));
                 vignette.smoothness.Override(Mathf.Lerp(vignette.smoothness.value, _targetSmoothness, _transitionTime));
 
-                if (_transitionTime >= 0.6f)
+                if (_transitionTime >= 0.2f && _targetSmoothness == 0.2f)
                 {
-                    if (_targetSmoothness == 0.6f)
-                    {
-                        _targetVignetteColor = Color.black;
-                        _targetSmoothness = 0.1f;
-                        _transitionTime = 0f;
-                    }
+                    _targetVignetteColor = Color.black;
+                    _targetSmoothness = 0.1f;
+                    _transitionTime = 0f;
                 }
+
+                if (_transitionTime >= 0.6f && _targetSmoothness == 0.6f)
+                {
+                    _targetVignetteColor = Color.black;
+                    _targetSmoothness = 0.1f;
+                    _transitionTime = 0f;
+                }
+                
             }
         }
     }
