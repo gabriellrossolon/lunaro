@@ -48,6 +48,15 @@ public class TeleportManager : MonoBehaviour
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
     }
 
+    public void GoToForgottenDungeons()
+    {
+        HudManager.Instance.OpenTeleportPage();
+        transition.GetComponent<Animator>().SetTrigger("start");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        StartCoroutine(LoadSceneWithLoading("ForgottenDungeons"));
+        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
+    }
+
     public void GoToMenu()
     {
         transition.GetComponent<Animator>().SetTrigger("start");
