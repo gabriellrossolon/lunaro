@@ -87,6 +87,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip dashSound;
     public AudioClip landingSound;
+    public AudioClip waterLandingSound;
 
     [Header("Player Attacks SFX")]
     public AudioSource playerAttacksSource;

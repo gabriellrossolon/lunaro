@@ -5,13 +5,24 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
-    [Header ("References")]
+    [Header ("Player References")]
     public PlayerStatus playerStatus;
     private PlayerFSM fsm;
     public InputHandler inputHandler;
-
     public CinemachineVirtualCamera cinemachineCam;
+    public GameObject leftFeetPos;
+    public GameObject rightFeetPos; 
+
+    [Header("PlayerVFX")]
+    public GameObject stepParticle;
+    public GameObject dashParticle;
+    public GameObject jumpingParticle;
+    public GameObject landingParticle;
+    public GameObject waterLandingParticle;
+
+    [Header("Player Controllers")]
     public bool playerIsDeath = false;
+    private bool isRightFoot = true;
 
     private void Awake()
     {
@@ -36,10 +47,15 @@ public class PlayerManager : MonoBehaviour
         if (Time.time - lastFootstepTime < minStepInterval)
             return;
 
-        lastFootstepTime = Time.time; 
+        lastFootstepTime = Time.time;
 
-        SFXManager.Instance.playerFootSource.pitch = Random.Range(0.6f, 0.8f);
+        SFXManager.Instance.playerFootSource.pitch = Random.Range(0.7f, 0.8f);
         SFXManager.Instance.playerFootSource.PlayOneShot(SFXManager.Instance.actualStepSound);
+
+        Transform footPos = isRightFoot ? rightFeetPos.transform : leftFeetPos.transform;
+        isRightFoot = !isRightFoot;
+
+        Instantiate(stepParticle, footPos.position, Quaternion.identity);
     }
 
     public void DoDamage(float damage)

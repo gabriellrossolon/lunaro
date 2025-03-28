@@ -96,18 +96,35 @@ public class PlayerFallState : IState
         Debug.Log("Dano de queda: " + damage);
     }
 
+
     private void StateChange()
     {
         if (_controller.isGrounded)
         {
-            float fallTime = GetFallDuration();
-            ApplyFallDamage(fallTime);
-        }
+            RaycastHit hit;
+            if (Physics.Raycast(PlayerManager.Instance.transform.position, Vector3.down, out hit, 1.5f))
+            {
+                int groundLayer = hit.collider.gameObject.layer;
+                string groundLayerName = LayerMask.LayerToName(groundLayer);
 
-        if (_controller.isGrounded && _fsm.CurrentState is not PlayerDeathState)
-        {
-            SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.landingSound);
-            _fsm.SetState("Idle");
+                if (groundLayerName == "Water")
+                {
+                    PlayerManager.Instance.waterLandingParticle.SetActive(true);
+                    SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.waterLandingSound);
+                }
+                else
+                {
+                    PlayerManager.Instance.landingParticle.SetActive(true);
+                    SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.landingSound);
+
+                    ApplyFallDamage(GetFallDuration());
+                }
+            }
+
+            if (_fsm.CurrentState is not PlayerDeathState)
+            {
+                _fsm.SetState("Idle");
+            }
         }
 
         if (_inputHandler.attackInput || _inputHandler.blockInput)

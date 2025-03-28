@@ -32,7 +32,7 @@ public class PlayerJumpState : IState
 
     public void OnEnter()
     {
-        SFXManager.Instance.playerMovementsSource.pitch = Random.Range(0.9f, 1.1f);
+        SFXManager.Instance.playerMovementsSource.pitch = Random.Range(1f, 1.1f);
         SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.jumpSound);
         ExecuteJump();
 
@@ -40,6 +40,8 @@ public class PlayerJumpState : IState
             _animator.SetTrigger("jumpSprint");
         else
             _animator.SetTrigger("jump");
+
+        PlayerManager.Instance.jumpingParticle.SetActive(true);
     }
 
     public void OnExit() { }

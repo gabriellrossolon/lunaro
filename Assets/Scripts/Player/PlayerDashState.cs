@@ -7,7 +7,6 @@ public class PlayerDashState : IState
     private readonly CharacterController _controller;
     private readonly Transform _playerTransform;
     private readonly CooldownController _cooldownController;
-    private readonly GameObject _dashParticle;
     private readonly Animator _animator;
     private readonly PlayerStatus _playerStatus;
     private readonly WeaponBehavior _weaponBehavior;
@@ -18,8 +17,8 @@ public class PlayerDashState : IState
     private float dashTimer;
     public PlayerDashState(StateMachine fsm, InputHandler inputHandler,
         CharacterController controller, Transform playerTransform,
-        CooldownController cooldownController, GameObject dashParticle, 
-        Animator animator, GameObject handsPOV, PlayerStatus playerSTatus, 
+        CooldownController cooldownController, 
+        Animator animator, GameObject handsPOV, PlayerStatus playerStatus, 
         WeaponBehavior weaponBehavior)
     {
         _fsm = fsm;
@@ -27,10 +26,9 @@ public class PlayerDashState : IState
         _controller = controller;
         _playerTransform = playerTransform;
         _cooldownController = cooldownController;
-        _dashParticle = dashParticle;
         _animator = animator;
         _handsPOV = handsPOV;
-        _playerStatus = playerSTatus;
+        _playerStatus = playerStatus;
         _weaponBehavior = weaponBehavior;
     }
 
@@ -42,7 +40,7 @@ public class PlayerDashState : IState
         StartDash();
         //_cooldownController.canDash = false;
         _cooldownController.StartDashCooldown();
-        _dashParticle.SetActive(true);
+        PlayerManager.Instance.dashParticle.SetActive(true);
         AdjustParticleRotation();
     }
 
@@ -108,7 +106,7 @@ public class PlayerDashState : IState
         else
             return;
 
-        _dashParticle.transform.localRotation = Quaternion.Euler(0f, targetYRotation, 0f);
+        PlayerManager.Instance.dashParticle.transform.localRotation = Quaternion.Euler(0f, targetYRotation, 0f);
     }
 
 
