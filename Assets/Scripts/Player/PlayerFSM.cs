@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerFSM : MonoBehaviour
 {
-    private StateMachine _fsm;
+    public StateMachine _fsm;
     private CharacterController _controller;
     private InputHandler _inputHandler;
     private Transform _playerTransform;
@@ -41,6 +41,7 @@ public class PlayerFSM : MonoBehaviour
         _fsm.AddState("Jump", new PlayerJumpState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _cooldownController, _animator, _weaponBehavior));
         _fsm.AddState("Slip", new PlayerSlipState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController));
         _fsm.AddState("Fall", new PlayerFallState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _animator, _weaponBehavior));
+        _fsm.AddState("Climb", new PlayerClimbState(_fsm, _inputHandler, _controller, _playerTransform, _playerStatus));
         _fsm.AddState("Combat", new PlayerCombatState(_fsm, _inputHandler, _controller, _playerTransform, _cameraTransform, _playerStatus, _handsPOV, _cooldownController, _weaponBehavior, _secondaryBehavior));
         _fsm.AddState("Dash", new PlayerDashState(_fsm, _inputHandler, _controller, _playerTransform, _cooldownController, _animator, _handsPOV, _playerStatus, _weaponBehavior));
         _fsm.AddState("Death", new PlayerDeathState(_fsm, _inputHandler, _handsPOV));

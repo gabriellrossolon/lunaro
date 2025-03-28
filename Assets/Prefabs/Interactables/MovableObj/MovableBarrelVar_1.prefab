@@ -96,7 +96,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5012556935047330242}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -157,7 +157,6 @@ MonoBehaviour:
   isHolding: 0
   isThrown: 0
   throwForce: 200
-  maxDistance: 3
   damage: 3
   collisionParticle: {fileID: 156222515566692233, guid: 24afca03a11b2ac408500f20174671a1, type: 3}
   destroyParticle: {fileID: 7838861107299909577, guid: d423f7bef244bb8498f4937d88fdd90d, type: 3}

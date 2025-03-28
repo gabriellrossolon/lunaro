@@ -9,6 +9,7 @@ public class PlayerStatus : MonoBehaviour
     public float runSpeed;
     public float actualSpeed;
     public float jumpHeight;
+    public float climbSpeed = 3f;
     public float dashSpeed = 25f;
     public float dashDuration = 0.1f;
     public float dashStaminaCost = 20f;

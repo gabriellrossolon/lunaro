@@ -52,6 +52,11 @@ public class SFXManager : MonoBehaviour
             ambientSource.clip = forsakenHamletAmbientSound;
             musicSource.clip = forsakenHamletAmbientSound;
         }
+        else if (scene.name == "ForgottenDungeons")
+        {
+            ambientSource.clip = forgottenDungeonsAmbientSound;
+            musicSource.clip = forgottenDungeonsMusicSound;
+        }
 
         ambientSource.Play();
         musicSource.Play();
@@ -64,6 +69,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip frozenRuinsAmbientSound;
     public AudioClip hollowbarkDephtsAmbientSound;
     public AudioClip forsakenHamletAmbientSound;
+    public AudioClip forgottenDungeonsAmbientSound;
 
     [Header("Scene Music")]
     public AudioSource musicSource;
@@ -72,6 +78,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip frozenRuinsMusicSound;
     public AudioClip hollowbarkDephtsMusictSound;
     public AudioClip forsakenHamletMusicSound;
+    public AudioClip forgottenDungeonsMusicSound;
 
     [Header("Player Foot SFX")]
     public AudioSource playerFootSource;
@@ -80,6 +87,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip stepSandSound;
     public AudioClip stepWoodSound;
     public AudioClip stepSnowSound;
+    public AudioClip stepWaterSound;
     public AudioClip defaultStepSound;
 
     [Header("Player Movement SFX")]
@@ -129,6 +137,7 @@ public class SFXManager : MonoBehaviour
     public LayerMask sandLayer;
     public LayerMask woodLayer;
     public LayerMask snowLayer;
+    public LayerMask waterLayer;
     public void UpdateStepSound(Vector3 playerPosition)
     {
         RaycastHit hit;
@@ -145,6 +154,8 @@ public class SFXManager : MonoBehaviour
                 actualStepSound = stepWoodSound;
             else if ((snowLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
                 actualStepSound = stepSnowSound;
+            else if ((waterLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
+                actualStepSound = stepWaterSound;
             else
                 actualStepSound = defaultStepSound;
         }
