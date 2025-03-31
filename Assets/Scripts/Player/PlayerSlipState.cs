@@ -62,5 +62,10 @@ public class PlayerSlipState : IState
             }
         }
 
+        if (_inputHandler.jumpInput)
+        {
+            _fsm.SetState("Jump");
+        }
+
     }
 }
