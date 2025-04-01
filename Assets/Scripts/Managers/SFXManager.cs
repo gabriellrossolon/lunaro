@@ -32,6 +32,11 @@ public class SFXManager : MonoBehaviour
             ambientSource.clip = HUBAmbientSound;
             musicSource.clip = HUBMusicSound;
         }
+        else if (scene.name == "MainMenu")
+        {
+            ambientSource.clip = null;
+            musicSource.clip = null;
+        }
         else if (scene.name == "DarkChambers")
         {
             ambientSource.clip = darkChambersAmbientSound;

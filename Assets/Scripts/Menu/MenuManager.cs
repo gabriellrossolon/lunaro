@@ -49,9 +49,6 @@ public class MenuManager : MonoBehaviour
 
     public void GoToHUBFromMenu()
     {
-        if (transition != null)
-            transition.GetComponent<Animator>().SetTrigger("start");
-
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(LoadSceneWithLoading("HUB"));
     }
@@ -142,8 +139,18 @@ public class MenuManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
 
-        if (transition != null)
-            transition.GetComponent<Animator>().SetTrigger("end");
+        if (scene.name == "MainMenu")
+        {
+            GameManager.Instance.mainCamera.gameObject.SetActive(false);
+            GameManager.Instance.mainEventSystem.gameObject.SetActive(false);
+            HudManager.Instance.canvasObj.SetActive(false);
+        }
+        else
+        {
+            GameManager.Instance.mainCamera.gameObject.SetActive(true);
+            GameManager.Instance.mainEventSystem.gameObject.SetActive(true);
+            HudManager.Instance.canvasObj.SetActive(true);
+        }
 
         if (spawnPoint != null && player != null)
             player.transform.position = spawnPoint.transform.position;

@@ -7,7 +7,7 @@ Mesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SM_Prop_Chest_04_Convex
-  serializedVersion: 10
+  serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -97,7 +97,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 192
-    _typelessdata: a80ffabe00000000ed5f93be0091f9be9bd1cd39fe3f953e940ffa3e00000000d2868bbe1291ef3e2194ba3efa2d8c3ebb19edbea05fc13e1e18833ef70dfa3e6cc5a736aa91953efa49d3be34dab63e4c5099bea719ed3ea05fc13eb68c88be58caa2beb05dca3e9fc975be1cffc23ed2f5be3e8659933e30ffc2be200802bc4c5099be1cffc23e200802bcfe829b3ebb19edbea05fc13eb68c88be2af2fa3e267d6f3cfede93be48caa23eb25dca3ea5c975bed49defbea098ba3efa2d8c3e
+    _typelessdata: be0ffabef8eb74bea057683d1691f9be0f8574be70d5223f7e0ffa3ef8eb74be3c90933dfc90ef3e4a3c003e6e4c1e3fd119edbe48d30d3e80c1193fe10dfa3ea8ea74be46fe223f104ad3bee090f13da8d4383d9119ed3e48d30d3eac789f3d6ecaa2be68cf1f3e4618d63d06ffc23eacff083e34e2213f46ffc2be7a0c7dbea8d4383d06ffc23e7a0c7dbef0f6253fd119edbe48d30d3eac789f3d14f2fa3e26f465be185f643d32caa23e6ccf1f3e3a18d63dea9defbe4845003e6e4c1e3f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -154,10 +154,11 @@ Mesh:
     m_Center: {x: 0.00086405873, y: 0.19365479, z: 0.0021465123}
     m_Extent: {x: 0.48926476, y: 0.2015913, z: 0.30158725}
   m_MeshUsageFlags: 0
+  m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: -1
   m_StreamData:
     serializedVersion: 2

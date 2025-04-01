@@ -59,7 +59,7 @@ public class TeleportManager : MonoBehaviour
 
     public void GoToMenu()
     {
-        transition.GetComponent<Animator>().SetTrigger("start");
+        //transition.GetComponent<Animator>().SetTrigger("start");
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(LoadSceneWithLoading("MainMenu"));
         GameManager.Instance.PauseGame();
@@ -110,8 +110,21 @@ public class TeleportManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
 
-        if (transition != null)
-            transition.GetComponent<Animator>().SetTrigger("end");
+        if (scene.name == "MainMenu")
+        {
+            GameManager.Instance.mainCamera.gameObject.SetActive(false);
+            GameManager.Instance.mainEventSystem.gameObject.SetActive(false);
+            HudManager.Instance.canvasObj.SetActive(false);
+        }
+        else
+        {
+            GameManager.Instance.mainCamera.gameObject.SetActive(true);
+            GameManager.Instance.mainEventSystem.gameObject.SetActive(true);
+            HudManager.Instance.canvasObj.SetActive(true);
+
+            if (transition != null)
+                transition.GetComponent<Animator>().SetTrigger("end");
+        }
 
         if (spawnPoint != null && player != null)
             player.transform.position = spawnPoint.transform.position;

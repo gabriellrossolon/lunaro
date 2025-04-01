@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
 
     public bool gamePaused = false;
 
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private EventSystem mainEventSystem;
+    public Camera mainCamera;
+    public EventSystem mainEventSystem;
 
     private void Awake()
     {
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        DestroyDuplicateObjects();
+        //DestroyDuplicateObjects();
     }
 
     private void DestroyDuplicateObjects()
