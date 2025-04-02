@@ -28,6 +28,7 @@ public class TeleportManager : MonoBehaviour
         transition = GameObject.FindWithTag("Transition");
         player = GameObject.FindWithTag("Player");
     }
+
     public void GoToHUB()
     {
         if(HudManager.Instance.teleportsPage.activeSelf)

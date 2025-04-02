@@ -47,10 +47,10 @@ public class MenuManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
-    public void GoToHUBFromMenu()
+    public void GoToLastScene()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("HUB"));
+        StartCoroutine(LoadSceneWithLoading("HUB")); 
     }
 
     private IEnumerator LoadSceneWithLoading(string sceneName)
