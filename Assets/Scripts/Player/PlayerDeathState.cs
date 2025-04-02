@@ -20,8 +20,6 @@ public class PlayerDeathState : IState
 
     public void OnEnter()
     {
-        SaveManager.Instance.SaveGame();
-
         PlayerManager.Instance.playerIsDeath = true;
         HudManager.Instance.ChangeToDeathUI();
 

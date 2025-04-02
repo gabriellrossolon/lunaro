@@ -68,8 +68,6 @@ public class TeleportManager : MonoBehaviour
 
     private IEnumerator LoadSceneWithLoading(string sceneName)
     {
-        SaveManager.Instance.SaveGame();
-
         if (loadingScreen != null)
             loadingScreen.SetActive(true);
 
