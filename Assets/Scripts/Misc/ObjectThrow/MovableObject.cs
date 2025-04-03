@@ -11,8 +11,6 @@ public class MovableObject : MonoBehaviour, IInteractable
 
     private TempParent tempParent;
     private Rigidbody rb;
-    private GameObject player;
-    private InputHandler inputHandler;
     public GameObject collisionParticle;
     public GameObject destroyParticle;
     public AudioClip destroySound;
@@ -23,8 +21,6 @@ public class MovableObject : MonoBehaviour, IInteractable
     {
         rb = GetComponent<Rigidbody>();
         tempParent = TempParent.Instance;
-        player = PlayerManager.Instance.gameObject;
-        inputHandler = player.GetComponent<InputHandler>();
     }
 
     private void Update()

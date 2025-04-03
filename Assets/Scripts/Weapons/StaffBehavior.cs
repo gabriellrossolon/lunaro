@@ -4,7 +4,6 @@ using UnityEngine.VFX;
 
 public class StaffBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
     public GameObject staffProjectilePrefab;
 
     public float damage;
@@ -19,7 +18,6 @@ public class StaffBehavior : MonoBehaviour
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }
 
     //Common Attacks
@@ -27,7 +25,7 @@ public class StaffBehavior : MonoBehaviour
     {
         if (canAttack && !chargedAttack)
         {
-            if (playerStatus.currentMana < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentMana < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("mana");
                 return;
@@ -60,7 +58,7 @@ public class StaffBehavior : MonoBehaviour
     {
         if (chargedAttack)
         {
-            if (playerStatus.currentMana < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentMana < resourceCost)
             {
                 if (usingBeam)
                 {
@@ -94,14 +92,14 @@ public class StaffBehavior : MonoBehaviour
     {
         while (usingBeam) // Verifica a variável global que pode mudar
         {
-            if (playerStatus.currentMana >= resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentMana >= resourceCost)
             {
                 ConsumeManaForBeam(resourceCost / 5);
-                playerStatus.canRegenMana = false;
+                PlayerComponents.Instance.playerStatus.canRegenMana = false;
             }
             yield return new WaitForSeconds(0.1f);
         }
-        playerStatus.canRegenMana = true;
+        PlayerComponents.Instance.playerStatus.canRegenMana = true;
     }
 
     public void CallBeamPrefab() //Quem chama o Burst (Beam) é a propria animação
@@ -129,7 +127,7 @@ public class StaffBehavior : MonoBehaviour
 
     public void ConsumeManaForBeam(float value)
     {
-        playerStatus.SubtractMana(value);
+        PlayerComponents.Instance.playerStatus.SubtractMana(value);
     }
 
     //Projectile to Call

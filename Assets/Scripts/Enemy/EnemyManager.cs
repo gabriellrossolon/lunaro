@@ -51,9 +51,9 @@ public class EnemyManager : MonoBehaviour
             _enemyHpSlider.value = _enemyStats.currentHp;
 
 
-        if (PlayerManager.Instance != null && _enemyInfos != null)
-        {
-            float distance = Vector3.Distance(PlayerManager.Instance.transform.position, transform.position);
+        if (PlayerComponents.Instance != null && _enemyInfos != null)
+        {   
+            float distance = Vector3.Distance(PlayerComponents.Instance.playerObject.transform.position, transform.position);
 
             if (isBoss)
             {
@@ -67,7 +67,7 @@ public class EnemyManager : MonoBehaviour
                 if (distance <= 15f)
                 {
                     _enemyInfos.SetActive(true);
-                    Vector3 direction = PlayerManager.Instance.transform.position - _enemyInfos.transform.position;
+                    Vector3 direction = PlayerComponents.Instance.playerManager.transform.position - _enemyInfos.transform.position;
                     direction.y = 0;
 
                     _enemyInfos.transform.rotation = Quaternion.LookRotation(direction);

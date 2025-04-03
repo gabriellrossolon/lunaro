@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class HammerBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
-
     public float damage;
     public bool colliderEnabled = false;
 
@@ -17,11 +15,6 @@ public class HammerBehavior : MonoBehaviour
         weaponColl = GetComponent<Collider>();
     }
 
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
-
     private void Update()
     {
         weaponColl.enabled = colliderEnabled;
@@ -33,7 +26,7 @@ public class HammerBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -61,7 +54,7 @@ public class HammerBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -89,7 +82,7 @@ public class HammerBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -132,7 +125,7 @@ public class HammerBehavior : MonoBehaviour
             }
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(damage + playerStatus.damage);
+                enemyFSM.DoDamage(damage + PlayerComponents.Instance.playerStatus.damage);
         }
     }
 }

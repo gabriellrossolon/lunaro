@@ -4,7 +4,6 @@ using System.Collections;
 
 public class Portal : MonoBehaviour
 {
-    private GameObject transition;
     public enum PortalType
     {
         None,
@@ -19,25 +18,12 @@ public class Portal : MonoBehaviour
 
     public PortalType portalType;
 
-    private void Awake()
-    {
-        transition = GameObject.FindWithTag("Transition");
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if(portalType == PortalType.None)
-            {
-                HudManager.Instance.OpenTeleportPage();
-            }
-            else
-            {
-                if(transition != null) { transition.GetComponent<Animator>().SetTrigger("start"); }
-                StartCoroutine(LoadSceneWithDelay(other));
-            }
-
+            HudManager.Instance.transitionScreen.GetComponent<Animator>().SetTrigger("start");
+            StartCoroutine(LoadSceneWithDelay(other));
         }
     }
 
@@ -85,12 +71,17 @@ public class Portal : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameObject player = GameObject.FindWithTag("Player");
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
-        if (transition != null) { transition.GetComponent<Animator>().SetTrigger("end"); }
-        player.transform.position = spawnPoint.transform.position;
-        player.GetComponent<CharacterController>().enabled = true;
-        InventoryManager.Instance.potionsCount = InventoryManager.Instance.maxPotionsCount;
+        if (scene.name != "MainMenu" && scene.name != "LoaderScene")
+        {
+            Instantiate(GameManager.Instance.playerPrefab, spawnPoint.transform.position, Quaternion.identity);
+        }
+
+        HudManager.Instance.transitionScreen.GetComponent<Animator>().SetTrigger("end");
+
+        if (PlayerComponents.Instance != null)
+            PlayerComponents.Instance.characterController.enabled = true;
+
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

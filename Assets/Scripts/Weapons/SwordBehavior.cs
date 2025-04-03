@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class SwordBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
-    private WeaponBehavior weaponBehavior;
     private CooldownController cooldownController;
 
     public float damage;
@@ -31,8 +29,8 @@ public class SwordBehavior : MonoBehaviour
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        weaponBehavior = GetComponentInParent<WeaponBehavior>();
+        PlayerComponents.Instance.playerStatus = PlayerComponents.Instance.playerManager.GetComponent<PlayerStatus>();
+        PlayerComponents.Instance.weaponBehavior = GetComponentInParent<WeaponBehavior>();
     }
 
     private void Update()
@@ -46,7 +44,7 @@ public class SwordBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -82,7 +80,7 @@ public class SwordBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -118,7 +116,7 @@ public class SwordBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -153,7 +151,7 @@ public class SwordBehavior : MonoBehaviour
     public void UseSwordSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
         if (!cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
-        if (playerStatus.currentStamina < resourceCost)
+        if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
         {
             HudManager.Instance.InsuficientResourceWarn("stamina");
             return;
@@ -190,14 +188,14 @@ public class SwordBehavior : MonoBehaviour
     public void CallAirCutPrefab() 
     {
         if (!activedPowerAura.activeSelf || activedPowerAura == null) return;
-        if (playerStatus.currentMana < weaponBehavior.resourceCost)
+        if (PlayerComponents.Instance.playerStatus.currentMana < PlayerComponents.Instance.weaponBehavior.resourceCost)
         {
             activedPowerAura.gameObject.SetActive(false);
             return;
         }
             
-        weaponBehavior.ConsumeMana();
-        weaponBehavior.ConsumeMana();
+        PlayerComponents.Instance.weaponBehavior.ConsumeMana();
+        PlayerComponents.Instance.weaponBehavior.ConsumeMana();
 
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.airCutInstanceSound);
@@ -229,7 +227,7 @@ public class SwordBehavior : MonoBehaviour
             }
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(damage + playerStatus.damage);
+                enemyFSM.DoDamage(damage + PlayerComponents.Instance.playerStatus.damage);
         }
     }
 }

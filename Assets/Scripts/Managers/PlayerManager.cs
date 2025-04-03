@@ -1,17 +1,17 @@
 using UnityEngine;
-using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerManager Instance;
-
-    [Header ("Player References")]
-    public PlayerStatus playerStatus;
-    private PlayerFSM fsm;
-    public InputHandler inputHandler;
-    public CinemachineVirtualCamera cinemachineCam;
+    [Header ("Player Feet Controll")]
     public GameObject leftFeetPos;
-    public GameObject rightFeetPos; 
+    public GameObject rightFeetPos;
+    private bool isRightFoot = true;
+
+    [Header("Player SFX")]
+    public AudioSource footSoundSource;
+    public AudioSource movementSoundSource;
+    public AudioSource attackSoundSource;
+    public AudioSource miscSoundSource;
 
     [Header("PlayerVFX")]
     public GameObject stepParticle;
@@ -20,28 +20,22 @@ public class PlayerManager : MonoBehaviour
     public GameObject landingParticle;
     public GameObject waterLandingParticle;
 
-    [Header("Player Controllers")]
+    [Header("Player Death Controll")]
     public bool playerIsDeath = false;
-    private bool isRightFoot = true;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        playerStatus = GetComponent<PlayerStatus>();
-        fsm = GetComponent<PlayerFSM>();
-        inputHandler = GetComponent<InputHandler>();
-    }
 
     private float lastFootstepTime = 0f; 
     private float minStepInterval = 0.2f;
+
+    private void Start()
+    {
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.playerFootSource = PlayerComponents.Instance.playerManager.footSoundSource;
+            SFXManager.Instance.playerAttacksSource = PlayerComponents.Instance.playerManager.attackSoundSource;
+            SFXManager.Instance.playerMovementsSource = PlayerComponents.Instance.playerManager.movementSoundSource;
+            SFXManager.Instance.miscSoundSource = PlayerComponents.Instance.playerManager.miscSoundSource;
+        }
+    }
     private void CallStep()
     {
         if (Time.time - lastFootstepTime < minStepInterval)
@@ -62,11 +56,11 @@ public class PlayerManager : MonoBehaviour
     {
         if (!playerIsDeath)
         {
-            playerStatus.currentHp -= damage;
-            GetComponent<PlayerFSM>()._handsPOV.GetComponent<Animator>().SetTrigger("damage");
+            PlayerComponents.Instance.playerStatus.currentHp -= damage;
+            PlayerComponents.Instance.fsm._handsPOV.GetComponent<Animator>().SetTrigger("damage");
 
-            if (playerStatus.currentHp <= 0)
-                fsm.FSM.SetState("Death");
+            if (PlayerComponents.Instance.playerStatus.currentHp <= 0)
+                PlayerComponents.Instance.fsm.FSM.SetState("Death");
 
             if (damage < 1)
                 return;
@@ -106,7 +100,7 @@ public class PlayerManager : MonoBehaviour
             TeleportManager.Instance.GoToHUB();
         }
 
-        playerStatus.currentHp = playerStatus.maxHp;
+        PlayerComponents.Instance.playerStatus.currentHp = PlayerComponents.Instance.playerStatus.maxHp;
     }
 
 }

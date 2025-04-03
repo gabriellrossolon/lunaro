@@ -54,9 +54,9 @@ public class PlayerFSM : MonoBehaviour
         UpdateCurrentState();
         _fsm.Tick();
 
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, _cameraTransform.eulerAngles.y, transform.eulerAngles.z);
+        transform.eulerAngles = new Vector3(PlayerComponents.Instance.playerObject.transform.eulerAngles.x, PlayerComponents.Instance.playerCamera.transform.eulerAngles.y, PlayerComponents.Instance.playerObject.transform.eulerAngles.z);
 
-        if(_inputHandler.moveInput != Vector2.zero) { SFXManager.Instance.UpdateStepSound(transform.position); }
+        if(_inputHandler.moveInput != Vector2.zero) { SFXManager.Instance.UpdateStepSound(PlayerComponents.Instance.playerObject.transform.position); }
     }
 
     private void FixedUpdate()

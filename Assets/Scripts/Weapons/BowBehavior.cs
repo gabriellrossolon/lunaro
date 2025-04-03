@@ -3,8 +3,6 @@ using System.Collections;
 
 public class BowBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
-
     public bool attackCharging;
     private float chargeTime;
     private const float maxChargeTime = 2f;
@@ -17,11 +15,6 @@ public class BowBehavior : MonoBehaviour
     public GameObject bowProjectilePrefab;
 
     private bool isTimeSlowedByBow = false;
-
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
 
     private void Update()
     {
@@ -37,7 +30,7 @@ public class BowBehavior : MonoBehaviour
     {
         if (canAttack && attackCharging)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -72,17 +65,17 @@ public class BowBehavior : MonoBehaviour
 
     private IEnumerator SmoothFOVTransition(float targetFOV)
     {
-        float startFOV = PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView;
+        float startFOV = PlayerComponents.Instance.virtualCamera.m_Lens.FieldOfView;
         float t = 0f;
 
         while (t < 1f)
         {
             t += Time.unscaledDeltaTime * 5f;
-            PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView = Mathf.Lerp(startFOV, targetFOV, t);
+            PlayerComponents.Instance.virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(startFOV, targetFOV, t);
             yield return null;
         }
 
-        PlayerManager.Instance.cinemachineCam.m_Lens.FieldOfView = targetFOV;
+        PlayerComponents.Instance.virtualCamera.m_Lens.FieldOfView = targetFOV;
     }
 
     //Bow Projectile to be Called

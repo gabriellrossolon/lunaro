@@ -6,7 +6,6 @@ public class DroppedItem : MonoBehaviour, IInteractable
 {
     public ItemBase item;
     public float maxDistance = 2f;
-    private GameObject player;
     private Rigidbody rb;
     [SerializeField] private GameObject dropInfos;
     private TextMeshProUGUI dropName;
@@ -36,8 +35,6 @@ public class DroppedItem : MonoBehaviour, IInteractable
         dropSoundSource.loop = true;
         dropSoundSource.Play();
 
-        player = PlayerManager.Instance.gameObject;
-
         if (rb != null && canThrow)
         {
             Vector3 randomDirection = new Vector3(Random.Range(-throwRadius, throwRadius), Random.Range(throwHeight * 0.5f, throwHeight), Random.Range(0f, throwRadius));
@@ -66,7 +63,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
         HudManager.Instance.RefreshItemShow(item);
 
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.itemPickupSound);
-        player.GetComponentInChildren<SecondaryBehavior>().gameObject.GetComponent<Animator>().SetTrigger("Catch");
+        PlayerComponents.Instance.secondaryBehavior.gameObject.GetComponent<Animator>().SetTrigger("Catch");
 
         InventoryManager.Instance.AddItem(item);
         Destroy(gameObject);
@@ -115,15 +112,15 @@ public class DroppedItem : MonoBehaviour, IInteractable
 
     private void ControlDropCanvas()
     {
-        if (PlayerManager.Instance != null && dropInfos != null)
+        if (PlayerComponents.Instance.playerManager != null && dropInfos != null)
         {
-            float distance = Vector3.Distance(PlayerManager.Instance.transform.position, transform.position);
+            float distance = Vector3.Distance(PlayerComponents.Instance.playerObject.transform.position, transform.position);
 
             if (distance <= 15f)
             {
                 dropInfos.SetActive(true);
                 dropInfos.transform.position = transform.position + new Vector3(0, 1f, 0);
-                Vector3 lookDirection = PlayerManager.Instance.transform.position - dropInfos.transform.position;
+                Vector3 lookDirection = PlayerComponents.Instance.playerObject.transform.position - dropInfos.transform.position;
                 dropInfos.transform.rotation = Quaternion.LookRotation(lookDirection);
             }
             else

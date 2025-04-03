@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 public class ProjectileBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
     private Vector3 direction;
     private Rigidbody rb;
     public enum ProjectileType { Nothing, Magic, Arrow, Bolide }
@@ -26,8 +25,6 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-
         if (projectileType == ProjectileType.Magic)
             LaunchProjectileWithoutGravity();
         else if (projectileType == ProjectileType.Arrow || projectileType == ProjectileType.Bolide)
@@ -86,7 +83,7 @@ public class ProjectileBehavior : MonoBehaviour
                 enemyAnim.SetTrigger("hurt");
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(projectileDamage + playerStatus.damage);
+                enemyFSM.DoDamage(projectileDamage + PlayerComponents.Instance.playerStatus.damage);
 
             if (enemyFX != null)
             {

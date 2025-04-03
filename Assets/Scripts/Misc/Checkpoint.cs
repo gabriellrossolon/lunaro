@@ -5,7 +5,6 @@ public class Checkpoint : MonoBehaviour, IInteractable
     public bool checkpointActived = false;
     [SerializeField] private bool checkpointDiscovered = false;
 
-    private GameObject player;
     private Collider checkCollider;
     private AudioSource soundSource;
     [SerializeField] private AudioClip checkpointActiveSound;
@@ -17,7 +16,6 @@ public class Checkpoint : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        player = PlayerManager.Instance.gameObject;
         checkCollider = GetComponent<Collider>();
         soundSource = GetComponent<AudioSource>();
     }

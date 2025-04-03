@@ -11,9 +11,6 @@ public class PlayerSlipState : IState
     private readonly GameObject _handsPOV;
     private readonly CooldownController _cooldownController;
 
-    private Rigidbody _rb;
-    private CapsuleCollider _capsuleColl;
-
     public PlayerSlipState(StateMachine fsm, InputHandler inputHandler,
         CharacterController controller, Transform playerTransform,
         Transform cameraTransform, PlayerStatus playerStatus,
@@ -31,17 +28,14 @@ public class PlayerSlipState : IState
 
     public void OnEnter() 
     {
-        _rb = PlayerManager.Instance.GetComponent<Rigidbody>();
-        _capsuleColl = PlayerManager.Instance.GetComponent<CapsuleCollider>();
-
-        _rb.isKinematic = false;
-        _capsuleColl.enabled = true;
+        PlayerComponents.Instance.playerRb.isKinematic = false;
+        PlayerComponents.Instance.playerCapsuleCollider.enabled = true;
         _controller.enabled = false;
     }
     public void OnExit() 
     {
-        _rb.isKinematic = true;
-        _capsuleColl.enabled = false;
+        PlayerComponents.Instance.playerRb.isKinematic = true;
+        PlayerComponents.Instance.playerCapsuleCollider.enabled = false;
         _controller.enabled = true;
     }
     public void OnFixedTick() { }

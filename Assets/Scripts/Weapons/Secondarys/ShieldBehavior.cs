@@ -3,27 +3,20 @@ using UnityEngine;
 public class ShieldBehavior : MonoBehaviour
 {
     private Collider coll;
-    private PlayerStatus playerStatus;
-    private SecondaryBehavior secondBeh;
 
     public AudioClip blockedAttackSound;
     public float resourceCost;
     public int blockPercent;
 
-    private void Awake()
-    {
-        coll = GetComponent<Collider>();
-        secondBeh = GetComponentInParent<SecondaryBehavior>();
-    }
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        resourceCost = secondBeh.resourceCost;
+        coll = GetComponent<Collider>();
+        resourceCost = PlayerComponents.Instance.secondaryBehavior.resourceCost;
     }
 
     private void Update()
     {
-        coll.enabled = secondBeh.blocking;
+        coll.enabled = PlayerComponents.Instance.secondaryBehavior.blocking;
     }
 
     //Ações básicas
@@ -34,7 +27,7 @@ public class ShieldBehavior : MonoBehaviour
 
     public void ConsumeStamina()
     {
-        playerStatus.SubtractStamina(resourceCost);
+        PlayerComponents.Instance.playerStatus.SubtractStamina(resourceCost);
     }
 }
 

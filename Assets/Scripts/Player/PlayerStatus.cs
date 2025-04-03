@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class PlayerStatus : MonoBehaviour
@@ -39,6 +39,10 @@ public class PlayerStatus : MonoBehaviour
     [Header("Misc Stats")]
     public float playerGold;
 
+    private void Awake()
+    {
+        ES3AutoSaveMgr.Current.Load();
+    }
     private void Start()
     {
         currentHp = maxHp;
@@ -53,7 +57,7 @@ public class PlayerStatus : MonoBehaviour
         ManaRegen();
     }
 
-    //Funções que controlam a adição ou subtração de valores aos status do jogador:
+    //FunÃ§Ãµes que controlam a adiÃ§Ã£o ou subtraÃ§Ã£o de valores aos status do jogador:
 
     public void ControlBaseDamage(float value)
     {
@@ -108,7 +112,7 @@ public class PlayerStatus : MonoBehaviour
 
     }
 
-    //Funções que controlam as regenerações dos Status do jogador:
+    //FunÃ§Ãµes que controlam as regeneraÃ§Ãµes dos Status do jogador:
 
     //Regens
     private void HpRegen()
@@ -136,7 +140,7 @@ public class PlayerStatus : MonoBehaviour
             currentMana = maxMana;
     }
 
-    // Funções que subtraem status do jogador, como por exemplo habilidades que exigem uso de Mana ou Stamina:
+    // FunÃ§Ãµes que subtraem status do jogador, como por exemplo habilidades que exigem uso de Mana ou Stamina:
     public void SubtractStamina(float value)
     {
         if (currentStamina >= value)

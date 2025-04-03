@@ -40,7 +40,7 @@ public class PlayerDashState : IState
         StartDash();
         //_cooldownController.canDash = false;
         _cooldownController.StartDashCooldown();
-        PlayerManager.Instance.dashParticle.SetActive(true);
+        PlayerComponents.Instance.playerManager.dashParticle.SetActive(true);
         AdjustParticleRotation();
     }
 
@@ -106,7 +106,7 @@ public class PlayerDashState : IState
         else
             return;
 
-        PlayerManager.Instance.dashParticle.transform.localRotation = Quaternion.Euler(0f, targetYRotation, 0f);
+        PlayerComponents.Instance.playerManager.dashParticle.transform.localRotation = Quaternion.Euler(0f, targetYRotation, 0f);
     }
 
 

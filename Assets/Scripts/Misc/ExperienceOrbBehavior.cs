@@ -11,7 +11,6 @@ public class ExperienceOrbBehavior : MonoBehaviour
     [SerializeField] private float throwForce = 4f;
 
     private Rigidbody rb;
-    private Transform player;
     [SerializeField] private Collider triggerColl; 
 
     public float xpValue;
@@ -21,7 +20,6 @@ public class ExperienceOrbBehavior : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        player = PlayerManager.Instance.transform;
 
         Vector3 randomDirection = new Vector3(Random.Range(-throwRadius, throwRadius), Random.Range(throwHeight * 0.5f, throwHeight), Random.Range(0f, throwRadius));
         rb.AddForce(randomDirection.normalized * throwForce, ForceMode.Impulse);
@@ -34,11 +32,11 @@ public class ExperienceOrbBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        float distance = Vector3.Distance(transform.position, player.position);
+        float distance = Vector3.Distance(transform.position, PlayerComponents.Instance.playerObject.transform.position);
 
         if (distance <= attractionDistance && canGoToPlayer)
         {
-            Vector3 direction = (player.position - transform.position).normalized;
+            Vector3 direction = (PlayerComponents.Instance.playerObject.transform.position - transform.position).normalized;
             rb.linearVelocity = new Vector3(direction.x * attractionSpeed, rb.linearVelocity.y, direction.z * attractionSpeed); 
         }
     }

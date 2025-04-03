@@ -5,7 +5,6 @@ using UnityEngine;
 public class SwayNBobScript : MonoBehaviour
 {
     private CharacterController mover;
-    private InputHandler inputHandler;
 
     [Header("Sway")]
     public float step = 0.01f;
@@ -40,8 +39,7 @@ public class SwayNBobScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mover = PlayerManager.Instance.GetComponent<CharacterController>();
-        inputHandler = GetComponentInParent<InputHandler>();
+        mover = PlayerComponents.Instance.playerManager.GetComponent<CharacterController>();
         originalBobExaggeration = bobExaggeration;
     }
 
@@ -57,7 +55,7 @@ public class SwayNBobScript : MonoBehaviour
 
         CompositePositionRotation();
 
-        if (inputHandler.sprintInput)
+        if (PlayerComponents.Instance.inputHandler.sprintInput)
             bobExaggeration = originalBobExaggeration * bobExaggerationSprintMultiplier;
         else
             bobExaggeration = originalBobExaggeration;

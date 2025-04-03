@@ -20,7 +20,7 @@ public class PlayerDeathState : IState
 
     public void OnEnter()
     {
-        PlayerManager.Instance.playerIsDeath = true;
+        PlayerComponents.Instance.playerManager.playerIsDeath = true;
         HudManager.Instance.ChangeToDeathUI();
 
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.deathSound);
@@ -30,7 +30,7 @@ public class PlayerDeathState : IState
     }
     public void OnExit()
     {
-        PlayerManager.Instance.Ressurect();
+        PlayerComponents.Instance.playerManager.Ressurect();
         HudManager.Instance.ChangeToLiveUI();
 
         _handsPOV.SetActive(true);

@@ -6,33 +6,21 @@ public class MagicBookBehavior : MonoBehaviour
     public GameObject exitPoint;
     public float damage;
 
-    private PlayerStatus playerStatus;
-    private CooldownController cooldownController;
-
-    private void Awake()
-    {
-        cooldownController = GetComponentInParent<CooldownController>();
-    }
-
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
 
     public void UseBookSpell(bool canUseSkill, float resourceCost, Animator secondaryAnim)
     {
-        if (!cooldownController.CanUseMagic()) return;
+        if (!PlayerComponents.Instance.cooldownController.CanUseMagic()) return;
 
 
         if (canUseSkill)
         {
-            if (playerStatus.currentMana < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentMana < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("mana");
                 return;
             }
             secondaryAnim.SetTrigger("bookAttack");
-            cooldownController.StartMagicCooldown();
+            PlayerComponents.Instance.cooldownController.StartMagicCooldown();
         }
     }
 

@@ -32,7 +32,7 @@ public class TrapBehavior : MonoBehaviour
         {
             trapSoundSourc.PlayOneShot(trapImpactSound);
             GameManager.Instance.TriggerSlowMotion();
-            PlayerManager.Instance.DoDamage(damage);
+            PlayerComponents.Instance.playerManager.DoDamage(damage);
             Instantiate(trapImpactParticle, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
         }
     }

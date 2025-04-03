@@ -1,17 +1,15 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject playerPrefab;
     public static GameManager Instance { get; private set; }
     private bool isSlowMotionActive = false;
 
     public bool gamePaused = false;
-
-    public Camera mainCamera;
-    public EventSystem mainEventSystem;
 
     private void Awake()
     {
@@ -23,16 +21,24 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        if (SceneManager.GetActiveScene().name == "LoaderScene")
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     private void Update()
     {
-        if (PlayerManager.Instance.inputHandler.pauseInput)
+        if(PlayerComponents.Instance != null)
         {
-            PauseGame();
-            PlayerManager.Instance.inputHandler.pauseInput = false;
+            if (PlayerComponents.Instance.inputHandler.pauseInput)
+            {
+                PauseGame();
+                PlayerComponents.Instance.inputHandler.pauseInput = false;
+            }
         }
+        
         Screenshot();
     }
 
@@ -74,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if (TeleportManager.Instance.loadingScreen.activeSelf && gamePaused == false) return;
+        if (HudManager.Instance.loadingScreen.activeSelf && gamePaused == false) return;
 
         if (HudManager.Instance.hudIsOpen && !gamePaused)
         {
@@ -110,39 +116,5 @@ public class GameManager : MonoBehaviour
             Debug.Log("Screenshot salva em: " + fullPath);
         }
     }
-
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //DestroyDuplicateObjects();
-    }
-
-    private void DestroyDuplicateObjects()
-    {
-        if (mainEventSystem != null)
-        {
-            EventSystem[] eventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
-            foreach (EventSystem eventSystem in eventSystems)
-            {
-                if (eventSystem != mainEventSystem)
-                {
-                    Destroy(eventSystem.gameObject);
-                }
-            }
-        }
-
-        if (mainCamera != null)
-        {
-            Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
-            foreach (Camera camera in cameras)
-            {
-                if (camera != mainCamera)
-                {
-                    Destroy(camera.gameObject);
-                }
-            }
-        }
-    }
-
 }
 

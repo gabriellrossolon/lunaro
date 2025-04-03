@@ -41,7 +41,7 @@ public class PlayerJumpState : IState
         else
             _animator.SetTrigger("jump");
 
-        PlayerManager.Instance.jumpingParticle.SetActive(true);
+        PlayerComponents.Instance.playerManager.jumpingParticle.SetActive(true);
     }
 
     public void OnExit() { }

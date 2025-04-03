@@ -6,13 +6,13 @@ public class ClimbableBehavior : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Vector3 climbablePos = new Vector3(playerArea.transform.position.x, PlayerManager.Instance.transform.position.y, playerArea.transform.position.z);
-        PlayerManager.Instance.transform.position = climbablePos;
-        PlayerManager.Instance.GetComponent<PlayerFSM>()._fsm.SetState("Climb");
+        Vector3 climbablePos = new Vector3(playerArea.transform.position.x, PlayerComponents.Instance.playerObject.transform.position.y, playerArea.transform.position.z);
+        PlayerComponents.Instance.playerObject.transform.position = climbablePos;
+        PlayerComponents.Instance.fsm.FSM.SetState("Climb");
     }
 
     private void OnTriggerExit(Collider other)
     {
-        PlayerManager.Instance.GetComponent<PlayerFSM>()._fsm.SetState("Idle");
+        PlayerComponents.Instance.fsm.FSM.SetState("Idle");
     }
 }

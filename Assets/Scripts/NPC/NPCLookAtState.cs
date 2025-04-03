@@ -45,7 +45,7 @@ public class NPCLookAtState : IState
 
     public void OnTick()
     {
-        _distanceToPlayer = Vector3.Distance(_transform.position, PlayerManager.Instance.transform.position);
+        _distanceToPlayer = Vector3.Distance(_transform.position, PlayerComponents.Instance.playerObject.transform.position);
 
         LookAtPlayer();
         ChangeState();
@@ -55,7 +55,7 @@ public class NPCLookAtState : IState
     {
         if (_distanceToPlayer <= _npcBehaviour.detectionRange)
         {
-            Vector3 directionToPlayer = (PlayerManager.Instance.transform.position - _transform.position).normalized;
+            Vector3 directionToPlayer = (PlayerComponents.Instance.playerObject.transform.position - _transform.position).normalized;
             directionToPlayer.y = 0;
             Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
             _transform.rotation = Quaternion.Slerp(_transform.rotation, lookRotation, Time.deltaTime * 5f);

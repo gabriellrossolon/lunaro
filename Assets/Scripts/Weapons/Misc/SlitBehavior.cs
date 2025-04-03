@@ -3,12 +3,10 @@ using UnityEngine;
 public class SlitBehavior : MonoBehaviour
 {
     public float slitDamage;
-    private PlayerStatus playerStatus;
     private Collider coll;
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         coll = GetComponent<Collider>();
     }
 
@@ -30,7 +28,7 @@ public class SlitBehavior : MonoBehaviour
             enemyAnim.SetTrigger("hurt");
 
         if (enemyFSM != null)
-            enemyFSM.DoDamage(slitDamage + playerStatus.damage);
+            enemyFSM.DoDamage(slitDamage + PlayerComponents.Instance.playerStatus.damage);
 
         if (enemyFX != null)
         {

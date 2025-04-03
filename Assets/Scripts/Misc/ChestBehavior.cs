@@ -7,7 +7,6 @@ public class ChestBehavior : MonoBehaviour, IInteractable
     private Animator animator;
     public GameObject dropBag;
     public GameObject dropPoint;
-    private GameObject player;
     private Collider chestCollider;
     public float maxDistance;
     private AudioSource chestSoundSource;
@@ -33,23 +32,17 @@ public class ChestBehavior : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        player = PlayerManager.Instance.gameObject;
-
         if (randomItems)
             GenerateRandomItems();
     }
 
     public void Interact()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+        float distance = Vector3.Distance(transform.position, PlayerComponents.Instance.playerObject.transform.position);
 
         if (distance <= maxDistance)
         {
             OpenChest();
-        }
-        else
-        {
-
         }
     }
 

@@ -3,7 +3,6 @@ using UnityEngine;
 public class SecondaryBehavior : MonoBehaviour
 {
     [Header("References")]
-    private PlayerStatus playerStatus;
     [HideInInspector] public Animator secondaryAnim;
     public Animator armBonesAnim;
     [SerializeField] private Animator leftHandAnim;
@@ -37,7 +36,6 @@ public class SecondaryBehavior : MonoBehaviour
     private void Start()
     {
         secondaryAnim = GetComponent<Animator>();
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
     }
 
     private void Update()
@@ -71,7 +69,7 @@ public class SecondaryBehavior : MonoBehaviour
 
                 if (blockInput)
                 {
-                    if (playerStatus.currentStamina < resourceCost)
+                    if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
                     {
                         HudManager.Instance.InsuficientResourceWarn("stamina");
                         blocking = false;
@@ -126,12 +124,12 @@ public class SecondaryBehavior : MonoBehaviour
 
     public void ConsumeMana()
     {
-        playerStatus.SubtractMana(resourceCost);
+        PlayerComponents.Instance.playerStatus.SubtractMana(resourceCost);
     }
 
     public void ConsumeStamina()
     {
-        playerStatus.SubtractStamina(resourceCost);
+        PlayerComponents.Instance.playerStatus.SubtractStamina(resourceCost);
     }
 
     //Controll Weapon Type

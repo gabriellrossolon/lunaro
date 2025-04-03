@@ -3,8 +3,6 @@ using UnityEngine;
 public class WeaponBehavior : MonoBehaviour
 {
     [Header("References")]
-    private PlayerStatus playerStatus;
-    [SerializeField] private SecondaryBehavior secBehav;
     [SerializeField] private Animator leftHandAnim;
     public Animator armBonesAnim;
     private Animator weaponAnim;
@@ -54,11 +52,6 @@ public class WeaponBehavior : MonoBehaviour
         weaponAnim = GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
-
     private void Update()
     {
         ChooseAttack();
@@ -68,7 +61,7 @@ public class WeaponBehavior : MonoBehaviour
 
     private void ChooseAttack()
     {
-        if (secBehav.blocking)
+        if (PlayerComponents.Instance.secondaryBehavior.blocking)
         {
             attack = false;
             return;
@@ -193,7 +186,7 @@ public class WeaponBehavior : MonoBehaviour
     // Special Attack Control
     private void ControlSpecialAttacks()
     {
-        if (secBehav.blocking) return;
+        if (PlayerComponents.Instance.secondaryBehavior.blocking) return;
 
         switch (weaponType) //Esse case controla a chamada da Animação que chama o event CallSpecialHability
         {
@@ -322,12 +315,12 @@ public class WeaponBehavior : MonoBehaviour
     // Mana and Stamina Consumption
     public void ConsumeMana() // Typically called by animation
     {
-        playerStatus.SubtractMana(resourceCost);
+        PlayerComponents.Instance.playerStatus.SubtractMana(resourceCost);
     }
 
     public void ConsumeStamina() // Typically called by animation
     {
-        playerStatus.SubtractStamina(resourceCost);
+        PlayerComponents.Instance.playerStatus.SubtractStamina(resourceCost);
     }
 
     // Set Weapon Type

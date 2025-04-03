@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class LooteableBehavior : MonoBehaviour, IInteractable
 {
-    [Header("References")]
-    private GameObject player;
-    private PlayerStatus playerStatus;
-
     [Header("Configs")]
     public float maxDistance = 2f;
 
@@ -17,8 +13,6 @@ public class LooteableBehavior : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        player = PlayerManager.Instance.gameObject;
-        playerStatus = player.GetComponent<PlayerStatus>();
 
         if (GetComponentInParent<EnemyStats>() is EnemyStats stats) //Caso o looteable em questão seja um Enemy
             gold = stats.goldCarryed;
@@ -28,7 +22,7 @@ public class LooteableBehavior : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        playerStatus.ControlGold(gold);
+        PlayerComponents.Instance.playerStatus.ControlGold(gold);
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.interactSound);
         DisableBehavior();
     }

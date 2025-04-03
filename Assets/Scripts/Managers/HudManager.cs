@@ -19,23 +19,13 @@ public class HudManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
-
-    [Header("Scripts/Components References")]
-    public CinemachineVirtualCamera virtualCamera;
-    public PlayerInput playerInput;
-    private PlayerStatus playerStatus;
-    private LevelBehavior levelBehavior;
-    public GameObject globalVolume;
-    public GameObject canvasObj;
-
     [Header("Misc References")]
     public GameObject warnBtn;
     public Texture2D cursorPointer;
     public Texture2D cursorClicker;
-    public GameObject teleportsPage;
     public GameObject deathScreen;
+    public GameObject transitionScreen;
 
     [Header("Inventory")]
     public GameObject inventory;
@@ -48,6 +38,8 @@ public class HudManager : MonoBehaviour
     public GameObject pauseUI;
     public GameObject optionsUI;
     public Toggle fullScreenCheckbox;
+    public Button resumeBtn;
+    public Button menuBtn;
 
     [Header("ItemShowUI")]
     public GameObject itemShow;
@@ -82,7 +74,6 @@ public class HudManager : MonoBehaviour
     private bool hidedCanvas = false;
     private bool openedOptionsUI = false;
     private bool isFullScreen = true;
-    private bool openedTeleportPage = false;
 
     [Header("Player Status")]
     public GameObject statusBars;
@@ -105,12 +96,12 @@ public class HudManager : MonoBehaviour
     [SerializeField] private GameObject notificationField;
     [SerializeField] private GameObject goldNotification;
 
+    [Header("Loading Screen")]
+    public GameObject loadingScreen;
+    public Slider loadingBar;
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        levelBehavior = PlayerManager.Instance.GetComponent<LevelBehavior>();
-
         UpdateHUDLevel();
         UpdateHUDStats();
 
@@ -118,6 +109,9 @@ public class HudManager : MonoBehaviour
         skillSliderImage.enabled = false;
         magicImage.enabled = false;
         magicSliderImage.enabled = false;
+
+        menuBtn.onClick.AddListener(TeleportManager.Instance.GoToMenu);
+        resumeBtn.onClick.AddListener(GameManager.Instance.PauseGame);
     }
 
     private void Update()
@@ -126,10 +120,10 @@ public class HudManager : MonoBehaviour
 
         if (!openedStash) //So pode abrir/fechar inventário se o Stash nao estiver aberto
         {
-            if (PlayerManager.Instance.inputHandler.inventoryInput)
+            if (PlayerComponents.Instance.inputHandler.inventoryInput)
             {
                 OpenInventory();
-                PlayerManager.Instance.inputHandler.inventoryInput = false;
+                PlayerComponents.Instance.inputHandler.inventoryInput = false;
             }
         }
 
@@ -140,13 +134,12 @@ public class HudManager : MonoBehaviour
         potionCount.enabled = InventoryManager.Instance.equippedPotion != null;
         potionCount.text = InventoryManager.Instance.potionsCount.ToString();
 
-        playerGoldText.text = playerStatus.playerGold.ToString();
+        playerGoldText.text = PlayerComponents.Instance.playerStatus.playerGold.ToString();
     }
 
     private void UpdateCursorState()
     {
         hudIsOpen = openedInventory ||
-        openedTeleportPage ||
         GameManager.Instance.gamePaused ||
         (MenuManager.Instance != null && MenuManager.Instance.isActiveAndEnabled ||
         openedStash);
@@ -155,42 +148,42 @@ public class HudManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
-            virtualCamera.enabled = false;
-            PlayerManager.Instance.inputHandler.lockAction = true;
+            PlayerComponents.Instance.virtualCamera.enabled = false;
+            PlayerComponents.Instance.inputHandler.lockAction = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            virtualCamera.enabled = true;
-            PlayerManager.Instance.inputHandler.lockAction = false;
+            PlayerComponents.Instance.virtualCamera.enabled = true;
+            PlayerComponents.Instance.inputHandler.lockAction = false;
         }
     }
 
     public void UpdateHUDStats()
     {
-        hpSlider.maxValue = playerStatus.maxHp;
-        hpLateSlider.maxValue = playerStatus.maxHp;
-        staminaSlider.maxValue = playerStatus.maxStamina;
-        manaSlider.maxValue = playerStatus.maxMana;
+        hpSlider.maxValue = PlayerComponents.Instance.playerStatus.maxHp;
+        hpLateSlider.maxValue = PlayerComponents.Instance.playerStatus.maxHp;
+        staminaSlider.maxValue = PlayerComponents.Instance.playerStatus.maxStamina;
+        manaSlider.maxValue = PlayerComponents.Instance.playerStatus.maxMana;
 
-        hpSlider.value = playerStatus.currentHp;
-        staminaSlider.value = playerStatus.currentStamina;
-        manaSlider.value = playerStatus.currentMana;
-        if (hpLateSlider.value != playerStatus.currentHp)
-            hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
+        hpSlider.value = PlayerComponents.Instance.playerStatus.currentHp;
+        staminaSlider.value = PlayerComponents.Instance.playerStatus.currentStamina;
+        manaSlider.value = PlayerComponents.Instance.playerStatus.currentMana;
+        if (hpLateSlider.value != PlayerComponents.Instance.playerStatus.currentHp)
+            hpLateSlider.value = Mathf.Lerp(hpLateSlider.value, PlayerComponents.Instance.playerStatus.currentHp, Time.deltaTime * lateSliderSpeed);
 
-        healthValueTxt.text = $"{(int)playerStatus.currentHp} / {playerStatus.maxHp}";
-        staminaValueTxt.text = $"{(int)playerStatus.currentStamina} / {playerStatus.maxStamina}";
-        manaValueTxt.text = $"{(int)playerStatus.currentMana} / {playerStatus.maxMana}";
+        healthValueTxt.text = $"{(int)PlayerComponents.Instance.playerStatus.currentHp} / {PlayerComponents.Instance.playerStatus.maxHp}";
+        staminaValueTxt.text = $"{(int)PlayerComponents.Instance.playerStatus.currentStamina} / {PlayerComponents.Instance.playerStatus.maxStamina}";
+        manaValueTxt.text = $"{(int)PlayerComponents.Instance.playerStatus.currentMana} / {PlayerComponents.Instance.playerStatus.maxMana}";
     }
 
     public void UpdateHUDLevel()
     {
-        playerExperience.maxValue = levelBehavior.experienceToUp;
-        playerExperience.value = levelBehavior.experience;
+        playerExperience.maxValue = PlayerComponents.Instance.levelBehavior.experienceToUp;
+        playerExperience.value = PlayerComponents.Instance.levelBehavior.experience;
 
-        playerLevel.text = levelBehavior.level.ToString();
+        playerLevel.text = PlayerComponents.Instance.levelBehavior.level.ToString();
     }
 
     //OPEN UI FUNCTIONS
@@ -229,12 +222,6 @@ public class HudManager : MonoBehaviour
             
     }
 
-    public void OpenTeleportPage()
-    {
-        openedTeleportPage = !openedTeleportPage;
-        teleportsPage.SetActive(openedTeleportPage);
-    }
-
     public void OpenOption()
     {
         openedOptionsUI = !openedOptionsUI;
@@ -252,7 +239,7 @@ public class HudManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             hidedCanvas = !hidedCanvas;
-            canvasObj.SetActive(!hidedCanvas);
+            PlayerComponents.Instance.playerCanvas.enabled = !hidedCanvas;
         }
     }
 
@@ -398,7 +385,7 @@ public class HudManager : MonoBehaviour
 
     private void SmoothVignetteTransition()
     {
-        Volume volume = globalVolume.GetComponent<Volume>();
+        Volume volume = PlayerComponents.Instance.playerPostProcessing;
         if (volume != null)
         {
             Vignette vignette;
@@ -428,7 +415,7 @@ public class HudManager : MonoBehaviour
 
     public void ChangeToDeathUI()
     {
-        Volume volume = globalVolume.GetComponent<Volume>();
+        Volume volume = PlayerComponents.Instance.playerPostProcessing;
 
         if (volume != null && volume.profile != null)
         {
@@ -444,7 +431,7 @@ public class HudManager : MonoBehaviour
 
     private IEnumerator FadeEffects(ColorAdjustments colorAdjustments, Vignette vignette, float targetSaturation, float targetVignette, float duration)
     {
-        var pov = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
+        var pov = PlayerComponents.Instance.virtualCamera.GetCinemachineComponent<CinemachinePOV>();
         pov.m_HorizontalAxis.m_MaxSpeed = 0;
         pov.m_VerticalAxis.m_MaxSpeed = 0;
 
@@ -475,7 +462,7 @@ public class HudManager : MonoBehaviour
 
     public void ChangeToLiveUI()
     {
-        Volume volume = globalVolume.GetComponent<Volume>();
+        Volume volume = PlayerComponents.Instance.playerPostProcessing;
 
         if (volume != null && volume.profile != null)
         {
@@ -492,7 +479,7 @@ public class HudManager : MonoBehaviour
 
         deathScreen.SetActive(false);
 
-        var pov = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
+        var pov = PlayerComponents.Instance.virtualCamera.GetCinemachineComponent<CinemachinePOV>();
         pov.m_VerticalAxis.Value = 0f;
         pov.m_HorizontalAxis.m_MaxSpeed = 2f;
         pov.m_VerticalAxis.m_MaxSpeed = 2f;

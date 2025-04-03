@@ -6,11 +6,9 @@ public class EnemyExplosionBehavior : MonoBehaviour
 
     private Collider coll;
 
-    private PlayerStatus playerStatus;
     private void Start()
     {
         coll = GetComponent<Collider>();
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
 
         Destroy(coll, 0.3f);
     }
@@ -19,7 +17,7 @@ public class EnemyExplosionBehavior : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerManager.Instance.DoDamage(explosionDamage);
+            PlayerComponents.Instance.playerManager.DoDamage(explosionDamage);
         }
     }
 }

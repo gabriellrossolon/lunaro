@@ -11,7 +11,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Start()
     {
-        cameraTransform = Camera.main.transform;
+        cameraTransform = PlayerComponents.Instance.playerCamera.transform;
     }
 
     private void Update()
@@ -30,10 +30,10 @@ public class PlayerInteractions : MonoBehaviour
             HudManager.Instance.warnBtn.SetActive(true);
 
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            if (interactable != null && PlayerManager.Instance.inputHandler.interactInput)
+            if (interactable != null && PlayerComponents.Instance.inputHandler.interactInput)
             {
                 interactable.Interact();
-                PlayerManager.Instance.inputHandler.interactInput = false;
+                PlayerComponents.Instance.inputHandler.interactInput = false;
             }
 
             DroppedItem droppedItem = hit.collider.GetComponent<DroppedItem>();

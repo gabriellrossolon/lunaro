@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class GreatAxeBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
-    private CooldownController cooldownController;
-
     public float damage;
     public bool colliderEnabled = false;
 
@@ -15,17 +12,6 @@ public class GreatAxeBehavior : MonoBehaviour
 
     public GameObject weaponSkillPrefab;
     public float skillDamageMultiplier;
-
-    private void Awake()
-    {
-        weaponColl = GetComponent<Collider>();
-        cooldownController = GetComponentInParent<CooldownController>();
-    }
-
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
 
     private void Update()
     {
@@ -38,7 +24,7 @@ public class GreatAxeBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -63,7 +49,7 @@ public class GreatAxeBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -76,7 +62,7 @@ public class GreatAxeBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -87,8 +73,8 @@ public class GreatAxeBehavior : MonoBehaviour
 
     public void UseGreatAxeSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
-        if (playerStatus.currentStamina < resourceCost)
+        if (!PlayerComponents.Instance.cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
+        if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
         {
             HudManager.Instance.InsuficientResourceWarn("stamina");
             return;
@@ -109,7 +95,7 @@ public class GreatAxeBehavior : MonoBehaviour
 
             case Skill.SkillType.Fissure:
                 weaponAnim.SetTrigger("greatAxeSpecial");
-                cooldownController.StartSkillCooldown();
+                PlayerComponents.Instance.cooldownController.StartSkillCooldown();
                 break;
         }
 
@@ -121,7 +107,7 @@ public class GreatAxeBehavior : MonoBehaviour
         SFXManager.Instance.playerAttacksSource.pitch = Random.Range(1f, 1.2f);
         SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.heavyImpactSound);
 
-        Vector3 playerPosition = PlayerManager.Instance.transform.position;
+        Vector3 playerPosition = PlayerComponents.Instance.playerObject.transform.position;
 
         Vector3 forwardDirection = Camera.main.transform.forward;
         forwardDirection.y = 0; // Remove inclinação da câmera para manter no plano horizontal
@@ -160,7 +146,7 @@ public class GreatAxeBehavior : MonoBehaviour
             }
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(damage + playerStatus.damage);
+                enemyFSM.DoDamage(damage + PlayerComponents.Instance.playerStatus.damage);
 
             //GameManager.Instance.TriggerSlowMotion(0.1f, 0.2f);
         }

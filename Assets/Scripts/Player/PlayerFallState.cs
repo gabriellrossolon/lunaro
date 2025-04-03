@@ -92,7 +92,7 @@ public class PlayerFallState : IState
         if (time < minFallTimeForDamage) return;
         float damagePercent = Mathf.Clamp01(time / 2f);
         float damage = damagePercent * _playerStatus.maxHp;
-        PlayerManager.Instance.DoDamage(damage);
+        PlayerComponents.Instance.playerManager.DoDamage(damage);
         Debug.Log("Dano de queda: " + damage);
     }
 
@@ -102,20 +102,22 @@ public class PlayerFallState : IState
         if (_controller.isGrounded)
         {
             RaycastHit hit;
-            if (Physics.Raycast(PlayerManager.Instance.transform.position, Vector3.down, out hit, 1.5f))
+            if (Physics.Raycast(PlayerComponents.Instance.playerObject.transform.position, Vector3.down, out hit, 1.5f))
             {
                 int groundLayer = hit.collider.gameObject.layer;
                 string groundLayerName = LayerMask.LayerToName(groundLayer);
 
                 if (groundLayerName == "Water")
                 {
-                    PlayerManager.Instance.waterLandingParticle.SetActive(true);
-                    SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.waterLandingSound);
+                    PlayerComponents.Instance.playerManager.waterLandingParticle.SetActive(true);
+                    if(SFXManager.Instance.playerMovementsSource != null)
+                        SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.waterLandingSound);
                 }
                 else
                 {
-                    PlayerManager.Instance.landingParticle.SetActive(true);
-                    SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.landingSound);
+                    PlayerComponents.Instance.playerManager.landingParticle.SetActive(true);
+                    if(SFXManager.Instance.playerMovementsSource != null)
+                        SFXManager.Instance.playerMovementsSource.PlayOneShot(SFXManager.Instance.landingSound);
 
                     ApplyFallDamage(GetFallDuration());
                 }

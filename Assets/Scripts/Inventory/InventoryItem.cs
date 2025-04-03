@@ -214,7 +214,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void DropItem()
     {
-        Vector3 spawnPosition = PlayerManager.Instance.transform.position + PlayerManager.Instance.transform.forward * 1.5f;
+        Vector3 spawnPosition = PlayerComponents.Instance.playerObject.transform.position + PlayerComponents.Instance.playerObject.transform.forward * 1.5f;
         GameObject newDropBox = Instantiate(dropBox, spawnPosition, Quaternion.identity);
 
         DroppedItem droppedItem = newDropBox.GetComponent<DroppedItem>();

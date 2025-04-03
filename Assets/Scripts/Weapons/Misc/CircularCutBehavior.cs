@@ -4,11 +4,9 @@ public class CircularCutBehavior : MonoBehaviour
 {
     public float circularCutDamage;
 
-    private PlayerStatus playerStatus;
     private Collider coll;
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         coll = GetComponent<Collider>();
         Destroy(coll, 0.5f);
     }
@@ -25,7 +23,7 @@ public class CircularCutBehavior : MonoBehaviour
                 enemyAnim.SetTrigger("hurt");
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(circularCutDamage + playerStatus.damage);
+                enemyFSM.DoDamage(circularCutDamage + PlayerComponents.Instance.playerStatus.damage);
 
             if (enemyFX != null)
             {

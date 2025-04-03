@@ -57,12 +57,12 @@ public class EnemyWeaponBehavior : MonoBehaviour
         {
             if (attackBlockedByPlayer)
             {
-                PlayerManager.Instance.DoDamage(damage * (1f - (other.GetComponentInChildren<ShieldBehavior>().blockPercent / 100f)));
+                PlayerComponents.Instance.playerManager.DoDamage(damage * (1f - (other.GetComponentInChildren<ShieldBehavior>().blockPercent / 100f)));
                 return;
             }
             else
             {
-                PlayerManager.Instance.DoDamage(damage);
+                PlayerComponents.Instance.playerManager.DoDamage(damage);
             }
 
             if (alreadyTriggered) return;

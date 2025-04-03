@@ -43,7 +43,7 @@ public class NPCIdleState : IState
 
     public void OnTick()
     {
-        _distanceToPlayer = Vector3.Distance(_transform.position, PlayerManager.Instance.transform.position);
+        _distanceToPlayer = Vector3.Distance(_transform.position, PlayerComponents.Instance.playerObject.transform.position);
 
         ChangeState();
     }

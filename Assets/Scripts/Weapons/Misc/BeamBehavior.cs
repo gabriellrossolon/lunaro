@@ -3,7 +3,6 @@ using System.Collections;
 
 public class BeamBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
     public float damageInterval = 1.0f;
     public float damage;
 
@@ -12,11 +11,6 @@ public class BeamBehavior : MonoBehaviour
 
     private bool canDoDamage = true;
     private float damageTimer = 0f;
-
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
 
     private void Update()
     {
@@ -39,7 +33,7 @@ public class BeamBehavior : MonoBehaviour
             EnemyFSM enemyFSM = other.GetComponent<EnemyFSM>();
             if (enemyFSM != null)
             {
-                enemyFSM.DoDamage((damage + playerStatus.damage) / 5);
+                enemyFSM.DoDamage((damage + PlayerComponents.Instance.playerStatus.damage) / 5);
             }
 
             Vector3 collisionPoint = other.transform.position;

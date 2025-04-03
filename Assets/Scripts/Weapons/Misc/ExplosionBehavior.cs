@@ -4,11 +4,9 @@ public class ExplosionBehavior : MonoBehaviour
 {
     public float explosionDamage; //O dano vem ProjectileBehavior, que vem da SecondaryBehavior
 
-    private PlayerStatus playerStatus;
     private Collider coll;
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         coll =  GetComponent<Collider>();
         Destroy(coll, 0.5f);
     }
@@ -25,7 +23,7 @@ public class ExplosionBehavior : MonoBehaviour
                 enemyAnim.SetTrigger("hurt");
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(explosionDamage + playerStatus.damage);
+                enemyFSM.DoDamage(explosionDamage + PlayerComponents.Instance.playerStatus.damage);
 
             if (enemyFX != null)
             {

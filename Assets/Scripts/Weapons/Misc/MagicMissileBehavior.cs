@@ -3,12 +3,6 @@ using UnityEngine;
 public class MagicMissileBehavior : MonoBehaviour
 {
     public float damage;
-    private PlayerStatus playerStatus;
-
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
 
     void OnParticleCollision(GameObject other)
     {
@@ -28,7 +22,7 @@ public class MagicMissileBehavior : MonoBehaviour
             enemyAnim.SetTrigger("hurt");
 
         if (enemyFSM != null)
-            enemyFSM.DoDamage(damage + playerStatus.damage);
+            enemyFSM.DoDamage(damage + PlayerComponents.Instance.playerStatus.damage);
 
         if (enemyFX != null)
         {

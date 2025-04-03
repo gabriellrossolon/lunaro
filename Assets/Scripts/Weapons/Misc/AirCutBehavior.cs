@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Collections;
 public class AirCutBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
     private Vector3 direction;
     private Rigidbody rb;
 
@@ -18,7 +16,6 @@ public class AirCutBehavior : MonoBehaviour
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         LaunchProjectile();
 
         Destroy(gameObject, 0.5f);
@@ -57,7 +54,7 @@ public class AirCutBehavior : MonoBehaviour
             enemyAnim.SetTrigger("hurt");
 
         if (enemyFSM != null)
-            enemyFSM.DoDamage(airCutDamage + playerStatus.damage);
+            enemyFSM.DoDamage(airCutDamage + PlayerComponents.Instance.playerStatus.damage);
 
         if (enemyFX != null)
         {

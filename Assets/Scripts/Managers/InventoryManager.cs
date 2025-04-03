@@ -14,10 +14,6 @@ public class InventoryManager : MonoBehaviour
     public GameObject handsPOV;
     public GameObject rightHandHolder;
     public GameObject leftHandHolder;
-    private PlayerStatus playerStatus;
-    private InputHandler _inputHandler;
-    public WeaponBehavior rightWeaponBehavior;
-    public SecondaryBehavior secondaryBehavior;
 
     [Header("Inventory References")]
     public Transform inventoryGrid;
@@ -73,14 +69,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-        _inputHandler = PlayerManager.Instance.GetComponent<InputHandler>();
-
         GenerateInventorySlots();
         GenerateStashSlots();
         inventorySlots = new List<InventorySlot>(FindObjectsOfType<InventorySlot>());
@@ -265,36 +257,36 @@ public class InventoryManager : MonoBehaviour
         {
             case Jewel.StatType.Damage:
                 if (effectType == Jewel.EffectType.IncreaseBase)
-                    playerStatus.ControlBaseDamage(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlBaseDamage(value * jewel.valueToAdd);
                 else if (effectType == Jewel.EffectType.IncreasePercent)
-                    playerStatus.ControlDamagePercent(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlDamagePercent(value * jewel.valueToAdd);
                 break;
 
             case Jewel.StatType.HP:
                 if (effectType == Jewel.EffectType.IncreaseBase)
-                    playerStatus.ControlBaseHealth(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlBaseHealth(value * jewel.valueToAdd);
                 else if (effectType == Jewel.EffectType.IncreaseRegeneration)
-                    playerStatus.ControlBaseHealthRegeneration(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlBaseHealthRegeneration(value * jewel.valueToAdd);
                 else if (effectType == Jewel.EffectType.IncreasePercent)
-                    playerStatus.ControlHealthPercent(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlHealthPercent(value * jewel.valueToAdd);
                 break;
 
             case Jewel.StatType.Stamina:
                 if (effectType == Jewel.EffectType.IncreaseBase)
-                    playerStatus.ControlBaseStamina(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlBaseStamina(value * jewel.valueToAdd);
                 else if (effectType == Jewel.EffectType.IncreaseRegeneration)
-                    playerStatus.ControlBaseStaminaRegeneration(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlBaseStaminaRegeneration(value * jewel.valueToAdd);
                 else if (effectType == Jewel.EffectType.IncreasePercent)
-                    playerStatus.ControlStaminaPercent(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlStaminaPercent(value * jewel.valueToAdd);
                 break;
 
             case Jewel.StatType.Mana:
                 if (effectType == Jewel.EffectType.IncreaseBase)
-                    playerStatus.ControlBaseMana(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlBaseMana(value * jewel.valueToAdd);
                 else if (effectType == Jewel.EffectType.IncreaseRegeneration)
-                    playerStatus.ControlBaseManaRegeneration(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlBaseManaRegeneration(value * jewel.valueToAdd);
                 else if (effectType == Jewel.EffectType.IncreasePercent)
-                    playerStatus.ControlManaPercent(value * jewel.valueToAdd);
+                    PlayerComponents.Instance.playerStatus.ControlManaPercent(value * jewel.valueToAdd);
                 break;
         }
     }
@@ -310,13 +302,13 @@ public class InventoryManager : MonoBehaviour
     //RESETS DOS ENUMS DE ITEM EQUIPADO NOS WEAPON E SECONDARY SCRIPTS
     private void ResetWeaponBehavior()
     {
-        rightWeaponBehavior.SetWeaponType(null);
+        PlayerComponents.Instance.weaponBehavior.SetWeaponType(null);
         HudManager.Instance.skillImage.enabled = false;
         HudManager.Instance.skillSliderImage.enabled = false;
     }
     private void ResetSecondaryBehavior()
     {
-        secondaryBehavior.SetSecondaryType(null);
+        PlayerComponents.Instance.secondaryBehavior.SetSecondaryType(null);
         HudManager.Instance.magicImage.enabled = false;
         HudManager.Instance.magicSliderImage.enabled = false;
     }
@@ -325,10 +317,10 @@ public class InventoryManager : MonoBehaviour
     private void InstantiateAndSetupWeapon()
     {
         lastInstantiatedWeapon = Instantiate(equippedWeapon.weaponPrefab, rightHandHolder.transform);
-        rightWeaponBehavior.resourceCost = equippedWeapon.resourceCost;
+        PlayerComponents.Instance.weaponBehavior.resourceCost = equippedWeapon.resourceCost;
 
-        rightWeaponBehavior.SetWeaponType(equippedWeapon);
-        rightWeaponBehavior.skillType = null;
+        PlayerComponents.Instance.weaponBehavior.SetWeaponType(equippedWeapon);
+        PlayerComponents.Instance.weaponBehavior.skillType = null;
 
         HudManager.Instance.skillImage.enabled = false;
         HudManager.Instance.skillSliderImage.enabled = false;
@@ -353,7 +345,7 @@ public class InventoryManager : MonoBehaviour
                 HudManager.Instance.skillImage.sprite = sword.weaponSkill.skillIcon;
                 HudManager.Instance.skillSliderImage.sprite = sword.weaponSkill.skillIcon;
 
-                rightWeaponBehavior.skillType = sword.weaponSkill.skillType.ToString();
+                PlayerComponents.Instance.weaponBehavior.skillType = sword.weaponSkill.skillType.ToString();
             }
         }
         else if (lastInstantiatedWeapon.TryGetComponent<HammerBehavior>(out var hammerBehavior))
@@ -388,7 +380,7 @@ public class InventoryManager : MonoBehaviour
                     HudManager.Instance.skillImage.sprite = staff.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = staff.weaponSkill.skillIcon;
 
-                    rightWeaponBehavior.skillType = staff.weaponSkill.skillType.ToString();
+                    PlayerComponents.Instance.weaponBehavior.skillType = staff.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -410,7 +402,7 @@ public class InventoryManager : MonoBehaviour
                     HudManager.Instance.skillImage.sprite = bow.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = bow.weaponSkill.skillIcon;
 
-                    rightWeaponBehavior.skillType = bow.weaponSkill.skillType.ToString();
+                    PlayerComponents.Instance.weaponBehavior.skillType = bow.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -436,7 +428,7 @@ public class InventoryManager : MonoBehaviour
                     HudManager.Instance.skillImage.sprite = greatHammer.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = greatHammer.weaponSkill.skillIcon;
 
-                    rightWeaponBehavior.skillType = greatHammer.weaponSkill.skillType.ToString();
+                    PlayerComponents.Instance.weaponBehavior.skillType = greatHammer.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -462,7 +454,7 @@ public class InventoryManager : MonoBehaviour
                     HudManager.Instance.skillImage.sprite = greatSword.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = greatSword.weaponSkill.skillIcon;
 
-                    rightWeaponBehavior.skillType = greatSword.weaponSkill.skillType.ToString();
+                    PlayerComponents.Instance.weaponBehavior.skillType = greatSword.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -488,7 +480,7 @@ public class InventoryManager : MonoBehaviour
                     HudManager.Instance.skillImage.sprite = greatAxe.weaponSkill.skillIcon;
                     HudManager.Instance.skillSliderImage.sprite = greatAxe.weaponSkill.skillIcon;
 
-                    rightWeaponBehavior.skillType = greatAxe.weaponSkill.skillType.ToString();
+                    PlayerComponents.Instance.weaponBehavior.skillType = greatAxe.weaponSkill.skillType.ToString();
                 }
             }
         }
@@ -500,8 +492,8 @@ public class InventoryManager : MonoBehaviour
     {
         lastInstantiatedSecondary = Instantiate(equippedSecondary.secondaryPrefab, leftHandHolder.transform);
 
-        secondaryBehavior.SetSecondaryType(equippedSecondary);
-        secondaryBehavior.spellType = null; //Apenas reseta o spellType se nao tiver nenhum quando instancia um Secondary
+        PlayerComponents.Instance.secondaryBehavior.SetSecondaryType(equippedSecondary);
+        PlayerComponents.Instance.secondaryBehavior.spellType = null; //Apenas reseta o spellType se nao tiver nenhum quando instancia um Secondary
 
         HudManager.Instance.magicImage.enabled = false;
         HudManager.Instance.magicSliderImage.enabled = false;
@@ -510,7 +502,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (equippedSecondary is Shield shield)
             {
-                secondaryBehavior.resourceCost = shield.blockResourceCost;
+                PlayerComponents.Instance.secondaryBehavior.resourceCost = shield.blockResourceCost;
                 shieldBehavior.blockPercent = shield.blockPercentValue;
                 shieldBehavior.blockedAttackSound = shield.blockSound;
             }
@@ -521,8 +513,8 @@ public class InventoryManager : MonoBehaviour
             {
                 magicBookBehavior.skillPrefab = magicBook.spell.spellPrefab;
                 magicBookBehavior.damage = magicBook.spell.spellDamage;
-                secondaryBehavior.resourceCost = magicBook.spell.spellResourceCost;
-                secondaryBehavior.spellType = magicBook.spell.spellType.ToString();
+                PlayerComponents.Instance.secondaryBehavior.resourceCost = magicBook.spell.spellResourceCost;
+                PlayerComponents.Instance.secondaryBehavior.spellType = magicBook.spell.spellType.ToString();
 
                 if (magicBook.spell != null)
                 {
@@ -540,8 +532,8 @@ public class InventoryManager : MonoBehaviour
             {
                 magicOrbBehavior.skillPrefab = magicOrb.spell.spellPrefab;
                 magicOrbBehavior.damage = magicOrb.spell.spellDamage;
-                secondaryBehavior.resourceCost = magicOrb.spell.spellResourceCost;
-                secondaryBehavior.spellType = magicOrb.spell.spellType.ToString();
+                PlayerComponents.Instance.secondaryBehavior.resourceCost = magicOrb.spell.spellResourceCost;
+                PlayerComponents.Instance.secondaryBehavior.spellType = magicOrb.spell.spellType.ToString();
 
                 if (magicOrb.spell != null)
                 {
@@ -701,7 +693,7 @@ public class InventoryManager : MonoBehaviour
     //AVULSOS
     public void PotionControll()
     {
-        if (equippedPotion != null && _inputHandler.potionInput)
+        if (equippedPotion != null && PlayerComponents.Instance.inputHandler.potionInput)
         {
             if (potionsCount <= 0)
                 return;
@@ -709,15 +701,15 @@ public class InventoryManager : MonoBehaviour
             switch (equippedPotion.potionType)
             {
                 case PotionType.Health:
-                    playerStatus.currentHp += equippedPotion.valueToRecover;
+                    PlayerComponents.Instance.playerStatus.currentHp += equippedPotion.valueToRecover;
                     break;
 
                 case PotionType.Stamina:
-                    playerStatus.currentStamina += equippedPotion.valueToRecover;
+                    PlayerComponents.Instance.playerStatus.currentStamina += equippedPotion.valueToRecover;
                     break;
 
                 case PotionType.Mana:
-                    playerStatus.currentMana += equippedPotion.valueToRecover;
+                    PlayerComponents.Instance.playerStatus.currentMana += equippedPotion.valueToRecover;
                     break;
 
                 case PotionType.Empty:
@@ -729,7 +721,7 @@ public class InventoryManager : MonoBehaviour
             SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.drinkSound);
             potionsCount--;
 
-            _inputHandler.potionInput = false;
+            PlayerComponents.Instance.inputHandler.potionInput = false;
 
         }
         if (potionsCount < maxPotionsCount)

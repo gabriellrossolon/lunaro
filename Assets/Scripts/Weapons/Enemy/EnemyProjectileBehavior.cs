@@ -17,7 +17,7 @@ public class EnemyProjectileBehavior : MonoBehaviour
 
     private void Start()
     {
-        Vector3 playerPosition = PlayerManager.Instance.transform.position;
+        Vector3 playerPosition = PlayerComponents.Instance.playerObject.transform.position;
         playerPosition += Vector3.up * 0.5f;
 
         direction = (playerPosition - transform.position).normalized;
@@ -44,12 +44,12 @@ public class EnemyProjectileBehavior : MonoBehaviour
         {
             if (attackBlockedByPlayer)
             {
-                PlayerManager.Instance.DoDamage(damage * (1f - (other.GetComponentInChildren<ShieldBehavior>().blockPercent / 100f)));
+                PlayerComponents.Instance.playerManager.DoDamage(damage * (1f - (other.GetComponentInChildren<ShieldBehavior>().blockPercent / 100f)));
                 Destroy(this.gameObject);
             }
             else
             {
-                PlayerManager.Instance.DoDamage(damage);
+                PlayerComponents.Instance.playerManager.DoDamage(damage);
                 weaponBehavior._enemySoundSource.PlayOneShot(weaponBehavior._enemEffects.attackImpactSound);
                 Instantiate(weaponBehavior._enemEffects.attackImpactFx, other.ClosestPointOnBounds(transform.position), Quaternion.identity);
                 Destroy(this.gameObject);

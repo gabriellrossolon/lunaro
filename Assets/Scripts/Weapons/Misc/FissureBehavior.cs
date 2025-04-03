@@ -3,12 +3,10 @@ using UnityEngine;
 public class FissureBehavior : MonoBehaviour
 {
     public float fissureDamage;
-    private PlayerStatus playerStatus;
     private Collider coll;
 
     private void Start()
     {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
         coll = GetComponent<Collider>();
         Destroy(coll, 0.5f);
     }
@@ -33,7 +31,7 @@ public class FissureBehavior : MonoBehaviour
             enemyAnim.SetTrigger("hurt");
 
         if (enemyFSM != null)
-            enemyFSM.DoDamage(fissureDamage + playerStatus.damage);
+            enemyFSM.DoDamage(fissureDamage + PlayerComponents.Instance.playerStatus.damage);
 
         if (enemyFX != null)
         {

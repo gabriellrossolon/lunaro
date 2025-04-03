@@ -1,17 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.UI;
 
 public class TeleportManager : MonoBehaviour
 {
     public static TeleportManager Instance { get; private set; }
 
-    private GameObject transition;
-    private GameObject player;
-
-    public GameObject loadingScreen; 
-    public Slider loadingBar;
     public float minLoadingTime = 2f;
 
     private void Awake()
@@ -24,76 +18,46 @@ public class TeleportManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        transition = GameObject.FindWithTag("Transition");
-        player = GameObject.FindWithTag("Player");
     }
 
-    public void GoToHUB()
+    public void GoToScene(string sceneName, bool pauseGame = false)
     {
-        if(HudManager.Instance.teleportsPage.activeSelf)
-            HudManager.Instance.OpenTeleportPage();
-
-        transition.GetComponent<Animator>().SetTrigger("start");
         SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("HUB"));
+        StartCoroutine(LoadSceneWithLoading(sceneName));
         SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
-    }
 
-    public void GoToDarkChambers()
-    {
-        HudManager.Instance.OpenTeleportPage();
-        transition.GetComponent<Animator>().SetTrigger("start");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("DarkChambers"));
-        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
-    }
-
-    public void GoToForgottenDungeons()
-    {
-        HudManager.Instance.OpenTeleportPage();
-        transition.GetComponent<Animator>().SetTrigger("start");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("ForgottenDungeons"));
-        SFXManager.Instance.miscSoundSource.PlayOneShot(SFXManager.Instance.teleportSound);
-    }
-
-    public void GoToMenu()
-    {
-        //transition.GetComponent<Animator>().SetTrigger("start");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("MainMenu"));
-        GameManager.Instance.PauseGame();
+        if (pauseGame)
+            GameManager.Instance.PauseGame();
     }
 
     private IEnumerator LoadSceneWithLoading(string sceneName)
     {
-        if (loadingScreen != null)
-            loadingScreen.SetActive(true);
+        if (HudManager.Instance.loadingScreen != null)
+            HudManager.Instance.loadingScreen.SetActive(true);
 
-        float elapsedTime = 0f; 
-        float fakeProgress = 0f; 
+        float elapsedTime = 0f;
+        float fakeProgress = 0f;
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
 
-        if (player != null)
-            player.GetComponent<CharacterController>().enabled = false;
+        if (PlayerComponents.Instance != null)
+            PlayerComponents.Instance.characterController.enabled = false;
 
         while (elapsedTime < minLoadingTime)
         {
             elapsedTime += Time.deltaTime;
-            fakeProgress = Mathf.Clamp01(elapsedTime / minLoadingTime); 
-            if (loadingBar != null)
-                loadingBar.value = fakeProgress;
+            fakeProgress = Mathf.Clamp01(elapsedTime / minLoadingTime);
+            if (HudManager.Instance.loadingBar != null)
+                HudManager.Instance.loadingBar.value = fakeProgress;
             yield return null;
         }
 
         while (!asyncLoad.isDone)
         {
             fakeProgress = Mathf.MoveTowards(fakeProgress, Mathf.Clamp01(asyncLoad.progress / 0.9f), Time.deltaTime);
-            if (loadingBar != null)
-                loadingBar.value = fakeProgress;
+            if (HudManager.Instance.loadingBar != null)
+                HudManager.Instance.loadingBar.value = fakeProgress;
 
             if (asyncLoad.progress >= 0.9f && fakeProgress >= 1f)
             {
@@ -106,37 +70,29 @@ public class TeleportManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        player = GameObject.FindWithTag("Player");
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
-
+        if (scene.name != "MainMenu" && scene.name != "LoaderScene")
+        {
+            Instantiate(GameManager.Instance.playerPrefab, spawnPoint.transform.position, Quaternion.identity);
+        }
         if (scene.name == "MainMenu")
         {
-            GameManager.Instance.mainCamera.gameObject.SetActive(false);
-            GameManager.Instance.mainEventSystem.gameObject.SetActive(false);
-            HudManager.Instance.canvasObj.SetActive(false);
-        }
-        else
-        {
-            GameManager.Instance.mainCamera.gameObject.SetActive(true);
-            GameManager.Instance.mainEventSystem.gameObject.SetActive(true);
-            HudManager.Instance.canvasObj.SetActive(true);
-
-            if (transition != null)
-                transition.GetComponent<Animator>().SetTrigger("end");
+            Cursor.lockState = CursorLockMode.None; 
+            Cursor.visible = true;
         }
 
-        if (spawnPoint != null && player != null)
-            player.transform.position = spawnPoint.transform.position;
+        if (PlayerComponents.Instance != null)
+            PlayerComponents.Instance.characterController.enabled = true;
 
-        if (player != null)
-            player.GetComponent<CharacterController>().enabled = true;
+        if (HudManager.Instance.loadingScreen != null)
+            HudManager.Instance.loadingScreen.SetActive(false);
 
-        if (InventoryManager.Instance != null)
-            InventoryManager.Instance.potionsCount = InventoryManager.Instance.maxPotionsCount;
-
-        if (loadingScreen != null)
-            loadingScreen.SetActive(false);
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
+    // Chamadas simplificadas para UI
+    public void GoToHUB() => GoToScene("HUB");
+    public void GoToForgottenDungeons() => GoToScene("ForgottenDungeons");
+    public void GoToMenu() => GoToScene("MainMenu", pauseGame: true);
 }

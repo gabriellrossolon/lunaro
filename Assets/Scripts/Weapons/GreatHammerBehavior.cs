@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class GreatHammerBehavior : MonoBehaviour
 {
-    private PlayerStatus playerStatus;
-    private CooldownController cooldownController;
-
     public float damage;
     public bool colliderEnabled = false;
 
@@ -15,17 +12,6 @@ public class GreatHammerBehavior : MonoBehaviour
 
     public GameObject weaponSkillPrefab;
     public float skillDamageMultiplier;
-
-    private void Awake()
-    {
-        weaponColl = GetComponent<Collider>();
-        cooldownController = GetComponentInParent<CooldownController>();
-    }
-
-    private void Start()
-    {
-        playerStatus = PlayerManager.Instance.GetComponent<PlayerStatus>();
-    }
 
     private void Update()
     {
@@ -38,7 +24,7 @@ public class GreatHammerBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -63,7 +49,7 @@ public class GreatHammerBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -75,7 +61,7 @@ public class GreatHammerBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            if (playerStatus.currentStamina < resourceCost)
+            if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
             {
                 HudManager.Instance.InsuficientResourceWarn("stamina");
                 return;
@@ -87,8 +73,8 @@ public class GreatHammerBehavior : MonoBehaviour
     //Special Attacks
     public void UseGreatHammerSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
-        if(playerStatus.currentStamina < resourceCost)
+        if (!PlayerComponents.Instance.cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
+        if(PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
         {
             HudManager.Instance.InsuficientResourceWarn("stamina");
             return;
@@ -112,7 +98,7 @@ public class GreatHammerBehavior : MonoBehaviour
                 break;
         }
 
-        cooldownController.StartSkillCooldown();
+        PlayerComponents.Instance.cooldownController.StartSkillCooldown();
         chargedAttack = false;
     }
 
@@ -148,7 +134,7 @@ public class GreatHammerBehavior : MonoBehaviour
             }
 
             if (enemyFSM != null)
-                enemyFSM.DoDamage(damage + playerStatus.damage);
+                enemyFSM.DoDamage(damage + PlayerComponents.Instance.playerStatus.damage);
 
             //GameManager.Instance.TriggerSlowMotion(0.1f, 0.2f);
         }

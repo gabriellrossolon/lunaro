@@ -24,9 +24,6 @@ public class MenuManager : MonoBehaviour
     private bool openedPatchNotes = false;
     private bool openedOptionsUI = false;
 
-    private GameObject transition;
-    private GameObject player;
-
     public Toggle fullScreenCheckbox;
     private bool isFullScreen = true;
 
@@ -42,9 +39,6 @@ public class MenuManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        transition = GameObject.FindWithTag("Transition");
-        player = GameObject.FindWithTag("Player");
     }
 
     public void GoToLastScene()
@@ -64,8 +58,6 @@ public class MenuManager : MonoBehaviour
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
 
-        if (player != null)
-            player.GetComponent<CharacterController>().enabled = false;
 
         while (elapsedTime < minLoadingTime)
         {
@@ -136,33 +128,13 @@ public class MenuManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        player = GameObject.FindWithTag("Player");
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
-
-        if (scene.name == "MainMenu")
+        if (scene.name != "MainMenu" && scene.name != "LoaderScene")
         {
-            GameManager.Instance.mainCamera.gameObject.SetActive(false);
-            GameManager.Instance.mainEventSystem.gameObject.SetActive(false);
-            HudManager.Instance.canvasObj.SetActive(false);
-        }
-        else
-        {
-            GameManager.Instance.mainCamera.gameObject.SetActive(true);
-            GameManager.Instance.mainEventSystem.gameObject.SetActive(true);
-            HudManager.Instance.canvasObj.SetActive(true);
+            Instantiate(GameManager.Instance.playerPrefab, spawnPoint.transform.position, Quaternion.identity);
         }
 
-        if (spawnPoint != null && player != null)
-            player.transform.position = spawnPoint.transform.position;
-
-        if (player != null)
-            player.GetComponent<CharacterController>().enabled = true;
-
-        if (InventoryManager.Instance != null)
-            InventoryManager.Instance.potionsCount = InventoryManager.Instance.maxPotionsCount;
-
-        if (loadingScreen != null)
-            loadingScreen.SetActive(false);
+        HudManager.Instance?.loadingScreen?.SetActive(false);
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
