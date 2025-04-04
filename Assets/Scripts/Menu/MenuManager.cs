@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using NUnit.Framework;
 
 public class MenuManager : MonoBehaviour
 {
@@ -44,7 +45,13 @@ public class MenuManager : MonoBehaviour
     public void GoToLastScene()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        StartCoroutine(LoadSceneWithLoading("HUB")); 
+
+        string sceneToLoad = SaveManager.Instance.lastPlayerScene;
+        if (!string.IsNullOrEmpty(sceneToLoad))
+            StartCoroutine(LoadSceneWithLoading(sceneToLoad));
+        else
+            StartCoroutine(LoadSceneWithLoading("HUB"));
+
     }
 
     private IEnumerator LoadSceneWithLoading(string sceneName)
@@ -128,14 +135,36 @@ public class MenuManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
-        if (scene.name != "MainMenu" && scene.name != "LoaderScene")
-        {
-            Instantiate(GameManager.Instance.playerPrefab, spawnPoint.transform.position, Quaternion.identity);
-        }
+        if (scene.name == "MainMenu" || scene.name == "LoaderSceme") return;
+        InstantiatePlayer();
 
         HudManager.Instance?.loadingScreen?.SetActive(false);
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void InstantiatePlayer()
+    {
+        GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
+
+        GameObject[] bonfires = GameObject.FindGameObjectsWithTag("Checkpoint");
+        if(bonfires != null && bonfires.Length > 0)
+        {
+            Debug.LogWarning(bonfires.Length);
+            foreach (GameObject bf in bonfires)
+            {
+                if (bf.GetComponent<Checkpoint>().checkpointActived)
+                {
+                    spawnPoint = bf;
+                    break;
+                }
+            }
+        }
+        
+
+
+        Vector3 randomOffset = new Vector3(Random.Range(2f, 2), 0f, Random.Range(-2, 2));
+        Vector3 spawnPosition = spawnPoint.transform.position + randomOffset;
+        Instantiate(GameManager.Instance.playerPrefab, spawnPosition, Quaternion.identity);
     }
 }

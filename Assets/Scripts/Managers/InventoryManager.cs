@@ -69,6 +69,8 @@ public class InventoryManager : MonoBehaviour
         }
 
         Instance = this;
+
+        LoadInventory();
     }
 
     private void Start()
@@ -734,5 +736,53 @@ public class InventoryManager : MonoBehaviour
                 potionRegenerationTimer = 0f;
             }
         }
+    }
+
+    //Save Controll
+    public void SaveInventory()
+    {
+        ES3.Save("inventoryItems", inventoryItems);
+        ES3.Save("stashItems", stashItems);
+        ES3.Save("equippedWeapon", equippedWeapon);
+        ES3.Save("equippedSecondary", equippedSecondary);
+        ES3.Save("equippedNecklace", equippedNecklace);
+        ES3.Save("equippedRing", equippedRing);
+        ES3.Save("equippedAmulet", equippedAmulet);
+        ES3.Save("equippedPotion", equippedPotion);
+    }
+
+    public void LoadInventory()
+    {
+        if (ES3.KeyExists("inventoryItems"))
+            inventoryItems = ES3.Load<List<ItemBase>>("inventoryItems");
+
+
+        if (ES3.KeyExists("stashItems"))
+            stashItems = ES3.Load<List<ItemBase>>("stashItems");
+
+
+        if (ES3.KeyExists("equippedWeapon"))
+            equippedWeapon = ES3.Load<Weapon>("equippedWeapon");
+
+
+        if (ES3.KeyExists("equippedSecondary"))
+            equippedSecondary = ES3.Load<Secondary>("equippedSecondary");
+
+
+        if (ES3.KeyExists("equippedNecklace"))
+            equippedNecklace = ES3.Load<Jewel>("equippedNecklace");
+
+
+        if (ES3.KeyExists("equippedRing"))
+            equippedRing = ES3.Load<Jewel>("equippedRing");
+
+
+        if (ES3.KeyExists("equippedAmulet"))
+            equippedAmulet = ES3.Load<Jewel>("equippedAmulet");
+
+
+        if (ES3.KeyExists("equippedPotion"))
+            equippedPotion = ES3.Load<Potion>("equippedPotion");
+
     }
 }

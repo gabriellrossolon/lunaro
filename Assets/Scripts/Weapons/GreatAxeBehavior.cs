@@ -13,6 +13,10 @@ public class GreatAxeBehavior : MonoBehaviour
     public GameObject weaponSkillPrefab;
     public float skillDamageMultiplier;
 
+    private void Awake()
+    {
+        weaponColl = GetComponent<Collider>();
+    }
     private void Update()
     {
         weaponColl.enabled = colliderEnabled;

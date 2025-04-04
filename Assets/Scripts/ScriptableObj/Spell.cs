@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Powers/Spell")]
+[System.Serializable]
 public class Spell : ScriptableObject
 {
     public string spellName;

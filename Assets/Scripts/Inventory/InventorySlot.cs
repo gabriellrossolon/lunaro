@@ -1,8 +1,8 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
+[System.Serializable]
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public enum SlotType { Inventory, Weapon, Nothing, Secondary, Ring, Necklace, Amulet , Potion, Stash}

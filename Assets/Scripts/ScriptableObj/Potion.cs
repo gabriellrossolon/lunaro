@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPotion", menuName = "Consumables/Potion")]
+[System.Serializable]
 public class Potion : ItemBase
 {
     public enum PotionType { Empty, Health, Stamina, Mana }

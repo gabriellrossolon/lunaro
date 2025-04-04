@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SwordBehavior : MonoBehaviour
 {
-    private CooldownController cooldownController;
 
     public float damage;
     public bool colliderEnabled = false;
@@ -20,18 +19,12 @@ public class SwordBehavior : MonoBehaviour
     private void Awake()
     {
         weaponColl = GetComponent<Collider>();
-        cooldownController = GetComponentInParent<CooldownController>();
 
         GameObject swordAura = transform.Find("ActivedPowerAura")?.gameObject;
         if (swordAura != null)
             activedPowerAura = swordAura;
     }
 
-    private void Start()
-    {
-        PlayerComponents.Instance.playerStatus = PlayerComponents.Instance.playerManager.GetComponent<PlayerStatus>();
-        PlayerComponents.Instance.weaponBehavior = GetComponentInParent<WeaponBehavior>();
-    }
 
     private void Update()
     {
@@ -150,7 +143,7 @@ public class SwordBehavior : MonoBehaviour
 
     public void UseSwordSkill(bool chargedAttack, float resourceCost, bool canAttack, Animator weaponAnim)
     {
-        if (!cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
+        if (!PlayerComponents.Instance.cooldownController.CanUseSkill() || !chargedAttack || !canAttack) return;
         if (PlayerComponents.Instance.playerStatus.currentStamina < resourceCost)
         {
             HudManager.Instance.InsuficientResourceWarn("stamina");
@@ -177,7 +170,7 @@ public class SwordBehavior : MonoBehaviour
                 SFXManager.Instance.playerAttacksSource.pitch = Random.Range(2f, 2.1f);
                 SFXManager.Instance.playerAttacksSource.PlayOneShot(SFXManager.Instance.activeSwordAura);
 
-                cooldownController.StartSkillCooldown();
+                PlayerComponents.Instance.cooldownController.StartSkillCooldown();
                 break;
         }
 

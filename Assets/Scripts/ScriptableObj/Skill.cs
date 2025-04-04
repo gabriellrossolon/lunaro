@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Powers/Skills")]
+[System.Serializable]
 public class Skill: ScriptableObject
 {
     public string skillName;

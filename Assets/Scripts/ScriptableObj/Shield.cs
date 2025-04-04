@@ -1,6 +1,8 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSecondary", menuName = "Equippables/Secondarys/Shield")]
+[System.Serializable]
+[ES3Serializable]
 public class Shield : Secondary
 {
     public AudioClip blockSound;

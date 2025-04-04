@@ -41,8 +41,9 @@ public class PlayerStatus : MonoBehaviour
 
     private void Awake()
     {
-        ES3AutoSaveMgr.Current.Load();
+        LoadPlayerStatus();
     }
+
     private void Start()
     {
         currentHp = maxHp;
@@ -185,5 +186,16 @@ public class PlayerStatus : MonoBehaviour
     {
         playerGold += value;
         HudManager.Instance.GoldNotification(value);
+    }
+
+    //Save Controll
+    public void SavePlayerStatus()
+    {
+        ES3.Save("playerGold", playerGold);
+    }
+
+    public void LoadPlayerStatus()
+    {
+        playerGold = ES3.Load<float>("playerGold", defaultValue: 0f);
     }
 }

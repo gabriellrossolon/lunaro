@@ -22,7 +22,6 @@ public class ItemDatabase : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         OrganizeItemsByRarity();
     }

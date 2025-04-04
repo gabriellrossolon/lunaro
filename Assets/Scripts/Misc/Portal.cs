@@ -71,6 +71,9 @@ public class Portal : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        SaveManager.Instance.lastPlayerScene = scene.name;
+        ES3.Save("lastPlayerScene", SaveManager.Instance.lastPlayerScene);
+
         GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
         if (scene.name != "MainMenu" && scene.name != "LoaderScene")
         {

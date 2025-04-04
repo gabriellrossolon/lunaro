@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[System.Serializable]
+[ES3Serializable]
 public class ItemBase : ScriptableObject
 {
     public string itemName;
