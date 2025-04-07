@@ -23,6 +23,9 @@ public class ChestBehavior : MonoBehaviour, IInteractable
     [Range(0, 100)] public float epicChance = 10f;
     [Range(0, 100)] public float legendaryChance = 5f;
 
+    [Header("Chest Controll")]
+    [SerializeField] private bool openedChest = false;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -34,6 +37,21 @@ public class ChestBehavior : MonoBehaviour, IInteractable
     {
         if (randomItems)
             GenerateRandomItems();
+
+        if (openedChest)
+        {
+            DisableBehavior();
+            animator.SetTrigger("Open");
+        }
+
+        StartCoroutine(LateStart());
+    }
+
+
+    IEnumerator LateStart()
+    {
+        yield return null;
+        ES3AutoSaveMgr.Current.Load();
     }
 
     public void Interact()
@@ -43,11 +61,14 @@ public class ChestBehavior : MonoBehaviour, IInteractable
         if (distance <= maxDistance)
         {
             OpenChest();
+            ES3AutoSaveMgr.Current.Save();
+            Debug.Log("Save path: " + ES3Settings.defaultSettings.path);
         }
     }
 
     public void OpenChest()
     {
+        openedChest = true;
         DisableBehavior();
 
         animator.SetTrigger("Open");

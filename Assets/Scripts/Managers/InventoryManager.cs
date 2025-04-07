@@ -783,6 +783,5 @@ public class InventoryManager : MonoBehaviour
 
         if (ES3.KeyExists("equippedPotion"))
             equippedPotion = ES3.Load<Potion>("equippedPotion");
-
     }
 }

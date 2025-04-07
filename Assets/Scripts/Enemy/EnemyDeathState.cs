@@ -8,7 +8,6 @@ public class EnemyDeathState : IState
     private readonly StateMachine _fsm;
     private readonly Animator _animator;
     private readonly Transform _transform;
-    private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly NavMeshAgent _agent;
     private readonly EnemyEffects _enemyEffects;
@@ -25,14 +24,13 @@ public class EnemyDeathState : IState
 
 
     public EnemyDeathState(StateMachine fsm, Animator animator,
-        Transform transform, Transform playerTransform,
+        Transform transform,
         EnemyStats enemyStats, NavMeshAgent agent, EnemyEffects enemyEffects,
         EnemyFSM enemyFSM, EnemyManager enemyManager)
     {
         _fsm = fsm;
         _animator = animator;
         _transform = transform;
-        _playerTransform = playerTransform;
         _enemyStats = enemyStats;
         _agent = agent;
         _enemyEffects = enemyEffects;

@@ -6,7 +6,6 @@ public class EnemyPatrolState : IState
     private readonly StateMachine _fsm;
     private readonly NavMeshAgent _agent;
     private readonly Transform _transform;
-    private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly Animator _animator;
 
@@ -17,13 +16,12 @@ public class EnemyPatrolState : IState
     private float _patrolStartTime;
 
     public EnemyPatrolState(StateMachine fsm, NavMeshAgent agent,
-        Transform transform, Transform playerTransform,
+        Transform transform,
         EnemyStats enemyStats, Animator animator)
     {
         _fsm = fsm;
         _agent = agent;
         _transform = transform;
-        _playerTransform = playerTransform;
         _enemyStats = enemyStats;
         _animator = animator;
     }
@@ -65,7 +63,7 @@ public class EnemyPatrolState : IState
 
     private void StateChange()
     {
-        if (Vector3.Distance(_transform.position, _playerTransform.position) <= _enemyStats.detectionRange)
+        if (Vector3.Distance(_transform.position, PlayerComponents.Instance.transform.position) <= _enemyStats.detectionRange)
             _fsm.SetState("Chase");
 
         if (Time.time - _patrolStartTime >= _patrolDuration)

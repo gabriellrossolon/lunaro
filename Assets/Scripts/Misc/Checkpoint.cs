@@ -18,9 +18,11 @@ public class Checkpoint : MonoBehaviour, IInteractable
     {
         checkCollider = GetComponent<Collider>();
         soundSource = GetComponent<AudioSource>();
+
+        UpdateBehavior();
     }
 
-    private void Update()
+    private void UpdateBehavior()
     {
         swordObj.SetActive(checkpointDiscovered);
         fireFx.SetActive(checkpointActived);
@@ -39,6 +41,7 @@ public class Checkpoint : MonoBehaviour, IInteractable
             if (checkpoint != gameObject)
             {
                 checkpoint.GetComponent<Checkpoint>().checkpointActived = false;
+                checkpoint.GetComponent<Checkpoint>().UpdateBehavior();
             }
         }
     }

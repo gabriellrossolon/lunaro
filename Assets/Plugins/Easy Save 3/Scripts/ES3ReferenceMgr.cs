@@ -20,6 +20,7 @@ public class ES3ReferenceMgr : ES3ReferenceMgrBase
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public void RefreshDependencies(bool isEnteringPlayMode = false)
     {
+        Debug.Log("Refresh");
         // Empty the refId so it has to be refreshed.
         refId = null;
 

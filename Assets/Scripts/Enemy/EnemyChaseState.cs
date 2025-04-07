@@ -6,18 +6,16 @@ public class EnemyChaseState : IState
     private readonly StateMachine _fsm;
     private readonly NavMeshAgent _agent;
     private readonly Transform _transform;
-    private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly Animator _animator;
 
     public EnemyChaseState(StateMachine fsm, NavMeshAgent agent,
-        Transform transform, Transform playerTransform,
+        Transform transform,
         EnemyStats enemyStats, Animator animator)
     {
         _fsm = fsm;
         _agent = agent;
         _transform = transform;
-        _playerTransform = playerTransform;
         _enemyStats = enemyStats;
         _animator = animator;
     }
@@ -49,7 +47,7 @@ public class EnemyChaseState : IState
 
     public void OnTick()
     {
-        Vector3 directionToPlayer = _playerTransform.position - _transform.position;
+        Vector3 directionToPlayer = PlayerComponents.Instance.playerObject.transform.position - _transform.position;
         directionToPlayer.y = 0;
 
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
@@ -57,15 +55,15 @@ public class EnemyChaseState : IState
 
         StateChange();
 
-        _agent.SetDestination(_playerTransform.position);
+        _agent.SetDestination(PlayerComponents.Instance.playerObject.transform.position);
     }
 
     private void StateChange()
     {
-        if (Vector3.Distance(_transform.position, _playerTransform.position) > (_enemyStats.detectionRange * 3))
+        if (Vector3.Distance(_transform.position, PlayerComponents.Instance.playerObject.transform.position) > (_enemyStats.detectionRange * 3))
             _fsm.SetState("Patrol");
 
-        if (Vector3.Distance(_transform.position, _playerTransform.position) <= _enemyStats.attackRange)
+        if (Vector3.Distance(_transform.position, PlayerComponents.Instance.playerObject.transform.position) <= _enemyStats.attackRange)
             _fsm.SetState("Attack");
     }
 }

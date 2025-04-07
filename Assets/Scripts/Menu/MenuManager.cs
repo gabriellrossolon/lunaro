@@ -150,7 +150,6 @@ public class MenuManager : MonoBehaviour
         GameObject[] bonfires = GameObject.FindGameObjectsWithTag("Checkpoint");
         if(bonfires != null && bonfires.Length > 0)
         {
-            Debug.LogWarning(bonfires.Length);
             foreach (GameObject bf in bonfires)
             {
                 if (bf.GetComponent<Checkpoint>().checkpointActived)

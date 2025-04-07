@@ -7,7 +7,6 @@ public class EnemyIdleState : IState
     private readonly StateMachine _fsm;
     private readonly Animator _animator;
     private readonly Transform _transform;
-    private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly NavMeshAgent _agent;
     
@@ -16,13 +15,12 @@ public class EnemyIdleState : IState
     private float _idleStartTime;
 
     public EnemyIdleState(StateMachine fsm, Animator animator, 
-        Transform transform, Transform playerTransform,
+        Transform transform,
         EnemyStats enemyStats, NavMeshAgent agent)
     {
         _fsm = fsm;
         _animator = animator;
         _transform = transform;
-        _playerTransform = playerTransform;
         _enemyStats = enemyStats;
         _agent = agent;
     }
@@ -53,7 +51,7 @@ public class EnemyIdleState : IState
         if (Time.time - _idleStartTime >= _idleDuration)
             _fsm.SetState("Patrol");
 
-        if (Vector3.Distance(_transform.position, _playerTransform.position) <= _enemyStats.detectionRange)
+        if (Vector3.Distance(_transform.position, PlayerComponents.Instance.playerObject.transform.position) <= _enemyStats.detectionRange)
             _fsm.SetState("Chase");
     }
 }

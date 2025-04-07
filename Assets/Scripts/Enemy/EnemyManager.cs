@@ -45,11 +45,10 @@ public class EnemyManager : MonoBehaviour
 
     private void ControlEnemyCanvas()
     {
-        if (_enemyFSM.FSM.CurrentState is EnemyDeathState) return;
+        //if (_enemyFSM.FSM.CurrentState is EnemyDeathState) return;
 
         if (_enemyInfos != null)
             _enemyHpSlider.value = _enemyStats.currentHp;
-
 
         if (PlayerComponents.Instance != null && _enemyInfos != null)
         {   

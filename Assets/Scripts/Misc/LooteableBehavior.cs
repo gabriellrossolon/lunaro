@@ -11,6 +11,9 @@ public class LooteableBehavior : MonoBehaviour, IInteractable
     [SerializeField] private Vector2 goldRange;
     public float gold;
 
+    [Header("Looteable Controll")]
+    [SerializeField] private bool objectLooteabled = false;
+
     private void Start()
     {
 
@@ -18,6 +21,11 @@ public class LooteableBehavior : MonoBehaviour, IInteractable
             gold = stats.goldCarryed;
         else
             gold = Random.Range((int)goldRange.x, (int)goldRange.y);
+
+        if (objectLooteabled)
+        {
+            DisableBehavior();
+        }
     }
 
     public void Interact()

@@ -14868,76 +14868,67 @@ MonoBehaviour:
     useMainCamera: 1
     cameras: []
     delay: 0
-    duration: 0.5
+    duration: 0.3
     shakeSpace: 0
-    shakeStrength: {x: 0.05, y: 0.1, z: 0.05}
+    shakeStrength: {x: 0.02, y: 0.02, z: 0.02}
     shakeCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 0
+        inSlope: -1
         outSlope: -1
-        tangentMode: 0
+        tangentMode: 34
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 0
         inSlope: -1
-        outSlope: 0
-        tangentMode: 0
+        outSlope: -1
+        tangentMode: 34
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     shakesDelay: 0
   animatedLights:
-  - light: {fileID: 970584331535894404}
+  - light: {fileID: 4196942674684221021, guid: 621ec8a4c1ef91f4099ccc11d61e8f9f, type: 3}
     loop: 0
     animateIntensity: 1
-    intensityStart: 5
+    intensityStart: 4
     intensityEnd: 0
-    intensityDuration: 1.2
+    intensityDuration: 0.5
     intensityCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 14.66664
-        outSlope: 14.66664
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.09090909
+        outWeight: 0.16753247
       - serializedVersion: 3
         time: 0.099999994
-        value: 0.5
-        inSlope: 0.04210377
-        outSlope: -9.333345
-        tangentMode: 1
+        value: 0.9956342
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0.47124305
-        outWeight: 0.07142861
-      - serializedVersion: 3
-        time: 0.29999998
-        value: 1
-        inSlope: 7.3524127
-        outSlope: -4.2777843
-        tangentMode: 1
-        weightedMode: 0
-        inWeight: 0.10389597
-        outWeight: 0.027829321
+        inWeight: 0.33333334
+        outWeight: 0.09982679
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: -1.9179008
+        outSlope: -1.9179008
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.046567023
@@ -14946,14 +14937,14 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     perlinIntensity: 0
-    perlinIntensitySpeed: 10
+    perlinIntensitySpeed: 6
     fadeIn: 0
-    fadeInDuration: 0.5
+    fadeInDuration: 1
     fadeOut: 0
     fadeOutDuration: 0.5
     animateRange: 0
-    rangeStart: 0
-    rangeEnd: 0
+    rangeStart: 7
+    rangeEnd: 10
     rangeDuration: 0
     rangeCurve:
       serializedVersion: 2
@@ -14961,8 +14952,8 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
-    perlinRange: 0
-    perlinRangeSpeed: 1
+    perlinRange: 1
+    perlinRangeSpeed: 6
     animateColor: 0
     colorGradient:
       serializedVersion: 2
@@ -15003,7 +14994,7 @@ MonoBehaviour:
       m_RotationOrder: 0
     perlinColor: 0
     perlinColorSpeed: 1
-  fadeOutReference: {fileID: 0}
+  fadeOutReference: {fileID: 9134991103843789588, guid: 621ec8a4c1ef91f4099ccc11d61e8f9f, type: 3}
 --- !u!82 &8797721717433164231
 AudioSource:
   m_ObjectHideFlags: 0

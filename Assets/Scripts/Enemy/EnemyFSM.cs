@@ -29,7 +29,6 @@ public class EnemyFSM : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _transform = this.transform;
-        _playerTransform = GameObject.FindWithTag("Player").transform;
         _enemyStats = GetComponent<EnemyStats>();
         _animator = GetComponent<Animator>();
         _enemyWeaponBehavior = GetComponentInChildren<EnemyWeaponBehavior>();
@@ -39,12 +38,12 @@ public class EnemyFSM : MonoBehaviour
         _enemyManager = GetComponent<EnemyManager>();
 
         _fsm = new();
-        _fsm.AddState("Idle", new EnemyIdleState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent));
-        _fsm.AddState("Patrol", new EnemyPatrolState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
-        _fsm.AddState("Chase", new EnemyChaseState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
-        _fsm.AddState("Attack", new EnemyAttackState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator, _enemyEffects, _enemySoundSource));
-        _fsm.AddState("Retreat", new EnemyRetreatState(_fsm, _agent, _transform, _playerTransform, _enemyStats, _animator));
-        _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _playerTransform, _enemyStats, _agent, _enemyEffects, _enemyFSM, _enemyManager));
+        _fsm.AddState("Idle", new EnemyIdleState(_fsm, _animator, _transform, _enemyStats, _agent));
+        _fsm.AddState("Patrol", new EnemyPatrolState(_fsm, _agent, _transform, _enemyStats, _animator));
+        _fsm.AddState("Chase", new EnemyChaseState(_fsm, _agent, _transform, _enemyStats, _animator));
+        _fsm.AddState("Attack", new EnemyAttackState(_fsm, _agent, _transform, _enemyStats, _animator, _enemyEffects, _enemySoundSource));
+        _fsm.AddState("Retreat", new EnemyRetreatState(_fsm, _agent, _transform, _enemyStats, _animator));
+        _fsm.AddState("Death", new EnemyDeathState(_fsm, _animator, _transform, _enemyStats, _agent, _enemyEffects, _enemyFSM, _enemyManager));
 
         _fsm.SetInitialState("Patrol");
     }

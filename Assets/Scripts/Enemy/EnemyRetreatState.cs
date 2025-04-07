@@ -6,7 +6,6 @@ public class EnemyRetreatState : IState
     private readonly StateMachine _fsm;
     private readonly NavMeshAgent _agent;
     private readonly Transform _transform;
-    private readonly Transform _playerTransform;
     private readonly EnemyStats _enemyStats;
     private readonly Animator _animator;
 
@@ -15,13 +14,12 @@ public class EnemyRetreatState : IState
     private float _randomRetreatTime;
 
     public EnemyRetreatState(StateMachine fsm, NavMeshAgent agent,
-        Transform transform, Transform playerTransform,
+        Transform transform,
         EnemyStats enemyStats, Animator animator)
     {
         _fsm = fsm;
         _agent = agent;
         _transform = transform;
-        _playerTransform = playerTransform;
         _enemyStats = enemyStats;
         _animator = animator;
     }
@@ -29,7 +27,7 @@ public class EnemyRetreatState : IState
     public void OnEnter()
     {
         _agent.isStopped = false;
-        Vector3 directionAwayFromPlayer = _transform.position - _playerTransform.position;
+        Vector3 directionAwayFromPlayer = _transform.position - PlayerComponents.Instance.playerObject.transform.position;
         Vector3 retreatPosition = _transform.position + directionAwayFromPlayer.normalized * _retreatDistance;
         
         _agent.SetDestination(retreatPosition);
@@ -54,7 +52,7 @@ public class EnemyRetreatState : IState
     {
         StateChange();
 
-        Vector3 directionToPlayer = _playerTransform.position - _transform.position;
+        Vector3 directionToPlayer = PlayerComponents.Instance.playerObject.transform.position - _transform.position;
         directionToPlayer.y = 0;
 
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
@@ -67,11 +65,11 @@ public class EnemyRetreatState : IState
     {
         if (_retreatTimer >= _randomRetreatTime || (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance))
         {
-            _agent.SetDestination(_playerTransform.position);
+            _agent.SetDestination(PlayerComponents.Instance.playerObject.transform.position);
             _fsm.SetState("Chase");
         }
 
-        if (Vector3.Distance(_transform.position, _playerTransform.position) > _enemyStats.detectionRange)
+        if (Vector3.Distance(_transform.position, PlayerComponents.Instance.playerObject.transform.position) > _enemyStats.detectionRange)
             _fsm.SetState("Patrol");
     }
 }
