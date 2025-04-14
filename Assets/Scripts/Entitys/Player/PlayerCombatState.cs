@@ -127,8 +127,8 @@ public class PlayerCombatState : IState
     {
         if (Input.GetKeyDown(KeyCode.R)) 
             _fsm.SetState("Idle");
-        
-        if (!_controller.isGrounded) 
+
+        if (!_controller.isGrounded)
             _fsm.SetState("Fall");
 
         if (_inputHandler.jumpInput && _controller.isGrounded)
